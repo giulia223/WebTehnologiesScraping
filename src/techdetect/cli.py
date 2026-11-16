@@ -4,11 +4,13 @@ The four commands mirror the pipeline: collect (network) -> detect (offline)
 -> evaluate -> report. They are stubs until their tasks are implemented.
 """
 
+import asyncio
 from pathlib import Path
 from typing import Annotated
 
 import typer
 
+from techdetect.collect.static_fetch import collect_static
 from techdetect.config import Config
 from techdetect.console import use_utf8_output
 from techdetect.domains import LoadResult, load_domains
@@ -40,6 +42,14 @@ DryRunOpt = Annotated[
     bool,
     typer.Option("--dry-run", help="Load and validate the input, list the domains, fetch nothing."),
 ]
+OnlyOpt = Annotated[
+    str | None, typer.Option("--only", help="Run one step only. Implemented: static.")
+]
+LimitOpt = Annotated[
+    int | None, typer.Option("--limit", min=1, help="Use only the first N valid domains.")
+]
+
+IMPLEMENTED_STEPS = {"static"}
 
 
 def _not_implemented(command: str, config: Config) -> None:
@@ -68,6 +78,8 @@ def collect(
     static_timeout_s: TimeoutOpt = None,
     user_agent: UserAgentOpt = None,
     dry_run: DryRunOpt = False,
+    only: OnlyOpt = None,
+    limit: LimitOpt = None,
 ) -> None:
     """Fetch raw artifacts for each domain (network)."""
     config = Config().with_overrides(
@@ -77,14 +89,34 @@ def collect(
         static_timeout_s=static_timeout_s,
         user_agent=user_agent,
     )
+    if only is not None and only not in IMPLEMENTED_STEPS:
+        typer.echo(f"--only {only}: only {sorted(IMPLEMENTED_STEPS)} is implemented", err=True)
+        raise typer.Exit(code=1)
+
     loaded = _load_and_report(config)
+    domains = loaded.domains[:limit] if limit else loaded.domains
     if dry_run:
-        for domain in loaded.domains:
+        for domain in domains:
             # Show the decoded name only when it differs, to keep the list readable.
             shown = f"  ({domain.display_name})" if domain.display_name != domain.host else ""
             typer.echo(f"{domain.row:>4}  {domain.host}{shown}")
         return
-    _not_implemented("collect", config)
+    if only != "static":
+        _not_implemented("collect", config)
+
+    results = asyncio.run(collect_static(domains, config))
+    for result in results:
+        if result["status"] == "ok":
+            detail = result["final_url"]
+        elif result["status"] == "failed":
+            # The reason first; the status code and URL help to check it by hand.
+            status = result.get("http_status") or "-"
+            detail = f"{result['error_category']} (HTTP {status}) {result.get('final_url') or ''}"
+        else:
+            detail = result.get("error")
+        typer.echo(f"{result['domain']:45} {result['status']:8} {detail}")
+    ok = sum(r["status"] == "ok" for r in results)
+    typer.echo(f"static: {ok}/{len(results)} ok, artifacts in {config.raw_dir}")
 
 
 @app.command()

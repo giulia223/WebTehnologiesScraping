@@ -63,3 +63,76 @@ Template:
 - **Consequences:**
   - Redirected output (`> file.txt`, pipes) is UTF-8 bytes; a reader that assumes the legacy code page shows wrong characters, but nothing crashes and no data is lost.
   - A test runs the CLI as a subprocess with `PYTHONIOENCODING=ascii`, which reproduces the crash on any OS, so CI on Linux also guards this fix.
+
+## D-004 User-Agent: an honest label for plain HTTP, a tagged Chrome for the browser
+- **Date:** 2026-11-16
+- **Context:** Every request tells the site who is asking, through the `User-Agent` header. Some sites answer robots differently (a challenge page, a block, a lighter page), so this choice changes what we can observe. It is also an ethics question: the crawler should be identifiable.
+- **Options considered:**
+  1. A normal Chrome User-Agent everywhere: sees what visitors see, but hides who we are.
+  2. An honest robot label everywhere: transparent, but a real browser announcing itself as a robot is the most likely to be blocked.
+  3. Honest label for the plain HTTP client; for the browser (a later collector), Chrome's normal User-Agent with our own tag appended.
+  4. Option 3, plus an experiment re-running the plain HTTP step with a Chrome User-Agent to measure the difference.
+- **Decision:** Options 3 + 4. The plain HTTP client sends `techdetect/<version> (+https://github.com/giulia223/WebTehnologiesScraping; research project)`: a name, a version and a page explaining the project. The browser will send Chrome's User-Agent with `techdetect/<version>` appended (and "HeadlessChrome" replaced by "Chrome"). Both values come from `config.py` and are recorded in every artifact's provenance header.
+- **Why:**
+  - This copies how the HTTP Archive crawls millions of sites every month. Its Web Almanac 2024 methodology (https://almanac.httparchive.org/en/2024/methodology, section "Tools > WebPageTest") lists the desktop crawler's User-Agent as "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 PTST/240613.172707": a real Chrome string with a `PTST/...` tag appended (the page lists the string without explaining the tag; it identifies WebPageTest, the tool that runs their crawl). Sites get a realistic browser that is still identifiable.
+  - The plain HTTP client cannot run JavaScript, so pretending to be Chrome would be a disguise, not realism.
+  - The experiment (hypothesis H8 in `EXPERIMENTS.md`) turns "do sites treat robots differently?" into a number instead of a guess.
+- **Consequences:**
+  - More challenge pages on the plain HTTP step. In the first 10-domain trial, 2 of 10 sites (one Cloudflare, one Akamai) answered with a challenge page; whether a Chrome User-Agent changes this is what H8 measures.
+  - Results also depend on where the crawl runs: the same methodology page says HTTP Archive's "Test agents run from various Google Cloud Platform locations based in the USA", while ours runs from Romania (`crawl_location` in the provenance header). EU visitors get more consent banners, and some sites redirect by country.
+
+## D-005 Raw artifact layout and atomic writes
+- **Date:** 2026-11-16
+- **Context:** Collection and detection are separate (D-001), so the files collectors write are the interface between the two. They must be easy to inspect, trustworthy as proof, and never half-written.
+- **Options considered:**
+  1. One JSON per domain with everything inside, HTML included as a string.
+  2. One folder per domain (`data/raw/<domain>/`), one file pair per collection step: facts in JSON (`static.json`), the page in its own file (`static.html`).
+  3. Standard web-archive files (WARC), compressed.
+- **Decision:** Option 2.
+  - HTML is never stored inside JSON. The JSON names its HTML file and stores its sha256 hash.
+  - Every JSON starts with a `provenance` header: `collected_at` (UTC), `tool_version` (package version + git commit, read from the `.git` files), `crawl_location`, `user_agent`, `accept_language`.
+  - Headers are stored as a list of `[name, value]` pairs, never a dict, so repeated headers (several `Set-Cookie` lines) all survive. Every redirect step is stored with its own status and headers.
+  - Writes are atomic (`collect/storage.py`): a file is written to `<name>.tmp`, flushed to disk, then renamed with `os.replace`, which happens completely or not at all. HTML is written first, the JSON last, so a JSON on disk means its step finished.
+  - No compression.
+- **Why:**
+  - An HTML file opens directly in a browser or editor; a page inside a JSON string is escaped and unreadable.
+  - The sha256 lets anyone check that the page used as proof is the page that was fetched.
+  - The provenance header explains differences between two crawls (other code, other country, other headers) without guessing.
+  - Without atomic writes, a crash or Ctrl+C in the middle of a write leaves a truncated file that the next step would read as complete.
+  - 200 domains take well under 1 GB, so compression would only make the files harder to inspect.
+- **Consequences:**
+  - Many small files (2 per step per domain): fine for 200 domains, a scaling topic for millions (compressed WARC files on object storage).
+  - `tool_version` cannot tell whether the working tree had uncommitted changes when the crawl ran.
+  - A leftover `.tmp` file after a crash is harmless but visible.
+
+## D-006 Static fetch: success rule, fallbacks, retries and error categories
+- **Date:** 2026-11-16
+- **Context:** The plain HTTP fetch is the cheapest view of a site. A fetch can fail in many ways, and "failed" alone is useless for the final report: a dead domain, a bot wall and a slow server mean different things to a reader.
+- **Options considered and decision** (each choice names the alternative it rejects):
+  - **Addresses:** try `https://d`, `https://www.d`, `http://d`, and stop at the first success. Rejected: only `https://d`, which misses sites served only on `www.` or only over plain HTTP.
+  - **Success:** final status 2xx, a non-empty body, and not a bot-challenge page. A parked page counts as success (it is a real answer about the domain). When every address fails, keep the most informative attempt: challenge page > an HTTP answer (4xx, 5xx, rate limited, empty) > no answer at all.
+  - **Meta refresh:** follow `<meta http-equiv="refresh" content="...; url=...">` at most 2 times, since httpx does not. A refresh to the same URL, or without a URL, is not followed.
+  - **Retries:** at most 2 per address, with exponential backoff and jitter, for timeouts and 5xx. A 429 waits for `Retry-After` (seconds or a date), capped at 60 s; a longer request gives up as `rate_limited`.
+  - **TLS:** on a certificate error, fetch again without verification and record `tls_verified: false` plus the original error. Rejected: treating it as a failure, because the page is still the site's page, and a self-signed certificate is itself a finding.
+  - **One pair of httpx clients per domain** (verified and unverified), sharing one SSL context. Rejected: one client for the whole run, because a client keeps a cookie jar and cookies from one site must not be sent to another.
+  - **Limits:** the body is read up to 3 MiB (`html_truncated` records a cut); each request has an overall deadline equal to the configured timeout, on top of httpx's per-operation timeouts.
+  - **Error categories:**
+
+    | Category | Meaning |
+    |---|---|
+    | `dns_fail` | the name does not resolve: the domain is dead or misconfigured |
+    | `timeout` | no complete answer in time, after retries |
+    | `tls_error` | the secure connection could not be set up, even without certificate checks |
+    | `conn_refused` | the server actively refused the connection |
+    | `conn_error` | any other connection failure: reset, unreachable network, protocol error |
+    | `redirect_loop` | too many redirects |
+    | `http_4xx` | the server answered with a client error (also the rare final 3xx without a target) |
+    | `http_5xx` | the server answered with a server error, after retries |
+    | `rate_limited` | 429 that did not clear, or a `Retry-After` above 60 s |
+    | `empty_response` | 2xx with an empty body |
+    | `bot_challenge` | a Cloudflare, DataDome or Akamai challenge page answered instead of the site |
+- **Why:** each category tells the reader of the final report something different: `dns_fail` is a dead lead, `bot_challenge` means "the site exists but we could not see it", `http_5xx` might work on another day. Challenge pages are kept on disk but never analysed, because their scripts belong to the anti-bot vendor, not to the site.
+- **Consequences:**
+  - Up to 3 addresses × 3 tries per domain in the worst case: polite, but slow for broken sites.
+  - Platform subdomains also get a `www.` attempt (e.g. `www.x.booked.net`), which cannot work; harmless, but it adds an error to their record.
+  - Challenge detection relies on a short list of vendor signals; an unknown vendor's wall is recorded as a normal page or an HTTP error.

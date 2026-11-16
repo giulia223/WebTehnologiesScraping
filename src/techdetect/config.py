@@ -29,6 +29,12 @@ class Config:
     concurrency: int = 10
 
     user_agent: str = DEFAULT_USER_AGENT
+    # What a default English Chrome sends: multilingual sites then serve their English
+    # version if they have one, so results don't depend on a guessed language.
+    accept_language: str = "en-US,en;q=0.9"
+    # Country the crawl runs from (ISO code). Sites can serve different content, banners
+    # and redirects by country, so it is recorded in every artifact's provenance.
+    crawl_location: str = "RO"
 
     def with_overrides(self, **overrides: Any) -> "Config":
         """Return a copy with the given fields replaced.

@@ -58,3 +58,33 @@ def test_cli_flag_reaches_config(monkeypatch: pytest.MonkeyPatch, tiny_input: Pa
     assert result.exit_code == 0
     assert seen[0].concurrency == 4
     assert seen[0].static_timeout_s == Config().static_timeout_s
+
+
+def test_collect_rejects_unimplemented_step(tiny_input: Path) -> None:
+    result = runner.invoke(app, ["collect", "--only", "dns", "--input", str(tiny_input)])
+    assert result.exit_code == 1
+    assert "only ['static'] is implemented" in result.output
+
+
+def test_collect_only_static_respects_limit(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    received: list[list[str]] = []
+
+    async def fake_collect(domains, config):  # no network: record what would be fetched
+        received.append([d.host for d in domains])
+        return [
+            {"domain": d.host, "status": "ok", "final_url": f"https://{d.host}/"} for d in domains
+        ]
+
+    monkeypatch.setattr("techdetect.cli.collect_static", fake_collect)
+    path = tmp_path / "three.txt"
+    path.write_text("a.com\nb.com\nc.com\n", encoding="utf-8")
+
+    result = runner.invoke(
+        app, ["collect", "--only", "static", "--limit", "2", "--input", str(path)]
+    )
+
+    assert result.exit_code == 0, result.output
+    assert received == [["a.com", "b.com"]]
+    assert "static: 2/2 ok" in result.output
