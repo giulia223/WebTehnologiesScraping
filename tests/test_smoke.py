@@ -18,9 +18,18 @@ def test_help_lists_all_commands() -> None:
         assert command in result.output
 
 
+@pytest.fixture
+def tiny_input(tmp_path: Path) -> Path:
+    path = tmp_path / "domains.txt"
+    path.write_text("example.com\n", encoding="utf-8")
+    return path
+
+
 @pytest.mark.parametrize("command", COMMANDS)
-def test_stub_exits_with_error(command: str) -> None:
-    result = runner.invoke(app, [command])
+def test_stub_exits_with_error(command: str, tiny_input: Path) -> None:
+    # collect loads its input before reaching the stub; give it a known small file.
+    args = [command, "--input", str(tiny_input)] if command == "collect" else [command]
+    result = runner.invoke(app, args)
     assert result.exit_code == 1
     assert "not implemented yet" in result.output
 
@@ -38,14 +47,14 @@ def test_override_replaces_only_given_fields() -> None:
     assert config.raw_dir == Config().raw_dir  # None = flag not passed, default kept
 
 
-def test_cli_flag_reaches_config(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_cli_flag_reaches_config(monkeypatch: pytest.MonkeyPatch, tiny_input: Path) -> None:
     seen: list[Config] = []
 
     def capture(command: str, config: Config) -> None:
         seen.append(config)
 
     monkeypatch.setattr("techdetect.cli._not_implemented", capture)
-    result = runner.invoke(app, ["collect", "--concurrency", "4"])
+    result = runner.invoke(app, ["collect", "--concurrency", "4", "--input", str(tiny_input)])
     assert result.exit_code == 0
     assert seen[0].concurrency == 4
     assert seen[0].static_timeout_s == Config().static_timeout_s
