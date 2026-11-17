@@ -61,9 +61,9 @@ def test_cli_flag_reaches_config(monkeypatch: pytest.MonkeyPatch, tiny_input: Pa
 
 
 def test_collect_rejects_unimplemented_step(tiny_input: Path) -> None:
-    result = runner.invoke(app, ["collect", "--only", "browser", "--input", str(tiny_input)])
+    result = runner.invoke(app, ["collect", "--only", "screenshots", "--input", str(tiny_input)])
     assert result.exit_code == 1
-    assert "implemented steps are ['dns', 'static', 'tls', 'wellknown']" in result.output
+    assert "implemented steps are ['browser', 'dns', 'static', 'tls', 'wellknown']" in result.output
 
 
 def test_collect_only_dns_runs_the_dns_collector(

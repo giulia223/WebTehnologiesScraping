@@ -178,3 +178,35 @@ Template:
 - **Consequences:**
   - A plain-text error page ("Not found" as text/plain with status 200) would be kept; rules that read robots.txt must match real directives, not any text.
   - One request per domain, no retries: a temporary failure leaves robots.txt unchecked for that run.
+
+## D-010 Browser page load: independent start, settle steps, language set at launch
+- **Date:** 2026-11-17
+- **Context:** Many technologies only appear after JavaScript runs (tag managers, chat widgets, single-page apps). A headless Chromium (driven by Playwright) shows what a visitor's browser builds, at a much higher cost per site than a plain HTTP request.
+- **Options considered and decision:**
+  - **Start:** the browser starts from the input domain itself with the same addresses and success rule as the static fetch (`https://d`, `https://www.d`, `http://d`; 2xx, non-empty page, not a challenge), sharing the same code. Rejected: starting from the static fetch's final URL, because a difference between the two final URLs is itself evidence (a JavaScript redirect) and would be hidden. `browser.json` keeps `start_url`, `final_url` and a `final_url_differs_from_static` field, filled in by the full collect command once both steps have run.
+  - **Letting the page settle:** wait for the DOM, then for "network idle" (no requests for 500 ms) up to 8 s without failing, scroll one screen every 250 ms to the bottom (at most 30 screens, so endless-scroll pages stop), scroll back up, wait 2 s. Lazy-loaded widgets and tags fire on scroll or after load; without these steps they would be missed.
+  - **Final page:** the status is that of the last main-frame document, so a JavaScript redirect after load is followed and recorded; `final_url` is the address on screen at the end.
+  - **Saved:** `rendered.html` (the DOM after JavaScript, with sha256), `screenshot.jpg` (viewport only, JPEG quality 40, for a human check), and in `browser.json`: cookies, every external script URL, inline scripts (50 KB each, 200 KB in total; cuts and dropped scripts are counted), meta tags, iframe URLs (including iframes added by JavaScript), the main document's header pairs.
+  - **Errors:** Chromium's network error codes are mapped to the static fetch's categories; a new category `browser_error` covers failures that are not the network (a download instead of a page, a crashed tab). A certificate error is retried once with certificate checks off and recorded (`tls_verified: false`), as in the static fetch. No other retries: a browser attempt costs seconds. A challenge page is recorded and left alone: no headed retry, no attempt to pass it.
+  - **Concurrency:** 4 pages at a time by default (10 for HTTP steps), because each page costs far more memory and CPU.
+  - **User-Agent:** Chromium's own string with "HeadlessChrome" replaced by "Chrome" and `techdetect/<version>` appended (see D-004).
+  - **Language:** Chromium is launched with `--lang` and `--accept-lang` derived from the configured `Accept-Language`, and every context sends that header. Rejected: Playwright's `locale` option, which the plan first used. Tested against a local server, with a User-Agent override it sent `en-US` on page, iframe and worker-script loads but `en-US,en;q=0.9` on other requests, which no real browser does. With the launch flags, every request carries `en-US,en;q=0.9` and `navigator.languages` is `["en-US", "en"]`, like an English Chrome. The value actually sent on the main document is what the provenance header records.
+- **Why:** each step either shows something a visitor's browser would load or keeps the result comparable with the static fetch.
+- **Consequences:**
+  - About 10 s per site that loads; slower for sites that never go idle.
+  - Bot protection treats the two steps differently. In a 5-site trial, disneystore.com answered the plain HTTP client normally but showed the browser Akamai's "Access Denied", while 231selfstorage.com showed a Cloudflare challenge to the HTTP client and its real page to the browser. Neither step alone sees every site.
+  - The screenshot is the top of the page only.
+
+## D-011 Browser network capture: context-level listening, record then block, origin by frame
+- **Date:** 2026-11-17
+- **Context:** Many technologies are visible only as requests the page makes: analytics and ad pixels, tag managers, chat widgets, font services. On Shopify stores, apps' tracking pixels run in a sandbox: custom pixels in an iframe ("lax" sandbox), app pixels in a Web Worker ("strict" sandbox). A capture that listens only to the page would miss part of this.
+- **Options considered and decision:**
+  - **Where to listen:** at browser-context level (every page, iframe and worker of the context), not on the page alone. Each request records URL, method, resource type, status, failure, `blocked`, and its origin.
+  - **Origin:** `main`, `iframe` (with the frame's URL), `service_worker`, or `other_page` (a popup). Rejected: talking to Chromium's debugging protocol directly to attach to each worker, which would label worker requests exactly but needs a fragile workaround (Python Playwright cannot address a worker's own protocol session). Accepted limit: Playwright reports a dedicated Web Worker's requests with the frame that created the worker, so they appear as `main` (or as that iframe). The workers seen are listed in `workers`, so the limit is visible in the data.
+  - **Record, then block:** images, fonts and media are recorded with `blocked: true`, then aborted. The URL is the evidence (`facebook.com/tr?id=...`, Google Fonts); the bytes are not needed. Rejected: letting them load, which costs time and bandwidth for no extra evidence. Accepted cost: a blocked request's response (e.g. a cookie a pixel would set) is never seen, and screenshots show no images.
+  - **Headers:** response header pairs are kept for documents and scripts (servers, CDNs and frameworks announce themselves there), not for every request, to keep `browser.json` readable.
+  - **File contents:** for external scripts and stylesheets only the URL is kept, not the file. Rules that need file contents are reported as not checked.
+- **Why:** for a lead-generation client, the tools a company pays for (analytics, ads, marketing, chat) mostly show up as network requests, and many only after JavaScript runs.
+- **Consequences:**
+  - `browser.json` grows to a few hundred KB on busy pages (about 400 KB and 350-500 requests on the two Shopify stores of the trial).
+  - On those two stores, custom-pixel requests (e.g. Google Analytics) were captured with their sandbox iframe as origin. App-pixel requests (e.g. TikTok's `analytics.tiktok.com/api/v2/shopify_pixel`) were captured but labelled `main`, with the pixel workers listed in `workers`. The request URLs are there either way; only the origin label is imprecise for workers.

@@ -51,11 +51,18 @@ def tool_version(start: Path | None = None) -> str:
     return f"{__version__}+{commit[:12]}" if commit else __version__
 
 
-def provenance_header(config: Config) -> dict[str, Any]:
+def provenance_header(
+    config: Config, user_agent: str | None = None, accept_language: str | None = None
+) -> dict[str, Any]:
+    """The header for one artifact.
+
+    The browser passes its own values: its User-Agent is Chrome's plus our tag, and the
+    Accept-Language it records is the one it was seen sending, not only the configured one.
+    """
     return {
         "collected_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "tool_version": tool_version(),
         "crawl_location": config.crawl_location,
-        "user_agent": config.user_agent,
-        "accept_language": config.accept_language,
+        "user_agent": user_agent or config.user_agent,
+        "accept_language": accept_language or config.accept_language,
     }

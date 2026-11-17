@@ -138,6 +138,26 @@ def retry_after_seconds(value: str | None, now: datetime | None = None) -> float
     return max(0.0, (when - (now or datetime.now(UTC))).total_seconds())
 
 
+def candidate_urls(host: str) -> list[str]:
+    """Addresses tried in order until one succeeds (the browser uses the same order)."""
+    return [f"https://{host}/", f"https://www.{host}/", f"http://{host}/"]
+
+
+def choose_attempt(outcomes: list[str | None]) -> int:
+    """Index of the attempt to keep: the success, else the most informative failure.
+
+    On a tie, the earlier address wins. Shared with the browser so both apply one rule.
+    """
+    return min(
+        range(len(outcomes)),
+        key=lambda i: (
+            outcomes[i] != "ok",
+            _INFORMATIVENESS.get(outcomes[i] or "", _LEAST_INFORMATIVE),
+            i,
+        ),
+    )
+
+
 def meta_refresh_target(body: bytes, base_url: str) -> str | None:
     """URL a `<meta http-equiv="refresh" content="0; url=...">` tag sends to, if any.
 
@@ -388,21 +408,14 @@ class StaticFetcher:
         # from one site must never be sent to another.
         async with self.client_factory(True) as verified, self.client_factory(False) as insecure:
             clients = {True: verified, False: insecure}
-            for url in (f"https://{host}/", f"https://www.{host}/", f"http://{host}/"):
+            for url in candidate_urls(host):
                 record, response = await self._attempt(clients, url)
                 attempts.append(record)
                 responses.append(response)
                 if record["outcome"] == "ok":
                     break
 
-        chosen = min(
-            range(len(attempts)),
-            key=lambda i: (
-                attempts[i]["outcome"] != "ok",
-                _INFORMATIVENESS.get(attempts[i]["outcome"], _LEAST_INFORMATIVE),
-                i,  # on a tie, the earlier address wins
-            ),
-        )
+        chosen = choose_attempt([a["outcome"] for a in attempts])
         record, response = attempts[chosen], responses[chosen]
         body = response.body if response is not None else None
         result = {

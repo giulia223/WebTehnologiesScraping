@@ -11,6 +11,7 @@ from typing import Annotated, Any
 
 import typer
 
+from techdetect.collect.browser import collect_browser
 from techdetect.collect.dns_probe import collect_dns
 from techdetect.collect.static_fetch import collect_static
 from techdetect.collect.tls_probe import collect_tls
@@ -37,7 +38,10 @@ InputOpt = Annotated[Path | None, typer.Option("--input", help="Domain list to c
 RawDirOpt = Annotated[Path | None, typer.Option("--raw-dir", help="Raw artifacts folder.")]
 OutputDirOpt = Annotated[Path | None, typer.Option("--output-dir", help="Results folder.")]
 ConcurrencyOpt = Annotated[
-    int | None, typer.Option("--concurrency", min=1, help="Sites fetched in parallel.")
+    int | None,
+    typer.Option(
+        "--concurrency", min=1, help="Sites fetched in parallel (default 10; browser: 4)."
+    ),
 ]
 TimeoutOpt = Annotated[
     float | None, typer.Option("--timeout", min=0.1, help="Static fetch timeout in seconds.")
@@ -51,7 +55,7 @@ OnlyOpt = Annotated[
     str | None,
     typer.Option(
         "--only",
-        help="Run one step only: static, dns, tls or wellknown. "
+        help="Run one step only: static, dns, tls, wellknown or browser. "
         "tls and wellknown use static.json when it exists, so run static first.",
     ),
 ]
@@ -59,7 +63,7 @@ LimitOpt = Annotated[
     int | None, typer.Option("--limit", min=1, help="Use only the first N valid domains.")
 ]
 
-IMPLEMENTED_STEPS = {"static", "dns", "tls", "wellknown"}
+IMPLEMENTED_STEPS = {"static", "dns", "tls", "wellknown", "browser"}
 Collector = Callable[..., Awaitable[list[dict[str, Any]]]]
 
 
@@ -97,6 +101,8 @@ def collect(
         input_path=input_path,
         raw_dir=raw_dir,
         concurrency=concurrency,
+        # One flag for both limits: whoever sets it wants that many sites at once.
+        browser_concurrency=concurrency,
         static_timeout_s=static_timeout_s,
         user_agent=user_agent,
     )
@@ -131,12 +137,13 @@ def _collector(step: str) -> Collector:
         "dns": collect_dns,
         "tls": collect_tls,
         "wellknown": collect_wellknown,
+        "browser": collect_browser,
     }[step]
 
 
 def _detail(step: str, result: dict[str, Any]) -> str:
     """One short line per domain, enough to spot a problem by eye."""
-    if step == "static":
+    if step in ("static", "browser"):
         if result["status"] == "ok":
             return result["final_url"]
         # The reason first; the status code and URL help to check it by hand.

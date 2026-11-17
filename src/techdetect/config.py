@@ -27,8 +27,13 @@ class Config:
 
     # Bounded concurrency keeps the crawler polite to sites.
     concurrency: int = 10
+    # A browser page costs far more memory and CPU than an HTTP request, so fewer at once.
+    browser_concurrency: int = 4
 
     user_agent: str = DEFAULT_USER_AGENT
+    # Appended to Chrome's own User-Agent in the browser, so the site sees a real browser
+    # that still says who is crawling (the way HTTP Archive tags its Chrome).
+    browser_tag: str = f"techdetect/{__version__}"
     # What a default English Chrome sends: multilingual sites then serve their English
     # version if they have one, so results don't depend on a guessed language.
     accept_language: str = "en-US,en;q=0.9"
