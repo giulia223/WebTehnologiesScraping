@@ -1,0 +1,43 @@
+{
+  "Alpha": {
+    "cats": [1],
+    "website": "https://alpha.example",
+    "description": "A made-up CMS.",
+    "html": ["<div id=\"alpha-root\""],
+    "headers": {"X-Powered-By": "Alpha(?:/([\\d.]+))?\\;version:\\1"},
+    "cookies": {"ALPHA_SID": ""},
+    "meta": {"Generator": "^Alpha\\;confidence:50"},
+    "js": {"Alpha.Version": "([\\d.]+)\\;version:\\1"},
+    "implies": ["Beta\\;confidence:50", "Gamma"]
+  },
+  "Beta": {
+    "cats": [2],
+    "website": "https://beta.example",
+    "scriptSrc": "beta\\.js",
+    "dom": ["div.beta-widget", "script[data-beta]"],
+    "dns": {"MX": "beta-mail\\.example", "TXT": ["beta-verify=", "v=spf1 .*include:beta\\.example"]},
+    "excludes": ["Gamma"]
+  },
+  "Gamma": {
+    "cats": [1],
+    "website": "https://gamma.example",
+    "url": "gamma\\.example",
+    "certIssuer": "Gamma CA",
+    "requires": ["Alpha"],
+    "requiresCategory": [1],
+    "dom": {
+      "link[href*='gamma']": {
+        "attributes": {"href": "gamma\\.css\\?v=([\\d.]+)\\;version:\\1?\\1:old\\;confidence:25"},
+        "text": "Gamma"
+      }
+    }
+  },
+  "Broken": {
+    "cats": [1, 99],
+    "website": "https://broken.example",
+    "html": ["(unclosed", "fine"],
+    "meta": {"x-broken": "a\\;confidence:high"},
+    "implies": ["Nobody"],
+    "probe": {"/broken": ""}
+  }
+}

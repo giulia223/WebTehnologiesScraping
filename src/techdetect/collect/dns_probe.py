@@ -41,6 +41,9 @@ def planned_queries(host: str) -> list[tuple[str, str]]:
         (host, "MX"),
         (host, "NS"),
         (host, "TXT"),
+        # The zone's primary name server and admin mailbox, often naming the DNS host;
+        # webappanalyzer has rules on it. A subdomain without its own zone: no_answer.
+        (host, "SOA"),
         # DMARC policy lives on a fixed subdomain; it can name a mail-security vendor.
         (f"_dmarc.{host}", "TXT"),
     ]
@@ -100,7 +103,7 @@ async def probe_dns(
     """All planned queries for one host, run at the same time; the dns.json content."""
     provenance = provenance_header(config)
     start = time.perf_counter()
-    # The 10 small queries go out together: one domain takes as long as its slowest query.
+    # The small queries go out together: one domain takes as long as its slowest query.
     records = await asyncio.gather(
         *(run_query(resolve, name, rdtype) for name, rdtype in planned_queries(host))
     )

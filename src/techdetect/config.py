@@ -19,6 +19,8 @@ class Config:
     input_path: Path = Path("data/input/domains.parquet")
     raw_dir: Path = Path("data/raw")
     output_dir: Path = Path("data/output")
+    # Fingerprint rules: webappanalyzer's pinned copy, our custom rules, candidates.
+    rules_dir: Path = Path("fingerprints")
 
     # Placeholders until Phase 2 measures real fetch times.
     static_timeout_s: float = 15.0

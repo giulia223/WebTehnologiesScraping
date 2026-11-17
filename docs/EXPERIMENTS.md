@@ -19,6 +19,14 @@ These claims come from research and from other projects. They are **not verified
 | H7 | Analytics/marketing tools on Shopify stores are often visible only in network traffic (web pixels), not in HTML | Comparing HTML vs network-request evidence on Shopify stores | - |
 | H8 | An honest robot User-Agent gets noticeably more bot-check pages / fewer technologies than a Chrome User-Agent | Re-running the static fetch with a Chrome User-Agent | - |
 
+## Rule set
+
+Every run below states the rule-set version it used (printed by `techdetect rules`). Changing it is a change that affects the numbers and gets its own row.
+
+| Rule-set version | Upstream commit (date) | Technologies | Patterns | Since |
+|---|---|---|---|---|
+| `webappanalyzer@9e52f10a9533+custom:none` | `9e52f10a9533c8f7f8d0703c843f7295d56c95a3` (2026-11-15) | 7,704 | 15,838 (0 skipped) | 2026-11-17 |
+
 ## Runs
 
 Column meanings:

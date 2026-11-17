@@ -19,6 +19,7 @@ from techdetect.collect.wellknown import collect_wellknown
 from techdetect.config import Config
 from techdetect.console import use_utf8_output
 from techdetect.domains import LoadResult, load_domains
+from techdetect.fingerprints.loader import load_rules
 
 app = typer.Typer(
     help="Detect website technologies with evidence.",
@@ -37,6 +38,14 @@ def main() -> None:
 InputOpt = Annotated[Path | None, typer.Option("--input", help="Domain list to crawl.")]
 RawDirOpt = Annotated[Path | None, typer.Option("--raw-dir", help="Raw artifacts folder.")]
 OutputDirOpt = Annotated[Path | None, typer.Option("--output-dir", help="Results folder.")]
+RulesDirOpt = Annotated[Path | None, typer.Option("--rules-dir", help="Fingerprint rules folder.")]
+CandidatesOpt = Annotated[
+    bool,
+    typer.Option(
+        "--include-candidates",
+        help="Also load candidate rules marked proposed or accepted (never rejected).",
+    ),
+]
 ConcurrencyOpt = Annotated[
     int | None,
     typer.Option(
@@ -165,6 +174,14 @@ def _detail(step: str, result: dict[str, Any]) -> str:
         return f"{robots['error_category']} {robots['url']}"
     reason = f" {robots['reason']}" if robots["reason"] else ""
     return f"{robots['outcome']}{reason} (HTTP {robots['http_status']}) {robots['url']}"
+
+
+@app.command()
+def rules(rules_dir: RulesDirOpt = None, include_candidates: CandidatesOpt = False) -> None:
+    """Load the fingerprint rules and print the load report (offline)."""
+    config = Config().with_overrides(rules_dir=rules_dir)
+    ruleset = load_rules(config.rules_dir, include_candidates=include_candidates)
+    typer.echo(ruleset.report.format(ruleset.version))
 
 
 @app.command()

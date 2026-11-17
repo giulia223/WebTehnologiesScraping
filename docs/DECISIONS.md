@@ -142,14 +142,15 @@ Template:
 - **Context:** DNS records name services without loading any page: MX the email provider, NS the DNS host, TXT the SPF senders and site-verification tokens, a `www` CNAME often the CDN or hosting platform. The input list contains platform subdomains such as `x.weebly.com`, whose parent domain belongs to the platform, not to the site.
 - **Options considered and decision:**
   - **Which name:** every query uses the input host exactly as given (`x.weebly.com`, never `weebly.com`). Rejected: querying a computed registered domain, because the parent's records describe the platform's own email and DNS, not this site's.
-  - **Which records:** A, AAAA and CNAME for the host and for `www.`host; MX, NS and TXT for the host; TXT for `_dmarc.`host (the DMARC policy, which can name a mail-security vendor). The 10 queries of one domain run at the same time.
+  - **Which records:** A, AAAA and CNAME for the host and for `www.`host; MX, NS, TXT and SOA for the host; TXT for `_dmarc.`host (the DMARC policy, which can name a mail-security vendor). The 11 queries of one domain run at the same time. SOA (the zone's primary name server and admin mailbox) was added after loading the rules showed 51 webappanalyzer `dns` rules matching it; for a subdomain without its own zone it records `no_answer`, since the exact host is queried.
   - **Resolver:** the machine's configured DNS servers (recorded in `dns.json`), 5 s total per query, and no search-domain suffix (otherwise a local suffix such as `.home` could be appended to a name).
   - **Status per query:** `ok`, `nxdomain` (the name does not exist), `no_answer` (the name exists, no record of that type), `timeout`, `no_nameservers` (every server failed, e.g. SERVFAIL), `error`. Rejected: one status for the whole domain, because "no MX" and "MX query timed out" mean different things.
   - **TXT text:** a TXT record split into 255-byte strings is joined back into one, so a long SPF record is stored as its owner wrote it.
 - **Why:** each query result is an independent fact; recording failures per query lets the report say "not checked" instead of "absent" when a query timed out.
 - **Consequences:**
   - Answers depend on the resolver used (some sites answer differently by location); the nameservers are recorded for that reason.
-  - Ten queries per domain: 2,000 small queries for 200 domains, bounded by the domain concurrency.
+  - Eleven queries per domain: 2,200 small queries for 200 domains, bounded by the domain concurrency.
+  - A rule update that uses a record type the probe does not ask for would silently never match; the record types used by the rules should be checked against this list.
 
 ## D-008 TLS probe: final host, chain verified but name checked separately
 - **Date:** 2026-11-17
@@ -210,3 +211,25 @@ Template:
 - **Consequences:**
   - `browser.json` grows to a few hundred KB on busy pages (about 400 KB and 350-500 requests on the two Shopify stores of the trial).
   - On those two stores, custom-pixel requests (e.g. Google Analytics) were captured with their sandbox iframe as origin. App-pixel requests (e.g. TikTok's `analytics.tiktok.com/api/v2/shopify_pixel`) were captured but labelled `main`, with the pixel workers listed in `workers`. The request URLs are there either way; only the origin label is imprecise for workers.
+
+## D-012 Fingerprint rules: webappanalyzer at a pinned commit, parsed the way Wappalyzer parsed them
+- **Date:** 2026-11-17
+- **Context:** Detection needs a large, maintained set of rules ("this header / script URL / cookie means this technology"). Wappalyzer's rule set was the open standard until its repository went private in 2023; `enthec/webappanalyzer` continues it in the same JSON format (7,704 technologies and 15,838 patterns at the pinned commit). Rules change every week upstream, and a result is only reproducible if we know exactly which rules produced it.
+- **Options considered and decision:**
+  - **Source and pinning:** copy webappanalyzer's `technologies/*.json`, `categories.json`, `groups.json`, `schema.json` and its LICENSE (GPL-3.0) into `fingerprints/webappanalyzer/`, byte for byte, at one commit (`9e52f10a9533c8f7f8d0703c843f7295d56c95a3`, 2026-11-15). `fingerprints/VERSION` records the source, commit, commit date and copy date. `scripts/update_fingerprints.py <sha>` repeats the copy for another commit (the 80 MB of logos are not copied). Rejected: downloading the rules at run time, because two runs could then use different rules without saying so.
+  - **Rule-set version:** `webappanalyzer@<commit>+custom:<hash>` (plus `+candidates:<hash>` when candidates are loaded). The hash is computed on the rules' parsed content, not on file bytes, so line endings (CRLF on Windows, LF on Linux) and key order do not change it. Collected browser data will store this version, so a later rule change is visible.
+  - **Parsing:** follow Wappalyzer's own code, read in the last published npm package (`wappalyzer@6.10.66`, `wappalyzer.js`), so every rule means what its author meant:
+    - `transformPatterns(patterns, caseSensitive = false, isRegex = true)`: a string or array becomes a list (`patterns = { main: patterns }`), and dictionary keys are lowercased unless `caseSensitive` (`parsed[caseSensitive ? key : key.toLowerCase()]`). It is called with `caseSensitive` true only for `js` (and `dom` selectors); headers, cookies, meta and dns names are lowercased.
+    - A `dom` list is expanded to `{ [selector]: { exists: '' } }`: the element exists.
+    - `parsePattern`: `.split('\\;')`, then each tag `attr.split(':')` with `attrs[attr.shift()] = attr.join(':')` (split on the first colon, so `version:\1?a:b` stays whole); `confidence: parseInt(confidence || 100, 10)`, `version: version || ''`; regexes are case-insensitive (`new RegExp(..., 'i')`).
+    - `implies` entries keep their own `confidence` and `version` tags; `requires`, `excludes` keep names; `requiresCategory` keeps category ids.
+  - **Regex dialect:** rules are written for JavaScript's `RegExp`; they are compiled with Python's `regex` module (lookbehind, named groups), case-insensitive. A pattern it rejects is skipped and listed with the reason in the load report, never rewritten by hand. At this commit all 15,838 patterns compile.
+  - **Quantifiers:** Wappalyzer rewrote `+` to `{1,250}` and `*` to `{0,250}` to limit slow matching on long text. We keep patterns exactly as written and rely on a time limit per match in the matcher instead, so a match never silently stops at 250 characters.
+  - **Our own rules, same schema:** `fingerprints/custom/*.json` always loads; `fingerprints/candidates/*.json` only on request (`--include-candidates`) and only entries marked `proposed` or `accepted`, never `rejected` or unmarked (both counted). A custom or candidate entry with the name of a known technology adds its patterns and categories to it (listed in the report); it never replaces the upstream rule.
+  - **Load report** (`techdetect rules`): technologies, patterns per field, **patterns per confidence value**, skipped patterns with reasons, unknown tags, fields not used (e.g. `probe`, which needs active requests we do not make), merges, candidates left out, relations or category ids that point nowhere.
+- **Why:** the rules are the largest input to every number in the report; pinning them and parsing them exactly like their reference implementation makes the numbers reproducible and comparable with Wappalyzer-style tools.
+- **Consequences:**
+  - Updating the rules is a deliberate step (new commit, new EXPERIMENTS row), not a side effect.
+  - JavaScript and Python regexes differ in small ways (e.g. `\w` and `\d` also match non-ASCII letters and digits in Python); a pattern can match slightly more text than in a browser.
+  - Some fields need data we do not collect (script and stylesheet contents, `probe`); the matcher must report such rules as not checked, not as absent.
+  - Loading takes about 1 s (all regexes are compiled up front).
