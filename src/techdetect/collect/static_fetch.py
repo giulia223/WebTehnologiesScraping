@@ -10,11 +10,11 @@ Success = final status 2xx, a non-empty body, and not a bot-challenge page.
 
 import asyncio
 import email.utils
+import json
 import random
 import re
 import socket
 import ssl
-import sys
 import time
 from collections.abc import Awaitable, Callable, Iterable
 from dataclasses import dataclass, field
@@ -28,6 +28,7 @@ from selectolax.lexbor import LexborHTMLParser
 
 from techdetect.collect.challenge import detect_challenge
 from techdetect.collect.provenance import provenance_header
+from techdetect.collect.runner import run_per_domain
 from techdetect.collect.storage import domain_dir, sha256_hex, write_atomic, write_json_atomic
 from techdetect.config import Config
 from techdetect.domains import Domain
@@ -206,7 +207,7 @@ def _cookies(response: httpx.Response) -> list[dict[str, Any]]:
     ]
 
 
-async def _read_capped(response: httpx.Response, cap: int) -> tuple[bytes, bool]:
+async def read_capped(response: httpx.Response, cap: int) -> tuple[bytes, bool]:
     """Read at most `cap` bytes. Stopping early also avoids downloading a huge page."""
     chunks: list[bytes] = []
     size = 0
@@ -255,7 +256,7 @@ class StaticFetcher:
         # deadline stops a server that keeps sending a byte now and then.
         async with asyncio.timeout(self.config.static_timeout_s):
             async with client.stream("GET", url, headers=self.headers) as response:
-                body, truncated = await _read_capped(response, MAX_HTML_BYTES)
+                body, truncated = await read_capped(response, MAX_HTML_BYTES)
         hops = [*response.history, response]
         return _Response(
             status=response.status_code,
@@ -445,16 +446,23 @@ async def collect_static(
 ) -> list[dict[str, Any]]:
     """Fetch and save every domain, at most config.concurrency at a time."""
     fetcher = StaticFetcher(config, client_factory or default_client_factory(config), sleep)
-    semaphore = asyncio.Semaphore(config.concurrency)
 
     async def one(domain: Domain) -> dict[str, Any]:
-        async with semaphore:
-            try:
-                result, body = await fetcher.fetch(domain.host)
-            except Exception as exc:  # a bug on one site must not stop the others
-                print(f"{domain.host}: unexpected error: {exc!r}", file=sys.stderr)
-                return {"domain": domain.host, "status": "crashed", "error": repr(exc)}
-            save_static(config.raw_dir, domain.host, result, body)
-            return result
+        result, body = await fetcher.fetch(domain.host)
+        save_static(config.raw_dir, domain.host, result, body)
+        return result
 
-    return await asyncio.gather(*(one(d) for d in domains))
+    return await run_per_domain(domains, config.concurrency, one)
+
+
+def static_final_url(raw_dir: Path, host: str) -> str | None:
+    """Final URL of a successful static fetch on disk, or None (failed, or not run yet).
+
+    The TLS and robots.txt probes use it so they look at the site that actually served
+    the page (after redirects), not only at the name in the input list.
+    """
+    path = domain_dir(raw_dir, host) / "static.json"
+    if not path.is_file():
+        return None
+    result = json.loads(path.read_text(encoding="utf-8"))
+    return result.get("final_url") if result.get("status") == "ok" else None

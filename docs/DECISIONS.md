@@ -136,3 +136,45 @@ Template:
   - Up to 3 addresses × 3 tries per domain in the worst case: polite, but slow for broken sites.
   - Platform subdomains also get a `www.` attempt (e.g. `www.x.booked.net`), which cannot work; harmless, but it adds an error to their record.
   - Challenge detection relies on a short list of vendor signals; an unknown vendor's wall is recorded as a normal page or an HTTP error.
+
+## D-007 DNS probe: exact input host, fixed record set, one status per query
+- **Date:** 2026-11-17
+- **Context:** DNS records name services without loading any page: MX the email provider, NS the DNS host, TXT the SPF senders and site-verification tokens, a `www` CNAME often the CDN or hosting platform. The input list contains platform subdomains such as `x.weebly.com`, whose parent domain belongs to the platform, not to the site.
+- **Options considered and decision:**
+  - **Which name:** every query uses the input host exactly as given (`x.weebly.com`, never `weebly.com`). Rejected: querying a computed registered domain, because the parent's records describe the platform's own email and DNS, not this site's.
+  - **Which records:** A, AAAA and CNAME for the host and for `www.`host; MX, NS and TXT for the host; TXT for `_dmarc.`host (the DMARC policy, which can name a mail-security vendor). The 10 queries of one domain run at the same time.
+  - **Resolver:** the machine's configured DNS servers (recorded in `dns.json`), 5 s total per query, and no search-domain suffix (otherwise a local suffix such as `.home` could be appended to a name).
+  - **Status per query:** `ok`, `nxdomain` (the name does not exist), `no_answer` (the name exists, no record of that type), `timeout`, `no_nameservers` (every server failed, e.g. SERVFAIL), `error`. Rejected: one status for the whole domain, because "no MX" and "MX query timed out" mean different things.
+  - **TXT text:** a TXT record split into 255-byte strings is joined back into one, so a long SPF record is stored as its owner wrote it.
+- **Why:** each query result is an independent fact; recording failures per query lets the report say "not checked" instead of "absent" when a query timed out.
+- **Consequences:**
+  - Answers depend on the resolver used (some sites answer differently by location); the nameservers are recorded for that reason.
+  - Ten queries per domain: 2,000 small queries for 200 domains, bounded by the domain concurrency.
+
+## D-008 TLS probe: final host, chain verified but name checked separately
+- **Date:** 2026-11-17
+- **Context:** The certificate's issuer can name the certificate authority or the platform. A server can also answer with a certificate for other names (e.g. the hosting provider's default certificate), which describes the provider's machine, not the site. Python's `ssl` module only parses a certificate that passed verification; for any other it gives the raw bytes.
+- **Options considered and decision:**
+  - **Which host:** the host of the static fetch's final URL (after redirects), since that server actually served the page. If the static fetch failed or has not run, the input host. `probed_host_source` records which.
+  - **Name check:** the connection verifies the certificate chain but not the name (`check_hostname=False`), and `hostname_match` is computed separately from the certificate's subjectAltName DNS names (a `*` stands for exactly one leftmost label; the subject CN is not used, as in current browsers). Rejected: letting Python check the name, because a mismatch would abort the handshake and the certificate could not be recorded at all.
+  - **Mismatching certificate:** kept in `tls.json` with `hostname_match: false`, and not used for detection.
+  - **Unverified certificate** (self-signed, expired, unknown authority): connect again without verification, store the certificate as PEM plus its sha256, `chain_verified: false` and the verification error. Issuer, subject and names stay null and `hostname_match` is null (unknown). Rejected for now: adding the `cryptography` library to parse every certificate, a new dependency for what may be a few sites; and Python's private `ssl._ssl._test_decode_cert`, which is internal test code. Because the PEM is kept, switching later is a re-parse of saved files, not a re-crawl.
+  - **Trusted authorities:** the same set as the static fetch (httpx's), so "verified" means the same thing in `static.json` and `tls.json`.
+- **Why:** the certificate is evidence only if it belongs to the site; recording the match instead of failing keeps every observation while letting detection filter.
+- **Consequences:**
+  - Unverified certificates give no issuer to detection until a parser is added; their number in the full crawl decides whether that is worth a dependency.
+  - If the final URL is on another site (a redirect to a different domain), the probe describes that site's certificate; `probed_host` makes this visible.
+  - A site served only over plain HTTP gets a failed probe on port 443, recorded with its error category.
+
+## D-009 robots.txt: final origin, kept only if it looks like plain text
+- **Date:** 2026-11-17
+- **Context:** robots.txt often names the platform through its rules (`/wp-admin/`, `/checkout`). Many servers answer an unknown path with their normal HTML page and status 200 (a "soft 404"); treating that page as robots.txt would put the page's markup where rules are expected. Other well-known files (favicon, sitemap.xml, security.txt, ads.txt) are deliberately not fetched: ads.txt lists who may sell ads on a site, not what runs on it.
+- **Options considered and decision:**
+  - **Where:** the origin of the static fetch's final URL plus `/robots.txt`, so it belongs to the site that served the page; `https://<input host>/robots.txt` if the static fetch failed. Redirects are followed; a bad certificate is handled as in the static fetch (fetched anyway, recorded).
+  - **Keep rule:** keep the body only if the status is 200 and the body is not empty, has no NUL bytes, and does not start with `<` after whitespace and a UTF-8 byte-order mark (a real robots.txt starts with a rule, a `#` comment or a blank line). Otherwise `rejected` with a reason: `status_not_200`, `empty`, `binary`, `html_soft_404`. Rejected: deciding by Content-Type, because some servers send a valid robots.txt as `text/html` and soft-404 pages come with any type; the Content-Type is still recorded.
+  - **Storage:** a kept body is saved as `robots.txt` next to `wellknown.json`, which names it and stores its sha256, like `static.html`. A rejected body is not saved (only its size and sha256), and a `robots.txt` from an older run is deleted.
+  - **Size:** read up to 500 KiB, the minimum robots.txt parsers must handle (RFC 9309); a cut is recorded.
+- **Why:** a robots.txt that is really an HTML page would make detection see the homepage's markup twice, once mislabelled; rejecting it keeps each artifact what it claims to be.
+- **Consequences:**
+  - A plain-text error page ("Not found" as text/plain with status 200) would be kept; rules that read robots.txt must match real directives, not any text.
+  - One request per domain, no retries: a temporary failure leaves robots.txt unchecked for that run.

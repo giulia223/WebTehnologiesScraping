@@ -5,12 +5,16 @@ The four commands mirror the pipeline: collect (network) -> detect (offline)
 """
 
 import asyncio
+from collections.abc import Awaitable, Callable
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 
 import typer
 
+from techdetect.collect.dns_probe import collect_dns
 from techdetect.collect.static_fetch import collect_static
+from techdetect.collect.tls_probe import collect_tls
+from techdetect.collect.wellknown import collect_wellknown
 from techdetect.config import Config
 from techdetect.console import use_utf8_output
 from techdetect.domains import LoadResult, load_domains
@@ -26,6 +30,7 @@ def main() -> None:
     """Detect website technologies with evidence."""
     # Runs before every command, so no command can crash printing a decoded IDN name.
     use_utf8_output()
+
 
 # Every flag defaults to None, meaning "not passed": the Config default then applies.
 InputOpt = Annotated[Path | None, typer.Option("--input", help="Domain list to crawl.")]
@@ -43,13 +48,19 @@ DryRunOpt = Annotated[
     typer.Option("--dry-run", help="Load and validate the input, list the domains, fetch nothing."),
 ]
 OnlyOpt = Annotated[
-    str | None, typer.Option("--only", help="Run one step only. Implemented: static.")
+    str | None,
+    typer.Option(
+        "--only",
+        help="Run one step only: static, dns, tls or wellknown. "
+        "tls and wellknown use static.json when it exists, so run static first.",
+    ),
 ]
 LimitOpt = Annotated[
     int | None, typer.Option("--limit", min=1, help="Use only the first N valid domains.")
 ]
 
-IMPLEMENTED_STEPS = {"static"}
+IMPLEMENTED_STEPS = {"static", "dns", "tls", "wellknown"}
+Collector = Callable[..., Awaitable[list[dict[str, Any]]]]
 
 
 def _not_implemented(command: str, config: Config) -> None:
@@ -90,7 +101,7 @@ def collect(
         user_agent=user_agent,
     )
     if only is not None and only not in IMPLEMENTED_STEPS:
-        typer.echo(f"--only {only}: only {sorted(IMPLEMENTED_STEPS)} is implemented", err=True)
+        typer.echo(f"--only {only}: implemented steps are {sorted(IMPLEMENTED_STEPS)}", err=True)
         raise typer.Exit(code=1)
 
     loaded = _load_and_report(config)
@@ -101,22 +112,52 @@ def collect(
             shown = f"  ({domain.display_name})" if domain.display_name != domain.host else ""
             typer.echo(f"{domain.row:>4}  {domain.host}{shown}")
         return
-    if only != "static":
+    if only is None:
         _not_implemented("collect", config)
+        return
 
-    results = asyncio.run(collect_static(domains, config))
+    results = asyncio.run(_collector(only)(domains, config))
     for result in results:
-        if result["status"] == "ok":
-            detail = result["final_url"]
-        elif result["status"] == "failed":
-            # The reason first; the status code and URL help to check it by hand.
-            status = result.get("http_status") or "-"
-            detail = f"{result['error_category']} (HTTP {status}) {result.get('final_url') or ''}"
-        else:
-            detail = result.get("error")
+        detail = result.get("error") if result["status"] == "crashed" else _detail(only, result)
         typer.echo(f"{result['domain']:45} {result['status']:8} {detail}")
     ok = sum(r["status"] == "ok" for r in results)
-    typer.echo(f"static: {ok}/{len(results)} ok, artifacts in {config.raw_dir}")
+    typer.echo(f"{only}: {ok}/{len(results)} ok, artifacts in {config.raw_dir}")
+
+
+def _collector(step: str) -> Collector:
+    # Looked up at call time (not stored in a module-level dict) so tests can replace one.
+    return {
+        "static": collect_static,
+        "dns": collect_dns,
+        "tls": collect_tls,
+        "wellknown": collect_wellknown,
+    }[step]
+
+
+def _detail(step: str, result: dict[str, Any]) -> str:
+    """One short line per domain, enough to spot a problem by eye."""
+    if step == "static":
+        if result["status"] == "ok":
+            return result["final_url"]
+        # The reason first; the status code and URL help to check it by hand.
+        status = result.get("http_status") or "-"
+        return f"{result['error_category']} (HTTP {status}) {result.get('final_url') or ''}"
+    if step == "dns":
+        answered = [q for q in result["queries"] if q["status"] == "ok"]
+        return f"{len(answered)}/{len(result['queries'])} queries answered"
+    if step == "tls":
+        if result["status"] != "ok":
+            return f"{result['error_category']} {result['probed_host']}"
+        issuer = dict(result["certificate"]["issuer"] or []).get("organizationName", "?")
+        return (
+            f"{result['probed_host']} verified={result['chain_verified']} "
+            f"match={result['hostname_match']} issuer={issuer}"
+        )
+    robots = result["robots"]
+    if robots["outcome"] == "failed":
+        return f"{robots['error_category']} {robots['url']}"
+    reason = f" {robots['reason']}" if robots["reason"] else ""
+    return f"{robots['outcome']}{reason} (HTTP {robots['http_status']}) {robots['url']}"
 
 
 @app.command()

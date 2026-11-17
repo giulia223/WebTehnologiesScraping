@@ -61,9 +61,33 @@ def test_cli_flag_reaches_config(monkeypatch: pytest.MonkeyPatch, tiny_input: Pa
 
 
 def test_collect_rejects_unimplemented_step(tiny_input: Path) -> None:
-    result = runner.invoke(app, ["collect", "--only", "dns", "--input", str(tiny_input)])
+    result = runner.invoke(app, ["collect", "--only", "browser", "--input", str(tiny_input)])
     assert result.exit_code == 1
-    assert "only ['static'] is implemented" in result.output
+    assert "implemented steps are ['dns', 'static', 'tls', 'wellknown']" in result.output
+
+
+def test_collect_only_dns_runs_the_dns_collector(
+    monkeypatch: pytest.MonkeyPatch, tiny_input: Path
+) -> None:
+    received: list[list[str]] = []
+
+    async def fake_collect(domains, config):  # no network: record what would be probed
+        received.append([d.host for d in domains])
+        return [
+            {
+                "domain": d.host,
+                "status": "ok",
+                "queries": [{"status": "ok"}, {"status": "nxdomain"}],
+            }
+            for d in domains
+        ]
+
+    monkeypatch.setattr("techdetect.cli.collect_dns", fake_collect)
+    result = runner.invoke(app, ["collect", "--only", "dns", "--input", str(tiny_input)])
+
+    assert result.exit_code == 0, result.output
+    assert len(received) == 1
+    assert "1/2 queries answered" in result.output
 
 
 def test_collect_only_static_respects_limit(
