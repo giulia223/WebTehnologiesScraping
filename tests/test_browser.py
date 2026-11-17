@@ -9,6 +9,7 @@ import asyncio
 import functools
 import http.server
 import json
+import shutil
 import threading
 from collections.abc import Iterator
 from pathlib import Path
@@ -34,6 +35,7 @@ from techdetect.collect.browser import (
     save_browser,
 )
 from techdetect.config import Config
+from techdetect.fingerprints.loader import RuleSet, load_rules
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -160,7 +162,9 @@ def site() -> Iterator[LocalSite]:
     local.server.shutdown()
 
 
-def load(urls: list[str], config: Config | None = None) -> tuple[dict[str, Any], Any]:
+def load(
+    urls: list[str], config: Config | None = None, rules: RuleSet | None = None
+) -> tuple[dict[str, Any], Any]:
     """Run the real fetcher on the given URLs with a fresh browser."""
     config = config or Config()
 
@@ -169,7 +173,14 @@ def load(urls: list[str], config: Config | None = None) -> tuple[dict[str, Any],
             browser = await launch_browser(playwright, config)
             try:
                 ua = browser_user_agent(await default_user_agent(browser), config.browser_tag)
-                return await BrowserFetcher(config, browser, ua).fetch("local.test", urls=urls)
+                fetcher = BrowserFetcher(
+                    config,
+                    browser,
+                    ua,
+                    js_chains=rules.js_chains() if rules else None,
+                    ruleset_version=rules.version if rules else None,
+                )
+                return await fetcher.fetch("local.test", urls=urls)
             finally:
                 await browser.close()
 
@@ -294,3 +305,93 @@ def test_worker_request_is_captured_but_labelled_by_its_frame(
     # created the worker. The worker itself is listed, so the limit is visible.
     assert from_worker["origin"] == "main"
     assert {"type": "dedicated", "url": site.url("/browser/worker.js")} in result["workers"]
+
+
+# ------------------------------------------------------------ JS globals
+
+MINI_RULES = FIXTURES / "fingerprints" / "mini"
+# Chains for the edge cases of tests/fixtures/browser/globals.html.
+EDGE_CHAINS = (
+    "Nested.inner.count",
+    "EmptyValue",
+    "LexicalLib.version",
+    "Trap.anything",
+    "Proto.inherited",
+    "Missing.thing",
+)
+
+
+@pytest.fixture
+def globals_rules(tmp_path: Path) -> RuleSet:
+    """The mini rule set plus a custom rule asking about the fixture page's variables."""
+    rules_dir = tmp_path / "rules"
+    shutil.copytree(MINI_RULES, rules_dir)
+    rule = {
+        "FooLib": {"cats": [1], "js": {"FooLib.version": "([\\d.]+)\\;version:\\1", "FooLib": ""}},
+        "Edges": {"cats": [1], "js": {chain: "" for chain in EDGE_CHAINS}},
+    }
+    (rules_dir / "custom" / "globals.json").write_text(json.dumps(rule), encoding="utf-8")
+    return load_rules(rules_dir)
+
+
+def test_js_chains_are_read_like_wappalyzer(
+    browser_ready: None, site: LocalSite, globals_rules: RuleSet
+) -> None:
+    result, _ = load([site.url("/browser/globals.html")], rules=globals_rules)
+    values = result["js_globals"]
+
+    assert values["FooLib.version"] == "1.2"  # the acceptance case
+    assert values["FooLib"] is True  # an object: present
+    assert values["Nested.inner.count"] == 42
+    assert values["LexicalLib.version"] == "3.0"  # a `const` global, not on window
+    # Wappalyzer's rules: a null root, an inherited property and a missing name are absent.
+    for absent in ("EmptyValue", "Proto.inherited", "Missing.thing"):
+        assert absent not in values
+    assert "Alpha.Version" not in values  # asked (from the mini rules), not on this page
+
+
+def test_throwing_getter_is_recorded_and_does_not_stop_the_crawl(
+    browser_ready: None, site: LocalSite, globals_rules: RuleSet
+) -> None:
+    result, _ = load([site.url("/browser/globals.html")], rules=globals_rules)
+
+    assert result["status"] == "ok"
+    assert "getter exploded" in result["js_chain_errors"]["Trap.anything"]
+    assert result["js_globals"]["FooLib.version"] == "1.2"  # the others were still read
+    assert result["js_globals_error"] is None
+
+
+def test_browser_json_records_ruleset_and_the_chains_asked(
+    browser_ready: None, site: LocalSite, globals_rules: RuleSet
+) -> None:
+    result, _ = load([site.url("/browser/globals.html")], rules=globals_rules)
+
+    assert result["ruleset_version"] == globals_rules.version
+    assert "+custom:" in result["ruleset_version"]
+    assert result["js_chains_asked"] == globals_rules.js_chains()
+    assert "Alpha.Version" in result["js_chains_asked"]
+
+
+def test_window_keys_are_only_the_page_own_variables(
+    browser_ready: None, site: LocalSite, globals_rules: RuleSet
+) -> None:
+    result, _ = load([site.url("/browser/globals.html")], rules=globals_rules)
+
+    assert set(result["window_keys"]) == {"FooLib", "Nested", "EmptyValue", "Trap", "Proto"}
+    # Not listed: `const` globals (not properties of window), the browser's own names
+    # (window, document...), and our baseline holder (non-enumerable).
+
+
+def test_frame_indexes_are_not_variables(browser_ready: None, site: LocalSite) -> None:
+    result, _ = load([site.url("/browser/page.html")])  # has one iframe: window[0]
+    assert "0" not in result["window_keys"]
+    assert "inlineMarker" in result["window_keys"]
+
+
+def test_strict_content_security_policy_falls_back_to_window(
+    browser_ready: None, site: LocalSite, globals_rules: RuleSet
+) -> None:
+    result, _ = load([site.url("/browser/csp.html")], rules=globals_rules)
+
+    assert result["js_globals"]["FooLib.version"] == "1.2"
+    assert result["js_chain_errors"] == {}

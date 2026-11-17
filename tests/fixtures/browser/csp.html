@@ -1,0 +1,10 @@
+<!doctype html>
+<html>
+<head>
+<title>Strict CSP fixture</title>
+<!-- No 'unsafe-eval': code built from strings (new Function, eval) is refused. -->
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+<script>window.FooLib = {version: "1.2"};</script>
+</head>
+<body><p>A page with a strict Content-Security-Policy.</p></body>
+</html>

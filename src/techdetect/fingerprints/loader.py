@@ -175,6 +175,21 @@ class RuleSet:
     version: str  # e.g. "webappanalyzer@9e52f10a9533+custom:none"
     report: LoadReport
 
+    def js_chains(self) -> list[str]:
+        """Every JavaScript property chain the rules ask about, e.g. "jQuery.fn.jquery".
+
+        These can only be read while the page is open in the browser, so collection asks
+        for all of them and records the list it asked.
+        """
+        return sorted(
+            {
+                p.key
+                for tech in self.technologies.values()
+                for p in tech.patterns
+                if p.field == "js" and p.key
+            }
+        )
+
 
 # ---------------------------------------------------------------- one pattern
 
