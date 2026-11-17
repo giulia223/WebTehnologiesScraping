@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head>
+<title>Tracking fixture</title>
+<script src="/browser/app.js"></script>
+</head>
+<body>
+<!-- A tracking pixel on a name that can never resolve: it must be recorded, then blocked. -->
+<img src="https://example.test/tr?id=1" width="1" height="1" alt="">
+<iframe src="/browser/frame_fetch.html"></iframe>
+<script>new Worker("/browser/worker.js");</script>
+</body>
+</html>
