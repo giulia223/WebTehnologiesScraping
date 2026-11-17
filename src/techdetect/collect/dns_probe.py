@@ -18,7 +18,7 @@ import dns.rdatatype
 import dns.resolver
 
 from techdetect.collect.provenance import provenance_header
-from techdetect.collect.runner import run_per_domain
+from techdetect.collect.runner import OnResult, run_per_domain
 from techdetect.collect.storage import domain_dir, write_json_atomic
 from techdetect.config import Config
 from techdetect.domains import Domain
@@ -122,6 +122,7 @@ async def collect_dns(
     domains: list[Domain],
     config: Config,
     resolver: tuple[Resolve, list[str]] | None = None,
+    on_result: OnResult | None = None,
 ) -> list[dict[str, Any]]:
     """Probe and save every domain, at most config.concurrency domains at a time."""
     resolve, nameservers = resolver or system_resolver(config.dns_timeout_s)
@@ -131,4 +132,4 @@ async def collect_dns(
         write_json_atomic(domain_dir(config.raw_dir, domain.host) / "dns.json", result)
         return result
 
-    return await run_per_domain(domains, config.concurrency, one)
+    return await run_per_domain(domains, config.concurrency, one, on_result)

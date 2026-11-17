@@ -31,7 +31,7 @@ from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 
 from techdetect.collect.challenge import detect_challenge
 from techdetect.collect.provenance import provenance_header
-from techdetect.collect.runner import run_per_domain
+from techdetect.collect.runner import OnResult, run_per_domain
 from techdetect.collect.static_fetch import candidate_urls, choose_attempt, classify_status
 from techdetect.collect.storage import domain_dir, sha256_hex, write_atomic, write_json_atomic
 from techdetect.config import Config
@@ -655,7 +655,9 @@ async def launch_browser(playwright: Playwright, config: Config) -> Browser:
     )
 
 
-async def collect_browser(domains: list[Domain], config: Config) -> list[dict[str, Any]]:
+async def collect_browser(
+    domains: list[Domain], config: Config, on_result: OnResult | None = None
+) -> list[dict[str, Any]]:
     """Load and save every domain, at most config.browser_concurrency pages at a time."""
     # Rules first: a broken rule file stops the run before any site is visited.
     rules = load_rules(config.rules_dir)
@@ -676,6 +678,6 @@ async def collect_browser(domains: list[Domain], config: Config) -> list[dict[st
                 save_browser(config.raw_dir, domain.host, result, page)
                 return result
 
-            return await run_per_domain(domains, config.browser_concurrency, one)
+            return await run_per_domain(domains, config.browser_concurrency, one, on_result)
         finally:
             await browser.close()

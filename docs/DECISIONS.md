@@ -247,4 +247,22 @@ Template:
 - **Consequences:**
   - `browser.json` carries the list of asked chains (about 84 KB) on every domain; a rule-set version alone would be smaller, but the list makes each file self-explanatory.
   - The init script is a small footprint a site could notice (a non-enumerable property on window).
+
+## D-014 The collect run: no resume, a completion marker, and counts read back from disk
+- **Date:** 2026-11-17
+- **Context:** A full collection (200 domains, five steps) takes minutes and can be interrupted (Ctrl+C, crash, network loss). The dataset it produces is the input of every later number, so a half-finished or half-overwritten folder must never pass for a finished one.
+- **Options considered and decision:**
+  - **Interrupted runs:** no resume. An interrupted run is run again from the start. Rejected: resuming from the run log, which needs rules about partially written domains, changed inputs and changed code versions; at this size a re-run costs minutes. Resume is a scaling topic.
+  - **Three safety pieces instead:** every file is written atomically (a JSON on disk means its step finished, see D-005); `_run_complete.json` is written only at the very end, so a folder without it is an unfinished run; and a folder that already holds a finished run is never collected into again unless `--overwrite` is given (or another `--out` is chosen), so a crashed re-run cannot destroy a good dataset. With `--overwrite`, the marker is removed at the start, so the folder counts as unfinished until the re-run completes.
+  - **Step order:** each step runs over all domains before the next, in a fixed order: static, dns, tls, wellknown, browser. The TLS and robots.txt steps read `static.json` to know the site's final address, so static always runs first, whatever order `--only` lists.
+  - **Re-running one step:** `--only browser --overwrite` replaces only the browser files and keeps the other steps' files. `_run_complete.json` lists every step with when it ran and with which code version, and keeps a short record of the earlier runs, so mixed datasets (e.g. browser re-run after new `js` rules) are visible.
+  - **Run log:** `_run_log.jsonl`, one line per (domain, step) with status, duration and error category, appended as each domain finishes, so an interrupted run still shows how far it got. Lines carry `run_started_at`, so several runs can share the file.
+  - **Counts:** the summary table and the counts in `_run_complete.json` are read back from the files on disk, not from memory: they are exactly what detection will find. A domain whose step crashed has its old file for that step deleted, so it counts as `missing` instead of passing an older run's file off as this run's.
+  - **Timing:** each domain's duration is measured from the moment it gets a concurrency slot, so the average time per domain per step is the work itself, not the wait.
+  - **Final URL comparison:** after the static and browser steps, `browser.json` gets `final_url_differs_from_static`: true when both reached a real page but ended at different addresses (usually a JavaScript redirect), null when either did not reach a page.
+- **Why:** the folder's state must always say the truth about itself: finished or not, which code and rules produced which files, and what really is on disk.
+- **Consequences:**
+  - A re-run after an interruption repeats work already done (minutes at this size).
+  - The tool version is the last commit; it cannot tell whether the working tree had uncommitted changes when the run happened.
+  - In a 10-domain trial the average time per domain was about 1.5 s static, 1.8 s DNS, 0.8 s TLS, 1.1 s robots.txt and 5.9 s browser (38 s in total with concurrency 10 for HTTP steps and 4 for the browser). These are trial numbers, not the full-run measurement.
   - Some sites redefine built-ins (Wix redefines `Object`, `Number`...), which then appear among their variables: that is the site's own doing, not noise from the baseline.
