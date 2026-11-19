@@ -36,6 +36,15 @@ from techdetect.detect import (
     write_outputs,
 )
 from techdetect.domains import Domain, LoadResult, load_domains
+from techdetect.evaluate.labels import (
+    REVIEW_SEED,
+    blind_domains,
+    load_ground_truth,
+    pick_review,
+    read_all_detections,
+    save_ground_truth,
+)
+from techdetect.evaluate.session import label_domain
 from techdetect.fingerprints.loader import load_rules
 
 app = typer.Typer(
@@ -325,11 +334,68 @@ def detect(
     )
 
 
-@app.command()
-def evaluate(output_dir: OutputDirOpt = None) -> None:
-    """Measure precision and recall against hand labels."""
-    config = Config().with_overrides(output_dir=output_dir)
-    _not_implemented("evaluate", config)
+evaluate_app = typer.Typer(
+    help="Hand labels (ground truth); precision and recall come later.", no_args_is_help=True
+)
+app.add_typer(evaluate_app, name="evaluate")
+GroundTruthOpt = Annotated[
+    Path | None, typer.Option("--ground-truth", help="Labels file (data/ground_truth.json).")
+]
+
+
+@evaluate_app.command("pick-review")
+def pick_review_command(
+    input_path: InputOpt = None,
+    output_dir: OutputDirOpt = None,
+    ground_truth: GroundTruthOpt = None,
+    seed: Annotated[int, typer.Option("--seed", help="Random seed for the pick.")] = REVIEW_SEED,
+    force: Annotated[
+        bool, typer.Option("--force", help="Draw again over an existing pick.")
+    ] = False,
+) -> None:
+    """Set the blind set (every 20th row) and draw the review set (random, fixed seed)."""
+    config = Config().with_overrides(
+        input_path=input_path, output_dir=output_dir, ground_truth_path=ground_truth
+    )
+    data = load_ground_truth(config.ground_truth_path)
+    if data["sets"]["review"] and not force:
+        typer.echo(
+            f"review set already picked: {', '.join(data['sets']['review'])} "
+            "(use --force to draw again)",
+            err=True,
+        )
+        raise typer.Exit(code=1)
+    data["sets"]["blind"] = blind_domains(_load_and_report(config).domains)
+    data["sets"]["review"] = pick_review(
+        read_all_detections(config.output_dir), data["sets"]["blind"], seed
+    )
+    data["review_seed"] = seed
+    save_ground_truth(config.ground_truth_path, data)
+    typer.echo(f"blind ({len(data['sets']['blind'])}): {', '.join(data['sets']['blind'])}")
+    typer.echo(f"review ({len(data['sets']['review'])}): {', '.join(data['sets']['review'])}")
+    typer.echo(f"saved in {config.ground_truth_path}")
+
+
+@evaluate_app.command("label")
+def label_command(
+    domain: Annotated[str, typer.Argument(help="The domain to label, as in the input list.")],
+    output_dir: OutputDirOpt = None,
+    ground_truth: GroundTruthOpt = None,
+    rules_dir: RulesDirOpt = None,
+    relabel: Annotated[
+        bool, typer.Option("--relabel", help="Ask again for detections already labelled.")
+    ] = False,
+) -> None:
+    """Mark each detection of a domain correct / wrong / unsure, and add missed ones."""
+    config = Config().with_overrides(
+        output_dir=output_dir, ground_truth_path=ground_truth, rules_dir=rules_dir
+    )
+    data = load_ground_truth(config.ground_truth_path)
+    if not data["sets"]["blind"]:
+        typer.echo("No sets yet: run `techdetect evaluate pick-review` first.", err=True)
+        raise typer.Exit(code=1)
+    names = sorted(load_rules(config.rules_dir).technologies)
+    label_domain(domain, config.ground_truth_path, config.output_dir, names, relabel=relabel)
 
 
 @app.command()

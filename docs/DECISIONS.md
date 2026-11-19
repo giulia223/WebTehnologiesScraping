@@ -357,4 +357,19 @@ Template:
 - **Consequences:**
   - Run 1 (EXPERIMENTS): core 347, extended 414 (41 only in DNS, 10 only inferred, 16 themes). The comparison with Veridion's 477 depends on how they counted, which is why both numbers and their groups are reported.
   - `detections.jsonl` is large (about 4 MB) because every detection carries its evidence.
+
+## D-019 Ground truth: a blind set for recall, a random review set for precision
+- **Date:** 2026-11-19
+- **Context:** Counts say nothing about quality. Precision (how many detections are right) and recall (how many of a site's real technologies we find) need a human-checked sample. A sample is only honest if it is not chosen by looking at results, and if the human's list is not influenced by the tool.
+- **Options considered and decision:**
+  - **Two sets, two purposes**, in `data/ground_truth.json`:
+    - **blind** (recall): every 20th input row (rows 20, 40, ..., 200), picked by position before the tool existed. For each, the human records every technology they can confirm in DevTools, and where, before seeing any tool output. Recall = what the tool found of that list.
+    - **review** (precision): 10 domains drawn at random among those with status `ok`, not redirected to another site, and not in the blind set, with Python's `random.Random(20261119).sample(...)` over the domains in input order. The seed is fixed so anyone can redraw the same 10. Rejected: hand-picking or picking by group, which would choose easy or interesting sites.
+  - **Labelling** (`techdetect evaluate label <domain>`): shows each detection with its evidence; the human marks it correct / wrong / unsure (with an optional note) and adds technologies the tool missed. For a blind domain, the tool first asks for the human's own list and saves it, and only then shows its detections, so the list cannot be shaped by them. Technologies the human notices only after seeing the tool's output are marked `after_seeing_tool` and left out of the blind recall.
+  - **Names:** typed names are matched to the rule names (case-insensitive, with suggestions for near misses), so "google analytics" and the tool's "Google Analytics" are the same label. A technology the rules do not know is kept as typed with `in_rules: false`: a miss that no rule could have caught is a different finding from a rule that failed.
+  - **Who labelled:** every label has `found_by: "me"`, so a second opinion (e.g. another person, or a BuiltWith lookup confirmed in DevTools) can be added later without redoing anything. Every answer is saved at once, atomically.
+- **Why:** blind labels measure recall without the tool's influence; a random review sample measures precision without choosing easy cases.
+- **Consequences:**
+  - Recall is "recall against what one careful human found in DevTools": technologies the human did not recognise are missing from the list, so recall is likely overestimated. The README must say so.
+  - 10 + 10 domains are a small sample: every rate will be reported with its counts (e.g. "90% (45/50)"), never as a bare percentage.
   - Some sites redefine built-ins (Wix redefines `Object`, `Number`...), which then appear among their variables: that is the site's own doing, not noise from the baseline.

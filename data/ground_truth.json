@@ -1,0 +1,33 @@
+{
+  "format": 1,
+  "blind_rule": "every 20th input row, picked by position before the tool existed",
+  "review_rule": "10 domains at random (seed 20261119) among domains with status ok, not redirected elsewhere, not in the blind set",
+  "sets": {
+    "blind": [
+      "clotting-guide.online",
+      "rionecontrastanga.net",
+      "loizillon.com",
+      "seringa-safaris.com",
+      "massageforworldpeace.com",
+      "nevsproductions.com",
+      "littlerockafamily.de",
+      "appelpsychotherapy.com",
+      "1stlocksheathscouts.org.uk",
+      "rivithead.com"
+    ],
+    "review": [
+      "fluxar.com.ar",
+      "footasylum.com",
+      "mehmetefendimacedonia.com",
+      "xn--kleoghvidevareservice-qfc.dk",
+      "handycars.com",
+      "5rcircleprocess.weebly.com",
+      "hoffmaninstitute.co.uk",
+      "insieme.stanford.edu",
+      "newbeaverborough.org",
+      "sevecoitalia.com"
+    ]
+  },
+  "domains": {},
+  "review_seed": 20261119
+}
