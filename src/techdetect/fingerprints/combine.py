@@ -86,8 +86,9 @@ class TechnologyResult:
     name: str
     confidence: int
     versions: tuple[str, ...]  # every distinct version found, in order of discovery
-    tier: str  # "observed" if any group is, else "declared"
-    groups: tuple[PatternGroup, ...]
+    tier: str  # "observed" if any group is, else "declared"; "inferred" if only implied
+    groups: tuple[PatternGroup, ...]  # empty for an inferred technology
+    implied_by: str | None = None  # the technology whose `implies` rule added it
 
 
 def _unique(values: Iterable[str]) -> tuple[str, ...]:
