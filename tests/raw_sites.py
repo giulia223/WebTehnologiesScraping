@@ -30,10 +30,11 @@ class Site:
         cookies: list[dict[str, Any]] | None = None,
         status: str = "ok",
         error_category: str | None = None,
+        final_url: str | None = None,
     ) -> "Site":
         # A bare name is a file in tests/fixtures/pages/.
         shutil.copy(page if isinstance(page, Path) else PAGES / page, self.folder / "static.html")
-        final_url = f"https://{self.host}/"
+        final_url = final_url or f"https://{self.host}/"
         self._write(
             "static.json",
             {

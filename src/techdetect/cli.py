@@ -5,6 +5,7 @@ report, plus `rules` to inspect the fingerprint rules. Commands not built yet ar
 """
 
 import asyncio
+import time
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -27,6 +28,13 @@ from techdetect.collect.tls_probe import collect_tls
 from techdetect.collect.wellknown import collect_wellknown
 from techdetect.config import Config
 from techdetect.console import use_utf8_output
+from techdetect.detect import (
+    NotFinishedError,
+    check_run_complete,
+    default_workers,
+    detect_all,
+    write_outputs,
+)
 from techdetect.domains import Domain, LoadResult, load_domains
 from techdetect.fingerprints.loader import load_rules
 
@@ -249,11 +257,72 @@ def rules(rules_dir: RulesDirOpt = None, include_candidates: CandidatesOpt = Fal
     typer.echo(ruleset.report.format(ruleset.version))
 
 
+AllowPartialOpt = Annotated[
+    bool,
+    typer.Option(
+        "--allow-partial",
+        help="Run on a raw folder whose collection did not finish (summary.json says so).",
+    ),
+]
+MinConfidenceOpt = Annotated[
+    int,
+    typer.Option(
+        "--min-confidence",
+        min=0,
+        max=100,
+        help="Count only detections at or above this confidence (default 0: all, "
+        "as Wappalyzer). detections.jsonl always keeps every detection.",
+    ),
+]
+WorkersOpt = Annotated[
+    int | None,
+    typer.Option("--workers", min=1, help="Processes matching domains in parallel."),
+]
+
+
 @app.command()
-def detect(raw_dir: RawDirOpt = None, output_dir: OutputDirOpt = None) -> None:
+def detect(
+    input_path: InputOpt = None,
+    raw_dir: RawDirOpt = None,
+    output_dir: OutputDirOpt = None,
+    rules_dir: RulesDirOpt = None,
+    include_candidates: CandidatesOpt = False,
+    allow_partial: AllowPartialOpt = False,
+    min_confidence: MinConfidenceOpt = 0,
+    workers: WorkersOpt = None,
+) -> None:
     """Find technologies in saved raw artifacts (offline)."""
-    config = Config().with_overrides(raw_dir=raw_dir, output_dir=output_dir)
-    _not_implemented("detect", config)
+    config = Config().with_overrides(
+        input_path=input_path, raw_dir=raw_dir, output_dir=output_dir, rules_dir=rules_dir
+    )
+    try:
+        complete = check_run_complete(config.raw_dir, allow_partial)
+    except NotFinishedError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=1) from None
+
+    domains = _load_and_report(config).domains
+    ruleset = load_rules(config.rules_dir, include_candidates=include_candidates)
+    started = time.perf_counter()
+    lines = detect_all(
+        config.raw_dir,
+        domains,
+        config.rules_dir,
+        include_candidates=include_candidates,
+        workers=workers or default_workers(),
+    )
+    outputs = write_outputs(lines, ruleset, config.output_dir, min_confidence, partial=not complete)
+    unique = outputs.summary["unique_technologies"]
+    per_domain = outputs.summary["core_per_domain"]
+    typer.echo(
+        f"{len(lines)} domains in {time.perf_counter() - started:.0f} s; "
+        f"core technologies: {unique['core']}, extended total: {unique['extended_total']} "
+        f"({', '.join(f'{g} {n}' for g, n in unique['separately'].items())})"
+    )
+    typer.echo(
+        f"average core technologies per domain: {per_domain['average']} "
+        f"({per_domain['denominator']}); outputs in {config.output_dir}"
+    )
 
 
 @app.command()

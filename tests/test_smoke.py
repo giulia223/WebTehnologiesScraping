@@ -10,7 +10,7 @@ from techdetect.config import Config
 
 runner = CliRunner()
 COMMANDS = ["collect", "rules", "detect", "evaluate", "report"]
-STUBS = ["detect", "evaluate", "report"]
+STUBS = ["evaluate", "report"]
 
 
 def test_help_lists_all_commands() -> None:
