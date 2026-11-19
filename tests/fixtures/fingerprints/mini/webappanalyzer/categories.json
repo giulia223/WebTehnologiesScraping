@@ -1,0 +1,4 @@
+{
+  "1": {"groups": [1], "name": "CMS", "priority": 1},
+  "2": {"groups": [1], "name": "Analytics", "priority": 2}
+}

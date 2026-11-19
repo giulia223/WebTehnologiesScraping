@@ -1,0 +1,4 @@
+{
+  "Alpha": {"cats": [2], "html": ["alpha-custom-marker"]},
+  "Delta": {"cats": [2], "website": "https://delta.example", "headers": {"X-Delta": ""}}
+}

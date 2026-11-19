@@ -18,7 +18,7 @@ import dns.rdatatype
 import dns.resolver
 
 from techdetect.collect.provenance import provenance_header
-from techdetect.collect.runner import run_per_domain
+from techdetect.collect.runner import OnResult, run_per_domain
 from techdetect.collect.storage import domain_dir, write_json_atomic
 from techdetect.config import Config
 from techdetect.domains import Domain
@@ -41,6 +41,9 @@ def planned_queries(host: str) -> list[tuple[str, str]]:
         (host, "MX"),
         (host, "NS"),
         (host, "TXT"),
+        # The zone's primary name server and admin mailbox, often naming the DNS host;
+        # webappanalyzer has rules on it. A subdomain without its own zone: no_answer.
+        (host, "SOA"),
         # DMARC policy lives on a fixed subdomain; it can name a mail-security vendor.
         (f"_dmarc.{host}", "TXT"),
     ]
@@ -100,7 +103,7 @@ async def probe_dns(
     """All planned queries for one host, run at the same time; the dns.json content."""
     provenance = provenance_header(config)
     start = time.perf_counter()
-    # The 10 small queries go out together: one domain takes as long as its slowest query.
+    # The small queries go out together: one domain takes as long as its slowest query.
     records = await asyncio.gather(
         *(run_query(resolve, name, rdtype) for name, rdtype in planned_queries(host))
     )
@@ -119,6 +122,7 @@ async def collect_dns(
     domains: list[Domain],
     config: Config,
     resolver: tuple[Resolve, list[str]] | None = None,
+    on_result: OnResult | None = None,
 ) -> list[dict[str, Any]]:
     """Probe and save every domain, at most config.concurrency domains at a time."""
     resolve, nameservers = resolver or system_resolver(config.dns_timeout_s)
@@ -128,4 +132,4 @@ async def collect_dns(
         write_json_atomic(domain_dir(config.raw_dir, domain.host) / "dns.json", result)
         return result
 
-    return await run_per_domain(domains, config.concurrency, one)
+    return await run_per_domain(domains, config.concurrency, one, on_result)

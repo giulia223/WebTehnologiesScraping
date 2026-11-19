@@ -42,4 +42,14 @@ Purpose: real problems found while building. This file feeds README debate quest
 - Status: send request with en-us
 - How I'd tackle it (now, and at scale):
 ```
+
+```
+##  DNS probe did not query SOA records
+- Date found: 2026-11-17
+- Found by: Claude
+- Where: collect/dns_probe.py (DNS step), found while loading the webappanalyzer rules
+- What happens: 51 webappanalyzer `dns` rules match the SOA record (the zone's primary name server and admin mailbox, e.g. a DNS host's name), but the probe only asked for A, AAAA, CNAME, MX, NS and TXT, so those rules could never match.
+- Status: fixed in task 3.1 (SOA added to the probe; the exact input host is queried, so a subdomain without its own zone records no_answer)
+- How I'd tackle it (now, and at scale): check the record types the loaded rules use against the types the probe asks for, so a rule update that adds a new type is noticed instead of silently never matching.
+```
 ---

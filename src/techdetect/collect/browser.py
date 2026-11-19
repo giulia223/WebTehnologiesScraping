@@ -4,7 +4,8 @@ For every domain a headless Chromium tries https://d, https://www.d and http://d
 same order and success rule as the static fetch, but on its own: it never reads
 static.json), lets the page settle, and writes data/raw/<domain>/rendered.html (the DOM
 after JavaScript), screenshot.jpg, and browser.json (attempts, final URL, cookies,
-scripts, meta tags, iframes, with a provenance header).
+scripts, meta tags, iframes, every request, the values of the JavaScript variables the
+rules ask about, with a provenance header and the rule-set version).
 
 A bot challenge is recorded and left alone: no headed retry, no attempt to pass it.
 """
@@ -30,11 +31,12 @@ from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 
 from techdetect.collect.challenge import detect_challenge
 from techdetect.collect.provenance import provenance_header
-from techdetect.collect.runner import run_per_domain
+from techdetect.collect.runner import OnResult, run_per_domain
 from techdetect.collect.static_fetch import candidate_urls, choose_attempt, classify_status
 from techdetect.collect.storage import domain_dir, sha256_hex, write_atomic, write_json_atomic
 from techdetect.config import Config
 from techdetect.domains import Domain
+from techdetect.fingerprints.loader import load_rules
 
 VIEWPORT = {"width": 1366, "height": 768}
 NETWORKIDLE_TIMEOUT_MS = 8_000
@@ -44,6 +46,8 @@ SETTLE_MS = 2_000
 SCREENSHOT_QUALITY = 40
 INLINE_SCRIPT_CAP = 50 * 1024
 INLINE_TOTAL_CAP = 200 * 1024
+MAX_JS_VALUE_CHARS = 1000  # a version string is short; this keeps browser.json small
+MAX_WINDOW_KEYS = 2000
 
 # Recorded, then aborted: their URL is the evidence; their bytes cost time and say nothing.
 BLOCKED_TYPES = frozenset({"image", "font", "media"})
@@ -94,6 +98,64 @@ _SCROLL_JS = """async ([stepMs, maxSteps]) => {
   }
   window.scrollTo(0, 0);
 }"""
+
+# Reads every JavaScript property chain the rules ask about ("jQuery.fn.jquery"), the way
+# Wappalyzer's own driver did (getJs in driver.js): `a[b]` is read as `a.b`; a first part
+# that is a plain name is looked up as a global (also finds `let`/`const` globals, which
+# are not properties of window), else the walk starts at window; each step must be the
+# object's own property, so inherited getters are never triggered; strings and numbers are
+# kept, anything else becomes true/false. Added here: each chain in its own try/catch (one
+# throwing getter must not hide the others), a fallback to window[name] when the page's
+# Content-Security-Policy forbids `new Function`, a length cap, and the window's own
+# variable names (Object.keys(window) minus the baseline taken by _BASELINE_JS, and minus
+# frame indexes "0", "1"... that every page with iframes has).
+_GLOBALS_JS = r"""([chains, maxChars]) => {
+  const MISSING = Symbol("missing");
+  const PLAIN_NAME = /^[a-z_$][a-z0-9_$]*$/i;
+  const globalValue = (name) => {
+    try {
+      return new Function(`return typeof ${name} === 'undefined' ? undefined : ${name}`)();
+    } catch (error) {
+      if (error instanceof EvalError) return window[name];
+      throw error;
+    }
+  };
+  const values = {};
+  const errors = {};
+  for (const chain of chains) {
+    try {
+      const parts = chain.replace(/\[([^\]]+)\]/g, ".$1").split(".");
+      let value = PLAIN_NAME.test(parts[0]) ? globalValue(parts.shift()) : window;
+      value = value || MISSING;
+      const own = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+      for (const part of parts) {
+        value = value && value instanceof Object && own(value, part) ? value[part] : MISSING;
+      }
+      if (value === MISSING) continue;
+      if (typeof value === "string") {
+        values[chain] = value.slice(0, maxChars);
+      } else if (typeof value === "number") {
+        values[chain] = Number.isFinite(value) ? value : String(value);  // NaN is not JSON
+      } else {
+        values[chain] = !!value;
+      }
+    } catch (error) {
+      errors[chain] = String(error).slice(0, 200);
+    }
+  }
+  const baseline = new Set(window.__techdetectBaseline || []);
+  const keys = Object.keys(window).filter((k) => !baseline.has(k) && !/^\d+$/.test(k));
+  return {values, errors, keys};
+}"""
+
+# Runs in every page before the page's own scripts (Playwright init script): remembers
+# which variables the browser itself already put on window, in this very document (same
+# origin, same https or not). Kept non-enumerable, so it never shows up in Object.keys.
+# An about:blank page is not a fair baseline: it is not a secure context, so it lacks
+# https-only names (cookieStore, caches...) that every https site would then "have".
+_BASELINE_JS = """Object.defineProperty(window, "__techdetectBaseline", {
+  value: Object.keys(window), enumerable: false, writable: false, configurable: false,
+});"""
 
 
 # ---------------------------------------------------------------- small pure helpers
@@ -287,14 +349,25 @@ class _Page:
     networkidle_reached: bool
     requests: list[dict[str, Any]]
     workers: list[dict[str, str]]
+    js: dict[str, Any]  # values, errors, keys, error (see _read_globals)
     notes: list[str] = field(default_factory=list)
 
 
 class BrowserFetcher:
-    def __init__(self, config: Config, browser: Browser, user_agent: str) -> None:
+    def __init__(
+        self,
+        config: Config,
+        browser: Browser,
+        user_agent: str,
+        js_chains: list[str] | None = None,
+        ruleset_version: str | None = None,
+    ) -> None:
         self.config = config
         self.browser = browser
         self.user_agent = user_agent
+        # Every JS chain of the loaded rules, and the rule-set version they came from.
+        self.js_chains = js_chains or []
+        self.ruleset_version = ruleset_version
 
     async def _new_context(self, ignore_https_errors: bool) -> BrowserContext:
         context = await self.browser.new_context(
@@ -308,6 +381,7 @@ class BrowserFetcher:
             ignore_https_errors=ignore_https_errors,
         )
         context.set_default_timeout(self.config.browser_timeout_s * 1000)
+        await context.add_init_script(_BASELINE_JS)
         return context
 
     async def _settle(self, page: Page, notes: list[str]) -> bool:
@@ -340,6 +414,26 @@ class BrowserFetcher:
                 await page.wait_for_load_state("domcontentloaded")
         raise AssertionError("unreachable")
 
+    async def _read_globals(self, page: Page) -> dict[str, Any]:
+        """JS chain values and the page's own variable names, read while the page is open.
+
+        They exist only in the browser's memory: detection runs offline later and can
+        never ask the page again. If reading fails as a whole, `error` says why and
+        detection must treat every chain as not checked.
+        """
+        try:
+            found = await page.evaluate(_GLOBALS_JS, [self.js_chains, MAX_JS_VALUE_CHARS])
+        except PlaywrightError as exc:
+            return {"values": {}, "errors": {}, "keys": [], "error": first_line(exc)}
+        keys = found["keys"]
+        return {
+            "values": found["values"],
+            "errors": found["errors"],
+            "keys": keys[:MAX_WINDOW_KEYS],
+            "keys_dropped": max(0, len(keys) - MAX_WINDOW_KEYS),
+            "error": None,
+        }
+
     async def _load(self, context: BrowserContext, url: str) -> _Page:
         page = await context.new_page()
         documents: list[Response] = []
@@ -360,6 +454,7 @@ class BrowserFetcher:
             notes: list[str] = []
             reached = await self._settle(page, notes)
             html, dom = await self._read(page)
+            js = await self._read_globals(page)
             last = documents[-1] if documents else None
             headers = [(h["name"], h["value"]) for h in await last.headers_array()] if last else []
             sent = await last.request.header_value("accept-language") if last else None
@@ -377,6 +472,7 @@ class BrowserFetcher:
                 networkidle_reached=reached,
                 requests=requests,
                 workers=workers,
+                js=js,
                 notes=notes,
             )
         finally:
@@ -461,6 +557,9 @@ class BrowserFetcher:
         ok = record["outcome"] == "ok"
         scripts = page.dom if page else {"external": [], "inline": []}
         inline, inline_bytes, dropped = cap_inline_scripts(scripts["inline"])
+        no_js = {"values": {}, "errors": {}, "keys": [], "error": "no page was loaded"}
+        js = page.js if page else no_js
+        js_read = js["error"] is None
         result = {
             "provenance": provenance_header(
                 self.config,
@@ -495,6 +594,16 @@ class BrowserFetcher:
             "iframes": page.frames if page else [],
             "workers": page.workers if page else [],
             "requests": page.requests if page else [],
+            # Detection treats a `js` rule whose chain is not in js_chains_asked as not
+            # checked (never as absent): e.g. a rule added after this crawl, or a page
+            # where reading failed. A new js rule therefore needs a browser re-run.
+            "ruleset_version": self.ruleset_version,
+            "js_chains_asked": self.js_chains if js_read else [],
+            "js_globals": js["values"],
+            "js_chain_errors": js["errors"],
+            "js_globals_error": js["error"],
+            "window_keys": js["keys"],
+            "window_keys_dropped": js.get("keys_dropped", 0),
             "elapsed_ms": round((time.perf_counter() - start) * 1000),
             "attempts": attempts,
         }
@@ -546,19 +655,29 @@ async def launch_browser(playwright: Playwright, config: Config) -> Browser:
     )
 
 
-async def collect_browser(domains: list[Domain], config: Config) -> list[dict[str, Any]]:
+async def collect_browser(
+    domains: list[Domain], config: Config, on_result: OnResult | None = None
+) -> list[dict[str, Any]]:
     """Load and save every domain, at most config.browser_concurrency pages at a time."""
+    # Rules first: a broken rule file stops the run before any site is visited.
+    rules = load_rules(config.rules_dir)
     async with async_playwright() as playwright:
         browser = await launch_browser(playwright, config)
         try:
             user_agent = browser_user_agent(await default_user_agent(browser), config.browser_tag)
-            fetcher = BrowserFetcher(config, browser, user_agent)
+            fetcher = BrowserFetcher(
+                config,
+                browser,
+                user_agent,
+                js_chains=rules.js_chains(),
+                ruleset_version=rules.version,
+            )
 
             async def one(domain: Domain) -> dict[str, Any]:
                 result, page = await fetcher.fetch(domain.host)
                 save_browser(config.raw_dir, domain.host, result, page)
                 return result
 
-            return await run_per_domain(domains, config.browser_concurrency, one)
+            return await run_per_domain(domains, config.browser_concurrency, one, on_result)
         finally:
             await browser.close()

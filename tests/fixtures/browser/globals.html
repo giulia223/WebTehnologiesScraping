@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<title>Globals fixture</title>
+<script>
+window.FooLib = {version: "1.2"};
+window.Nested = {inner: {count: 42}};
+window.EmptyValue = null;
+// A `const` global is not a property of window; Wappalyzer's lookup still finds it.
+const LexicalLib = {version: "3.0"};
+// A getter that throws: reading it must not stop the other chains or the crawl.
+Object.defineProperty(window, "Trap", {
+  enumerable: true,
+  get() { throw new Error("getter exploded"); },
+});
+// Only own properties count: an inherited value is not read.
+window.Proto = Object.create({inherited: "no"});
+</script>
+</head>
+<body><p>Globals fixture.</p></body>
+</html>

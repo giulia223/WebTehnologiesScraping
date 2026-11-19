@@ -1,0 +1,12 @@
+{
+  "Epsilon": {
+    "cats": [2],
+    "website": "https://e.example",
+    "xhr": "e\\.example/collect",
+    "status": "proposed",
+    "seen_on": 3
+  },
+  "Zeta": {"cats": [2], "website": "https://z.example", "scriptSrc": "z\\.example", "status": "accepted"},
+  "Eta": {"cats": [2], "website": "https://h.example", "scriptSrc": "h\\.example", "status": "rejected"},
+  "Theta": {"cats": [2], "website": "https://t.example", "scriptSrc": "t\\.example"}
+}

@@ -18,7 +18,7 @@ from urllib.parse import urlsplit
 import httpx
 
 from techdetect.collect.provenance import provenance_header
-from techdetect.collect.runner import run_per_domain
+from techdetect.collect.runner import OnResult, run_per_domain
 from techdetect.collect.static_fetch import (
     ClientFactory,
     classify_error,
@@ -164,7 +164,10 @@ def save_wellknown(raw_dir: Path, host: str, result: dict[str, Any], body: bytes
 
 
 async def collect_wellknown(
-    domains: list[Domain], config: Config, client_factory: ClientFactory | None = None
+    domains: list[Domain],
+    config: Config,
+    client_factory: ClientFactory | None = None,
+    on_result: OnResult | None = None,
 ) -> list[dict[str, Any]]:
     """Fetch and save every domain's robots.txt, at most config.concurrency at a time."""
     fetcher = RobotsFetcher(config, client_factory or default_client_factory(config))
@@ -174,4 +177,4 @@ async def collect_wellknown(
         save_wellknown(config.raw_dir, domain.host, result, body)
         return result
 
-    return await run_per_domain(domains, config.concurrency, one)
+    return await run_per_domain(domains, config.concurrency, one, on_result)

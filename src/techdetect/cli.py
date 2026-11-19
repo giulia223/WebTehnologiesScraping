@@ -1,24 +1,34 @@
 """Command-line entry point: `techdetect <command>`.
 
-The four commands mirror the pipeline: collect (network) -> detect (offline)
--> evaluate -> report. They are stubs until their tasks are implemented.
+The commands mirror the pipeline: collect (network) -> detect (offline) -> evaluate ->
+report, plus `rules` to inspect the fingerprint rules. Commands not built yet are stubs.
 """
 
 import asyncio
-from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import Annotated, Any
 
 import typer
+from rich.console import Console
+from rich.table import Table
 
 from techdetect.collect.browser import collect_browser
 from techdetect.collect.dns_probe import collect_dns
+from techdetect.collect.run import (
+    RUN_COMPLETE,
+    STEPS,
+    Collector,
+    FinishedRunError,
+    parse_steps,
+    run_collect,
+)
 from techdetect.collect.static_fetch import collect_static
 from techdetect.collect.tls_probe import collect_tls
 from techdetect.collect.wellknown import collect_wellknown
 from techdetect.config import Config
 from techdetect.console import use_utf8_output
-from techdetect.domains import LoadResult, load_domains
+from techdetect.domains import Domain, LoadResult, load_domains
+from techdetect.fingerprints.loader import load_rules
 
 app = typer.Typer(
     help="Detect website technologies with evidence.",
@@ -35,8 +45,22 @@ def main() -> None:
 
 # Every flag defaults to None, meaning "not passed": the Config default then applies.
 InputOpt = Annotated[Path | None, typer.Option("--input", help="Domain list to crawl.")]
-RawDirOpt = Annotated[Path | None, typer.Option("--raw-dir", help="Raw artifacts folder.")]
+RawDirOpt = Annotated[
+    Path | None, typer.Option("--raw-dir", "--raw", help="Raw artifacts folder (data/raw).")
+]
+# For collect the raw folder is its output; --raw-dir is kept as an alias.
+CollectOutOpt = Annotated[
+    Path | None, typer.Option("--out", "--raw-dir", help="Raw artifacts folder (data/raw).")
+]
 OutputDirOpt = Annotated[Path | None, typer.Option("--output-dir", help="Results folder.")]
+RulesDirOpt = Annotated[Path | None, typer.Option("--rules-dir", help="Fingerprint rules folder.")]
+CandidatesOpt = Annotated[
+    bool,
+    typer.Option(
+        "--include-candidates",
+        help="Also load candidate rules marked proposed or accepted (never rejected).",
+    ),
+]
 ConcurrencyOpt = Annotated[
     int | None,
     typer.Option(
@@ -55,16 +79,21 @@ OnlyOpt = Annotated[
     str | None,
     typer.Option(
         "--only",
-        help="Run one step only: static, dns, tls, wellknown or browser. "
-        "tls and wellknown use static.json when it exists, so run static first.",
+        help=f"Comma-separated steps to run ({','.join(STEPS)}); default: all. "
+        "tls and wellknown use static.json, so static runs first.",
     ),
 ]
 LimitOpt = Annotated[
     int | None, typer.Option("--limit", min=1, help="Use only the first N valid domains.")
 ]
-
-IMPLEMENTED_STEPS = {"static", "dns", "tls", "wellknown", "browser"}
-Collector = Callable[..., Awaitable[list[dict[str, Any]]]]
+OverwriteOpt = Annotated[
+    bool,
+    typer.Option(
+        "--overwrite",
+        help="Collect into a folder that already holds a finished run; only the chosen "
+        "steps' files are replaced.",
+    ),
+]
 
 
 def _not_implemented(command: str, config: Config) -> None:
@@ -88,13 +117,14 @@ def _load_and_report(config: Config) -> LoadResult:
 @app.command()
 def collect(
     input_path: InputOpt = None,
-    raw_dir: RawDirOpt = None,
+    raw_dir: CollectOutOpt = None,
     concurrency: ConcurrencyOpt = None,
     static_timeout_s: TimeoutOpt = None,
     user_agent: UserAgentOpt = None,
     dry_run: DryRunOpt = False,
     only: OnlyOpt = None,
     limit: LimitOpt = None,
+    overwrite: OverwriteOpt = False,
 ) -> None:
     """Fetch raw artifacts for each domain (network)."""
     config = Config().with_overrides(
@@ -106,9 +136,11 @@ def collect(
         static_timeout_s=static_timeout_s,
         user_agent=user_agent,
     )
-    if only is not None and only not in IMPLEMENTED_STEPS:
-        typer.echo(f"--only {only}: implemented steps are {sorted(IMPLEMENTED_STEPS)}", err=True)
-        raise typer.Exit(code=1)
+    try:
+        steps = parse_steps(only)
+    except ValueError as exc:
+        typer.echo(f"--only {only}: {exc}", err=True)
+        raise typer.Exit(code=1) from None
 
     loaded = _load_and_report(config)
     domains = loaded.domains[:limit] if limit else loaded.domains
@@ -118,19 +150,29 @@ def collect(
             shown = f"  ({domain.display_name})" if domain.display_name != domain.host else ""
             typer.echo(f"{domain.row:>4}  {domain.host}{shown}")
         return
-    if only is None:
-        _not_implemented("collect", config)
-        return
 
-    results = asyncio.run(_collector(only)(domains, config))
-    for result in results:
-        detail = result.get("error") if result["status"] == "crashed" else _detail(only, result)
-        typer.echo(f"{result['domain']:45} {result['status']:8} {detail}")
-    ok = sum(r["status"] == "ok" for r in results)
-    typer.echo(f"{only}: {ok}/{len(results)} ok, artifacts in {config.raw_dir}")
+    typer.echo(f"steps: {', '.join(steps)} -> {config.raw_dir}")
+    try:
+        complete = asyncio.run(
+            run_collect(
+                domains,
+                config,
+                steps,
+                _collectors(),
+                overwrite=overwrite,
+                input_label=str(config.input_path),
+                limit=limit,
+                progress=_print_progress,
+            )
+        )
+    except FinishedRunError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=1) from None
+    _print_summary(complete)
+    typer.echo(f"run complete: {config.raw_dir / RUN_COMPLETE}")
 
 
-def _collector(step: str) -> Collector:
+def _collectors() -> dict[str, Collector]:
     # Looked up at call time (not stored in a module-level dict) so tests can replace one.
     return {
         "static": collect_static,
@@ -138,7 +180,17 @@ def _collector(step: str) -> Collector:
         "tls": collect_tls,
         "wellknown": collect_wellknown,
         "browser": collect_browser,
-    }[step]
+    }
+
+
+def _print_progress(step: str, domain: Domain, result: dict[str, Any], duration_ms: int) -> None:
+    status = result.get("status", "?")
+    try:
+        detail = result.get("error") if status == "crashed" else _detail(step, result)
+    except (KeyError, TypeError, IndexError):
+        # A progress line must never stop a crawl; the full result is on disk anyway.
+        detail = ""
+    typer.echo(f"{step:9} {domain.host:45} {status:8} {duration_ms / 1000:6.1f}s  {detail}")
 
 
 def _detail(step: str, result: dict[str, Any]) -> str:
@@ -165,6 +217,36 @@ def _detail(step: str, result: dict[str, Any]) -> str:
         return f"{robots['error_category']} {robots['url']}"
     reason = f" {robots['reason']}" if robots["reason"] else ""
     return f"{robots['outcome']}{reason} (HTTP {robots['http_status']}) {robots['url']}"
+
+
+def _print_summary(complete: dict[str, Any]) -> None:
+    """Success and failure per step and per error category, as read back from disk."""
+    table = Table(title=f"collect: {complete['domains']} domains (counts read from disk)")
+    for column in ("step", "ok", "failed", "missing", "failures by category", "avg s/domain"):
+        table.add_column(
+            column, justify="left" if column in ("step", "failures by category") else "right"
+        )
+    averages = complete["avg_seconds_per_domain"]
+    for step, counts in complete["counts"].items():
+        categories = ", ".join(f"{c} {n}" for c, n in counts["by_category"].items()) or "-"
+        ran_now = step in complete["steps_run_now"]
+        table.add_row(
+            step if ran_now else f"{step} (earlier run)",
+            str(counts["ok"]),
+            str(counts["failed"]),
+            str(counts["missing"]),
+            categories,
+            f"{averages[step]:.2f}" if step in averages else "-",
+        )
+    Console().print(table)
+
+
+@app.command()
+def rules(rules_dir: RulesDirOpt = None, include_candidates: CandidatesOpt = False) -> None:
+    """Load the fingerprint rules and print the load report (offline)."""
+    config = Config().with_overrides(rules_dir=rules_dir)
+    ruleset = load_rules(config.rules_dir, include_candidates=include_candidates)
+    typer.echo(ruleset.report.format(ruleset.version))
 
 
 @app.command()

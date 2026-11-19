@@ -28,7 +28,7 @@ from selectolax.lexbor import LexborHTMLParser
 
 from techdetect.collect.challenge import detect_challenge
 from techdetect.collect.provenance import provenance_header
-from techdetect.collect.runner import run_per_domain
+from techdetect.collect.runner import OnResult, run_per_domain
 from techdetect.collect.storage import domain_dir, sha256_hex, write_atomic, write_json_atomic
 from techdetect.config import Config
 from techdetect.domains import Domain
@@ -456,6 +456,7 @@ async def collect_static(
     config: Config,
     client_factory: ClientFactory | None = None,
     sleep: Sleep = asyncio.sleep,
+    on_result: OnResult | None = None,
 ) -> list[dict[str, Any]]:
     """Fetch and save every domain, at most config.concurrency at a time."""
     fetcher = StaticFetcher(config, client_factory or default_client_factory(config), sleep)
@@ -465,7 +466,7 @@ async def collect_static(
         save_static(config.raw_dir, domain.host, result, body)
         return result
 
-    return await run_per_domain(domains, config.concurrency, one)
+    return await run_per_domain(domains, config.concurrency, one, on_result)
 
 
 def static_final_url(raw_dir: Path, host: str) -> str | None:

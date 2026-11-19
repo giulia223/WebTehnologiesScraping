@@ -70,6 +70,7 @@ def test_platform_subdomain_is_queried_exactly_never_its_parent() -> None:
         ("x.weebly.com", "MX"),
         ("x.weebly.com", "NS"),
         ("x.weebly.com", "TXT"),
+        ("x.weebly.com", "SOA"),
         ("_dmarc.x.weebly.com", "TXT"),
     }
     assert set(resolver.asked) == expected
@@ -102,6 +103,14 @@ def test_records_ttl_and_cname_chain() -> None:
     assert mx["ttl"] == 3600
     assert "canonical_name" not in mx
     assert result["status"] == "ok"
+
+
+def test_soa_is_recorded_as_text() -> None:
+    soa = "ns-123.awsdns-15.com. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400"
+    table = {("d.com", "SOA"): answer("d.com", "SOA", f"d.com. 900 IN SOA {soa}")}
+    result, _ = probe(table, "d.com")
+
+    assert query(result, "d.com", "SOA")["records"] == [soa]
 
 
 def test_txt_split_into_255_byte_strings_is_joined() -> None:

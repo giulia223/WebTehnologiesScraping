@@ -17,9 +17,7 @@ def _header(headers: Sequence[tuple[str, str]], name: str) -> str:
     return " ".join(value for key, value in headers if key.lower() == name).lower()
 
 
-def detect_challenge(
-    status: int, headers: Sequence[tuple[str, str]], body: bytes
-) -> str | None:
+def detect_challenge(status: int, headers: Sequence[tuple[str, str]], body: bytes) -> str | None:
     """Return the vendor name ("cloudflare", "datadome", "akamai") or None."""
     text = body.decode("utf-8", errors="replace").lower()
     server = _header(headers, "server")

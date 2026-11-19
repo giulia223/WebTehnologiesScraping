@@ -23,7 +23,7 @@ from urllib.parse import urlsplit
 import httpx
 
 from techdetect.collect.provenance import provenance_header
-from techdetect.collect.runner import run_per_domain
+from techdetect.collect.runner import OnResult, run_per_domain
 from techdetect.collect.static_fetch import classify_error, describe_error, static_final_url
 from techdetect.collect.storage import domain_dir, sha256_hex, write_json_atomic
 from techdetect.config import Config
@@ -185,7 +185,10 @@ async def probe_tls(host: str, config: Config, connect: Connect) -> dict[str, An
 
 
 async def collect_tls(
-    domains: list[Domain], config: Config, connect: Connect | None = None
+    domains: list[Domain],
+    config: Config,
+    connect: Connect | None = None,
+    on_result: OnResult | None = None,
 ) -> list[dict[str, Any]]:
     """Probe and save every domain, at most config.concurrency at a time."""
     # Same budget as the static fetch: both wait on the same kind of server.
@@ -196,4 +199,4 @@ async def collect_tls(
         write_json_atomic(domain_dir(config.raw_dir, domain.host) / "tls.json", result)
         return result
 
-    return await run_per_domain(domains, config.concurrency, one)
+    return await run_per_domain(domains, config.concurrency, one, on_result)
