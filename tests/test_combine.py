@@ -36,7 +36,10 @@ HINT_RULES = {
 def hint_index(tmp_path_factory: pytest.TempPathFactory) -> RuleIndex:
     rules_dir = tmp_path_factory.mktemp("rules") / "rules"
     shutil.copytree(MINI_RULES, rules_dir)
-    (rules_dir / "custom" / "hints.json").write_text(json.dumps(HINT_RULES), encoding="utf-8")
+    (rules_dir / "custom" / "hints.json").write_text(
+        json.dumps({n: {**r, "reviewed_by": "human"} for n, r in HINT_RULES.items()}),
+        encoding="utf-8",
+    )
     return RuleIndex(load_rules(rules_dir))
 
 

@@ -267,7 +267,9 @@ def test_slow_pattern_times_out_and_is_reported(
     rules_dir = tmp_path / "rules"
     shutil.copytree(MINI_RULES, rules_dir)
     slow = {"Slow": {"cats": [1], "html": ["(a|aa)+c"]}, "Fast": {"cats": [1], "html": ["aaa"]}}
-    (rules_dir / "custom" / "slow.json").write_text(json.dumps(slow), encoding="utf-8")
+    (rules_dir / "custom" / "slow.json").write_text(
+        json.dumps({n: {**r, "reviewed_by": "human"} for n, r in slow.items()}), encoding="utf-8"
+    )
     monkeypatch.setattr(matcher, "REGEX_TIMEOUT_S", 0.05)
 
     page = tmp_path / "slow.html"

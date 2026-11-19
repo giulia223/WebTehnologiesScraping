@@ -372,4 +372,18 @@ Template:
 - **Consequences:**
   - Recall is "recall against what one careful human found in DevTools": technologies the human did not recognise are missing from the list, so recall is likely overestimated. The README must say so.
   - 10 + 10 domains are a small sample: every rate will be reported with its counts (e.g. "90% (45/50)"), never as a bare percentage.
+
+## D-020 Candidate rules: nothing written by a script or an AI is counted before a human accepts it
+- **Date:** 2026-11-19
+- **Context:** Coverage will grow with rules we write ourselves, many of them drafted by scripts or AI agents (DNS records, unknown third-party hosts). A wrong rule silently adds false detections to every domain it matches; an AI can also invent a plausible vendor URL and quote.
+- **Options considered and decision:**
+  - **Two folders:** proposed rules go to `fingerprints/candidates/` (webappanalyzer's format plus review fields: `status`, `seen_on`, `examples`, `source_url`, `source_quote`, `source_verified`, `origin`, `review_note`); reviewed rules live in `fingerprints/custom/`, which the normal run loads. Rejected: writing agent rules straight into `custom/` and reviewing later, which counts them before anyone looked.
+  - **Review:** `techdetect candidates review` shows each `proposed` rule with its source, whether the source was actually checked (`source_verified`), its origin (`data`, `entity_list`, or `llm_suggested`, the least trusted), and what the rule really matches on its example domains' saved data (offline). Only the human's answer sets `accepted` or `rejected`; skipping leaves it `proposed`. Rules can also be edited by hand in the JSON.
+  - **Promote:** `techdetect candidates promote` moves only `accepted` rules into `custom/` (same file name), adds `reviewed_by: human` and the date, never overwrites a rule already there, and prints what moved. `proposed` and `rejected` rules stay in `candidates/`.
+  - **A second lock in the loader:** a rule in `custom/` without `reviewed_by: "human"` is not loaded and is listed in the load report. This also catches a rule copied into `custom/` by hand without review.
+  - Candidates can still be tried before review with `--include-candidates` (only `proposed` or `accepted`, never `rejected`), for measuring; the normal run never loads them.
+- **Why:** `source_verified` and the live preview turn "the AI says so" into something a human can check in a minute; the stamp makes "reviewed" a property of every counted rule, not a habit.
+- **Consequences:**
+  - Every custom rule carries who reviewed it and when; the rule-set version hash changes with every promotion, so runs before and after are told apart.
+  - Our own test rules carry `reviewed_by: "human"` too, since they go through the same loader.
   - Some sites redefine built-ins (Wix redefines `Object`, `Number`...), which then appear among their variables: that is the site's own doing, not noise from the baseline.

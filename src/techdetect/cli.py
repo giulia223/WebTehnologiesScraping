@@ -45,7 +45,9 @@ from techdetect.evaluate.labels import (
     save_ground_truth,
 )
 from techdetect.evaluate.session import label_domain
+from techdetect.fingerprints.candidates import promote
 from techdetect.fingerprints.loader import load_rules
+from techdetect.fingerprints.review import candidate_summary, review_candidates
 
 app = typer.Typer(
     help="Detect website technologies with evidence.",
@@ -264,6 +266,36 @@ def rules(rules_dir: RulesDirOpt = None, include_candidates: CandidatesOpt = Fal
     config = Config().with_overrides(rules_dir=rules_dir)
     ruleset = load_rules(config.rules_dir, include_candidates=include_candidates)
     typer.echo(ruleset.report.format(ruleset.version))
+
+
+candidates_app = typer.Typer(
+    help="Proposed rules: review them, then promote the accepted ones into custom/.",
+    no_args_is_help=True,
+)
+app.add_typer(candidates_app, name="candidates")
+
+
+@candidates_app.command("review")
+def candidates_review(rules_dir: RulesDirOpt = None, raw_dir: RawDirOpt = None) -> None:
+    """Accept or reject each proposed rule, seeing what it matches on saved data."""
+    config = Config().with_overrides(rules_dir=rules_dir, raw_dir=raw_dir)
+    base = load_rules(config.rules_dir)  # for category names
+    review_candidates(config.rules_dir / "candidates", base, config.raw_dir)
+
+
+@candidates_app.command("promote")
+def candidates_promote(rules_dir: RulesDirOpt = None) -> None:
+    """Move only `accepted` rules into custom/, stamped reviewed_by: human and dated."""
+    config = Config().with_overrides(rules_dir=rules_dir)
+    try:
+        moved = promote(config.rules_dir / "candidates", config.rules_dir / "custom")
+    except ValueError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=1) from None
+    for name in moved:
+        typer.echo(f"promoted {name}")
+    left = candidate_summary(config.rules_dir / "candidates")
+    typer.echo(f"{len(moved)} promoted; still in candidates/: {left or 'nothing'}")
 
 
 AllowPartialOpt = Annotated[

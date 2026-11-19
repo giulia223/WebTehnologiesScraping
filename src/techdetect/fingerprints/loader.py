@@ -123,6 +123,7 @@ class LoadReport:
     unknown_tags: Counter[str] = field(default_factory=Counter)
     merged: list[str] = field(default_factory=list)  # custom/candidate names already known
     candidates_left_out: Counter[str] = field(default_factory=Counter)  # status -> count
+    unreviewed_custom: list[str] = field(default_factory=list)  # custom rules not loaded
     unknown_relations: list[tuple[str, str, str]] = field(default_factory=list)
     unknown_categories: list[tuple[str, int]] = field(default_factory=list)
     candidates_loaded: bool = False
@@ -161,6 +162,11 @@ class LoadReport:
             lines.append(f"fields not used (techs having them): {dict(self.ignored_fields)}")
         if self.merged:
             lines.append(f"merged into existing technologies: {', '.join(self.merged)}")
+        if self.unreviewed_custom:
+            lines.append(
+                "custom rules NOT loaded (no reviewed_by: human): "
+                + ", ".join(self.unreviewed_custom)
+            )
         if self.candidates_left_out:
             lines.append(f"candidates left out, by status: {dict(self.candidates_left_out)}")
         lines.append(f"relations naming an unknown technology: {len(self.unknown_relations)}")
@@ -458,7 +464,7 @@ def _load_folder(
     for path in sorted(folder.glob("*.json")):
         report.files[origin] += 1
         for name, rule in _read_json(path).items():
-            if keep is not None and not keep(rule):
+            if keep is not None and not keep(name, rule):
                 continue
             used[name] = rule
             tech = parse_technology(name, rule, origin, report)
@@ -480,13 +486,22 @@ def load_rules(rules_dir: Path, include_candidates: bool = False) -> RuleSet:
     technologies: dict[str, Technology] = {}
 
     _load_folder(upstream_dir / "technologies", "webappanalyzer", technologies, report)
-    custom = _load_folder(rules_dir / "custom", "custom", technologies, report)
+
+    def reviewed(name: str, rule: dict[str, Any]) -> bool:
+        # Only rules a human reviewed reach the results (see candidates.promote);
+        # anything else in custom/ is left out and listed, never counted silently.
+        if rule.get("reviewed_by") == "human":
+            return True
+        report.unreviewed_custom.append(name)
+        return False
+
+    custom = _load_folder(rules_dir / "custom", "custom", technologies, report, keep=reviewed)
     version = f"webappanalyzer@{report.upstream.get('commit', 'unknown')[:12]}"
     version += f"+custom:{content_hash(custom) if custom else 'none'}"
 
     if include_candidates:
 
-        def reviewable(rule: dict[str, Any]) -> bool:
+        def reviewable(name: str, rule: dict[str, Any]) -> bool:
             status = rule.get("status")
             if status in CANDIDATE_STATUSES:
                 return True
