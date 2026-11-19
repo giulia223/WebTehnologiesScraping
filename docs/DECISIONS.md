@@ -302,4 +302,22 @@ Template:
   - Speed on one process, measured on the 200 collected domains: median 1 s per domain, 2-6 s for pages near 1 MB, about 5 minutes in total (all 15,838 patterns, two pages each; no search hit the time limit). Joining `scriptSrc` patterns into alternations to cut the number of searches was tried and measured slower (4.2 s against 1.6 s on 379 script URLs), because the `regex` module tries every alternative at every position; it was removed. Domains are independent, so `detect` can match them in parallel processes.
   - A host whose suffix is not on the Public Suffix List (e.g. `.example` in tests) is its own registered domain, so its subdomains do not count as the same site.
   - A `cdnjs` match will later imply Cloudflare (a webappanalyzer `implies` rule), as an inferred technology, even though no Cloudflare evidence is matched here.
+
+## D-016 Confidence formula: one pattern counts once, sum capped at 100
+- **Date:** 2026-11-19
+- **Context:** A technology is usually found by several clues. Each rule pattern carries a confidence: the rule author's estimate of how strong that clue is (untagged patterns = 100, `\;confidence:50` = 50). **Confidence is not a measured probability of being right; measured accuracy is precision, against hand-checked labels.** The clues of one technology must be combined into one number.
+- **Options considered:**
+  1. **Wappalyzer's sum**, verified in its last published code (npm `wappalyzer@6.10.66`, `wappalyzer.js`, `resolve()`): for every detection of a technology, `confidence = Math.min(100, confidence + pattern.confidence)`. Every *match* adds, so one weak pattern found on two pages, or in eight script URLs, reaches 100.
+  2. **The same sum, but each pattern counted once:** matches are grouped by (technology, field, name, pattern); each group adds its confidence once, however many times and in however many artifacts it matched. Different patterns still add up; the total is capped at 100.
+  3. **Noisy-OR:** `1 - (1 - c1) x (1 - c2) x ...` with confidences as fractions, from the "noisy-OR gate" in Bayesian networks (Judea Pearl, *Probabilistic Reasoning in Intelligent Systems*, 1988); used for this same challenge by stamatierobert9/Veridion-Project. Two hints at 50 give 75 instead of 100. It assumes the clues are independent.
+- **Decision:** option 2, in one small function (`combine_confidence`) so noisy-OR can be swapped in and measured later.
+- **Why:**
+  - The same pattern seen again is the same clue, not new evidence: a 50-confidence script name in 8 script tags on two pages is still one hint (50, with `match_count: 16`), while two different 50 patterns are two hints (100).
+  - Apart from that, it is Wappalyzer's formula, so results stay comparable with Wappalyzer-style tools.
+  - Weakness: two weak hints become "certain" (50 + 50 = 100). Noisy-OR would say 75; whether that changes precision is measured, not assumed.
+- **Versions** (same function family, from Wappalyzer's `resolveVersion()` and `resolve()`): group N of the match replaces `\N` in the template; `\N?a:b` gives `a` if group N matched something, else `b`; a group longer than 10 characters is not used; leftover references are removed. A version is kept only if it is non-empty, at most 15 characters and not a timestamp-like number (Wappalyzer: "Ignore long numeric strings like timestamps"). Unlike Wappalyzer, which kept only the longest version, every distinct version is kept (`1.12.4` and `3.6.0` when both are on the page).
+- **Consequences:**
+  - Each technology result lists its pattern groups with `match_count`, the artifacts they matched in, and up to 3 example matches, preferring different places.
+  - On 60 of the collected domains (900 technology results: 890 at 100, 2 at 50, 8 at 0), counting each pattern once changed no confidence compared with Wappalyzer's every-match sum: almost every pattern is already worth 100. The rule matters only for weak patterns, which are rare in the rule set (about 200 of 15,838).
+  - Rule authors use `confidence:0` for hints they do not trust alone; such a technology stays at 0 unless another clue adds to it, and is still reported (the confidence threshold defaults to 0).
   - Some sites redefine built-ins (Wix redefines `Object`, `Number`...), which then appear among their variables: that is the site's own doing, not noise from the baseline.
