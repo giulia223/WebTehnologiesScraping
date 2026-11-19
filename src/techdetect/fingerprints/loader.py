@@ -118,6 +118,7 @@ class LoadReport:
     patterns_by_field: Counter[str] = field(default_factory=Counter)
     patterns_by_confidence: Counter[int] = field(default_factory=Counter)
     skipped: list[Skipped] = field(default_factory=list)
+    converted: list[Skipped] = field(default_factory=list)  # JS-only escapes rewritten
     ignored_fields: Counter[str] = field(default_factory=Counter)  # field -> techs
     unknown_tags: Counter[str] = field(default_factory=Counter)
     merged: list[str] = field(default_factory=list)  # custom/candidate names already known
@@ -152,6 +153,8 @@ class LoadReport:
             f"skipped patterns: {len(self.skipped)}",
         ]
         lines += [f"  {s.technology} [{s.field}] {s.pattern!r}: {s.reason}" for s in self.skipped]
+        lines.append(f"patterns with JavaScript-only escapes rewritten: {len(self.converted)}")
+        lines += [f"  {s.technology} [{s.field}] {s.pattern!r}: {s.reason}" for s in self.converted]
         if self.unknown_tags:
             lines.append(f"unknown pattern tags (ignored): {dict(self.unknown_tags)}")
         if self.ignored_fields:
@@ -209,6 +212,37 @@ def split_tags(raw: Any) -> tuple[str, dict[str, str]]:
     return head, attrs
 
 
+# Letters that are real escapes in a JavaScript RegExp (without the `u` flag). Any other
+# backslash + letter is just that letter in JavaScript, but can mean something else in
+# Python: "\A" is "start of text", "\a" is the bell character.
+JS_ESCAPE_LETTERS = frozenset("dDwWsSbBtnvfrcxuk")
+
+
+def js_regex_to_python(text: str) -> tuple[str, int]:
+    """Rewrite JavaScript-only escapes so the pattern means in Python what its author meant.
+
+    Returns the pattern and how many escapes were changed. Only "backslash + letter that
+    JavaScript treats as a plain letter" is changed; everything else is kept as written.
+    """
+    out: list[str] = []
+    changed = 0
+    i = 0
+    while i < len(text):
+        char = text[i]
+        if char == "\\" and i + 1 < len(text):
+            following = text[i + 1]
+            if following.isascii() and following.isalpha() and following not in JS_ESCAPE_LETTERS:
+                out.append(following)
+                changed += 1
+            else:
+                out.append(char + following)  # also keeps "\\" (an escaped backslash) whole
+            i += 2
+            continue
+        out.append(char)
+        i += 1
+    return "".join(out), changed
+
+
 def parse_pattern(
     raw: Any,
     field_name: str,
@@ -229,6 +263,9 @@ def parse_pattern(
             )
         )
         return None
+    text, changed = js_regex_to_python(text)
+    if changed:
+        report.converted.append(Skipped(tech, field_name, str(raw), f"{changed} JS escape(s)"))
     try:
         # Rules are written for JavaScript's RegExp; the `regex` module accepts this
         # syntax (lookbehind, named groups...). Anything it rejects is counted, not fixed.

@@ -265,4 +265,41 @@ Template:
   - A re-run after an interruption repeats work already done (minutes at this size).
   - The tool version is the last commit; it cannot tell whether the working tree had uncommitted changes when the run happened.
   - In a 10-domain trial the average time per domain was about 1.5 s static, 1.8 s DNS, 0.8 s TLS, 1.1 s robots.txt and 5.9 s browser (38 s in total with concurrency 10 for HTTP steps and 4 for the browser). These are trial numbers, not the full-run measurement.
+
+## D-015 Matcher: what each rule field is matched against, and what counts as the site
+- **Date:** 2026-11-19
+- **Context:** The rules were written for Wappalyzer's engine, which matched each field against a specific piece of page data. Our data comes from saved artifacts (two pages, headers, cookies, requests, DNS, certificate, robots.txt), and some of it belongs to third parties (a CDN, a widget) rather than to the site.
+- **Options considered and decision:**
+  - **Field to data,** following Wappalyzer's `analyze()` (wappalyzer.js) and its driver (driver.js), npm `wappalyzer@6.10.66`:
+
+    | Field | Matched against | From |
+    |---|---|---|
+    | `html` | the whole page | `static.html`, `rendered.html` (each separately) |
+    | `text` | the page's visible text | both pages |
+    | `url` | the page's final URL | both pages |
+    | `scriptSrc` | each `<script src>`, made absolute | both pages |
+    | `meta` | `<meta name/property>` -> content | both pages |
+    | `dom` | elements by CSS selector: present / text / attribute | both pages (selectolax, offline) |
+    | `headers` | header name -> value, same site only | static redirect steps and final page; browser main document and document/script responses |
+    | `cookies` | cookie name -> value, same site only | static and browser cookies |
+    | `js` | JS chain -> value (true/false written as JavaScript writes them) | `browser.json` |
+    | `xhr` | the host name of each xhr / fetch request | `browser.json` requests |
+    | `dns` | record type -> records (CNAME of host and www) | `dns.json` |
+    | `certIssuer` | issuer organisation and common name | `tls.json`, only if the certificate covers the host |
+    | `robots` | the file's text | `robots.txt` |
+
+    `xhr` takes fetch requests too: Wappalyzer's driver listened for XHR only, but Chrome's extension API, which its browser extension used, reports `fetch()` as XHR, and modern trackers use `fetch`.
+  - **Same site (headers, cookies):** only responses and cookies on the site's registered domain(s): the input's, plus a final URL's when the site redirected to another registered domain (registered domains from tldextract's bundled Public Suffix List, offline). So `cf-ray` on `static.<site>` counts, but `cf-ray` on `cdnjs.cloudflare.com` or a widget's `PHPSESSID` does not. Rejected: the main page only (Wappalyzer's driver), which misses the site's own asset hosts; it remains a one-line switch if precision measurements show false positives. `scriptSrc` and `xhr` still match third-party URLs: naming third parties is their purpose.
+  - **Which pages are matched:** only a page whose step reached a real page (`status: ok`). A challenge page belongs to the bot-protection vendor, and an error page may belong to a host or parking service, so neither is matched. DNS, TLS and robots.txt are matched whatever happened to the pages.
+  - **Tier:** `declared` for `meta`, `robots` and DNS TXT records (the site states something: a generator tag, a verification token); `observed` for everything else, including DNS MX/NS/CNAME/SOA, which show a service in use.
+  - **Not checkable:** `scripts` and `css` (file contents are not saved), `dom` properties (exist only in a live browser), `js` chains the browser was not asked about, and `js`/`xhr` when no browser page was loaded. They are counted per domain as not checked, never treated as absent.
+  - **Evidence:** technology, field, key, artifact, the rule text, confidence, version template, regex groups, matched value (up to 200 characters), context (40 characters each side), location (the URL or host), tier. For presence rules (an empty pattern: "this header exists") the value itself is shown, and for a `dom` element the element's markup, so every record shows its proof.
+  - **Slow patterns:** every search has a 0.5 s time limit (the `regex` module's `timeout`); a timeout is recorded and the other patterns still run. This replaces Wappalyzer's rewrite of `+` / `*` into `{1,250}` (see D-012). Measured cost of the limit: about 25 % more time on `html` patterns.
+  - **One wildcard:** Google Analytics' cookie rule `_ga_*` (GA4 cookies are named `_ga_<id>`) is read as a wildcard; it is the only rule name with `*`.
+  - **JavaScript escapes (loader):** a JavaScript regex `\A` or `\a` means the letter A; in Python they mean "start of text" and "bell". The loader rewrites such escapes to the plain letter (4 patterns at the pinned rule set: `\APC\b`, `\Asendia\b`, `openpay\.com.\au`, `\api\.sizemeai\.com`) and lists them in the load report.
+- **Why:** each rule then meets the data its author wrote it for, and the same-site rule keeps a site from being credited with its suppliers' servers.
+- **Consequences:**
+  - Speed on one process, measured on the 200 collected domains: median 1 s per domain, 2-6 s for pages near 1 MB, about 5 minutes in total (all 15,838 patterns, two pages each; no search hit the time limit). Joining `scriptSrc` patterns into alternations to cut the number of searches was tried and measured slower (4.2 s against 1.6 s on 379 script URLs), because the `regex` module tries every alternative at every position; it was removed. Domains are independent, so `detect` can match them in parallel processes.
+  - A host whose suffix is not on the Public Suffix List (e.g. `.example` in tests) is its own registered domain, so its subdomains do not count as the same site.
+  - A `cdnjs` match will later imply Cloudflare (a webappanalyzer `implies` rule), as an inferred technology, even though no Cloudflare evidence is matched here.
   - Some sites redefine built-ins (Wix redefines `Object`, `Number`...), which then appear among their variables: that is the site's own doing, not noise from the baseline.
