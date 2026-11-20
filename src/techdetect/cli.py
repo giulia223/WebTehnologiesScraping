@@ -24,6 +24,7 @@ from techdetect.collect.run import (
     run_collect,
 )
 from techdetect.collect.static_fetch import collect_static
+from techdetect.collect.storage import write_json_atomic
 from techdetect.collect.tls_probe import collect_tls
 from techdetect.collect.wellknown import collect_wellknown
 from techdetect.config import Config
@@ -45,6 +46,8 @@ from techdetect.evaluate.labels import (
     read_all_detections,
     save_ground_truth,
 )
+from techdetect.evaluate.metrics import compute, rate
+from techdetect.evaluate.metrics_report import render
 from techdetect.evaluate.session import label_domain
 from techdetect.fingerprints.candidates import promote
 from techdetect.fingerprints.loader import load_rules
@@ -368,7 +371,7 @@ def detect(
 
 
 evaluate_app = typer.Typer(
-    help="Hand labels (ground truth); precision and recall come later.", no_args_is_help=True
+    help="Hand labels (ground truth), precision and recall.", no_args_is_help=True
 )
 app.add_typer(evaluate_app, name="evaluate")
 GroundTruthOpt = Annotated[
@@ -462,6 +465,39 @@ def label_command(
         raise typer.Exit(code=1)
     names = sorted(load_rules(config.rules_dir).technologies)
     label_domain(domain, config.ground_truth_path, config.output_dir, names, relabel=relabel)
+
+
+@evaluate_app.command("metrics")
+def metrics_command(
+    output_dir: OutputDirOpt = None,
+    ground_truth: GroundTruthOpt = None,
+    report_path: Annotated[
+        Path, typer.Option("--report", help="Where to write the readable report.")
+    ] = Path("docs/METRICS.md"),
+) -> None:
+    """Precision, recall and F1 from the labels; every false positive with its evidence."""
+    config = Config().with_overrides(output_dir=output_dir, ground_truth_path=ground_truth)
+    data = load_ground_truth(config.ground_truth_path)
+    if not data["sets"]["blind"]:
+        typer.echo("No sets yet: run `techdetect evaluate pick-review` first.", err=True)
+        raise typer.Exit(code=1)
+    lines = {line["domain"]: line for line in read_all_detections(config.output_dir)}
+    metrics = compute(data, lines)
+    write_json_atomic(config.output_dir / "metrics.json", metrics)
+    report_path.write_text(render(metrics), encoding="utf-8")
+    for h in metrics["headline"]:
+        f1 = f"{h['f1']:.2f}" if h["f1"] is not None else "n/a"
+        typer.echo(
+            f"threshold {h['threshold']:>2}: precision {rate(*h['precision'])}, "
+            f"recall {rate(*h['recall'])}, F1 {f1}, unsure {h['unsure']}"
+        )
+    if metrics["unlabelled"] or metrics["stale"]:
+        typer.echo(
+            f"warning: {len(metrics['unlabelled'])} detections without a verdict, "
+            f"{len(metrics['stale'])} verdicts for detections no longer reported",
+            err=True,
+        )
+    typer.echo(f"wrote {report_path} and {config.output_dir / 'metrics.json'}")
 
 
 @app.command()

@@ -415,7 +415,28 @@ Template:
 - **Decision:** (a). The definitions also fix the other cases the reviewers met: web features (HSTS, HTTP/3, Open Graph...) count when present; page code counts when it runs on the page, whoever loaded it; a mention (text, a security-policy header, a logo) is not use; an inference is correct only when certain (WordPress -> PHP yes, WordPress -> MySQL unsure); a wrong version does not make a detection wrong.
 - **Why:** the output is a lead list. "Uses Cloudflare" tells a salesperson the company chose and pays for Cloudflare; for a therapist's Wix site that is false, and the lead is wasted.
 - **Consequences:**
-  - 14 labels changed from correct to wrong on the 3 platform sites (appelpsychotherapy.com on Wix, massageforworldpeace.com on IONOS MyWebsite, 5rcircleprocess.weebly.com on Weebly); each keeps its original verdict and reason. The same items in the blind hand-made lists (8 entries) are kept but marked `counts: false`, so recall does not ask the tool to find what precision calls wrong.
+  - 14 labels changed from correct to wrong on the 3 platform sites (appelpsychotherapy.com on Wix, massageforworldpeace.com on IONOS MyWebsite, 5rcircleprocess.weebly.com on Weebly); each keeps its original verdict and reason. The same items in the blind hand-made lists (6 entries: Cloudflare, Varnish, Let's Encrypt and Sentry on the Wix site, Apache and Sectigo on the IONOS one) are kept but marked `counts: false`, so recall does not ask the tool to find what precision calls wrong.
   - Page code a platform bundles (React on Wix, jQuery on Weebly) still counts. That follows the same "who chose it" logic less strictly; it is kept because the code really runs on the page and because the independent blind lists counted it. To be looked at again together with (a).
   - The detector still reports platform infrastructure: it has no notion of "this site is on a hosted builder" yet. Those detections now count as false positives until a rule change handles them.
   - Precision labels are by automated reviewers following the definitions, with the platform rule decided by a person. The README must say so.
+
+## D-023 Metrics: how precision, recall and F1 are computed
+- **Date:** 2026-11-20
+- **Context:** The labels (D-019, D-022) give a verdict on every detection of 20 domains and an independent list of technologies for 10 of them. How they are turned into numbers decides what the numbers mean. `techdetect evaluate metrics` writes `docs/METRICS.md` and `data/output/metrics.json`.
+- **Options considered and decision:**
+  - **Precision uses both sets.** Every detection of the 20 domains has a verdict, so all of them measure precision (the blind set is also reported on its own). Rejected: review set only, which would throw away 134 judged detections.
+  - **Unsure is left out of the percentage and shown with its count.** Counting it as wrong would punish undecidable cases (WordPress implies MySQL, but it could be MariaDB); counting it as correct would hide them.
+  - **Recall counts a technology as found if the tool reports it in any group** (core, DNS-only, inferred, themes): the inspection's list mixes website, plugin and DNS findings, and the tool reports all of them. It is also given "where a rule exists": a miss with no rule by that name is a coverage gap, a miss with a rule is a rule or collection failure.
+  - **Labels are matched to the current detections by name, with the current confidence.** After a re-run, detections without a verdict ("unlabelled") and verdicts whose detection is gone ("stale") are counted and shown as a warning, so old labels never silently measure new output.
+  - **Thresholds 0, 50, 80** apply to precision and recall alike; F1 combines precision (both sets) with recall (blind set).
+  - Every rate is written with its counts; a breakdown with fewer than 10 judged detections says "too few to measure".
+- **Why:** with 20 domains every rate is uncertain; showing counts, unsure and stale labels lets a reader judge how much to trust each number.
+- **Consequences:** first measurement (Run 2b's detections, threshold 0): precision 90% (299/334) with 13 unsure, recall 65% (74/113), recall where a rule exists 85% (74/87), F1 0.76. The F1 mixes a 20-domain precision with a 10-domain recall; it is a summary, not a third measurement.
+
+## D-024 Confidence threshold: kept at 0
+- **Date:** 2026-11-20
+- **Context:** Every rule carries a confidence (the rule author's estimate, 0-100). A threshold above 0 would drop detections below it. Task 4.2 measured precision per confidence level on the 20 labelled domains (`docs/METRICS.md`, "By confidence").
+- **Options considered:** keep 0 (count everything, like Wappalyzer); 50; 80.
+- **Decision:** keep 0.
+- **Why:** 332 of the 334 judged detections have confidence 100 (precision 90%, 299/332). Only 2 are below 50, both wrong (Lodash at confidence 0, really Underscore): a threshold would remove them, but 2 cases are not a measurement, and recall is the same at 0, 50 and 80. Most false positives are at confidence 100, from rules that match the wrong thing (gtag.js read as Google Tag Manager, a hosted platform's infrastructure, a mention in a header); a threshold cannot fix those, fixing the rules can.
+- **Consequences:** the 2 low-confidence false positives stay counted until the Lodash / Underscore rule is fixed. To be measured again once more labels exist.
