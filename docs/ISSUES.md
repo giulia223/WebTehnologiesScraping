@@ -44,12 +44,33 @@ Purpose: real problems found while building. This file feeds README debate quest
 ```
 
 ```
-##  DNS probe did not query SOA records
-- Date found: 2026-11-17
-- Found by: Claude
-- Where: collect/dns_probe.py (DNS step), found while loading the webappanalyzer rules
-- What happens: 51 webappanalyzer `dns` rules match the SOA record (the zone's primary name server and admin mailbox, e.g. a DNS host's name), but the probe only asked for A, AAAA, CNAME, MX, NS and TXT, so those rules could never match.
-- Status: fixed in task 3.1 (SOA added to the probe; the exact input host is queried, so a subdomain without its own zone records no_answer)
-- How I'd tackle it (now, and at scale): check the record types the loaded rules use against the types the probe asks for, so a rule update that adds a new type is noticed instead of silently never matching.
+##  bot check only for the headless browser, plain HTTP gets the page
+- Date found: 20.11
+- Found by: Claude (blind inspection, task 0.3)
+- Where: 1stlocksheathscouts.org.uk
+- What happens: Cloudflare shows the headless Chrome a "Verify you are human" check (HTTP 403, Turnstile), while a plain HTTP request (curl with a browser user-agent) gets the real page. So everything that only appears after JavaScript runs (analytics, embeds, JS globals, cookies set by scripts) cannot be seen; only the page source, headers and robots.txt can. In our own crawl it was the reverse (plain HTTP got the check, the browser got the page): which client is blocked varies between visits.
+- Status: open (accepted for now: we do not try to get past protections)
+- How I'd tackle it (now, and at scale): now, report which signals could not be checked on such sites (the static page still counts) and keep the static fetch as a fallback. At scale, measure how many sites block only the browser, and decide per site which tier to use instead of always running the browser.
 ```
+
+tested by hand:
+- jcmobilecigars.com, 11853prospecthill.com, wglchurch.com, nwmotorinn.com, verticalcommunitychurch.com, tamcconstruction.net -> name doesn t resolve
+- 1ststopsupply.com  aardvarkelectriccorp.com, 1stclairavewest.com -> error 1001 and nesecurizate
+- gogroupauto.com howellmotors.com - worked but with site doesn c accept a secured sonexion.  huberautomotive.com - worked, concrete-fitness.edan.io - cloudfare check
+- stwanna - Sorry, you have been blocked
+You are unable to access dealercenterwebsite.net
+- fisherinvestments.com - 403
+- aida-cruises.at,  ecolab.com roccofortehotels.cn  brucebournesold.com -> worked
+- everhartsoutdoor.com site doesn c accept a secured sonexion.
+- juanmunozhomesmart.com - Sorry for the inconvenience, this site is currently under construction... is this your website?
+- chavchavadze-m2-41-tbilisi.booked.net - 404
+-  2ldm.com - Sucuri Website Firewall - Not Configured
+-  eclairage-solaire-occitanie.com  - domain not connected to a site
+-  startravelcompany.com. 400
+- branson-connection.com redirect with claoude not robot and human verification with pressing keys
+- dioxoxigenio.com.br works
+- den-a-sha.co.jp  works
+-  miratrade.com.tr coming soon
+- maiquotes.net conexion not secure
+- 
 ---
