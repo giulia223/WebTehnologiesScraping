@@ -283,7 +283,144 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Apache HTTP Server": {
+          "verdict": "correct",
+          "note": "Header server: Apache on every response (static.json, browser.json).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Stylesheet /wp-content/plugins/button-block/public/css/font-awesome.min.css is loaded and fa/far fa-* icon classes are used in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "Stylesheet link to //fonts.googleapis.com in static.html and rendered.html.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Kaira Vogue": {
+          "verdict": "correct",
+          "note": "Theme files /wp-content/themes/vogue/js/custom.js and link#vogue-style-css (themes/vogue/style.css) are loaded.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "themes",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json certificate for www.clotting-guide.online is issued by Let's Encrypt.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Polylang": {
+          "verdict": "correct",
+          "note": "Cookie pll_language=de set on www.clotting-guide.online (browser.json); the redirect also carries x-redirect-by: Polylang.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Priority Hints": {
+          "verdict": "correct",
+          "note": "script#jetpack-stats-js has fetchpriority=\"low\" in static.html and rendered.html.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RSS": {
+          "verdict": "correct",
+          "note": "<link type=\"application/rss+xml\"> feed links in the page head.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "React": {
+          "verdict": "correct",
+          "note": "browser.json global React.version = 18.3.1 (WordPress-bundled react.min.js, running on the page).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Twitter Emoji (Twemoji)": {
+          "verdict": "correct",
+          "note": "Global twemoji present in browser.json (wp-emoji-release.min.js).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WordPress": {
+          "verdict": "correct",
+          "note": "Meta generator 'WordPress 7.1.5', /wp-includes/ scripts and Link rel=\"https://api.w.org/\" header.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WordPress Block Editor": {
+          "verdict": "correct",
+          "note": "Block markup rendered on the page (div.wp-block-search__inside-wrapper, wp-block-group containers).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "World4You": {
+          "verdict": "correct",
+          "note": "dns.json SOA primary ns1.world4you.at (NS are World4You), so DNS is hosted at World4You.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "Script c0.wp.com/.../jquery.min.js loaded and global jQuery.fn.jquery = 3.7.1.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery Migrate": {
+          "verdict": "correct",
+          "note": "Script jquery-migrate.min.js loaded and global jQuery.migrateVersion = 3.4.1.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "Implied by WordPress, which is written in PHP, so PHP is certain whenever WordPress is (WordPress itself is proven by the generator tag and /wp-content/ assets).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Implied by WordPress only; WordPress runs on MySQL or MariaDB (or other drop-ins), and no saved artifact names the database, so MySQL is not certain.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:43Z",
       "site_status_label": "works"
@@ -602,7 +739,240 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Chart.js": {
+          "verdict": "unsure",
+          "note": "Only a generic global named Chart (tool confidence 50); no Chart.js file is requested, it would come from the Bridge theme bundle js/plugins.js whose content is not saved, so the library cannot be confirmed.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 50,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Contact Form 7": {
+          "verdict": "correct",
+          "note": "Scripts /wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.9.8 loaded and global wpcf7 present.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Stylesheet /wp-content/themes/bridge/css/font-awesome/css/font-awesome.min.css loaded and fa fa-* classes in use.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "GSAP": {
+          "verdict": "correct",
+          "note": "Globals TweenLite.version and TweenMax.version = 1.19.0 (LayerSlider greensock.js and Bridge TweenLite.min.js are loaded).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "Stylesheet //fonts.googleapis.com/css?family=Raleway... linked in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HTTP/3": {
+          "verdict": "correct",
+          "note": "Header alt-svc: h3=\":443\" on the main page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Instagram Feed for WordPress": {
+          "verdict": "correct",
+          "note": "Script /wp-content/plugins/instagram-feed/js/sbi-scripts.min.js?ver=6.16.0 loaded (this is the Smash Balloon plugin, so it duplicates the 'Smash Balloon Instagram Feed' row).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Isotope": {
+          "verdict": "correct",
+          "note": "Global Isotope present; isotope.pkgd.min.js is loaded from the js_composer plugin.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Joinchat": {
+          "verdict": "correct",
+          "note": "Script /wp-content/plugins/creame-whatsapp-me/public/js/joinchat.min.js?ver=6.4.4 loaded and global joinchat_obj present.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json certificate is issued by Let's Encrypt.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Masonry": {
+          "verdict": "correct",
+          "note": "Global Masonry with Masonry.Item exists; it is the Masonry layout bundled in the loaded isotope.pkgd.min.js (Isotope's default layout mode), so the library is loaded and running.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "MediaElement.js": {
+          "verdict": "correct",
+          "note": "Globals mejs with mejs.version = 2.13.0 present in browser.json.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Modernizr": {
+          "verdict": "correct",
+          "note": "Global Modernizr._version = 2.6.2 present in browser.json.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "Header x-powered-by: PHP/7.4.34 on the main page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RSS": {
+          "verdict": "correct",
+          "note": "<link type=\"application/rss+xml\"> feed links in the page head.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Really Simple SSL & Security": {
+          "verdict": "correct",
+          "note": "<body data-rsssl=\"1\">, the attribute added by the Really Simple SSL plugin.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Skrollr": {
+          "verdict": "correct",
+          "note": "Global skrollr.VERSION = 0.6.10 present (used by the Bridge theme's initQodeElementAnimationSkrollr).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Slider Revolution": {
+          "verdict": "correct",
+          "note": "Meta generator 'Powered by Slider Revolution 6.8.1', /wp-content/plugins/revslider/public/js/sr7.js loaded, global revapi1.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Smash Balloon Instagram Feed": {
+          "verdict": "correct",
+          "note": "Script /wp-content/plugins/instagram-feed/js/sbi-scripts.min.js?ver=6.16.0 and plugin stylesheet loaded.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Twitter Emoji (Twemoji)": {
+          "verdict": "correct",
+          "note": "Global twemoji present (wp-emoji-release.min.js loaded).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WhatsApp Business Chat": {
+          "verdict": "correct",
+          "note": "The Joinchat WhatsApp chat button plugin (creame-whatsapp-me/public/js/joinchat.min.js) is loaded; it is the same widget as the Joinchat row.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WordPress": {
+          "verdict": "correct",
+          "note": "Meta generator 'WordPress 6.5.15', /wp-includes/ scripts and Link rel=\"https://api.w.org/\" header.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "core-js": {
+          "verdict": "correct",
+          "note": "Global __core-js_shared__ with versions[0].version = 3.35.1 present in browser.json.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "imagesLoaded": {
+          "verdict": "correct",
+          "note": "Script /wp-content/themes/bridge/js/plugins/imagesloaded.js is loaded (the reported version 6.5.15 is the WordPress ?ver, not the library version).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "Script /wp-includes/js/jquery/jquery.min.js?ver=3.7.1 loaded and jQuery.fn.jquery = 3.7.1.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery Migrate": {
+          "verdict": "correct",
+          "note": "Script jquery-migrate.min.js?ver=3.4.1 loaded and jQuery.migrateVersion = 3.4.1.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "Global jQuery.ui.version present; /wp-includes/js/jquery/ui/core.min.js and widgets are loaded.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "wpBakery": {
+          "verdict": "correct",
+          "note": "Meta generator 'Powered by WPBakery Page Builder'; js_composer_front.min.js is loaded and global wpb_prepare_tab_content exists.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "declared"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Implied by WordPress only; WordPress runs on MySQL or MariaDB (or other drop-ins), and no saved artifact names the database, so MySQL is not certain.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:44Z",
       "site_status_label": "works"
@@ -859,7 +1229,160 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Bootstrap": {
+          "verdict": "correct",
+          "note": "Stylesheet /assets/bootstrap-....css loaded and Bootstrap JS present (jQuery.fn.tooltip.Constructor.VERSION = 3.3.4).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Stylesheet cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css loaded and fa fa-* classes used.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Analytics": {
+          "verdict": "correct",
+          "note": "Script www.googletagmanager.com/gtag/js?id=G-HCJ5MXKWJ2 (GA4) is loaded and runs (consent defaults to denied, but the library is installed).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Tag Manager": {
+          "verdict": "wrong",
+          "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HSTS": {
+          "verdict": "correct",
+          "note": "Header strict-transport-security: max-age=15724800; includeSubDomains.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Isotope": {
+          "verdict": "correct",
+          "note": "Global Isotope present; /assets/isotope.pkgd.min-....js is loaded.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Java": {
+          "verdict": "correct",
+          "note": "Server sets cookie JSESSIONID (Java servlet session) in the main document's set-cookie header.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json certificate for www.loizillon.com is issued by Let's Encrypt.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Masonry": {
+          "verdict": "correct",
+          "note": "Global Masonry with Masonry.Item exists; it is the Masonry layout bundled in the loaded isotope.pkgd.min.js (Isotope's default layout mode), so the library is loaded and running.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "OVHcloud": {
+          "verdict": "correct",
+          "note": "dns.json NS ns18.ovh.net / dns18.ovh.net and SOA at ovh.net: DNS hosted by OVHcloud.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "OWL Carousel": {
+          "verdict": "correct",
+          "note": "Script /assets/include/carousel-plugin/owl.carousel.min-....js is loaded.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "meta property=\"og:title\" present in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Swiper": {
+          "verdict": "correct",
+          "note": "Global Swiper present in browser.json (window_keys).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "cdnjs": {
+          "verdict": "correct",
+          "note": "Stylesheet and webfonts loaded from cdnjs.cloudflare.com (Font Awesome 6.5.0).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "Script cdn.drouot.com/assets?name=cpg/jquery-....js loaded and jQuery.fn.jquery = 1.12.4.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "Global jQuery.ui.version = 1.10.3 present, so jQuery UI core is loaded (from the Drouot plugin bundle).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jsDelivr": {
+          "verdict": "correct",
+          "note": "Script cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.2/dist/lazyload.min.js is loaded.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "toastr": {
+          "verdict": "correct",
+          "note": "Global toastr.version = 2.1.0 present.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cloudflare": {
+          "verdict": "wrong",
+          "note": "Inferred from cdnjs only; the site's own responses have no Cloudflare headers (no server: cloudflare, no cf-ray), cdnjs is a third-party CDN that runs on Cloudflare.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:44Z",
       "site_status_label": "works (the site of the auction house \"Acteon - Compiegne Encheres\", in French)"
@@ -981,7 +1504,64 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Apache HTTP Server": {
+          "verdict": "correct",
+          "note": "Header server: Apache on the input domain's 301 redirect (https://seringa-safaris.com/).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cloudflare": {
+          "verdict": "correct",
+          "note": "Final page seringasafaris.com has server: cloudflare, cf-ray and cf-cache-status headers.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cloudflare Bot Management": {
+          "verdict": "correct",
+          "note": "Cookie __cf_bm set on .seringasafaris.com; the page also loads /cdn-cgi/challenge-platform/scripts/jsd/main.js.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Analytics": {
+          "verdict": "correct",
+          "note": "Script googletagmanager.com/gtag/js?id=G-3E8YXZ8CD1 loaded, cookies _ga and _ga_3E8YXZ8CD1 set, global gaGlobal.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Maps": {
+          "verdict": "correct",
+          "note": "Embedded iframe src=https://www.google.com/maps?q=-23.99...&output=embed in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Tag Manager": {
+          "verdict": "wrong",
+          "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "meta property=\"og:title\" present in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:44Z",
       "site_status_label": "works"
@@ -1010,7 +1590,9 @@
           "section": "website",
           "found_by": "blind_session",
           "at": "2026-11-20T12:54:44Z",
-          "imported_from": "docs/manual_inspect_domains.md"
+          "imported_from": "docs/manual_inspect_domains.md",
+          "counts": false,
+          "not_counted_because": "Not counted under the hosted-platform rule in docs/DEFINITIONS.md: the IONOS MyWebsite platform's infrastructure, not chosen by the site's owner."
         },
         {
           "technology": "jQuery",
@@ -1070,7 +1652,9 @@
           "section": "website",
           "found_by": "blind_session",
           "at": "2026-11-20T12:54:44Z",
-          "imported_from": "docs/manual_inspect_domains.md"
+          "imported_from": "docs/manual_inspect_domains.md",
+          "counts": false,
+          "not_counted_because": "Not counted under the hosted-platform rule in docs/DEFINITIONS.md: the IONOS MyWebsite platform's infrastructure, not chosen by the site's owner."
         },
         {
           "technology": "Google Workspace",
@@ -1097,7 +1681,108 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Apache HTTP Server": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the IONOS MyWebsite platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "Header server: Apache on the redirect and the page."
+        },
+        "Google Workspace": {
+          "verdict": "correct",
+          "note": "dns.json MX aspmx.l.google.com and alt1-4.aspmx.l.google.com.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Hammer.js": {
+          "verdict": "correct",
+          "note": "Global Hammer present in browser.json.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Modernizr": {
+          "verdict": "correct",
+          "note": "Global Modernizr._version = 2.8.3.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "MyWebsite": {
+          "verdict": "correct",
+          "note": "Meta generator 'IONOS MyWebsite' in static.html and rendered.html.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "declared"
+        },
+        "MyWebsite Creator": {
+          "verdict": "wrong",
+          "note": "Matched only the editor host mywebsite-editor.com, which this Jimdo-based IONOS MyWebsite (globals diy, diysdk, jimdoData) also uses; nothing shows the separate Duda-based MyWebsite Creator product.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "meta property=\"og:type\" present in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RequireJS": {
+          "verdict": "correct",
+          "note": "Global requirejs.version = 1.0.7.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Sectigo": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the IONOS MyWebsite platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "tls.json certificate issued by Sectigo Public Server Authentication CA DV R36."
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "Global jQuery.fn.jquery = 1.11.0.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "Global jQuery.ui.version = 1.10.4 present, so jQuery UI core is loaded (part of the builder bundle).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Duda": {
+          "verdict": "wrong",
+          "note": "Inferred from the wrong MyWebsite Creator detection; the saved data shows the Jimdo-based engine (jimdoData, diy globals, cdn.initial-website.com) and no Duda marker (no dmAPI, no cdn-website.com).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:44Z",
       "site_status_label": "works"
@@ -1117,7 +1802,24 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Sectigo": {
+          "verdict": "correct",
+          "note": "tls.json: the certificate served for nevsproductions.com (SANs nevsproductions.com, www) is issued by Sectigo Limited and verifies.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Strato": {
+          "verdict": "correct",
+          "note": "dns.json SOA shades17.rzone.de / hostmaster.strato-rz.de (NS rzone.de): DNS hosted at Strato.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:44Z",
       "site_status_label": "broken (no website is served: the bare domain only redirects to www, and www points to Odoo, which has no site set up for this domain; a visitor sees a certificate warning, net::ERR_CERT_COMMON_NAME_INVALID)"
@@ -1153,7 +1855,9 @@
           "section": "website",
           "found_by": "blind_session",
           "at": "2026-11-20T12:54:44Z",
-          "imported_from": "docs/manual_inspect_domains.md"
+          "imported_from": "docs/manual_inspect_domains.md",
+          "counts": false,
+          "not_counted_because": "Not counted under the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner."
         },
         {
           "technology": "Varnish",
@@ -1165,7 +1869,9 @@
           "section": "website",
           "found_by": "blind_session",
           "at": "2026-11-20T12:54:44Z",
-          "imported_from": "docs/manual_inspect_domains.md"
+          "imported_from": "docs/manual_inspect_domains.md",
+          "counts": false,
+          "not_counted_because": "Not counted under the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner."
         },
         {
           "technology": "React",
@@ -1213,7 +1919,9 @@
           "section": "website",
           "found_by": "blind_session",
           "at": "2026-11-20T12:54:44Z",
-          "imported_from": "docs/manual_inspect_domains.md"
+          "imported_from": "docs/manual_inspect_domains.md",
+          "counts": false,
+          "not_counted_because": "Not counted under the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner."
         },
         {
           "technology": "Google Analytics",
@@ -1293,7 +2001,9 @@
           "section": "website",
           "found_by": "blind_session",
           "at": "2026-11-20T12:54:44Z",
-          "imported_from": "docs/manual_inspect_domains.md"
+          "imported_from": "docs/manual_inspect_domains.md",
+          "counts": false,
+          "not_counted_because": "Not counted under the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner."
         },
         {
           "technology": "Wix FAQ",
@@ -1370,7 +2080,194 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Amazon S3": {
+          "verdict": "wrong",
+          "note": "x-amz-server-side-encryption appears only on Wix platform files (wix-thunderbolt clientWorker bundle, static.parastorage.com): this is Wix's storage backend, not something the site uses.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Amazon Web Services": {
+          "verdict": "wrong",
+          "note": "x-amz-version-id appears only on a Wix platform file (wix-thunderbolt clientWorker bundle): supplier infrastructure, not the site's own choice.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cloudflare": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "Main document has server: cloudflare, cf-ray and cf-cache-status headers."
+        },
+        "Cloudflare Bot Management": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "Cookie __cf_bm (Cloudflare bot-product cookie) set on .www.appelpsychotherapy.com in static.json and browser.json."
+        },
+        "GSAP": {
+          "verdict": "correct",
+          "note": "Global gsapVersions present (GSAP core loaded by the Wix animations chunk, like the Wix-loaded React and Lodash).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Analytics": {
+          "verdict": "correct",
+          "note": "Script googletagmanager.com/gtag/js?id=G-S4YD61CZTN loaded and global gaGlobal present.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Tag Manager": {
+          "verdict": "wrong",
+          "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Workspace": {
+          "verdict": "correct",
+          "note": "dns.json MX aspmx.l.google.com.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "HSTS": {
+          "verdict": "correct",
+          "note": "Header strict-transport-security: max-age=31556952.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HTTP/3": {
+          "verdict": "correct",
+          "note": "Header alt-svc: h3=\":443\" on the main page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "tls.json certificate for www.appelpsychotherapy.com issued by Let's Encrypt."
+        },
+        "Lodash": {
+          "verdict": "correct",
+          "note": "Script static.parastorage.com/unpkg/lodash@4.18.1/lodash.min.js loaded and _.VERSION = 4.18.1.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "meta property=\"og:title\" present in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Priority Hints": {
+          "verdict": "correct",
+          "note": "<img fetchpriority=\"high\"> in static.html and rendered.html.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "React": {
+          "verdict": "correct",
+          "note": "Global React.version = 18.3.1 (react.production.min.js from static.parastorage.com).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RequireJS": {
+          "verdict": "correct",
+          "note": "Script requirejs-bolt@2.3.6/requirejs.min.js loaded and requirejs.version = 2.3.6.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Sentry": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "Scripts from browser.sentry-cdn.com/7.120.3 loaded and Sentry.SDK_VERSION = 7.120.3."
+        },
+        "Store Vantage": {
+          "verdict": "wrong",
+          "note": "Matched only the cookie svSession, which is Wix's own session cookie; nothing else points to Store Vantage on this Wix site.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Varnish": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "Main document header server-timing names varnish (varnish;desc=miss_hit) and x-varnish appears on same-host responses."
+        },
+        "WebsiteBuilder": {
+          "verdict": "wrong",
+          "note": "The generic pattern matched meta generator 'Wix.com Website Builder'; the site is Wix, not the WebsiteBuilder product.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "declared"
+        },
+        "Wix": {
+          "verdict": "correct",
+          "note": "Meta generator 'Wix.com Website Builder', x-wix-request-id headers and scripts from static.parastorage.com.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Wix eCommerce": {
+          "verdict": "wrong",
+          "note": "Only the text 'wixstores' in the #wix-viewer-model JSON (app catalogue references such as wixstores-client-cart-ooi); no Wix Stores script is requested, so the store code is referenced but not loaded.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:44Z",
       "site_status_label": "works"
@@ -1546,7 +2443,128 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Bluehost": {
+          "verdict": "correct",
+          "note": "SOA admin mailbox root.bluehost.com in dns.json, and the page loads /wp-content/plugins/bluehost-wordpress-plugin/... (NS are Just Host, a sister brand, so the hosting brand itself is less certain).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Cloudflare": {
+          "verdict": "correct",
+          "note": "Main document has server: cloudflare, cf-ray and cf-cache-status headers.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cloudflare Bot Management": {
+          "verdict": "correct",
+          "note": "Cookie __cf_bm set on .1stlocksheathscouts.org.uk; the headless browser was also shown a Cloudflare bot challenge.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Endurance Page Cache": {
+          "verdict": "correct",
+          "note": "Header x-endurance-cache-level on the page and same-host assets, emitted by the Endurance/Newfold cache module (value 0, i.e. the module is present though the cache level is off).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Stylesheet maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css linked in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HTTP/3": {
+          "verdict": "correct",
+          "note": "Header alt-svc: h3=\":443\" on the main page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Microsoft 365": {
+          "verdict": "correct",
+          "note": "dns.json MX ...mail.protection.outlook.com and TXT MS=ms12797387.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "meta property=\"og:url\" present in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Priority Hints": {
+          "verdict": "correct",
+          "note": "<img fetchpriority=...> in rendered.html.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RSS": {
+          "verdict": "correct",
+          "note": "<link type=\"application/rss+xml\"> feed links in the page head.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "The Events Calendar": {
+          "verdict": "correct",
+          "note": "Script /wp-content/plugins/the-events-calendar/common/build/js/user-agent.js loaded and global tribe_l10n_datatables present.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Twitter Emoji (Twemoji)": {
+          "verdict": "correct",
+          "note": "Global twemoji present (wp-emoji-release.min.js?ver=7.1.5 loaded).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WordPress": {
+          "verdict": "correct",
+          "note": "Meta generator 'WordPress 7.1.5', /wp-includes/ scripts and Link rel=\"https://api.w.org/\" header.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "Implied by WordPress, which is written in PHP, so PHP is certain whenever WordPress is (WordPress itself is proven by the generator tag and /wp-content/ assets).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Implied by WordPress only; WordPress runs on MySQL or MariaDB (or other drop-ins), and no saved artifact names the database, so MySQL is not certain.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:45Z",
       "site_status_label": "bot check for the headless browser (\"Performing security verification\", Cloudflare Turnstile \"Verify you are human\", HTTP 403); curl received the real page (HTTP 200, \"Home - 1st Locksheath Scout Group\"). Not bypassed; everything below except the Cloudflare rows comes from curl (HTML before JavaScript, headers, robots.txt)."
@@ -1638,10 +2656,1877 @@
           "imported_from": "docs/manual_inspect_domains.md"
         }
       ],
-      "verdicts": {},
+      "verdicts": {
+        "Amazon CloudFront": {
+          "verdict": "correct",
+          "note": "Site's own static subdomain images.rivithead.com answers with via: ...cloudfront.net (CloudFront) and x-amz-cf-id (swiper-bundle, header2.0.js).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Amazon Route 53": {
+          "verdict": "correct",
+          "note": "dns.json NS ns-*.awsdns-* and SOA awsdns-hostmaster.amazon.com.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Amazon Web Services": {
+          "verdict": "correct",
+          "note": "dns.json NS ns-*.awsdns-* (Route 53, an AWS service); the site's static subdomain is also on CloudFront.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Apache HTTP Server": {
+          "verdict": "correct",
+          "note": "Header server: Apache on the redirect, the page and robots.txt.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cart Functionality": {
+          "verdict": "correct",
+          "note": "Online shop with working checkout links (https://www.rivithead.com/checkout, /order-status) in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HSTS": {
+          "verdict": "correct",
+          "note": "Header strict-transport-security: max-age=63072000; includeSubdomains.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Matomo Analytics": {
+          "verdict": "correct",
+          "note": "Globals Matomo and Piwik present (self-hosted includes/javascript/matomo.js).",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "meta property=\"og:title\" present in the page.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Priority Hints": {
+          "verdict": "correct",
+          "note": "Hero <img ... fetchpriority> in static.html and rendered.html.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Sectigo": {
+          "verdict": "correct",
+          "note": "tls.json certificate issued by Sectigo Public Server Authentication CA OV R36.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Swiper": {
+          "verdict": "correct",
+          "note": "Global Swiper present and initialised swiper markup (div.swiper-initialized, data-swiper-slide-index) in rendered.html.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        }
+      },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:45Z",
       "site_status_label": "works (online shop for gothic clothing)"
+    },
+    "fluxar.com.ar": {
+      "human_found": [],
+      "verdicts": {
+        "All in One SEO": {
+          "verdict": "correct",
+          "note": "'All in One SEO 4.9.0' HTML comment and meta generator 'All in One SEO (AIOSEO) 4.9.0' (same product as the 'All in One SEO Pack' entry).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "All in One SEO Pack": {
+          "verdict": "correct",
+          "note": "Meta generator 'All in One SEO (AIOSEO) 4.9.0', aioseo-schema script and /plugins/all-in-one-seo-pack/ asset loaded (duplicate of 'All in One SEO').",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Contact Form 7": {
+          "verdict": "correct",
+          "note": "contact-form-7 scripts (ver 6.1.3) loaded and wpcf7 global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Theme's font-awesome.min.css?ver=4.4.0 stylesheet loaded and fa classes used in the rendered page.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Analytics": {
+          "verdict": "correct",
+          "note": "gtag/js loaded, _ga and _ga_* (GA4) cookies set.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "<link> stylesheets from fonts.googleapis.com are present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Tag Manager": {
+          "verdict": "correct",
+          "note": "googletagmanager.com scripts loaded and google_tag_manager global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HTTP/3": {
+          "verdict": "correct",
+          "note": "alt-svc header advertising h3 on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Hostinger": {
+          "verdict": "correct",
+          "note": "platform: hostinger header on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json shows the certificate issuer is Let's Encrypt.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "LiteSpeed": {
+          "verdict": "correct",
+          "note": "server: LiteSpeed header on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Modernizr": {
+          "verdict": "correct",
+          "note": "Theme's modernizr.custom.min.js loaded and Modernizr._version = 2.8.3.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "MonsterInsights": {
+          "verdict": "correct",
+          "note": "google-analytics-for-wordpress frontend-gtag.js loaded and MonsterInsights global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Morphext": {
+          "verdict": "correct",
+          "note": "mystickymenu/js/morphext/morphext.min.js was loaded with status 200.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "og:locale, og:site_name, og:type, og:title meta tags present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "x-powered-by: PHP/8.1.34 header.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Priority Hints": {
+          "verdict": "correct",
+          "note": "An element with a fetchpriority attribute is present in the HTML.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RSS": {
+          "verdict": "correct",
+          "note": "<link type=\"application/rss+xml\"> feed links present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Really Simple SSL & Security": {
+          "verdict": "correct",
+          "note": "<body data-rsssl> attribute, which the Really Simple SSL plugin adds.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "SiteOrigin Page Builder": {
+          "verdict": "correct",
+          "note": "siteorigin-panels styling.min.js (2.33.3) and stylesheet loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "SiteOrigin Widgets Bundle": {
+          "verdict": "correct",
+          "note": "so-widgets-bundle scripts and slider CSS (1.70.2) loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "TinyMCE": {
+          "verdict": "correct",
+          "note": "wp-includes/js/tinymce/tinymce.min.js loaded on the front end and tinymce global defined (majorVersion 4).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WordPress": {
+          "verdict": "correct",
+          "note": "Meta generator 'WordPress 6.8.12', /wp-includes/ scripts and api.w.org Link header.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "core-js": {
+          "verdict": "correct",
+          "note": "wp-polyfill.js (WordPress's core-js build) loaded and __core-js_shared__ version 3.39.0 defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "wp-includes jquery.js?ver=3.7.1 loaded and jQuery.fn.jquery = 3.7.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery Migrate": {
+          "verdict": "correct",
+          "note": "jquery-migrate.js?ver=3.4.1 loaded and jQuery.migrateVersion = 3.4.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "wp-includes jquery/ui core, mouse, slider, sortable, effect (1.13.3) loaded and jQuery.ui.version = 1.13.3.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "reCAPTCHA": {
+          "verdict": "correct",
+          "note": "google.com/recaptcha/api.js loaded by Contact Form 7's recaptcha module, recaptcha iframe rendered.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "sidr": {
+          "verdict": "correct",
+          "note": "Theme's jquery.sidr.min.js and jquery.sidr.css loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
+    },
+    "footasylum.com": {
+      "human_found": [],
+      "verdicts": {
+        "ANS": {
+          "verdict": "correct",
+          "note": "NS records ns0/ns1.ukfast.net: DNS is hosted by UKFast, now ANS (duplicate of the 'UKFast' entry).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Akamai": {
+          "verdict": "correct",
+          "note": "www CNAME to footasylum.com.edgekey.net, x-akamai-transformed header and AKA_A2/akacd cookies: the site is served through Akamai.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Akamai mPulse": {
+          "verdict": "correct",
+          "note": "Inline mPulse loader with BOOMR_API_key, and s.go-mpulse.net/boomerang/<key> plus mPulse config were fetched.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Amazon ELB": {
+          "verdict": "correct",
+          "note": "server: awselb/2.0 on the footasylum.com apex response (the redirect to www).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Amazon S3": {
+          "verdict": "wrong",
+          "note": "Only a mention in the content-security-policy header (a third party's delight-s3-bucket.s3...amazonaws.com); no request to S3 was made.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Apple iCloud Mail": {
+          "verdict": "wrong",
+          "note": "apple-domain-verification TXT is Apple's domain check (used e.g. for Apple Pay, which the site's permissions-policy references); MX records point to Mimecast, not iCloud.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "declared"
+        },
+        "Atlassian Cloud": {
+          "verdict": "correct",
+          "note": "atlassian-domain-verification TXT record: the domain is verified in an Atlassian Cloud organisation.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "declared"
+        },
+        "Boomerang": {
+          "verdict": "correct",
+          "note": "BOOMR globals defined and the boomerang script was loaded from s.go-mpulse.net.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cart Functionality": {
+          "verdict": "correct",
+          "note": "Basket link /checkout/basket/ on this online shop.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cloudflare": {
+          "verdict": "correct",
+          "note": "server: cloudflare, cf-ray and cf-cache-status HIT on the www page response (Cloudflare sits behind Akamai).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "DPD": {
+          "verdict": "wrong",
+          "note": "The match is 'dpd' inside OneTrust's CSS class '.ot-dpd-desc', not the courier DPD.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "DigiCert": {
+          "verdict": "correct",
+          "note": "tls.json shows the certificate is issued by DigiCert Global G3 TLS ECC SHA384 2020 CA1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Analytics": {
+          "verdict": "correct",
+          "note": "gtag/js?id=G-NQKQLSN1SC loaded and GA4 g/collect requests were sent.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Tag Manager": {
+          "verdict": "correct",
+          "note": "gtm.js loaded and google_tag_manager global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HSTS": {
+          "verdict": "correct",
+          "note": "strict-transport-security header on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Klarna Checkout": {
+          "verdict": "wrong",
+          "note": "Only *.klarnaservices.com in the content-security-policy header (plus a klarna.svg payment logo); no Klarna script or request, and payments go through Adyen per permissions-policy.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Meta": {
+          "verdict": "correct",
+          "note": "facebook-domain-verification TXT record: the domain is verified in Meta Business Manager.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "declared"
+        },
+        "Microsoft 365": {
+          "verdict": "correct",
+          "note": "Two MS= TXT verification records show the domain is added to a Microsoft 365 tenant (mail is filtered by Mimecast, commonly in front of Exchange Online).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "declared"
+        },
+        "Microsoft Clarity": {
+          "verdict": "unsure",
+          "note": "A window.clarity stub exists, but no clarity.ms script or request was made (probably held back by consent), so Clarity is configured but not shown running.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Miro": {
+          "verdict": "correct",
+          "note": "miro-verification TXT record: the domain is verified in a Miro account.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "declared"
+        },
+        "Monetate": {
+          "verdict": "correct",
+          "note": "Self-hosted /modules/monetate.js fetched, monetateQ global defined, and the page config holds many Monetate widget IDs.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Next.js": {
+          "verdict": "correct",
+          "note": "next.version = 16.4.5 global, /_next/static chunks and x-nextjs-* headers.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Next.js App Router": {
+          "verdict": "correct",
+          "note": "next.appDir = true in the browser.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "OneTrust": {
+          "verdict": "correct",
+          "note": "otSDKStub.js from cdn-ukwest.onetrust.com loaded and OptanonConsent cookie set.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "og:title and other og: meta tags present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PayPal": {
+          "verdict": "wrong",
+          "note": "Only a self-hosted payment logo image (alt=\"PayPal\") in the footer; no PayPal script, iframe or request, and the page config even has \"paypal\":0.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Priority Hints": {
+          "verdict": "correct",
+          "note": "<link rel=preload fetchpriority=\"low\"> elements present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Radix UI": {
+          "verdict": "correct",
+          "note": "Tab buttons carry data-radix-collection-item and radix-* ids, rendered by Radix UI primitives.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Sentry": {
+          "verdict": "correct",
+          "note": "__SENTRY__ global and envelope requests to ingest.de.sentry.io (sentry.javascript.nextjs).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "UKFast": {
+          "verdict": "correct",
+          "note": "NS records ns0/ns1.ukfast.net and SOA ns0.ukfast.net: DNS is hosted by UKFast (duplicate of the 'ANS' entry).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Amazon Web Services": {
+          "verdict": "correct",
+          "note": "Inferred from Amazon ELB, an AWS service, so AWS is certain.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "React": {
+          "verdict": "correct",
+          "note": "Inferred from Next.js, which is built on React, so React is certain.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "Webpack": {
+          "verdict": "correct",
+          "note": "Inferred from Next.js; the saved HTML also preloads /_next/static/chunks/webpack-52b37ac961ba0e60.js, a webpack runtime chunk.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
+    },
+    "mehmetefendimacedonia.com": {
+      "human_found": [],
+      "verdicts": {
+        "Apache HTTP Server": {
+          "verdict": "correct",
+          "note": "server header 'Apache' on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cufon": {
+          "verdict": "correct",
+          "note": "/Scripts/cufon/cufon-yui.js and a Cufon font file loaded; Cufon global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Analytics": {
+          "verdict": "correct",
+          "note": "ssl.google-analytics.com/ga.js loaded, __utma cookies set and a __utm.gif hit was sent.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Hosted Libraries": {
+          "verdict": "correct",
+          "note": "jQuery 1.7.2 loaded from ajax.googleapis.com/ajax/libs/.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json shows the certificate issuer is Let's Encrypt.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "PHPSESSID session cookie set by the site in both the plain and browser fetch.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "SWFObject": {
+          "verdict": "correct",
+          "note": "/Scripts/swfobject_modified.js (Dreamweaver's SWFObject build) was loaded with status 200.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "jQuery 1.7.2 loaded from Google's CDN and jQuery.fn.jquery = 1.7.2.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        }
+      },
+      "missed": []
+    },
+    "xn--kleoghvidevareservice-qfc.dk": {
+      "human_found": [],
+      "verdicts": {
+        "Astra": {
+          "verdict": "correct",
+          "note": "Theme scripts and stylesheet under /wp-content/themes/astra/ (ver 4.14.3) are loaded, plus Astra inline CSS variables (--ast-*).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "themes",
+          "tier": "observed"
+        },
+        "Elementor": {
+          "verdict": "correct",
+          "note": "Meta generator 'Elementor 4.4.1', elementor frontend scripts loaded, and elementorFrontendConfig.version = 4.4.1 in the browser.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Elementor's font-awesome CSS/JS and fa-solid webfonts are loaded, ___FONT_AWESOME___ global set, and 'fas fa-phone' icons used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "Stylesheets from fonts.googleapis.com (Open Sans, Roboto) were requested and fonts fetched from fonts.gstatic.com.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HTTP/3": {
+          "verdict": "correct",
+          "note": "alt-svc header 'h3=\":443\"' on the site's own responses advertises HTTP/3.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json shows the site's certificate issuer is Let's Encrypt.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Nginx": {
+          "verdict": "correct",
+          "note": "server header 'nginx/1.31.9' on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Priority Hints": {
+          "verdict": "correct",
+          "note": "An <img fetchpriority=\"high\"> is present in the HTML.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RSS": {
+          "verdict": "correct",
+          "note": "<link type=\"application/rss+xml\"> feed links are present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Twitter Emoji (Twemoji)": {
+          "verdict": "correct",
+          "note": "window.twemoji is defined; browser.json shows wp-emoji-release.min.js (which bundles Twemoji) was loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Ultimate Addons for Elementor": {
+          "verdict": "correct",
+          "note": "uael-frontend.min.css from /wp-content/plugins/ultimate-elementor/ is loaded and the uael_particles_script global points to the plugin.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WordPress": {
+          "verdict": "correct",
+          "note": "Meta generator 'WordPress 7.1.5', /wp-includes/ scripts and the api.w.org Link header.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "core-js": {
+          "verdict": "correct",
+          "note": "__core-js_shared__ global with version 3.46.0 exists, so core-js code ran on the page.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "wp-includes/js/jquery/jquery.min.js?ver=3.7.1 loaded and jQuery.fn.jquery = 3.7.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery Migrate": {
+          "verdict": "correct",
+          "note": "jquery-migrate.min.js?ver=3.4.1 loaded and jQuery.migrateVersion = 3.4.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "wp-includes/js/jquery/ui/core.min.js?ver=1.14.2 loaded and jQuery.ui.version = 1.14.2.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "Inferred from WordPress, which is written in PHP, so PHP is certain.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
+    },
+    "handycars.com": {
+      "human_found": [],
+      "verdicts": {
+        "ComplyAuto": {
+          "verdict": "correct",
+          "note": "cdn.complyauto.com cookie-banner scripts loaded and the consent config fetched.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Draftpress HFCM": {
+          "verdict": "correct",
+          "note": "HTML comments '<!-- HFCM by 99 Robots - Snippet # 2 ...' are output by the Header Footer Code Manager plugin.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Theme's fontawesome/css/all.min.css loaded, fa-solid/fa-light webfonts fetched and 'fas fa-*' classes used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "GoDaddy": {
+          "verdict": "correct",
+          "note": "NS records ns29/ns30.domaincontrol.com and SOA dns.jomax.net: DNS is hosted by GoDaddy.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Goober": {
+          "verdict": "correct",
+          "note": "<style id=\"_goober\"> exists in the rendered page, which only the goober CSS-in-JS library creates (injected by a third-party widget script running on the page).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Analytics": {
+          "verdict": "correct",
+          "note": "gtag/js?id=G-MNCGN50BMW loaded and a GA4 collect request was sent.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Tag Manager": {
+          "verdict": "correct",
+          "note": "gtm.js?id=GTM-PHRTR9S8 loaded and google_tag_manager global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json shows the certificate issuer is Let's Encrypt.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Matomo Analytics": {
+          "verdict": "correct",
+          "note": "analytics.autogo.ai/matomo.js loaded, matomo.php tracking pings sent and _pk_* cookies set.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Microsoft 365": {
+          "verdict": "correct",
+          "note": "MX record handycars-com.mail.protection.outlook.com routes mail to Exchange Online; SPF also includes spf.protection.outlook.com.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Nginx": {
+          "verdict": "correct",
+          "note": "server header 'nginx/1.30.7' on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "og:title, og:description, og:url, og:site_name meta tags are present (og:image is empty).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Sendgrid": {
+          "verdict": "correct",
+          "note": "The SPF TXT record includes sendgrid.net, authorising SendGrid to send the company's mail.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "declared"
+        },
+        "Slick": {
+          "verdict": "correct",
+          "note": "slick.min.js and slick/slick-theme.css from the theme were loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Swiper": {
+          "verdict": "correct",
+          "note": "swiper@11 bundle loaded from jsDelivr and the Swiper global is defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Typesense": {
+          "verdict": "correct",
+          "note": "typesense@1.8.1 loaded from jsDelivr and the Typesense global is defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "UserWay": {
+          "verdict": "correct",
+          "note": "cdn.userway.org/widget.js loaded and the widget app and tunings fetched.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Visual Composer": {
+          "verdict": "correct",
+          "note": "Meta generator 'Powered by Visual Composer Website Builder' and the plugin's inline styles (vcv-globalElementsCss, vce-row-container) are in the HTML.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "declared"
+        },
+        "WordPress": {
+          "verdict": "correct",
+          "note": "Scripts under /wp/wp-includes/ (jquery 3.6.0, api-request.min.js ver 5.9.5) and wp-block-library CSS are loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "Theme jquery.min.js (3.3.1) and wp-includes jquery.min.js?ver=3.6.0 both loaded; $.fn.jquery = 3.3.1, jQuery.fn.jquery = 3.6.0.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "wp-includes/js/jquery/ui/core.min.js and datepicker.min.js (1.13.1) loaded and jQuery.ui.version = 1.13.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jsDelivr": {
+          "verdict": "correct",
+          "note": "Swiper, Typesense and Algolia autocomplete scripts were loaded from cdn.jsdelivr.net.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "Inferred from Visual Composer, a WordPress plugin, so PHP is certain (WordPress is PHP).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
+    },
+    "5rcircleprocess.weebly.com": {
+      "human_found": [],
+      "verdicts": {
+        "Adobe Fonts": {
+          "verdict": "correct",
+          "note": "use.typekit.net/nxe1ajf.js kit loaded and Typekit.config.js = 1.21.0 (duplicate of the 'Typekit' entry).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Amazon S3": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Weebly platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "The site's own theme files (/files/theme/plugins.js, custom.js) are served with x-amz-server-side-encryption and x-amz-* headers from S3 (Weebly's storage)."
+        },
+        "Amazon Web Services": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Weebly platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "x-amz-id-2 / x-amz-request-id headers on the site's own theme files show they come from AWS S3."
+        },
+        "Cloudflare": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Weebly platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "server: cloudflare, cf-ray and cf-cache-status on the site's own page response (Weebly's CDN)."
+        },
+        "Cloudflare Bot Management": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Weebly platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "__cf_bm cookie set on the site's response for .weebly.com, which Cloudflare Bot Management sets."
+        },
+        "FancyBox": {
+          "verdict": "correct",
+          "note": "Weebly's fancybox.css loaded and $.fancybox.version = 2.1.0 defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "Stylesheets from fonts.googleapis.com (Quattrocento, Montserrat, Lora...) were requested.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Hosted Libraries": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Weebly platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "jQuery 1.8.3 loaded from ajax.googleapis.com/ajax/libs/."
+        },
+        "Hammer.js": {
+          "verdict": "correct",
+          "note": "Hammer global with Hammer.VERSION = 2.0.4 defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Weebly platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "tls.json shows the certificate served for the host is issued by Let's Encrypt."
+        },
+        "Lodash": {
+          "verdict": "wrong",
+          "note": "_.VERSION = 1.8.3 is Underscore.js (bundled in Weebly's main.js); Lodash has no 1.8.3 release, and Underscore was wrongly excluded in favour of Lodash.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 0,
+          "group": "core",
+          "tier": "observed"
+        },
+        "MediaElement.js": {
+          "verdict": "correct",
+          "note": "mejs, MediaElement and MediaElementPlayer globals with mejs.version = 2.9.5 (bundled in Weebly's main.js; no media element on this page).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Mustache": {
+          "verdict": "correct",
+          "note": "Mustache.version = 2.1.3 global defined (Weebly's main.js templates).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "og:site_name and other og: meta tags present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Snowplow Analytics": {
+          "verdict": "wrong",
+          "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Weebly platform's infrastructure, not chosen by the site's owner.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "original_verdict": "correct",
+          "original_note": "Snowplow globals defined and a tracker hit sent to ec.editmysite.com/com.snowplowanalytics.snowplow/tp2 (Weebly's own analytics on the site)."
+        },
+        "Typekit": {
+          "verdict": "correct",
+          "note": "use.typekit.net/nxe1ajf.js kit loaded and Typekit.config.js = 1.21.0 (duplicate of the 'Adobe Fonts' entry).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "VideoJS": {
+          "verdict": "correct",
+          "note": "videojs and _V_ globals defined (Video.js bundled in Weebly's main.js; no video on this page).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Vimeo": {
+          "verdict": "wrong",
+          "note": "VimeoPlayer is a wrapper class in Weebly's main.js bundle; there is no Vimeo iframe, embed or request on the page.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Weebly": {
+          "verdict": "correct",
+          "note": "cdn2.editmysite.com Weebly site scripts loaded and _W.configDomain = www.weebly.com.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "jQuery 1.8.3 loaded from Google's CDN and jQuery.fn.jquery = 1.8.3.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "unsure",
+          "note": "Inferred from Weebly only; Weebly's server stack is not visible in the saved data (no PHP header or cookie).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Inferred from Weebly only; nothing in the saved data shows Weebly's database.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
+    },
+    "hoffmaninstitute.co.uk": {
+      "human_found": [],
+      "verdicts": {
+        "Ahrefs": {
+          "verdict": "correct",
+          "note": "ahrefs-site-verification meta tag: the domain is verified in an Ahrefs account.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "declared"
+        },
+        "Bootstrap": {
+          "verdict": "correct",
+          "note": "bootstrap global with bootstrap.Alert (Bootstrap 5 JS, in the theme bundle) and Bootstrap classes such as btn and ratio-16x9.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cart Functionality": {
+          "verdict": "correct",
+          "note": "Basket link /basket/ on a WooCommerce shop (woocommerce_params, cart scripts loaded).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cloudflare": {
+          "verdict": "correct",
+          "note": "server: cloudflare, cf-ray and cf-cache-status on the site's responses and NS at ns.cloudflare.com.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Cloudflare DNS": {
+          "verdict": "correct",
+          "note": "NS records giancarlo/lauryn.ns.cloudflare.com: DNS is hosted by Cloudflare.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Constant Contact": {
+          "verdict": "correct",
+          "note": "static.ctctcdn.com signup-form-widget loaded, listgrowth config fetched and _ctct_m global set.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "CookieYes": {
+          "verdict": "correct",
+          "note": "cdn-cookieyes.com client script and banner loaded and cookieyes-consent cookie set.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Theme's font-awesome/css/all.min.css loaded, fa-brands/fa-regular webfonts fetched, 'fab fa-*' icons used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Maps": {
+          "verdict": "correct",
+          "note": "maps.googleapis.com/maps/api/js with an API key loaded, plus Maps common.js/util.js.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Workspace": {
+          "verdict": "correct",
+          "note": "MX records aspmx.l.google.com and googlemail.com: mail is handled by Google Workspace.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "HTTP/3": {
+          "verdict": "correct",
+          "note": "alt-svc header 'h3=\":443\"' on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Isotope": {
+          "verdict": "correct",
+          "note": "Isotope global defined (theme bundle loads EvEmitter, Outlayer, Isotope).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json shows the certificate issuer is Let's Encrypt.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Lodash": {
+          "verdict": "wrong",
+          "note": "_.VERSION = 1.13.8 is Underscore.js (wp-includes/js/underscore.min.js?ver=1.13.8 was loaded); Lodash never had a 1.13.8 release, and Underscore was wrongly excluded in favour of Lodash.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 0,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Masonry": {
+          "verdict": "correct",
+          "note": "Masonry global with Masonry.Item defined (Outlayer-based Masonry in the theme bundle).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "og:locale and other og: meta tags are present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RSS": {
+          "verdict": "correct",
+          "note": "<link type=\"application/rss+xml\"> feed link is present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WooCommerce": {
+          "verdict": "correct",
+          "note": "Meta generator 'WooCommerce 11.3.1', plugin scripts loaded and woocommerce_params global.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WordPress": {
+          "verdict": "correct",
+          "note": "Meta generator 'WordPress 7.1.5', /wp-includes/ scripts and api.w.org Link header.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Yoast SEO": {
+          "verdict": "correct",
+          "note": "'This site is optimized with the Yoast SEO plugin v28.9' comment and yoast-schema-graph JSON-LD.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "YouTube": {
+          "verdict": "correct",
+          "note": "A youtube.com/embed/3WtF8Qh5Al4 iframe is on the page and was loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "wp-includes jquery.min.js?ver=3.7.1 loaded and jQuery.fn.jquery = 3.7.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery Migrate": {
+          "verdict": "correct",
+          "note": "jquery-migrate.min.js?ver=3.4.1 loaded and jQuery.migrateVersion = 3.4.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "wp-includes jquery/ui core, mouse, slider, datepicker (1.14.2) loaded and jQuery.ui.version = 1.14.2.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "lit-element": {
+          "verdict": "correct",
+          "note": "litElementVersions = ['4.2.2'] global exists, so LitElement ran on the page (loaded by a third-party script, probably Google Maps or Constant Contact, not the theme).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "lit-html": {
+          "verdict": "correct",
+          "note": "litHtmlVersions = ['3.3.3'] global exists, so lit-html ran on the page (loaded by a third-party script, not the theme).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "reCAPTCHA": {
+          "verdict": "correct",
+          "note": "google.com/recaptcha/api.js (loaded by the Constant Contact form) and recaptcha__en.js loaded; grecaptcha globals present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "Inferred from WordPress, which is written in PHP, so PHP is certain.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
+    },
+    "insieme.stanford.edu": {
+      "human_found": [],
+      "verdicts": {
+        "Acquia Cloud Platform": {
+          "verdict": "correct",
+          "note": "x-ah-environment: 01live header is set by Acquia's hosting on the site's own responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Acquia Cloud Site Factory": {
+          "verdict": "correct",
+          "note": "Assets under /sites/g/files/sbiybj20061/, the path layout Acquia Cloud Site Factory gives each site.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Babel": {
+          "verdict": "correct",
+          "note": "_babelPolyfill global (set by @babel/polyfill, together with core-js 2.6.12) exists, so Babel's polyfill runs on the page; it may come from the Siteimprove script rather than the site's own code.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "DigiCert": {
+          "verdict": "correct",
+          "note": "tls.json shows the certificate is issued by DigiCert Global G3 TLS ECC SHA384 2020 CA1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Drupal": {
+          "verdict": "correct",
+          "note": "Meta generator and x-generator header 'Drupal 11', x-drupal-cache header and Drupal JS global.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Drupal Multisite": {
+          "verdict": "correct",
+          "note": "Files served from /sites/g/files/<site-id>/ rather than sites/default, i.e. a site inside a Drupal multisite (Site Factory) install.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "font-awesome 6.7.2 all.min.css loaded from cdnjs and 'fas fa-chevron-up' icons used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Analytics": {
+          "verdict": "correct",
+          "note": "gtag/js?id=G-986R8TE788 loaded and GA4 collect requests were sent.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Tag Manager": {
+          "verdict": "correct",
+          "note": "googletagmanager.com gtag scripts loaded and google_tag_manager global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "HSTS": {
+          "verdict": "correct",
+          "note": "strict-transport-security: max-age=15768000 header on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Open Graph": {
+          "verdict": "correct",
+          "note": "og:site_name, og:type, og:url, og:title and og:image meta tags are present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Siteimprove": {
+          "verdict": "correct",
+          "note": "siteimproveanalytics.com/js/siteanalyze_6343745.js loaded and _sz.analytics global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "cdnjs": {
+          "verdict": "correct",
+          "note": "Font Awesome stylesheet was loaded from cdnjs.cloudflare.com/ajax/libs/.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "core-js": {
+          "verdict": "correct",
+          "note": "__core-js_shared__ and core globals with version 2.6.12 exist, so core-js ran on the page.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "core/assets/vendor/jquery/jquery.min.js?v=4.0.0 loaded and jQuery.fn.jquery = 4.0.0.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Amazon Web Services": {
+          "verdict": "correct",
+          "note": "Inferred from Acquia Cloud Platform, which is hosted on AWS.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "Inferred from Drupal, which is written in PHP, so PHP is certain.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "Cloudflare": {
+          "verdict": "wrong",
+          "note": "Inferred from cdnjs only: cdnjs runs on Cloudflare, but that is the CDN supplier's infrastructure; the site's own responses carry no Cloudflare headers (Acquia/Varnish headers instead).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
+    },
+    "newbeaverborough.org": {
+      "human_found": [],
+      "verdicts": {
+        "Elementor": {
+          "verdict": "correct",
+          "note": "Meta generator 'Elementor 4.4.0', elementor frontend-modules.min.js loaded, elementorFrontendConfig.version = 4.4.0.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Elementor's font-awesome v4-shims.min.js loaded, ___FONT_AWESOME___ global set and 'fas fa-*' icons used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "FullCalendar": {
+          "verdict": "correct",
+          "note": "FullCalendar.version = 6.1.9 in the browser (Modern Events Calendar's mec-general-calendar.js is loaded).",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Hello Elementor": {
+          "verdict": "correct",
+          "note": "Stylesheets from /wp-content/themes/hello-elementor/ (ver 3.5.2) are loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "themes",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json shows the certificate issuer is Let's Encrypt.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Nginx": {
+          "verdict": "correct",
+          "note": "server header 'nginx' on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "OWL Carousel": {
+          "verdict": "correct",
+          "note": "owl.carousel.min.js (bundled by Modern Events Calendar) was requested with status 200.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Priority Hints": {
+          "verdict": "correct",
+          "note": "An <img fetchpriority=\"high\"> is present in the HTML.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "RSS": {
+          "verdict": "correct",
+          "note": "<link type=\"application/rss+xml\"> feed links are present.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Select2": {
+          "verdict": "correct",
+          "note": "jQuery.fn.select2 is defined; select2.full.min.js from the events-calendar plugin was loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "W3 Total Cache": {
+          "verdict": "correct",
+          "note": "The served HTML ends with the plugin's footer comment 'Performance optimized by W3 Total Cache'.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "WordPress": {
+          "verdict": "correct",
+          "note": "Many /wp-content/ and /wp-includes/ scripts and stylesheets (e.g. wp-block-library-css) are loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "core-js": {
+          "verdict": "correct",
+          "note": "__core-js_shared__ global with version 3.46.0 exists, so core-js code ran on the page.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "imagesLoaded": {
+          "verdict": "correct",
+          "note": "wp-includes/js/imagesloaded.min.js?ver=5.0.0 was loaded.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "jquery.min.js?ver=3.7.1 loaded and jQuery.fn.jquery = 3.7.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery Migrate": {
+          "verdict": "correct",
+          "note": "jquery-migrate.min.js?ver=3.4.1 loaded and jQuery.migrateVersion = 3.4.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "jquery/ui/core.min.js and datepicker.min.js (1.14.2) loaded and jQuery.ui.version = 1.14.2.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "TypeScript": {
+          "verdict": "unsure",
+          "note": "Inferred only from FullCalendar, whose source is written in TypeScript; the site runs compiled JavaScript and nothing shows the site itself uses TypeScript.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "Inferred from WordPress, which is written in PHP, so PHP is certain.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        },
+        "MySQL": {
+          "verdict": "unsure",
+          "note": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
+    },
+    "sevecoitalia.com": {
+      "human_found": [],
+      "verdicts": {
+        "Aruba.it": {
+          "verdict": "correct",
+          "note": "NS records dns3.arubadns.net / dns.technorail.com (Aruba's DNS) and SPF includes _spf.aruba.it.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed"
+        },
+        "Font Awesome": {
+          "verdict": "correct",
+          "note": "Font Awesome kit kit.fontawesome.com/9b5273fd7b.js loaded, it fetched ka-f.fontawesome.com free.min.css, FontAwesomeKitConfig defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "Stylesheets from fonts.googleapis.com/css2 (Teko, Raleway, Open Sans) were requested.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Google Tag Manager": {
+          "verdict": "correct",
+          "note": "gtm.js?id=GTM-5LNRFR55 loaded and google_tag_manager global defined.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "IIS": {
+          "verdict": "correct",
+          "note": "server header 'Microsoft-IIS/8.0' on the site's responses.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Let's Encrypt": {
+          "verdict": "correct",
+          "note": "tls.json shows the certificate issuer is Let's Encrypt.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Microsoft ASP.NET": {
+          "verdict": "correct",
+          "note": "__VIEWSTATE form field, x-aspnet-version 4.0.30319, x-powered-by ASP.NET and ASP.NET_SessionId cookie.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "PWA": {
+          "verdict": "wrong",
+          "note": "Only a <link rel=\"manifest\"> to Content/favicon/site.webmanifest (a favicon-generator manifest); no service worker is registered (browser.json workers is empty), so it is not a Progressive Web App.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery": {
+          "verdict": "correct",
+          "note": "/script/jquery-2.1.1.min.js loaded and jQuery.fn.jquery = 2.1.1.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "jQuery UI": {
+          "verdict": "correct",
+          "note": "/script/jquery-ui.min.js loaded and jQuery.ui.version = 1.13.3.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        },
+        "Windows Server": {
+          "verdict": "correct",
+          "note": "Inferred from IIS, which only runs on Windows Server.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred"
+        }
+      },
+      "missed": []
     }
   },
   "review_seed": 20261119
