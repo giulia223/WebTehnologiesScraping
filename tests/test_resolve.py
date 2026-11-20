@@ -108,6 +108,13 @@ def test_excludes_remove_direct_detections_but_not_implied_ones(rules: RuleSet) 
     assert resolution.technologies["G"].tier == "inferred"
 
 
+def test_a_weaker_detection_does_not_exclude_a_stronger_one(rules: RuleSet) -> None:
+    # The Lodash / Underscore case: a confidence-0 hint cannot remove a sure detection.
+    resolution = resolve(found(("E", 0), ("F", 100)), rules)
+    assert "F" in resolution.technologies
+    assert resolution.excluded == {}
+
+
 # ------------------------------------------------------------ requires
 
 

@@ -6,6 +6,10 @@ set), from three places:
   fingerprints/custom/           our own rules, same schema, always loaded
   fingerprints/candidates/       proposed rules awaiting review, loaded only on request,
                                  and only those marked "proposed" or "accepted"
+  fingerprints/corrections/      removals from upstream rules (one pattern, or one
+                                 `implies` link), each with its reason and real example;
+                                 applied only when marked reviewed_by: human. The
+                                 upstream files themselves are never edited.
 
 Parsing copies Wappalyzer's own `transformPatterns` / `parsePattern` (wappalyzer.js,
 npm package wappalyzer@6.10.66), so every rule means here what its author meant:
@@ -124,6 +128,11 @@ class LoadReport:
     merged: list[str] = field(default_factory=list)  # custom/candidate names already known
     candidates_left_out: Counter[str] = field(default_factory=Counter)  # status -> count
     unreviewed_custom: list[str] = field(default_factory=list)  # custom rules not loaded
+    corrections_applied: list[str] = field(default_factory=list)  # "Tech: what was removed"
+    unreviewed_corrections: list[str] = field(default_factory=list)  # not applied
+    # A reviewed correction that matches nothing (e.g. upstream changed the rule): listed,
+    # never ignored silently.
+    corrections_not_applied: list[str] = field(default_factory=list)
     unknown_relations: list[tuple[str, str, str]] = field(default_factory=list)
     unknown_categories: list[tuple[str, int]] = field(default_factory=list)
     candidates_loaded: bool = False
@@ -167,6 +176,16 @@ class LoadReport:
                 "custom rules NOT loaded (no reviewed_by: human): "
                 + ", ".join(self.unreviewed_custom)
             )
+        lines.append(f"corrections applied: {len(self.corrections_applied)}")
+        lines += [f"  {c}" for c in self.corrections_applied]
+        if self.unreviewed_corrections:
+            lines.append(
+                "corrections NOT applied (no reviewed_by: human): "
+                + ", ".join(self.unreviewed_corrections)
+            )
+        if self.corrections_not_applied:
+            lines.append("corrections that no longer match the rules (check them):")
+            lines += [f"  {c}" for c in self.corrections_not_applied]
         if self.candidates_left_out:
             lines.append(f"candidates left out, by status: {dict(self.candidates_left_out)}")
         lines.append(f"relations naming an unknown technology: {len(self.unknown_relations)}")
@@ -496,8 +515,10 @@ def load_rules(rules_dir: Path, include_candidates: bool = False) -> RuleSet:
         return False
 
     custom = _load_folder(rules_dir / "custom", "custom", technologies, report, keep=reviewed)
+    corrections = apply_corrections(rules_dir / "corrections", technologies, report)
     version = f"webappanalyzer@{report.upstream.get('commit', 'unknown')[:12]}"
     version += f"+custom:{content_hash(custom) if custom else 'none'}"
+    version += f"+corrections:{content_hash(corrections) if corrections else 'none'}"
 
     if include_candidates:
 
@@ -526,6 +547,56 @@ def load_rules(rules_dir: Path, include_candidates: bool = False) -> RuleSet:
     report.distinct_technologies = len(technologies)
     _check_references(technologies, categories, report)
     return RuleSet(technologies, categories, groups, version, report)
+
+
+def _is_target(pattern: Pattern, target: dict[str, Any]) -> bool:
+    """A correction names a pattern by field, key and its text exactly as upstream wrote it.
+    Keys compare case-insensitively: the loader lowercases header, cookie and meta names."""
+    return (
+        pattern.field == target["field"]
+        and (pattern.key or "").lower() == (target.get("key") or "").lower()
+        and pattern.source == target["pattern"]
+    )
+
+
+def _correct(tech: Technology, correction: dict[str, Any], report: LoadReport) -> Technology:
+    patterns = list(tech.patterns)
+    for target in correction.get("remove", []):
+        kept = [p for p in patterns if not _is_target(p, target)]
+        label = f"{tech.name}: {target['field']} {target.get('key') or ''} {target['pattern']!r}"
+        if len(kept) == len(patterns):
+            report.corrections_not_applied.append(f"{label} (no such pattern)")
+        else:
+            report.corrections_applied.append(f"{label} removed")
+        patterns = kept
+    implies = list(tech.implies)
+    for name in correction.get("remove_implies", []):
+        kept_implies = [i for i in implies if i.name != name]
+        if len(kept_implies) == len(implies):
+            report.corrections_not_applied.append(f"{tech.name}: implies {name} (no such link)")
+        else:
+            report.corrections_applied.append(f"{tech.name}: implies {name} removed")
+        implies = kept_implies
+    return replace(tech, patterns=tuple(patterns), implies=tuple(implies))
+
+
+def apply_corrections(
+    folder: Path, technologies: dict[str, Technology], report: LoadReport
+) -> dict[str, Any]:
+    """Apply the reviewed corrections in `folder`; returns the ones applied (for the
+    rule-set version). Unreviewed ones are listed and left out, like custom rules."""
+    used: dict[str, Any] = {}
+    for path in sorted(folder.glob("*.json")):
+        for name, correction in _read_json(path).items():
+            if correction.get("reviewed_by") != "human":
+                report.unreviewed_corrections.append(name)
+                continue
+            if name not in technologies:
+                report.corrections_not_applied.append(f"{name}: no such technology")
+                continue
+            technologies[name] = _correct(technologies[name], correction, report)
+            used[name] = correction
+    return used
 
 
 def _check_references(

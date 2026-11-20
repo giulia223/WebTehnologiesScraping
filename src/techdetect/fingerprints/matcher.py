@@ -83,6 +83,10 @@ class DomainMatches:
 Entry = tuple[str, Pattern]  # (technology name, pattern)
 
 
+# A selector that only asks for a <link> whose href contains a text: link[href*='fonts.g'].
+LINK_HREF = regex.compile(r"link\[href\*='([^']+)'\]")
+
+
 class RuleIndex:
     """Patterns grouped by field and key, built once per rule set.
 
@@ -96,6 +100,9 @@ class RuleIndex:
         self.keyed: dict[str, dict[str, list[Entry]]] = defaultdict(lambda: defaultdict(list))
         self.dom: dict[str, list[Entry]] = defaultdict(list)
         self.cookie_wildcards: list[tuple[regex.Pattern[str], str, Entry]] = []
+        # dom rules of the form link[href*='...'] (e.g. Google Fonts), also tested on the
+        # stylesheets the page requested: (the text the href must contain, entry).
+        self.link_href: list[tuple[str, Entry]] = []
         self.counts: Counter[str] = Counter()
         for tech in ruleset.technologies.values():
             for pattern in tech.patterns:
@@ -103,6 +110,9 @@ class RuleIndex:
                 self.counts[pattern.field] += 1
                 if pattern.field == "dom":
                     self.dom[pattern.key or ""].append(entry)
+                    link = LINK_HREF.fullmatch(pattern.key or "")
+                    if link and pattern.subkey in ("exists", "attributes.href"):
+                        self.link_href.append((link.group(1), entry))
                 elif pattern.field == "cookies" and pattern.key and "*" in pattern.key:
                     # One rule (Google Analytics "_ga_*": GA4 cookies are "_ga_<id>")
                     # uses * as a wildcard in a cookie name.
@@ -198,7 +208,13 @@ def _js_text(value: Any) -> str:
     return str(value)
 
 
-def _page_text(tree: LexborHTMLParser) -> str:
+def _page_text(html: str) -> str:
+    """The page's visible text. Wappalyzer reads `document.body.innerText`, which never
+    holds the contents of <script> or <style>: a CSS class named `.ot-dpd-desc` is not the
+    word "DPD". Parsed again so the main tree keeps its script tags for scriptSrc."""
+    tree = LexborHTMLParser(html)
+    for node in tree.css("script, style, noscript, template"):
+        node.decompose()
     body = tree.body
     return body.text(separator=" ", strip=True) if body is not None else ""
 
@@ -230,7 +246,7 @@ def _match_page(m: _Matcher, html: str, page_url: str, artifact: str) -> None:
     m.test(index.unkeyed["html"], html, artifact, page_url)
     m.test(index.unkeyed["url"], page_url, artifact, page_url)
     tree = LexborHTMLParser(html)
-    m.test(index.unkeyed["text"], _page_text(tree), artifact, page_url)
+    m.test(index.unkeyed["text"], _page_text(html), artifact, page_url)
 
     for node in tree.css("meta"):
         attrs = node.attributes
@@ -312,6 +328,28 @@ def _browser_responses(browser: dict[str, Any]) -> list[tuple[str, list[list[str
     return responses
 
 
+def _match_page_stylesheets(m: _Matcher, browser: dict[str, Any]) -> None:
+    """link[href*=...] rules on the stylesheets the page itself requested.
+
+    A stylesheet pulled in by a CSS @import or a script has no <link> tag in the HTML,
+    but it is the site's own choice just the same (Google Fonts loaded this way was a
+    blind-set miss). Only requests of the page itself: a frame holds another company's
+    page (Google Maps' own font), and script requests are left out on purpose, since
+    files loaded by other scripts have generated names that collide with library names
+    (measured on the 200 domains: 54 of 60 such additions were wrong).
+    """
+    for request in browser.get("requests", []):
+        if request.get("resource_type") != "stylesheet" or request.get("origin") != "main":
+            continue
+        url = request.get("url", "")
+        for needle, (tech, pattern) in m.index.link_href:
+            if needle in url:
+                # The URL plays the <link>'s href; for an "exists" rule it is the proof shown.
+                # The key says it was a request, not a <link> tag found in the HTML.
+                key = f"stylesheet request, as {pattern.key}"
+                m.test([(tech, pattern)], url, "browser.json", url, key=key)
+
+
 def _match_browser_only(m: _Matcher, browser: dict[str, Any]) -> None:
     """js and xhr: data that exists only in the browser."""
     asked = set(browser.get("js_chains_asked", []))
@@ -321,6 +359,7 @@ def _match_browser_only(m: _Matcher, browser: dict[str, Any]) -> None:
     for chain, value in browser.get("js_globals", {}).items():
         m.keyed("js", chain, _js_text(value), "browser.json", browser["final_url"])
 
+    _match_page_stylesheets(m, browser)
     seen_hosts: set[str] = set()
     for request in browser.get("requests", []):
         if request.get("resource_type") in XHR_TYPES:

@@ -11,7 +11,12 @@ from typer.testing import CliRunner
 
 from techdetect.cli import app
 from techdetect.collect.run import RUN_COMPLETE
-from techdetect.detect import build_summary, counting_group, domain_status
+from techdetect.detect import (
+    build_summary,
+    counting_group,
+    domain_status,
+    move_platform_infrastructure,
+)
 from techdetect.fingerprints.combine import PatternGroup, TechnologyResult
 from techdetect.fingerprints.loader import RuleSet, load_rules
 
@@ -397,3 +402,100 @@ def test_same_name_redirect_is_counted_for_the_input(rules: RuleSet) -> None:
         "allegrocreditbeta.com -> synchrony.com"
     ]
     assert summary["core_per_domain"]["denominator"] == "over 1 ok domains of 2"
+
+
+# ------------------------------------------------- a hosted platform's infrastructure
+
+
+def site(*techs: tuple[str, list[str]]) -> list[dict]:
+    return [{"name": n, "categories": c, "group": "core", "confidence": 100} for n, c in techs]
+
+
+def moved(techs: list[dict]) -> list[str]:
+    return [t["name"] for t in techs if t["group"] == "platform_infra"]
+
+
+def test_wix_infrastructure_moves_page_code_and_features_stay() -> None:
+    # appelpsychotherapy.com, as detected; the 7 moved are the ones labelled "not the site's".
+    techs = site(
+        ("Wix", ["CMS", "Blogs"]),
+        ("Cloudflare", ["CDN"]),
+        ("Cloudflare Bot Management", ["Security"]),
+        ("Varnish", ["Caching"]),
+        ("Amazon S3", ["CDN"]),
+        ("Amazon Web Services", ["PaaS"]),
+        ("Let's Encrypt", ["SSL/TLS certificate authorities"]),
+        ("Sentry", ["Issue trackers"]),
+        ("React", ["JavaScript frameworks"]),
+        ("Google Analytics", ["Analytics"]),
+        ("HSTS", ["Security"]),
+    )
+    techs.append({"name": "Google Workspace", "categories": ["Email"], "group": "dns_only"})
+
+    assert move_platform_infrastructure(techs) == "Wix"
+    assert moved(techs) == [
+        "Cloudflare",
+        "Cloudflare Bot Management",
+        "Varnish",
+        "Amazon S3",
+        "Amazon Web Services",
+        "Let's Encrypt",
+        "Sentry",
+    ]
+    assert techs[1]["platform"] == "Wix"
+    # The domain's own mail (DNS) and things the page itself carries are untouched.
+    assert {t["name"]: t["group"] for t in techs[-4:]} == {
+        "React": "core",
+        "Google Analytics": "core",
+        "HSTS": "core",
+        "Google Workspace": "dns_only",
+    }
+
+
+def test_weebly_and_ionos_examples() -> None:
+    weebly = site(
+        ("Weebly", ["CMS"]),
+        ("Google Hosted Libraries", ["CDN"]),
+        ("Snowplow Analytics", ["Analytics", "IaaS"]),
+        ("jQuery", ["JavaScript libraries"]),
+    )
+    ionos = site(
+        ("MyWebsite", ["Page builders"]),
+        ("Apache HTTP Server", ["Web servers"]),
+        ("Sectigo", ["SSL/TLS certificate authorities"]),
+        ("Modernizr", ["JavaScript libraries"]),
+    )
+    move_platform_infrastructure(weebly)
+    move_platform_infrastructure(ionos)
+    assert moved(weebly) == ["Google Hosted Libraries", "Snowplow Analytics"]
+    assert moved(ionos) == ["Apache HTTP Server", "Sectigo"]
+
+
+def test_a_self_hosted_site_keeps_its_infrastructure() -> None:
+    # footasylum.com chose Cloudflare and Akamai itself: nothing moves.
+    techs = site(("Next.js", ["JavaScript frameworks"]), ("Cloudflare", ["CDN"]))
+    assert move_platform_infrastructure(techs) is None
+    assert moved(techs) == []
+
+
+def test_an_inferred_platform_does_not_move_anything() -> None:
+    # Duda only implied by another detection is not proof the site runs on Duda.
+    techs = site(("Cloudflare", ["CDN"]))
+    techs.append({"name": "Duda", "categories": ["CMS"], "group": "inferred_only"})
+    assert move_platform_infrastructure(techs) is None
+
+
+def test_platform_infrastructure_is_not_counted_as_the_sites(rules: RuleSet) -> None:
+    def line(domain: str, group: str) -> dict:
+        tech = {"name": "Varnish", "confidence": 100, "group": group, "categories": []}
+        return {"domain": domain, "status": "ok", "redirected_to": None, "technologies": [tech]}
+
+    only_platform = build_summary([line("wix-site.com", "platform_infra")], rules, 0, False)
+    assert only_platform["unique_technologies"]["core"] == 0
+    assert only_platform["unique_technologies"]["extended_total"] == 0
+    assert only_platform["unique_technologies"]["separately"]["platform_infra"] == 1
+
+    both = build_summary(
+        [line("wix-site.com", "platform_infra"), line("own-server.com", "core")], rules, 0, False
+    )
+    assert both["unique_technologies"]["core"] == 1  # chosen by one site: it counts there

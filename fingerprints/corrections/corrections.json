@@ -1,0 +1,99 @@
+{
+  "WebsiteBuilder": {
+    "remove": [
+      {
+        "field": "meta",
+        "key": "generator",
+        "pattern": "^[\\w\\s.&-]{0,40}\\bWebsite Builder$"
+      }
+    ],
+    "reason": "The generic generator pattern matches any builder whose generator text ends in 'Website Builder', including Wix's own ('Wix.com Website Builder'). The product's own marker (the mywebsitebuilder.com data proxy) stays.",
+    "example": "appelpsychotherapy.com: generator 'Wix.com Website Builder' on a Wix site; the pattern fired on 8 of the 200 domains, mostly Wix sites.",
+    "reviewed_by": "human"
+  },
+  "Store Vantage": {
+    "remove": [
+      {
+        "field": "cookies",
+        "key": "svSession",
+        "pattern": ""
+      }
+    ],
+    "reason": "svSession is Wix's own visitor-session cookie, set on every Wix site. The product's own cookie (storevantage) and variable stay.",
+    "example": "appelpsychotherapy.com: only the svSession cookie, on a Wix site.",
+    "reviewed_by": "human"
+  },
+  "Vimeo": {
+    "remove": [
+      {
+        "field": "js",
+        "key": "VimeoPlayer",
+        "pattern": ""
+      }
+    ],
+    "reason": "Weebly's own script bundle defines a wrapper class named VimeoPlayer on every Weebly site, with no Vimeo video. Vimeo's own player (Vimeo.Player) and embeds stay.",
+    "example": "5rcircleprocess.weebly.com: VimeoPlayer from Weebly's main.js; no Vimeo iframe, embed or request.",
+    "reviewed_by": "human"
+  },
+  "MyWebsite Creator": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "mywebsite-editor\\.com"
+      }
+    ],
+    "reason": "IONOS's older MyWebsite (a Jimdo-based builder) loads scripts from the same mywebsite-editor.com host, so the host alone does not mean MyWebsite Creator (Duda-based). The removal also stops the false Duda inferred from it. Creator's own host (website-editor.net) stays.",
+    "example": "massageforworldpeace.com: generator 'IONOS MyWebsite', Jimdo globals (jimdoData, diy), no Duda marker.",
+    "reviewed_by": "human"
+  },
+  "cdnjs": {
+    "remove_implies": [
+      "Cloudflare"
+    ],
+    "reason": "Loading a file from cdnjs (a free public CDN run by Cloudflare) does not make the site Cloudflare's customer (docs/DEFINITIONS.md: another company's infrastructure). cdnjs itself is still reported.",
+    "example": "loizillon.com and insieme.stanford.edu: Font Awesome from cdnjs; the sites' own responses carry no Cloudflare header.",
+    "reviewed_by": "human"
+  },
+  "Amazon S3": {
+    "remove": [
+      {
+        "field": "headers",
+        "key": "Content-Security-Policy",
+        "pattern": "s3[^ ]*amazonaws\\.com"
+      },
+      {
+        "field": "headers",
+        "key": "Content-Security-Policy-Report-Only",
+        "pattern": "s3[^ ]*\\.amazonaws\\.com"
+      }
+    ],
+    "reason": "A security-policy header lists hosts the page may load from; an S3 bucket there usually belongs to a vendor, not to the site (docs/DEFINITIONS.md: another company's infrastructure). S3 seen serving the site's own files (server: AmazonS3, x-amz headers, script URLs) stays.",
+    "example": "footasylum.com: 'delight-s3-bucket...amazonaws.com' only in content-security-policy; no request to S3.",
+    "reviewed_by": "human"
+  },
+  "Apple iCloud Mail": {
+    "remove": [
+      {
+        "field": "dns",
+        "key": "TXT",
+        "pattern": "apple-domain"
+      }
+    ],
+    "reason": "The unanchored text 'apple-domain' also matches 'apple-domain-verification=', Apple's business-account domain check, which says nothing about mail. iCloud mail stays detected by its MX records (mail.icloud.com) and its 'redirect=icloud.com' record.",
+    "example": "footasylum.com: TXT 'apple-domain-verification=...', mail on Mimecast. All 5 detections in the 200 domains were this record; none had iCloud MX.",
+    "reviewed_by": "human"
+  },
+  "Wix eCommerce": {
+    "remove": [
+      {
+        "field": "dom",
+        "key": "#wix-viewer-model",
+        "pattern": "wixstores"
+      }
+    ],
+    "reason": "Wix's page data names 'wixstores' widgets on any Wix site with the built-in checkout (for example Wix Bookings), store or not. Replaced by the candidate rule that requires the installed 'Wix Stores' app; apply both together.",
+    "example": "appelpsychotherapy.com and gitesducharmois.fr: Bookings sites, no 'Wix Stores' app. The 3 real stores (broganlmt.com, radxmobile.com, northshoremacnut.com) list 'Wix Stores'.",
+    "reviewed_by": "human"
+  }
+}

@@ -51,7 +51,46 @@ THEME_CATEGORIES = frozenset({80, 81, 82})  # WordPress, Shopify, Drupal themes
 PLUGIN_CATEGORIES = frozenset({87, 100})  # WordPress plugins, Shopify apps
 # Name-level precedence: website evidence on any domain makes a technology core; seen in
 # DNS beats only inferred.
-GROUPS = ("core", "dns_only", "inferred_only", "themes")
+GROUPS = ("core", "dns_only", "inferred_only", "themes", "platform_infra")
+# Hosted website builders: the platform, not the site's owner, chose the servers, CDN,
+# storage, bot protection and certificate behind every site it hosts. On such a site those
+# detections are true but belong to the platform (docs/DEFINITIONS.md), so they move to the
+# group "platform_infra": reported, never counted as the site's technologies.
+HOSTED_PLATFORMS = frozenset(
+    {
+        "Wix",
+        "Weebly",
+        "MyWebsite",  # IONOS MyWebsite
+        "Squarespace",
+        "Shopify",
+        "Webflow",
+        "GoDaddy Website Builder",
+        "Duda",
+        "WebNode",
+        "Square Online",
+    }
+)
+INFRASTRUCTURE_CATEGORIES = frozenset(
+    {
+        "CDN",
+        "PaaS",
+        "IaaS",
+        "Hosting",
+        "Web servers",
+        "Caching",
+        "SSL/TLS certificate authorities",
+        "Reverse proxies",
+        "Load balancers",
+    }
+)
+# Bot protection sits in "Security" with HSTS and other things a page itself carries, so
+# it is named one by one.
+BOT_PROTECTION = frozenset(
+    {"Cloudflare Bot Management", "Akamai Bot Manager", "DataDome", "PerimeterX"}
+)
+# The platform's own monitoring and tracking, reporting to the platform, not to the owner:
+# Wix's Sentry sends to sentry.wixpress.com, Weebly's Snowplow to ec.editmysite.com.
+PLATFORM_OWN_TOOLS = {"Wix": frozenset({"Sentry"}), "Weebly": frozenset({"Snowplow Analytics"})}
 # Statuses of domains whose page is not the owner's website: left out of all counts.
 NOT_THE_SITE = frozenset({"parked", "placeholder"})
 
@@ -242,6 +281,39 @@ def counting_group(result: TechnologyResult, ruleset: RuleSet) -> str:
     return "core"
 
 
+def hosted_platform(technologies: list[dict[str, Any]]) -> str | None:
+    """The hosted builder the site runs on, if one is seen on the site itself (core)."""
+    for tech in technologies:
+        if tech["name"] in HOSTED_PLATFORMS and tech["group"] == "core":
+            return tech["name"]
+    return None
+
+
+def is_platform_infrastructure(tech: dict[str, Any], platform: str) -> bool:
+    return (
+        bool(INFRASTRUCTURE_CATEGORIES & set(tech["categories"]))
+        or tech["name"] in BOT_PROTECTION
+        or tech["name"] in PLATFORM_OWN_TOOLS.get(platform, ())
+    )
+
+
+def move_platform_infrastructure(technologies: list[dict[str, Any]]) -> str | None:
+    """On a hosted builder's site, move the platform's infrastructure out of core.
+
+    Only core detections move: DNS records (the domain's mail, its name servers) are the
+    owner's choice even on a builder, and page code the platform bundles still runs on the
+    site's page. Returns the platform, or None.
+    """
+    platform = hosted_platform(technologies)
+    if platform is None:
+        return None
+    for tech in technologies:
+        if tech["group"] == "core" and is_platform_infrastructure(tech, platform):
+            tech["group"] = "platform_infra"
+            tech["platform"] = platform
+    return platform
+
+
 def _group_json(group: PatternGroup) -> dict[str, Any]:
     return {
         "signal": group.signal,
@@ -307,6 +379,7 @@ def detect_domain(raw_dir: Path, domain: Domain, ruleset: RuleSet, index: RuleIn
     line["technologies"] = [
         _technology_json(result, ruleset) for result in resolution.technologies.values()
     ]
+    line["hosted_platform"] = move_platform_infrastructure(line["technologies"])
     line["excluded"] = resolution.excluded
     line["unmet_requirements"] = {k: list(v) for k, v in resolution.unmet_requirements.items()}
     line["artifacts"] = matches.artifacts
@@ -528,7 +601,8 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
         "unique_technologies": {
             "core": unique["core"],
             "separately": {group: unique[group] for group in GROUPS[1:]},
-            "extended_total": len(group_of),
+            # The site's technologies in the wider sense: a platform's infrastructure is not.
+            "extended_total": sum(1 for g in group_of.values() if g != "platform_infra"),
             "core_at_confidence_50_or_more": sum(1 for n in core_names if best_confidence[n] >= 50),
             "core_at_confidence_80_or_more": sum(1 for n in core_names if best_confidence[n] >= 80),
         },

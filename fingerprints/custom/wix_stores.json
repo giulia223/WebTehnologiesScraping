@@ -1,0 +1,26 @@
+{
+  "Wix eCommerce": {
+    "cats": [
+      6
+    ],
+    "website": "https://www.wix.com/ecommerce/website",
+    "dom": {
+      "#wix-viewer-model": {
+        "text": "\"appDefinitionName\":\\s*\"Wix Stores\""
+      }
+    },
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 3,
+    "examples": [
+      "broganlmt.com",
+      "northshoremacnut.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Seen in our crawl: the installed-app list inside Wix's page data names 'Wix Stores' on the 3 real stores and not on the 2 Bookings-only sites. Replaces the 'wixstores' pattern (correction in fingerprints/corrections/). Accepted by the human reviewer on 2026-11-20 after the preview on all 200 domains.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-20"
+  }
+}

@@ -6,8 +6,12 @@ Reads data/output/detections.jsonl and data/raw/ (offline). A domain is in the r
 it failed, hit a bot wall, redirected to another site, or was read but gave very few
 technologies. For each: status, final URL, page title, HTML size, screenshot path.
 
-The blind ground-truth domains are left out unless --include-blind is given: their
-results must not be seen before their labels are written.
+A blind ground-truth domain is left out until its hand-made list is saved (unless
+--include-blind is given): its results must not be seen before its label is written.
+
+The hand-written analyses in docs/failures_checked.md (failures checked in a browser) and
+docs/failures_detection.md (wrong and missed detections, from docs/METRICS.md) are
+appended, so regenerating the report never overwrites them.
 """
 
 import argparse
@@ -23,6 +27,7 @@ GROUND_TRUTH = Path("data/ground_truth.json")
 # Notes from checking the failures by hand: kept in their own file, appended to the report,
 # so regenerating the report never overwrites them.
 CHECKED_BY_HAND = Path("docs/failures_checked.md")
+DETECTION_ANALYSIS = Path("docs/failures_detection.md")
 FEW_TECHNOLOGIES = 2  # an ok domain with at most this many core technologies is listed
 
 # Order = how a domain is classified (first match wins), and the order of the report.
@@ -34,7 +39,8 @@ GROUPS = {
     "site_broken": "Site broken, closed or not connected (404, 5xx, platform error page)",
     "timeout": "No answer in time",
     "parked_lander": "Parked: ends on an ad / parking lander page",
-    "redirected": "Redirected to another site (left out of the counts)",
+    "redirected_same": "Redirected to the same company's other domain (counted for it)",
+    "redirected": "Redirected to another company's site (left out of the counts)",
     "placeholder": "Placeholder page: hosting default, coming soon, device default",
     "few_technologies": f"Read fine, but at most {FEW_TECHNOLOGIES} core technologies",
 }
@@ -47,7 +53,8 @@ FIXABLE = {
     "site_broken": "no: the site itself is broken",
     "timeout": "maybe: a longer timeout or a retry another day",
     "parked_lander": "no: no website; status `parked`, left out of the counts",
-    "redirected": "rule choice: credit the target or not",
+    "redirected_same": "done: same-name rule, counted",
+    "redirected": "no: the site moved to another company; left out on purpose",
     "placeholder": "no: no website yet; status `placeholder`, left out of the counts",
     "few_technologies": "check by hand: minimal site or a gap in the rules",
 }
@@ -115,14 +122,19 @@ def classify(line: dict, facts: dict) -> str | None:
     if status == "placeholder":
         return "placeholder"
     if line["redirected_to"]:
-        return "redirected"
+        return "redirected_same" if line.get("redirect_same_name") else "redirected"
     if core <= FEW_TECHNOLOGIES:
         return "few_technologies"
     return None
 
 
 def build(include_blind: bool) -> tuple[dict[str, list], int, int]:
-    blind = set(read_json(GROUND_TRUTH).get("sets", {}).get("blind", []))
+    truth = read_json(GROUND_TRUTH)
+    blind = {
+        host
+        for host in truth.get("sets", {}).get("blind", [])
+        if not truth.get("domains", {}).get(host, {}).get("human_found_saved_at")
+    }  # blind domains whose hand-made list is not saved yet
     lines = [json.loads(x) for x in DETECTIONS.read_text(encoding="utf-8").splitlines() if x]
     groups: dict[str, list] = defaultdict(list)
     hidden = 0
@@ -146,7 +158,7 @@ def render(groups: dict[str, list], hidden: int, total: int) -> str:
         "",
         f"Domains: {total}. In this report: {sum(len(v) for v in groups.values())}."
         + (
-            f" Left out: {hidden} blind ground-truth domains (until their labels exist)."
+            f" Left out: {hidden} blind ground-truth domains (until their lists are saved)."
             if hidden
             else ""
         ),
@@ -190,8 +202,9 @@ def main() -> None:
     args = parser.parse_args()
     groups, hidden, total = build(args.include_blind)
     text = render(groups, hidden, total)
-    if CHECKED_BY_HAND.is_file():
-        text += "\n" + CHECKED_BY_HAND.read_text(encoding="utf-8")
+    for extra in (CHECKED_BY_HAND, DETECTION_ANALYSIS):
+        if extra.is_file():
+            text += "\n" + extra.read_text(encoding="utf-8")
     args.out.write_text(text, encoding="utf-8")
     sys.stdout.write(
         f"wrote {args.out}: "

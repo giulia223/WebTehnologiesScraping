@@ -49,6 +49,15 @@ def _intro(m: dict[str, Any]) -> str:
         f"- Every rate carries its counts. With fewer than {MIN_N} judged detections a "
         'breakdown says "too few to measure".',
     ]
+    if m["platform_infra"]:
+        agreed = sum(1 for x in m["platform_infra"] if x["verdict"] == "wrong")
+        lines += [
+            f"- **Left out of precision:** {len(m['platform_infra'])} detections the tool "
+            "reports apart as a hosted platform's infrastructure (servers, CDN, certificate, "
+            "bot protection, the platform's own tracking: not the site's choice). "
+            f'{agreed} of them are labelled "not the site\'s" (wrong as a claim about the '
+            "site), so moving them apart agrees with the labels there.",
+        ]
     if m["unlabelled"] or m["stale"]:
         lines += [
             "",
