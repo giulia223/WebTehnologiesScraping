@@ -28,6 +28,1621 @@
       "sevecoitalia.com"
     ]
   },
-  "domains": {},
+  "domains": {
+    "clotting-guide.online": {
+      "human_found": [
+        {
+          "technology": "WordPress",
+          "typed": "WordPress",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Elements: `<meta name=\"generator\" content=\"WordPress 7.1.4\" />`; robots.txt `Disallow: /wp-admin/`, `Sitemap: .../wp-sitemap.xml`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Apache HTTP Server",
+          "typed": "Apache HTTP Server",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers (every response): `server: Apache`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery",
+          "typed": "jQuery 3.7.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "3.7.1",
+          "where": "Console: `jQuery.fn.jquery` = `3.7.1`, globals `$`, `jQuery`; script `c0.wp.com/c/7.1.5/wp-includes/js/jquery/jquery.min.js`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery Migrate",
+          "typed": "jQuery Migrate 3.4.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "3.4.1",
+          "where": "Console: `jQuery.migrateVersion` = `3.4.1`, `jQuery.isWindow()` deprecation warning; script `.../jquery/jquery-migrate.min.js`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "React",
+          "typed": "React 18.3.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "18.3.1",
+          "where": "Elements: `<script id=\"react-js\"`; Console: `React.version` = `18.3.1`, globals `React`, `ReactDOM`; script `c0.wp.com/c/7.1.5/wp-includes/js/dist/vendor/react.min.js`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Jetpack",
+          "typed": "Jetpack",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Console globals `_stq`, `wpcom`, `st_go`, `linktracker_init`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Jetpack Stats",
+          "typed": "Jetpack Stats",
+          "in_rules": false,
+          "suggestions": [
+            "Jetpack Boost",
+            "Jetpack",
+            "PayKickStart",
+            "JetTabs",
+            "AWStats"
+          ],
+          "version": "",
+          "where": "Network: script `stats.wp.com/e-202647.js`, image `pixel.wp.com`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Jetpack Site Accelerator",
+          "typed": "Jetpack Site Accelerator",
+          "in_rules": false,
+          "suggestions": [
+            "Website Creator"
+          ],
+          "version": "",
+          "where": "Network: WordPress core files served from `c0.wp.com/c/7.1.5/...`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery carouFredSel",
+          "typed": "jQuery carouFredSel",
+          "in_rules": false,
+          "suggestions": [
+            "jQuery Modal",
+            "jQuery CDN"
+          ],
+          "version": "6.2.1",
+          "where": "Elements: `/wp-content/themes/vogue/js/jquery.carouFredSel-6.2.1-packed.js?ver=10.9.3`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "js-cookie",
+          "typed": "js-cookie",
+          "in_rules": false,
+          "suggestions": [
+            "CookieYes",
+            "CookieHub",
+            "Cookiebot",
+            "CookieBAR",
+            "JSEcoin"
+          ],
+          "version": "2.2.1",
+          "where": "Elements: `/wp-content/plugins/wpfront-notification-bar/jquery-plugins/js-cookie.min.js?ver=2.2.1`; Console global `Cookies`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Twitter Emoji (Twemoji)",
+          "typed": "Twemoji",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Console globals `_wpemojiSettings`, `twemoji`; script `/wp-includes/js/wp-emoji-release.min.js?ver=7.1.5`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Font API",
+          "typed": "Google Fonts",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: stylesheet `fonts.googleapis.com/css?family=Lato...Open+Sans`, fonts from `fonts.gstatic.com`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Font Awesome",
+          "typed": "Font Awesome 6.5.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "6.5.1",
+          "where": "Network: `/wp-content/themes/vogue/includes/font-awesome/css/all.min.css?ver=6.5.1`",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Let's Encrypt",
+          "typed": "Let's Encrypt",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Certificate: Issued by O = Let's Encrypt, CN = YR1",
+          "section": "website",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Polylang",
+          "typed": "Polylang",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers `x-redirect-by: Polylang`; Cookies `pll_language`; Headers `vary: Accept-Language`",
+          "section": "plugin",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "WPFront Notification Bar",
+          "typed": "WPFront Notification Bar",
+          "in_rules": false,
+          "suggestions": [
+            "icomm - Notifications Hub"
+          ],
+          "version": "3.5.2",
+          "where": "Elements `/wp-content/plugins/wpfront-notification-bar/...?ver=3.5.2.09291`; Cookies `wpfront-notification-bar-keep-closed`; Console `wpfront_notification_bar`",
+          "section": "plugin",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Button Block",
+          "typed": "Button Block",
+          "in_rules": false,
+          "suggestions": [
+            "Betty Blocks",
+            "Otter Blocks",
+            "Auth0 Lock"
+          ],
+          "version": "1.2.9",
+          "where": "Network `/wp-content/plugins/button-block/build/view.css?ver=1.2.9`, `.../build/view.js`",
+          "section": "plugin",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Kaira Vogue",
+          "typed": "Vogue 10.9.3",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "10.9.3",
+          "where": "Elements `/wp-content/themes/vogue/...?ver=10.9.3`; body class `wp-theme-vogue`",
+          "section": "plugin",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "World4You",
+          "typed": "World4You",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS TXT / SPF: `v=spf1 mx include:spf.w4ymail.at -all`",
+          "section": "dns",
+          "found_by": "me",
+          "at": "2026-11-20T12:54:43Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:43Z",
+      "site_status_label": "works"
+    },
+    "rionecontrastanga.net": {
+      "human_found": [
+        {
+          "technology": "WordPress",
+          "typed": "WordPress 6.5.15",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "6.5.15",
+          "where": "Page source: `<meta name=\"generator\" content=\"WordPress 6.5.15\" />`; Headers: `link: <https://rionecontrastanga.net/wp-json/>; rel=\"https://api.w.org/\"`; Network: `/wp-includes/...?ver=6.5.15`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "PHP",
+          "typed": "PHP 7.4.34",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "7.4.34",
+          "where": "Headers: `x-powered-by: PHP/7.4.34`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery",
+          "typed": "jQuery 3.7.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "3.7.1",
+          "where": "Console: `jQuery.fn.jquery` = `3.7.1`; Network: `/wp-includes/js/jquery/jquery.min.js?ver=3.7.1`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery Migrate",
+          "typed": "jQuery Migrate 3.4.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "3.4.1",
+          "where": "Console: `jQuery.migrateVersion` = `3.4.1`, log `JQMIGRATE: Migrate is installed, version 3.4.1`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery UI",
+          "typed": "jQuery UI 1.13.2",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "1.13.2",
+          "where": "Network: `/wp-includes/js/jquery/ui/core.min.js?ver=1.13.2` (+ accordion, datepicker, dialog, tabs, effects...)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "wpBakery",
+          "typed": "WPBakery Page Builder 6.8.0",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "6.8.0",
+          "where": "Page source: `<meta name=\"generator\" content=\"Powered by WPBakery Page Builder ...\">`; Network: `/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=6.8.0`; Console globals `vc_js`, `wpb_prepare_tab_content`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Slider Revolution",
+          "typed": "Slider Revolution 6.8.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "6.8.1",
+          "where": "Page source: `<meta name=\"generator\" content=\"Powered by Slider Revolution 6.8.1 ...\">`; Network: `/wp-content/plugins/revslider/public/js/sr7.js?ver=6.8.1`; Console globals `SR7`, `revapi1`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "LayerSlider",
+          "typed": "LayerSlider",
+          "in_rules": false,
+          "suggestions": [
+            "FlexSlider",
+            "Master Slider",
+            "Layers",
+            "LeadSlide",
+            "MetaSlider"
+          ],
+          "version": "6.7.5",
+          "where": "Page source: `<meta name=\"generator\" content=\"Powered by LayerSlider 6.7.5 ...\">`; Network: `/wp-content/plugins/LayerSlider/static/layerslider/js/layerslider.kreaturamedia.jquery.js?ver=6.7.5`; Console globals `_layerSlider`, `LS_Meta`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "GSAP",
+          "typed": "GSAP",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `/wp-content/plugins/LayerSlider/static/layerslider/js/greensock.js?ver=1.19.0`, `/wp-content/themes/bridge/js/plugins/TweenLite.min.js`; Console globals `TweenMax`, `TimelineMax`, `GreenSockGlobals`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Contact Form 7",
+          "typed": "Contact Form 7 5.9.8",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "5.9.8",
+          "where": "Network: `/wp-content/plugins/contact-form-7/includes/js/index.js?ver=5.9.8`, fetch `/wp-json/contact-form-7/v1/contact-forms/194/feedback/schema`; Console global `wpcf7`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Isotope",
+          "typed": "Isotope",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `/wp-content/plugins/js_composer/assets/lib/bower/isotope/dist/isotope.pkgd.min.js?ver=6.8.0`; Console global `Isotope`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "imagesLoaded",
+          "typed": "imagesLoaded",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `/wp-content/themes/bridge/js/plugins/imagesloaded.js`; Console global `imagesLoaded`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery carouFredSel",
+          "typed": "jQuery carouFredSel",
+          "in_rules": false,
+          "suggestions": [
+            "jQuery Modal",
+            "jQuery CDN"
+          ],
+          "version": "6.2.1",
+          "where": "Network: `/wp-content/themes/bridge/js/plugins/jquery.carouFredSel-6.2.1.min.js?ver=6.5.15`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Modernizr",
+          "typed": "Modernizr",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Console globals `Modernizr`, `yepnope`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "MediaElement.js",
+          "typed": "MediaElement.js",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Console globals `mejs`, `MediaElement`, `MediaElementPlayer`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Font Awesome",
+          "typed": "Font Awesome 4.7.0",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "4.7.0",
+          "where": "Network: `/wp-content/themes/bridge/css/font-awesome/css/font-awesome.min.css`, font `fontawesome-webfont.woff2?v=4.7.0`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Font API",
+          "typed": "Google Fonts",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: stylesheet `fonts.googleapis.com/css?family=Raleway...Alfa+Slab+One...Roboto`, fonts from `fonts.gstatic.com`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Twitter Emoji (Twemoji)",
+          "typed": "Twemoji",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `/wp-includes/js/wp-emoji-release.min.js?ver=6.5.15`; Console globals `_wpemojiSettings`, `twemoji`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Let's Encrypt",
+          "typed": "Let's Encrypt",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Certificate: Issued by O = Let's Encrypt, CN = YR1",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Bridge",
+          "typed": "Bridge",
+          "in_rules": false,
+          "suggestions": [
+            "Airbridge",
+            "Bringie",
+            "AdBridg",
+            "BrightEdge",
+            "Bridgetown"
+          ],
+          "version": "",
+          "where": "Network `/wp-content/themes/bridge/...`; Console globals `qode`, `qodeGlobalVars`, `QodeAjaxUrl`",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Bridge Child",
+          "typed": "Bridge Child",
+          "in_rules": false,
+          "suggestions": [
+            "Brizy Cloud"
+          ],
+          "version": "",
+          "where": "Network `/wp-content/themes/bridge-child/style.css`",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Smash Balloon Instagram Feed",
+          "typed": "Smash Balloon Instagram Feed 6.16.0",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "6.16.0",
+          "where": "Network `/wp-content/plugins/instagram-feed/js/sbi-scripts.min.js?ver=6.16.0`; Console globals `sbi`, `sb_instagram_js_options`",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Joinchat",
+          "typed": "Joinchat 6.4.4",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "6.4.4",
+          "where": "Network `/wp-content/plugins/creame-whatsapp-me/public/js/joinchat.min.js?ver=6.4.4`; Console global `joinchat_obj`; WhatsApp button visible bottom-left in the screenshot",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Netsons",
+          "typed": "Netsons",
+          "in_rules": false,
+          "suggestions": [
+            "Neto",
+            "Responsa",
+            "Netop",
+            "Nepso",
+            "LetsHost"
+          ],
+          "version": "",
+          "where": "DNS NS: `dns1..dns4.netsons.net`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "works"
+    },
+    "loizillon.com": {
+      "human_found": [
+        {
+          "technology": "Google Analytics",
+          "typed": "Google Analytics",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: script `www.googletagmanager.com/gtag/js?id=G-HCJ5MXKWJ2`; Page source: `gtag('config', 'G-HCJ5MXKWJ2');`; Console: `typeof gtag` = `function`, globals `dataLayer`, `google_tag_data`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Consent Mode",
+          "typed": "Google Consent Mode",
+          "in_rules": false,
+          "suggestions": [
+            "Google AdSense",
+            "Google Optimize",
+            "Google Font API",
+            "Google Sites",
+            "Google Cloud"
+          ],
+          "version": "",
+          "where": "Page source: `gtag('consent', 'default', {...})`; Console: `dataLayer[0]` = consent default with `ad_storage`, `analytics_storage` ... = `denied`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Java",
+          "typed": "Java",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Cookies: `JSESSIONID` (domain `www.loizillon.com`, set by the page's `set-cookie` header)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery",
+          "typed": "jQuery 1.12.4",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "1.12.4",
+          "where": "Console: `jQuery.fn.jquery` = `1.12.4`; Network: `cdn.drouot.com/assets?name=cpg/jquery-743584baf8fc09dcd82ba03b2c8d990e.js`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Bootstrap",
+          "typed": "Bootstrap",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: stylesheet `/assets/bootstrap-2702cc3efe0973add8272e0853ab03a3.css` (CSS only, version not visible)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Font Awesome",
+          "typed": "Font Awesome 6.5.0",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "6.5.0",
+          "where": "Network: `cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css`, font `.../6.5.0/webfonts/fa-solid-900.woff2`; also a local copy `/assets/font-awesome/css/font-awesome.min-....css`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "cdnjs",
+          "typed": "cdnjs",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `cdnjs.cloudflare.com` (Font Awesome stylesheet and font)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jsDelivr",
+          "typed": "jsDelivr",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.2/dist/lazyload.min.js`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "vanilla-lazyload",
+          "typed": "vanilla-lazyload",
+          "in_rules": false,
+          "suggestions": [
+            "a3 Lazy Load",
+            "Vanilla"
+          ],
+          "version": "17.1.2",
+          "where": "Network: see jsDelivr row; Console global `LazyLoad`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "OWL Carousel",
+          "typed": "Owl Carousel",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `/assets/include/carousel-plugin/owl.carousel.min-58f126a356f7a1eb5ef4de741979f957.js`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Isotope",
+          "typed": "Isotope",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `/assets/isotope.pkgd.min-ba3b4af1600b522dcaf1c282cc25167d.js`; Console globals `Isotope`, `Outlayer`, `Masonry`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "toastr",
+          "typed": "toastr 2.1.0",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "2.1.0",
+          "where": "Console: `toastr.version` = `2.1.0`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery Toast Plugin",
+          "typed": "jQuery Toast Plugin",
+          "in_rules": false,
+          "suggestions": [
+            "jQuery Sparklines",
+            "jQuery Modal",
+            "jQuery UI",
+            "BetterDocs plugin",
+            "jQuery BlockUI"
+          ],
+          "version": "",
+          "where": "Network: `/assets/jquery_toast/jquery.toast-e6f482ca469096468b65a10857d19fa6.js` and `.css`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Swiper",
+          "typed": "Swiper",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Console global `Swiper`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Magnific Popup",
+          "typed": "Magnific Popup",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: stylesheet `/assets/magnific-popup-bd76b2742b05e58017f0fe452a612c2c.css` (CSS file loaded; JS not checked separately)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Animate.css",
+          "typed": "Animate.css",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: stylesheet `/assets/animate-ca9c031f7663c9e52b815d368f541c0e.css`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Drouot",
+          "typed": "Drouot",
+          "in_rules": false,
+          "suggestions": [
+            "Route",
+            "Droz Bot",
+            "Feroot",
+            "Droxit",
+            "Roompot"
+          ],
+          "version": "",
+          "where": "Network: scripts `cdn.drouot.com/assets?name=cpg/plugins-...js`, `cpg/functions-...js`, `cpg/cookiechoices-...js`, sale images `cdn.drouot.com/d/vente/...`; Page source: \"DROUOT LIVE\" link to `drouot.com/fr`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Let's Encrypt",
+          "typed": "Let's Encrypt",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Certificate: Issued by O = Let's Encrypt, CN = YR1",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "OVHcloud",
+          "typed": "OVHcloud",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS MX: `mx4.mail.ovh.net` (1), `mx3.mail.ovh.net` (10)",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "works (the site of the auction house \"Acteon - Compiegne Encheres\", in French)"
+    },
+    "seringa-safaris.com": {
+      "human_found": [
+        {
+          "technology": "Cloudflare",
+          "typed": "Cloudflare",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers (final page): `server: cloudflare`, `cf-ray: a5d723d50a5cb8d9-OTP`, `cf-cache-status: HIT`; Cookies `__cf_bm`, `cf_clearance` (domain `.seringasafaris.com`)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Cloudflare Bot Management",
+          "typed": "Cloudflare Bot Management",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source: inline script setting `window.__CF$cv$params` and loading `/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=...`; Network: that script + xhr `/cdn-cgi/challenge-platform/h/b/jsd/oneshot/...`; Cookie `cf_clearance`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Analytics",
+          "typed": "Google Analytics",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: script `www.googletagmanager.com/gtag/js?id=G-3E8YXZ8CD1`, fetch `region1.google-analytics.com/g/collect?v=2&tid=G-3E8YXZ8CD1...`; Cookies `_ga`, `_ga_3E8YXZ8CD1`; Console: `typeof gtag` = `function`, `dataLayer` has `config G-3E8YXZ8CD1`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Maps",
+          "typed": "Google Maps",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source: `<iframe ... src=\"https://www.google.com/maps?q=-23.991111,27.955556&z=8&output=embed\">`; Network (inside the iframe): `maps.googleapis.com/maps/api/js?key=...`, tiles `www.google.com/maps/vt?...`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Apache HTTP Server",
+          "typed": "Apache HTTP Server",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers (first redirect only, on seringa-safaris.com): `server: Apache`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Trust Services",
+          "typed": "Google Trust Services",
+          "in_rules": false,
+          "suggestions": [
+            "Google Customer Reviews",
+            "Google Web Server",
+            "Google Sites",
+            "Oracle HTTP Server",
+            "Google My Business"
+          ],
+          "version": "",
+          "where": "Certificate (seringasafaris.com): Issued by O = Google Trust Services, CN = WE1",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Hostgator",
+          "typed": "HostGator",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS TXT / SPF: `v=spf1 ip4:184.173.239.119 a mx include:websitewelcome.com ~all`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Microsoft 365",
+          "typed": "Microsoft 365",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS MX: `seringasafaris-com.mail.protection.outlook.com`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "GoDaddy",
+          "typed": "GoDaddy",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS NS: `ns43.domaincontrol.com`, `ns44.domaincontrol.com`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "works"
+    },
+    "massageforworldpeace.com": {
+      "human_found": [
+        {
+          "technology": "MyWebsite",
+          "typed": "IONOS MyWebsite",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source: `<meta name=\"generator\" content=\"IONOS MyWebsite\"/>`, footer link `IONOS MyWebsite` -> `ionos.com/websites/website-builder`, \"Edit page\" link to `203.sb.mywebsite-editor.com/app/682846652/...`; Network: `cdn.initial-website.com/templates/2118/style.css`, `cdn.initial-website.com/s/build/web.bundle.js`, `203.sb.mywebsite-editor.com/app/logstate-js.php?site=682846652`; Cookie `DIY_SB`; Console globals `diy`, `diysdk`, `jimdoData`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Apache HTTP Server",
+          "typed": "Apache HTTP Server",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers (redirect and page): `server: Apache`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "jQuery",
+          "typed": "jQuery 1.11.0",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "1.11.0",
+          "where": "Console: `jQuery.fn.jquery` = `1.11.0`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Modernizr",
+          "typed": "Modernizr 2.8.3",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "2.8.3",
+          "where": "Console: `Modernizr._version` = `2.8.3`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "RequireJS",
+          "typed": "RequireJS 1.0.7",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "1.0.7",
+          "where": "Console: `requirejs.version` = `1.0.7`, globals `require`, `define`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Hammer.js",
+          "typed": "Hammer.js",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Console global `Hammer`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Sectigo",
+          "typed": "Sectigo",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Certificate: Issued by O = Sectigo Limited, CN = Sectigo Public Server Authentication CA DV R36 (wildcard `*.massageforworldpeace.com`)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Workspace",
+          "typed": "Google Workspace",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS MX: `aspmx.l.google.com` (1) + `alt1..alt4.aspmx.l.google.com`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "IONOS",
+          "typed": "IONOS",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS NS: `ns-us.1and1-dns.us/.com/.org/.de`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "works"
+    },
+    "nevsproductions.com": {
+      "human_found": [
+        {
+          "technology": "Strato",
+          "typed": "Strato",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS MX: `smtp.rzone.de` (5)",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "broken (no website is served: the bare domain only redirects to www, and www points to Odoo, which has no site set up for this domain; a visitor sees a certificate warning, net::ERR_CERT_COMMON_NAME_INVALID)"
+    },
+    "littlerockafamily.de": {
+      "human_found": [],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "dead (net::ERR_NAME_NOT_RESOLVED)"
+    },
+    "appelpsychotherapy.com": {
+      "human_found": [
+        {
+          "technology": "Wix",
+          "typed": "Wix",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source: `<meta name=\"generator\" content=\"Wix.com Website Builder\"/>`; Headers: `server: Pepyaka`, `x-wix-request-id`, `x-meta-site-id` (redirect); Network: `static.parastorage.com/services/wix-thunderbolt/dist/main.109d605e.bundle.min.js`, images from `static.wixstatic.com`; Cookies `svSession`, `bSession`, `hs`, `XSRF-TOKEN`; Console globals `thunderboltVersion`, `wixTagManager`, `viewerModel`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Cloudflare",
+          "typed": "Cloudflare",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers (final page): `server: cloudflare`, `cf-ray: a5d7289fda48a829-OTP`, `cf-cache-status: HIT`; Cookie `__cf_bm`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Varnish",
+          "typed": "Varnish",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers: `server-timing: cache;desc=hit, varnish;desc=hit, dc;desc=ireland-phy` (redirect); `via: 1.1 varnish (Varnish/6.0)` on the Wix map document from `static.parastorage.com`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "React",
+          "typed": "React 18.3.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "18.3.1",
+          "where": "Console: `React.version` = `18.3.1`, `ReactDOM.version` = `18.3.1-next-f1338f8080-20240426`; Network: `static.parastorage.com/unpkg/react@18.3.1/umd/react.production.min.js`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Lodash",
+          "typed": "Lodash 4.18.1",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "4.18.1",
+          "where": "Console: `_.VERSION` = `4.18.1`; Network: `static.parastorage.com/unpkg/lodash@4.18.1/lodash.min.js`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "RequireJS",
+          "typed": "RequireJS 2.3.6",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "2.3.6",
+          "where": "Console: `requirejs.version` = `2.3.6`; Network: `static.parastorage.com/unpkg/requirejs-bolt@2.3.6/requirejs.min.js`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Sentry",
+          "typed": "Sentry 7.120.3",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "7.120.3",
+          "where": "Network: `browser.sentry-cdn.com/7.120.3/bundle.tracing.es5.min.js`; Console globals `Sentry`, `__SENTRY__`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Analytics",
+          "typed": "Google Analytics",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `www.googletagmanager.com/gtag/js?id=G-S4YD61CZTN`, fetch `region1.google-analytics.com/g/collect?v=2&tid=G-S4YD61CZTN&...&gcs=G100...`; Console: `dataLayer` has `config G-S4YD61CZTN`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Ads",
+          "typed": "Google Ads",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: `www.googletagmanager.com/gtag/js?id=AW-17813400584`, fetch `pagead2.googlesyndication.com/ccm/collect?...tid=AW-17813400584&en=page_view...`; Console: `dataLayer` has `config AW-17813400584`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Consent Mode",
+          "typed": "Google Consent Mode",
+          "in_rules": false,
+          "suggestions": [
+            "Google AdSense",
+            "Google Optimize",
+            "Google Font API",
+            "Google Sites",
+            "Google Cloud"
+          ],
+          "version": "",
+          "where": "Console: `dataLayer[0]` = `consent default` with `ad_storage` / `analytics_storage` = `denied`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Maps",
+          "typed": "Google Maps",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network (inside the Wix map iframe `static.parastorage.com/.../googleMap.f3347ff6.html`): `maps.googleapis.com/maps/api/js?callback=initMap&key=...`; Console log `Google Maps API version: 3.67.1d`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Psychology Today",
+          "typed": "Psychology Today",
+          "in_rules": false,
+          "suggestions": [
+            "rSchoolToday"
+          ],
+          "version": "",
+          "where": "Network: `member.psychologytoday.com/verified-seal.js`, `d3mmydk2yvkj9n.cloudfront.net/prod/verified-seal/latest/verified-seal-cb.min.js`, `www.psychologytoday.com/api/verified-seal/seals/14/profile/785438?callback=sxcallback`; seal \"Verified by Psychology Today\" visible in the screenshot",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Let's Encrypt",
+          "typed": "Let's Encrypt",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Certificate: Issued by O = Let's Encrypt, CN = YR2",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Wix FAQ",
+          "typed": "Wix FAQ",
+          "in_rules": false,
+          "suggestions": [
+            "Wix"
+          ],
+          "version": "",
+          "where": "none (Wix). Wix apps seen: Wix FAQ (`editor.wixapps.net/render/prod/editor/faq-ooi/1.693.0/FaqOoi`, xhr `/_api/faq-server/v2/question-entries/query`); Wix Forms (`static.parastorage.com/services/forms-viewer/1.883.0/viewerScript.bundle.min.js`); Wix Members / profile card (`santa-members-viewer-app`, `profile-card-tpa-ooi`); Wix Bookings (page data `\"appDefinitionName\":\"Wix Bookings\"`, its app ID `13d21c63-...` in the `siteassets.parastorage.com` requests)",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Wix Forms",
+          "typed": "Wix Forms",
+          "in_rules": false,
+          "suggestions": [
+            "WPForms",
+            "Ninja Forms",
+            "Web Wiz Forums",
+            "Web3Forms",
+            "waitForImages"
+          ],
+          "version": "",
+          "where": "none (Wix). Wix apps seen: Wix FAQ (`editor.wixapps.net/render/prod/editor/faq-ooi/1.693.0/FaqOoi`, xhr `/_api/faq-server/v2/question-entries/query`); Wix Forms (`static.parastorage.com/services/forms-viewer/1.883.0/viewerScript.bundle.min.js`); Wix Members / profile card (`santa-members-viewer-app`, `profile-card-tpa-ooi`); Wix Bookings (page data `\"appDefinitionName\":\"Wix Bookings\"`, its app ID `13d21c63-...` in the `siteassets.parastorage.com` requests)",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Wix Members / profile card",
+          "typed": "Wix Members / profile card",
+          "in_rules": false,
+          "suggestions": [],
+          "version": "",
+          "where": "none (Wix). Wix apps seen: Wix FAQ (`editor.wixapps.net/render/prod/editor/faq-ooi/1.693.0/FaqOoi`, xhr `/_api/faq-server/v2/question-entries/query`); Wix Forms (`static.parastorage.com/services/forms-viewer/1.883.0/viewerScript.bundle.min.js`); Wix Members / profile card (`santa-members-viewer-app`, `profile-card-tpa-ooi`); Wix Bookings (page data `\"appDefinitionName\":\"Wix Bookings\"`, its app ID `13d21c63-...` in the `siteassets.parastorage.com` requests)",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Wix Bookings",
+          "typed": "Wix Bookings",
+          "in_rules": false,
+          "suggestions": [
+            "Witbooking",
+            "GBooking",
+            "Zonal Bookings",
+            "BookingPress",
+            "Kross Booking"
+          ],
+          "version": "",
+          "where": "none (Wix). Wix apps seen: Wix FAQ (`editor.wixapps.net/render/prod/editor/faq-ooi/1.693.0/FaqOoi`, xhr `/_api/faq-server/v2/question-entries/query`); Wix Forms (`static.parastorage.com/services/forms-viewer/1.883.0/viewerScript.bundle.min.js`); Wix Members / profile card (`santa-members-viewer-app`, `profile-card-tpa-ooi`); Wix Bookings (page data `\"appDefinitionName\":\"Wix Bookings\"`, its app ID `13d21c63-...` in the `siteassets.parastorage.com` requests)",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Workspace",
+          "typed": "Google Workspace",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS MX: `aspmx.l.google.com` (10)",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "works"
+    },
+    "1stlocksheathscouts.org.uk": {
+      "human_found": [
+        {
+          "technology": "WordPress",
+          "typed": "WordPress 7.1.5",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "7.1.5",
+          "where": "Page source (curl): `<meta name=\"generator\" content=\"WordPress 7.1.5\" />`; Headers: `link: <https://1stlocksheathscouts.org.uk/wp-json/>; rel=\"https://api.w.org/\"`; robots.txt `Disallow: /wp-admin/`, `Allow: /wp-admin/admin-ajax.php`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Cloudflare",
+          "typed": "Cloudflare",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers: `server: cloudflare`, `cf-ray: a5d72bcf2e167607-OTP`, `cf-cache-status: EXPIRED`; Cookies `__cf_bm`, `_cfuvid`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Cloudflare Bot Management",
+          "typed": "Cloudflare Bot Management",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Browser: 403 page \"Performing security verification\", script `/cdn-cgi/challenge-platform/h/b/orchestrate/chl_page/v1?ray=...`, Console global `_cf_chl_opt`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Cloudflare Turnstile",
+          "typed": "Cloudflare Turnstile",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Browser (challenge page): `challenges.cloudflare.com/turnstile/v0/b/f8df4d4a0cd6/api.js`, Console global `turnstile`, widget \"Verify you are human\" in the screenshot",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Cloudflare Email Address Obfuscation",
+          "typed": "Cloudflare Email Address Obfuscation",
+          "in_rules": false,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source (curl): script `/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "The Events Calendar",
+          "typed": "The Events Calendar",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers: `x-tec-api-root: https://1stlocksheathscouts.org.uk/wp-json/tribe/events/v1/`, `x-tec-api-version: v1`; Page source: `/wp-content/plugins/the-events-calendar/common/build/js/user-agent.js`, feed link `/events/?ical=1`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Font Awesome",
+          "typed": "Font Awesome 4.7.0",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "4.7.0",
+          "where": "Page source: stylesheet `maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=4.7.0`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "BootstrapCDN",
+          "typed": "BootstrapCDN",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source: see Font Awesome row (`maxcdn.bootstrapcdn.com`)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Bluehost",
+          "typed": "Bluehost",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source: `/wp-content/plugins/bluehost-wordpress-plugin/vendor/newfold-labs/wp-module-performance/build/assets/link-prefetch.min.js?ver=5.1.1`; Headers: `x-endurance-cache-level: 0`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Trust Services",
+          "typed": "Google Trust Services",
+          "in_rules": false,
+          "suggestions": [
+            "Google Customer Reviews",
+            "Google Web Server",
+            "Google Sites",
+            "Oracle HTTP Server",
+            "Google My Business"
+          ],
+          "version": "",
+          "where": "Certificate: Issued by O = Google Trust Services, CN = WE1",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:44Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Skills for Life",
+          "typed": "Skills for Life",
+          "in_rules": false,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source `/wp-content/themes/skillsforlife/style.css?ver=1791042255`, `.../js/scripts.js`, Scouts logo `.../img/Scouts-Logo-Stack-White.svg`",
+          "section": "plugin",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Microsoft 365",
+          "typed": "Microsoft 365",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS MX: `1stlocksheathscouts-org-uk.mail.protection.outlook.com`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Just Host",
+          "typed": "Just Host",
+          "in_rules": false,
+          "suggestions": [
+            "Justo",
+            "Starhost",
+            "Trusted Shops",
+            "Tiiny Host",
+            "Turhost"
+          ],
+          "version": "",
+          "where": "DNS NS: `ns1.justhost.com`, `ns2.justhost.com`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:45Z",
+      "site_status_label": "bot check for the headless browser (\"Performing security verification\", Cloudflare Turnstile \"Verify you are human\", HTTP 403); curl received the real page (HTTP 200, \"Home - 1st Locksheath Scout Group\"). Not bypassed; everything below except the Cloudflare rows comes from curl (HTML before JavaScript, headers, robots.txt)."
+    },
+    "rivithead.com": {
+      "human_found": [
+        {
+          "technology": "Apache HTTP Server",
+          "typed": "Apache HTTP Server",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Headers (redirect, page, robots.txt): `server: Apache`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "PHP",
+          "typed": "PHP",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source: `<form name=\"login\" action=\"login.php?action=process\" method=\"post\">`; robots.txt `Disallow: /share_box_frame.php`, `/share_email.php`; Headers: `expires: Thu, 19 Nov 1981 08:52:00 GMT` (PHP session default)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Matomo Analytics",
+          "typed": "Matomo",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Page source: `_paq.push(['setTrackerUrl', u+'matomo.php'])`, `g.src=u+'includes/javascript/matomo.js'`; Network: script `www.rivithead.com/includes/javascript/matomo.js`, ping `www.rivithead.com/matomo.php?action_name=...&idsite=1&rec=1...`; Cookies `_pk_id.1.d3ba`, `_pk_ses.1.d3ba`; Console globals `_paq`, `Matomo`, `Piwik`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Swiper",
+          "typed": "Swiper 12.1.4",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "12.1.4",
+          "where": "Network: `images.rivithead.com/includes/javascript/swiper-bundle.12.1.4.min.js`, `.../css/swiper-bundle.min.1.2.css`; Console global `Swiper`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Google Font API",
+          "typed": "Google Fonts",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Network: stylesheet `fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap`, font `fonts.gstatic.com/s/rajdhani/...`",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Sectigo",
+          "typed": "Sectigo",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "Certificate: Issued by Sectigo Public Server Authentication CA OV R36 (organisation-validated)",
+          "section": "website",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        },
+        {
+          "technology": "Amazon Route 53",
+          "typed": "Amazon Route 53",
+          "in_rules": true,
+          "suggestions": [],
+          "version": "",
+          "where": "DNS NS: `ns-989.awsdns-59.net`, `ns-131.awsdns-16.com`, `ns-1626.awsdns-11.co.uk`, `ns-1061.awsdns-04.org`",
+          "section": "dns",
+          "found_by": "blind_session",
+          "at": "2026-11-20T12:54:45Z",
+          "imported_from": "docs/manual_inspect_domains.md"
+        }
+      ],
+      "verdicts": {},
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:45Z",
+      "site_status_label": "works (online shop for gothic clothing)"
+    }
+  },
   "review_seed": 20261119
 }

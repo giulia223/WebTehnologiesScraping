@@ -354,3 +354,46 @@ def test_a_shop_selling_things_is_not_a_domain_for_sale(tmp_path: Path) -> None:
     page = {"status": "ok", "html_file": "static.html"}
     title = "Used cars for sale | Example Motors"
     assert not says_for_sale(raw / "example-motors.com", page, title, "example-motors.com")
+
+
+@pytest.mark.parametrize(
+    ("host", "target", "same"),
+    [
+        ("seringa-safaris.com", "seringasafaris.com", True),  # only a hyphen differs
+        ("velvety.eu", "velvety-cosmetics.com", True),  # one name inside the other
+        ("fsbwyoming.com", "myfrbank.com", False),  # a renamed bank
+        ("maiquotes.net", "mymarylandauto.com", False),
+        ("allegrocreditbeta.com", "synchrony.com", False),  # the parent company
+        ("abc.com", "abcdpinturas.com.br", False),  # too short to prove anything
+    ],
+)
+def test_same_name_redirects_from_the_real_examples(host: str, target: str, same: bool) -> None:
+    from techdetect.detect import same_name
+
+    assert same_name(host, target) is same
+
+
+def test_same_name_redirect_is_counted_for_the_input(rules: RuleSet) -> None:
+    def line(domain: str, target: str | None, same: bool) -> dict:
+        tech = {"name": "Nginx", "confidence": 100, "group": "core", "categories": []}
+        return {
+            "domain": domain,
+            "status": "ok",
+            "redirected_to": target,
+            "redirect_same_name": same,
+            "technologies": [tech],
+        }
+
+    lines = [
+        line("seringa-safaris.com", "seringasafaris.com", True),
+        line("allegrocreditbeta.com", "synchrony.com", False),
+    ]
+    summary = build_summary(lines, rules, threshold=0, partial=False)
+
+    assert summary["domains"]["redirected_same_name"]["list"] == [
+        "seringa-safaris.com -> seringasafaris.com"
+    ]
+    assert summary["domains"]["redirected_elsewhere"]["list"] == [
+        "allegrocreditbeta.com -> synchrony.com"
+    ]
+    assert summary["core_per_domain"]["denominator"] == "over 1 ok domains of 2"

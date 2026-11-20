@@ -36,7 +36,7 @@ from techdetect.collect.challenge import detect_challenge, is_dead_behind_cdn
 from techdetect.collect.provenance import tool_version
 from techdetect.collect.run import RUN_COMPLETE
 from techdetect.collect.storage import write_atomic, write_json_atomic
-from techdetect.domains import Domain, registered_domain
+from techdetect.domains import Domain, domain_name, registered_domain
 from techdetect.fingerprints.combine import PatternGroup, TechnologyResult, combine
 from techdetect.fingerprints.loader import RuleSet, load_rules
 from techdetect.fingerprints.matcher import RuleIndex, match_domain
@@ -208,6 +208,28 @@ def redirected_to(host: str, static: dict | None, browser: dict | None) -> str |
     return None
 
 
+SAME_NAME_MIN_CHARS = 5  # a shorter name inside a longer one proves nothing ("abc" in "abcd...")
+
+
+def same_name(host: str, target: str) -> bool:
+    """Are the input domain and its redirect target the same name, i.e. the same company?
+
+    Built from the real redirects in the data: the names (without their ending) are equal
+    once hyphens and dots are removed (seringa-safaris.com -> seringasafaris.com), or one
+    contains the other (velvety.eu -> velvety-cosmetics.com). A renamed company
+    (fsbwyoming.com -> myfrbank.com) or a parent company (allegrocreditbeta.com ->
+    synchrony.com) does not match: the safe direction, since crediting a giant parent's
+    website to a small brand would mislead a salesperson.
+    """
+    a, b = (re.sub(r"[^a-z0-9]", "", domain_name(x)) for x in (host, target))
+    if not a or not b:
+        return False
+    if a == b:
+        return True
+    shorter, longer = sorted((a, b), key=len)
+    return len(shorter) >= SAME_NAME_MIN_CHARS and shorter in longer
+
+
 def counting_group(result: TechnologyResult, ruleset: RuleSet) -> str:
     """Which count a detection belongs to on this domain."""
     categories = set(ruleset.technologies[result.name].categories)
@@ -273,7 +295,9 @@ def detect_domain(raw_dir: Path, domain: Domain, ruleset: RuleSet, index: RuleIn
         "row": domain.row,
         "display_name": domain.display_name,
         "status": status,
-        "redirected_to": redirected_to(domain.host, static, browser),
+        "redirected_to": (target := redirected_to(domain.host, static, browser)),
+        # The target is the same company (same name): its technologies count for this domain.
+        "redirect_same_name": bool(target and same_name(domain.host, target)),
         "technologies": [],
     }
     if status == "failed:not_collected":
@@ -398,15 +422,23 @@ def _write_tables(rows: list[dict[str, Any]], output_dir: Path) -> None:
 
 def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: bool) -> dict:
     statuses = Counter(line["status"] for line in lines)
+
+    def credited(line: dict) -> bool:
+        # No redirect, or a redirect to the same company's other domain.
+        return not line["redirected_to"] or bool(line.get("redirect_same_name"))
+
     redirected = [
-        line for line in lines if line["redirected_to"] and line["status"] not in NOT_THE_SITE
+        line for line in lines if not credited(line) and line["status"] not in NOT_THE_SITE
+    ]
+    same_company = [
+        line
+        for line in lines
+        if line["redirected_to"] and credited(line) and line["status"] not in NOT_THE_SITE
     ]
     # Left out of every count: another site's page (redirect, F4.4/F4.5), and pages that
     # are not a website at all (parking lander, hosting default page). Their detections
     # describe the parking service or the host, not the domain's owner.
-    counted = [
-        line for line in lines if not line["redirected_to"] and line["status"] not in NOT_THE_SITE
-    ]
+    counted = [line for line in lines if credited(line) and line["status"] not in NOT_THE_SITE]
     ok_counted = [line for line in counted if line["status"] == "ok"]
 
     # Name level: a technology's group is "core" if it is core on any counted domain.
@@ -483,8 +515,14 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
             ),
             "redirected_elsewhere": {
                 "count": len(redirected),
-                "note": "left out of every count, average and lead below",
+                "note": "to another company's site: left out of every count, average "
+                "and lead below",
                 "list": [f"{line['domain']} -> {line['redirected_to']}" for line in redirected],
+            },
+            "redirected_same_name": {
+                "count": len(same_company),
+                "note": "to the same company's other domain (same name): counted for the input",
+                "list": [f"{line['domain']} -> {line['redirected_to']}" for line in same_company],
             },
         },
         "unique_technologies": {

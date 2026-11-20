@@ -168,3 +168,12 @@ def registered_domain(host: str) -> str:
     """
     host = host.lower().rstrip(".")
     return _offline_extractor()(host).top_domain_under_public_suffix or host
+
+
+def domain_name(host: str) -> str:
+    """The registered name without its public suffix.
+
+    www.velvety-cosmetics.com -> velvety-cosmetics (offline, like registered_domain).
+    """
+    host = host.lower().rstrip(".")
+    return _offline_extractor()(host).domain or host

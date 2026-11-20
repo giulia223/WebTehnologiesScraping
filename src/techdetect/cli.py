@@ -36,6 +36,7 @@ from techdetect.detect import (
     write_outputs,
 )
 from techdetect.domains import Domain, LoadResult, load_domains
+from techdetect.evaluate.importer import import_blind, parse_inspection_file
 from techdetect.evaluate.labels import (
     REVIEW_SEED,
     blind_domains,
@@ -405,6 +406,39 @@ def pick_review_command(
     save_ground_truth(config.ground_truth_path, data)
     typer.echo(f"blind ({len(data['sets']['blind'])}): {', '.join(data['sets']['blind'])}")
     typer.echo(f"review ({len(data['sets']['review'])}): {', '.join(data['sets']['review'])}")
+    typer.echo(f"saved in {config.ground_truth_path}")
+
+
+@evaluate_app.command("import-blind")
+def import_blind_command(
+    inspection: Annotated[
+        Path, typer.Option("--file", help="The blind inspection notes (Task 0.3).")
+    ] = Path("docs/manual_inspect_domains.md"),
+    ground_truth: GroundTruthOpt = None,
+    rules_dir: RulesDirOpt = None,
+    force: Annotated[
+        bool, typer.Option("--force", help="Replace lists already in the ground truth.")
+    ] = False,
+) -> None:
+    """Read the blind domains' technology lists from the inspection notes."""
+    config = Config().with_overrides(ground_truth_path=ground_truth, rules_dir=rules_dir)
+    data = load_ground_truth(config.ground_truth_path)
+    if not data["sets"]["blind"]:
+        typer.echo("No sets yet: run `techdetect evaluate pick-review` first.", err=True)
+        raise typer.Exit(code=1)
+    names = sorted(load_rules(config.rules_dir).technologies)
+    parsed = parse_inspection_file(inspection.read_text(encoding="utf-8"))
+    for domain, outcome in import_blind(data, parsed, names, force).items():
+        typer.echo(f"{domain}: {outcome}")
+        for entry in data["domains"].get(domain, {}).get("human_found", []):
+            if not entry["in_rules"] and outcome.startswith("imported"):
+                hint = (
+                    f" (close: {', '.join(entry['suggestions'][:3])})"
+                    if entry["suggestions"]
+                    else ""
+                )
+                typer.echo(f"   not in the rules: {entry['technology']}{hint}")
+    save_ground_truth(config.ground_truth_path, data)
     typer.echo(f"saved in {config.ground_truth_path}")
 
 
