@@ -139,19 +139,46 @@ def retry_after_seconds(value: str | None, now: datetime | None = None) -> float
 
 
 def candidate_urls(host: str) -> list[str]:
-    """Addresses tried in order until one succeeds (the browser uses the same order)."""
-    return [f"https://{host}/", f"https://www.{host}/", f"http://{host}/"]
+    """Addresses tried in order until one succeeds (the browser uses the same order).
+
+    `http://www.` is last: some sites serve their real pages only there (no HTTPS, and
+    nothing on the bare name over plain HTTP).
+    """
+    return [f"https://{host}/", f"https://www.{host}/", f"http://{host}/", f"http://www.{host}/"]
 
 
-def choose_attempt(outcomes: list[str | None]) -> int:
+def is_name_mismatch(tls_error: str | None) -> bool:
+    """Was the certificate made for another name (not just self-signed or expired)?
+
+    On shared hosting such a certificate is usually the host's own, and the page behind
+    it the host's default page: the site's real pages are often on plain http://.
+    Python says "Hostname mismatch"; Chromium says ERR_CERT_COMMON_NAME_INVALID.
+    """
+    text = (tls_error or "").lower()
+    return "hostname mismatch" in text or "err_cert_common_name_invalid" in text
+
+
+def is_weak_success(record: dict[str, Any]) -> bool:
+    """A page that loaded only by ignoring a certificate made for another name."""
+    return (
+        record.get("outcome") == "ok"
+        and record.get("tls_verified") is False
+        and is_name_mismatch(record.get("tls_error"))
+    )
+
+
+def choose_attempt(outcomes: list[str | None], weak: list[bool] | None = None) -> int:
     """Index of the attempt to keep: the success, else the most informative failure.
 
-    On a tie, the earlier address wins. Shared with the browser so both apply one rule.
+    A weak success (see is_weak_success) is kept only if no other address gave a real
+    page. On a tie, the earlier address wins. Shared with the browser: one rule for both.
     """
+    weak = weak or [False] * len(outcomes)
     return min(
         range(len(outcomes)),
         key=lambda i: (
             outcomes[i] != "ok",
+            weak[i],
             _INFORMATIVENESS.get(outcomes[i] or "", _LEAST_INFORMATIVE),
             i,
         ),
@@ -412,10 +439,14 @@ class StaticFetcher:
                 record, response = await self._attempt(clients, url)
                 attempts.append(record)
                 responses.append(response)
-                if record["outcome"] == "ok":
+                # A weak success does not end the search: another address may be the
+                # real site (it is still kept if nothing better comes).
+                if record["outcome"] == "ok" and not is_weak_success(record):
                     break
 
-        chosen = choose_attempt([a["outcome"] for a in attempts])
+        chosen = choose_attempt(
+            [a["outcome"] for a in attempts], [is_weak_success(a) for a in attempts]
+        )
         record, response = attempts[chosen], responses[chosen]
         body = response.body if response is not None else None
         result = {
