@@ -318,3 +318,39 @@ def test_parked_and_placeholder_domains_are_left_out_of_the_counts(rules: RuleSe
     assert summary["domains"]["parked"]["list"] == ["lander.com"]
     assert summary["domains"]["placeholder"]["list"] == ["soon.com"]
     assert summary["core_per_domain"]["denominator"] == "over 1 ok domains of 3"
+
+
+def test_domain_for_sale_page_is_parked(tmp_path: Path) -> None:
+    from techdetect.detect import says_for_sale
+
+    raw = tmp_path / "raw"
+    sale = tmp_path / "sale.html"
+    sale.write_text(
+        "<html><head><title>parrots-example.de steht zum Verkauf</title></head><body>"
+        "This domain is for sale. Place your bid.</body></html>",
+        encoding="utf-8",
+    )
+    Site(raw, "parrots-example.de").static(sale)
+    page = {"status": "ok", "html_file": "static.html"}
+    folder = raw / "parrots-example.de"
+
+    assert says_for_sale(folder, page, "parrots-example.de steht zum Verkauf", "parrots-example.de")
+    assert says_for_sale(folder, page, "", "parrots-example.de")  # the body says it too
+    ok = {"status": "ok", "final_url": "https://parrots-example.de/"}
+    assert domain_status(ok, ok, for_sale=True) == "parked"
+
+
+def test_a_shop_selling_things_is_not_a_domain_for_sale(tmp_path: Path) -> None:
+    from techdetect.detect import says_for_sale
+
+    raw = tmp_path / "raw"
+    shop = tmp_path / "shop.html"
+    shop.write_text(
+        "<html><head><title>Used cars for sale | Example Motors</title></head><body>"
+        "Cars for sale. Haus zu verkaufen. Buy this car today.</body></html>",
+        encoding="utf-8",
+    )
+    Site(raw, "example-motors.com").static(shop)
+    page = {"status": "ok", "html_file": "static.html"}
+    title = "Used cars for sale | Example Motors"
+    assert not says_for_sale(raw / "example-motors.com", page, title, "example-motors.com")

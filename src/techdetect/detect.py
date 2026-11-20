@@ -101,6 +101,23 @@ _PLACEHOLDER_TITLE = re.compile(
 )
 
 
+# A domain-sale page (seen on weissbauchpapageien.de: "... steht zum Verkauf",
+# "This domain is for sale", "Buy this domain"). Phrases about the domain itself only, so
+# a shop's "for sale" or "zu verkaufen" items never match.
+_FOR_SALE_TEXT = re.compile(rb"this domain is for sale|buy this domain", re.I)
+_FOR_SALE_TITLE = re.compile(r"(?:is for sale|steht zum verkauf)", re.I)
+
+
+def says_for_sale(folder: Path, page: dict | None, title: str, host: str) -> bool:
+    """The page offers the domain itself for sale."""
+    if not page or page.get("status") != "ok":
+        return False
+    if host.lower() in title.lower() and _FOR_SALE_TITLE.search(title):
+        return True
+    path = folder / (page.get("html_file") or "")
+    return path.is_file() and bool(_FOR_SALE_TEXT.search(path.read_bytes()[:400_000]))
+
+
 def page_title(folder: Path, page: dict | None) -> str:
     """The <title> of a saved page, "" if there is none."""
     if not page or not page.get("html_file") or not (folder / page["html_file"]).is_file():
@@ -148,16 +165,22 @@ def not_a_website(page: dict | None, title: str) -> str | None:
 
 
 def domain_status(
-    static: dict | None, browser: dict | None, titles: tuple[str, str] = ("", "")
+    static: dict | None,
+    browser: dict | None,
+    titles: tuple[str, str] = ("", ""),
+    for_sale: bool = False,
 ) -> str:
     """ok / parked / placeholder / bot_challenge / failed:<category>.
 
-    `titles` are the static and rendered pages' titles, for the placeholder check.
+    `titles` are the static and rendered pages' titles, for the placeholder check;
+    `for_sale` says that a loaded page offers the domain itself for sale.
     """
     pages = [p for p in (static, browser) if p is not None]
     if not pages:
         return "failed:not_collected"
     if any(p.get("status") == "ok" for p in pages):
+        if for_sale:
+            return "parked"
         # A loaded page can still be a parking lander or a default page: the browser's
         # view first (it follows JavaScript redirects), then the plain fetch.
         for page, title in ((browser, titles[1]), (static, titles[0])):
@@ -241,7 +264,10 @@ def detect_domain(raw_dir: Path, domain: Domain, ruleset: RuleSet, index: RuleIn
     static = refine_failure(folder, _read_json(folder / "static.json"))
     browser = refine_failure(folder, _read_json(folder / "browser.json"))
     titles = (page_title(folder, static), page_title(folder, browser))
-    status = domain_status(static, browser, titles)
+    for_sale = says_for_sale(folder, static, titles[0], domain.host) or says_for_sale(
+        folder, browser, titles[1], domain.host
+    )
+    status = domain_status(static, browser, titles, for_sale)
     line: dict[str, Any] = {
         "domain": domain.host,
         "row": domain.row,

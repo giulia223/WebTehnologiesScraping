@@ -19,9 +19,13 @@ is not repeated here; these are the differences and what they mean.
 | dioxoxigenio.com.br | placeholder (hosting default page) | **the company's real site** | **our bug**: the real site is only on `http://`; on `https://` the server shows a certificate for another name and the host's default page, which we took as the answer |
 | den-a-sha.co.jp | placeholder ("invalid URL") | **a real site** | **our bug**: same as above; the real site is at `http://www.den-a-sha.co.jp/`, an address we never try |
 
-**Our bug, in detail:** when a site's certificate is made for another name, the fetcher
-retries without certificate checks and accepts the page it gets. On shared hosting that
+**Our bug, in detail (fixed in Run 2):** when a site's certificate was made for another name, the fetcher
+retried without certificate checks and accepted the page it got. On shared hosting that
 page is often the host's default page, while the real site is served over plain `http://`.
 6 domains were collected this way (amaronbattery.in, cmresolutions.com, den-a-sha.co.jp,
-dioxoxigenio.com.br, maiquotes.net, wrinkle-pei.cz). The fix belongs in the collector and
-needs those domains re-collected.
+dioxoxigenio.com.br, maiquotes.net, wrinkle-pei.cz). Now such a page no longer ends the
+search, `http://www.` is tried too, and all 6 give their real site.
+
+**Changed since the first crawl:** weissbauchpapageien.de now lands on a "domain for sale"
+page (domainname.de) instead of an ad lander: still parked, recognised by a new rule;
+ferienwohnung-kastell.de stopped resolving.
