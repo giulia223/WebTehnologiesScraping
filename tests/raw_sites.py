@@ -31,6 +31,7 @@ class Site:
         status: str = "ok",
         error_category: str | None = None,
         final_url: str | None = None,
+        http_status: int | None = None,
     ) -> "Site":
         # A bare name is a file in tests/fixtures/pages/.
         shutil.copy(page if isinstance(page, Path) else PAGES / page, self.folder / "static.html")
@@ -42,6 +43,7 @@ class Site:
                 "status": status,
                 "error_category": error_category,
                 "final_url": final_url,
+                "http_status": http_status or (200 if status == "ok" else None),
                 "chosen_attempt": 1,
                 "html_file": "static.html",
                 "attempts": [

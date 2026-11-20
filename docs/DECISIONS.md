@@ -386,4 +386,17 @@ Template:
 - **Consequences:**
   - Every custom rule carries who reviewed it and when; the rule-set version hash changes with every promotion, so runs before and after are told apart.
   - Our own test rules carry `reviewed_by: "human"` too, since they go through the same loader.
+
+## D-021 Failure analysis: parked and placeholder statuses, block pages re-read offline
+- **Date:** 2026-11-20
+- **Context:** The failure report (`scripts/failure_report.py` -> `docs/FAILURES.md`, every group then checked by hand in a browser) showed three ways the domain status misled: 8 domains counted as working sites were a parking lander or a default page; 5 bot-protection block pages were reported as plain HTTP errors; 3 dead sites behind Cloudflare were reported as HTTP errors.
+- **Options considered and decision** (each rule built only from the real examples in the data, with a test per example):
+  - **`parked`:** the page loaded but ended on an ad / parking lander (`/lander`, `lander_v4.php`, `middle.html?impId=`; 3 domains). **`placeholder`:** the whole title is a hosting company's or a device's default page or "coming soon" ("Default page", "Site Hospedado na KingHost", "Hello! Welcome to Synology Web Station!", "Coming Soon", "無効なURLです"; 5 domains). Titles are matched whole, so "Coming soon: our winter collection" stays a real site. Both statuses are left out of every count and average (like redirects): what is on those pages belongs to the parking service or the host, not to the domain's owner. Rejected: the "domain for sale" keyword list planned earlier; it matched none of the 200 pages.
+  - **Block pages:** `detect` re-reads every saved failed page with the current challenge rules, offline. Akamai's "Access Denied" page is now recognised by its own text (title plus its "Reference #18...." code) or its `akamai-grn` header, since most such responses carry no `server: AkamaiGHost` header; Cloudflare's block page ("Attention Required! | Cloudflare") is recognised too. 5 domains moved from `failed:http_error` to `bot_challenge`. A plain "403 Forbidden" that does not say who blocked stays an HTTP error (3 domains). The collector uses the same improved rules from now on.
+  - **Dead behind a CDN:** Cloudflare's error 1001 page ("DNS resolution error": the name behind the CDN no longer resolves) now gives `failed:dns_error` (3 domains).
+  - All three are detect-only: the saved pages are re-read, nothing is crawled again.
+- **Why:** averages and "domains with technologies" must be about real websites; a bot wall must read as "the site exists but blocked us", not "the site is broken".
+- **Consequences:**
+  - On Run 0's data: 155 ok (was 163), 10 bot_challenge (5), 10 dns_error (7), 15 http_error (23), 3 parked, 5 placeholder; core per domain 15.3 over 150 ok domains (was 14.8 over 156); core and extended counts unchanged (347 / 414).
+  - Checking by hand found a collector bug the statuses cannot fix: on 6 domains the certificate is for another name, the fetcher looked anyway, and took the host's default page while the real site is on plain `http://` (`docs/FAILURES.md`, "Checked by hand"). Two of the 5 placeholders are such cases. The fix belongs in the collector and needs those domains re-collected.
   - Some sites redefine built-ins (Wix redefines `Object`, `Number`...), which then appear among their variables: that is the site's own doing, not noise from the baseline.

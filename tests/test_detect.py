@@ -232,3 +232,89 @@ def test_detect_refuses_an_unfinished_collection(tmp_path: Path) -> None:
     assert allowed.exit_code == 0, allowed.output
     summary = json.loads((tmp_path / "out" / "summary.json").read_text("utf-8"))
     assert summary["partial_run"] is True
+
+
+# ------------------------------------------------------------ not a website, block pages
+
+
+@pytest.mark.parametrize(
+    "title",
+    [
+        "Default page",
+        "Site Hospedado na KingHost | Data Center no Brasil",
+        "Hello! Welcome to Synology Web Station!",
+        "Coming Soon",
+        "無効なURLです",
+    ],
+)
+def test_placeholder_titles_from_the_real_examples(title: str) -> None:
+    ok = {"status": "ok", "final_url": "https://x.com/"}
+    assert domain_status(ok, ok, (title, title)) == "placeholder"
+
+
+@pytest.mark.parametrize(
+    "title", ["Coming soon: our winter collection | Shop", "Default Pages Ltd - Printing", "Home"]
+)
+def test_real_titles_are_not_placeholders(title: str) -> None:
+    ok = {"status": "ok", "final_url": "https://x.com/"}
+    assert domain_status(ok, ok, (title, title)) == "ok"
+
+
+@pytest.mark.parametrize(
+    "final_url",
+    [
+        "https://cmc01village.com/lander",
+        "https://p2-1.afp24.net/lander_v4.php?id=abc",
+        "https://cf.trim-rise.site/middle.html?impId=pXWunZ",
+    ],
+)
+def test_parking_landers_from_the_real_examples(final_url: str) -> None:
+    landed = {"status": "ok", "final_url": final_url}
+    assert domain_status(None, landed) == "parked"
+
+
+def test_saved_block_pages_are_reread_with_todays_rules(rules: RuleSet, tmp_path: Path) -> None:
+    from techdetect.detect import detect_domain
+    from techdetect.domains import Domain
+    from techdetect.fingerprints.matcher import RuleIndex
+
+    akamai = tmp_path / "akamai.html"
+    akamai.write_text(
+        "<html><head><title>Access Denied</title></head><body>You don't have permission to "
+        "access this on this server.<p>Reference&#32;&#35;18&#46;36496768&#46;179</p></body>"
+        "</html>",
+        encoding="utf-8",
+    )
+    cdn = tmp_path / "cdn.html"
+    cdn.write_text(
+        "<html><head><title>DNS resolution error | gone-site.com | Cloudflare</title></head>"
+        "</html>",
+        encoding="utf-8",
+    )
+    raw = tmp_path / "raw"
+    # Both were saved by the collector as plain HTTP errors.
+    Site(raw, "blocked-site.com").static(
+        akamai, status="failed", error_category="http_4xx", http_status=403
+    )
+    Site(raw, "gone-site.com").static(
+        cdn, status="failed", error_category="http_4xx", http_status=409
+    )
+    index = RuleIndex(rules)
+
+    blocked = detect_domain(raw, Domain(1, "blocked-site.com", "blocked-site.com"), rules, index)
+    gone = detect_domain(raw, Domain(2, "gone-site.com", "gone-site.com"), rules, index)
+    assert blocked["status"] == "bot_challenge"
+    assert gone["status"] == "failed:dns_error"
+
+
+def test_parked_and_placeholder_domains_are_left_out_of_the_counts(rules: RuleSet) -> None:
+    def line(domain: str, status: str) -> dict:
+        tech = {"name": "Nginx", "confidence": 100, "group": "core", "categories": []}
+        return {"domain": domain, "status": status, "redirected_to": None, "technologies": [tech]}
+
+    lines = [line("real.com", "ok"), line("lander.com", "parked"), line("soon.com", "placeholder")]
+    summary = build_summary(lines, rules, threshold=0, partial=False)
+
+    assert summary["domains"]["parked"]["list"] == ["lander.com"]
+    assert summary["domains"]["placeholder"]["list"] == ["soon.com"]
+    assert summary["core_per_domain"]["denominator"] == "over 1 ok domains of 3"

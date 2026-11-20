@@ -18,6 +18,7 @@ import csv
 import io
 import json
 import os
+import re
 from collections import Counter, defaultdict
 from collections.abc import Callable
 from concurrent.futures import ProcessPoolExecutor
@@ -29,7 +30,9 @@ from urllib.parse import urlsplit
 
 import pyarrow as pa
 import pyarrow.parquet as pq
+from selectolax.lexbor import LexborHTMLParser
 
+from techdetect.collect.challenge import detect_challenge, is_dead_behind_cdn
 from techdetect.collect.provenance import tool_version
 from techdetect.collect.run import RUN_COMPLETE
 from techdetect.collect.storage import write_atomic, write_json_atomic
@@ -49,6 +52,8 @@ PLUGIN_CATEGORIES = frozenset({87, 100})  # WordPress plugins, Shopify apps
 # Name-level precedence: website evidence on any domain makes a technology core; seen in
 # DNS beats only inferred.
 GROUPS = ("core", "dns_only", "inferred_only", "themes")
+# Statuses of domains whose page is not the owner's website: left out of all counts.
+NOT_THE_SITE = frozenset({"parked", "placeholder"})
 
 # Domain status (F3.6): the categories a failed domain can have.
 _FAILURE_NAMES = {
@@ -80,12 +85,84 @@ def _read_json(path: Path) -> dict[str, Any] | None:
     return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else None
 
 
-def domain_status(static: dict | None, browser: dict | None) -> str:
-    """ok (either fetch got a real page) / bot_challenge / failed:<category>."""
+# Pages that are not the site's own website, built from the real examples in the data:
+# - parked: the page ends on an ad / parking "lander" (".../lander", "lander_v4.php",
+#   "middle.html?impId=...");
+# - placeholder: the whole title is a hosting company's or a device's default page, or a
+#   "coming soon" page ("Default page", "Site Hospedado na KingHost",
+#   "Hello! Welcome to Synology Web Station!", "Coming Soon", "無効なURLです" = invalid URL).
+_LANDER_URL = re.compile(r"/lander\b|lander_v\d|[?&]impid=", re.I)
+_PLACEHOLDER_TITLE = re.compile(
+    r"^\s*(?:default page|coming soon|under construction)\s*[!.]?\s*$"
+    r"|^\s*site hospedado na\b"
+    r"|welcome to synology web station"
+    r"|^\s*無効なurlです\s*$",
+    re.I,
+)
+
+
+def page_title(folder: Path, page: dict | None) -> str:
+    """The <title> of a saved page, "" if there is none."""
+    if not page or not page.get("html_file") or not (folder / page["html_file"]).is_file():
+        return ""
+    title = LexborHTMLParser((folder / page["html_file"]).read_bytes()).css_first("title")
+    return " ".join(title.text().split()) if title else ""
+
+
+def refine_failure(folder: Path, page: dict | None) -> dict | None:
+    """Look again at a failed page with today's rules (offline, from the saved files).
+
+    The collector's challenge check missed some block pages (Akamai deny pages without an
+    AkamaiGHost header, Cloudflare's "you have been blocked" page), and Cloudflare's
+    "DNS resolution error" page is a dead site, not an HTTP error. Re-reading the saved
+    page fixes the status without a new crawl.
+    """
+    if not page or page.get("status") == "ok" or not page.get("html_file"):
+        return page
+    path = folder / page["html_file"]
+    if not path.is_file():
+        return page
+    body = path.read_bytes()
+    status = page.get("http_status") or 0
+    headers = [(k, v) for k, v in page.get("main_document_headers", [])]
+    if "attempts" in page:  # static.json: the chosen attempt's final response
+        steps = page["attempts"][page["chosen_attempt"] - 1].get("steps", [])
+        headers = [(k, v) for k, v in steps[-1]["headers"]] if steps else []
+    if is_dead_behind_cdn(status, body):
+        return {**page, "error_category": "dns_fail"}
+    vendor = detect_challenge(status, headers, body)
+    if vendor and page.get("error_category") != "bot_challenge":
+        return {**page, "error_category": "bot_challenge", "challenge": vendor}
+    return page
+
+
+def not_a_website(page: dict | None, title: str) -> str | None:
+    """ "parked" or "placeholder" for a page that loaded but is not the site's own."""
+    if not page or page.get("status") != "ok":
+        return None
+    if _LANDER_URL.search(page.get("final_url") or ""):
+        return "parked"
+    if _PLACEHOLDER_TITLE.search(title):
+        return "placeholder"
+    return None
+
+
+def domain_status(
+    static: dict | None, browser: dict | None, titles: tuple[str, str] = ("", "")
+) -> str:
+    """ok / parked / placeholder / bot_challenge / failed:<category>.
+
+    `titles` are the static and rendered pages' titles, for the placeholder check.
+    """
     pages = [p for p in (static, browser) if p is not None]
     if not pages:
         return "failed:not_collected"
     if any(p.get("status") == "ok" for p in pages):
+        # A loaded page can still be a parking lander or a default page: the browser's
+        # view first (it follows JavaScript redirects), then the plain fetch.
+        for page, title in ((browser, titles[1]), (static, titles[0])):
+            if page and page.get("status") == "ok":
+                return not_a_website(page, title) or "ok"
         return "ok"
     reasons = [
         "bot_challenge"
@@ -161,9 +238,10 @@ def _technology_json(result: TechnologyResult, ruleset: RuleSet) -> dict[str, An
 def detect_domain(raw_dir: Path, domain: Domain, ruleset: RuleSet, index: RuleIndex) -> dict:
     """One line of detections.jsonl: the domain's status and every detection with proof."""
     folder = raw_dir / domain.host
-    static = _read_json(folder / "static.json")
-    browser = _read_json(folder / "browser.json")
-    status = domain_status(static, browser)
+    static = refine_failure(folder, _read_json(folder / "static.json"))
+    browser = refine_failure(folder, _read_json(folder / "browser.json"))
+    titles = (page_title(folder, static), page_title(folder, browser))
+    status = domain_status(static, browser, titles)
     line: dict[str, Any] = {
         "domain": domain.host,
         "row": domain.row,
@@ -294,8 +372,15 @@ def _write_tables(rows: list[dict[str, Any]], output_dir: Path) -> None:
 
 def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: bool) -> dict:
     statuses = Counter(line["status"] for line in lines)
-    redirected = [line for line in lines if line["redirected_to"]]
-    counted = [line for line in lines if not line["redirected_to"]]  # F4.4/F4.5: left out
+    redirected = [
+        line for line in lines if line["redirected_to"] and line["status"] not in NOT_THE_SITE
+    ]
+    # Left out of every count: another site's page (redirect, F4.4/F4.5), and pages that
+    # are not a website at all (parking lander, hosting default page). Their detections
+    # describe the parking service or the host, not the domain's owner.
+    counted = [
+        line for line in lines if not line["redirected_to"] and line["status"] not in NOT_THE_SITE
+    ]
     ok_counted = [line for line in counted if line["status"] == "ok"]
 
     # Name level: a technology's group is "core" if it is core on any counted domain.
@@ -352,6 +437,17 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
             "input": len(lines),
             "ok": statuses["ok"],
             "bot_challenge": statuses["bot_challenge"],
+            "parked": {
+                "count": statuses["parked"],
+                "note": "ends on a parking / ad lander; left out of every count below",
+                "list": [line["domain"] for line in lines if line["status"] == "parked"],
+            },
+            "placeholder": {
+                "count": statuses["placeholder"],
+                "note": 'a hosting or device default page, or "coming soon"; left out of '
+                "every count below",
+                "list": [line["domain"] for line in lines if line["status"] == "placeholder"],
+            },
             "failed": dict(
                 sorted(
                     (s.removeprefix("failed:"), n)
