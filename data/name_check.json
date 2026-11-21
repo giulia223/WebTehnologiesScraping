@@ -1,6 +1,6 @@
 {
  "format": 1,
- "created_at": "2026-11-21T07:14:34Z",
+ "created_at": "2026-11-21T08:40:10Z",
  "seed": 20261120,
  "rule": "every core name (as counted in summary.json) with no detection on a labelled domain; one example site per name, drawn with random.Random(f'{seed}:{name}')",
  "names": [
@@ -62,8 +62,9 @@
    "verdict": "wrong",
    "reason": "browser.json shows ampInaboxIframes/ampInaboxPendingMessages next to adsbygoogle and show_ads_impl_fy2021.js requests, so the globals come from Google AdSense's ad loader on a non-AMP WordPress page (static.html <html lang=\"en-GB\" class=\"no-js no-svg\">, no amp attribute).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The page is not an AMP page (no amp/lightning attribute on <html>, no cdn.ampproject.org request in browser.json); the globals ampInaboxIframes/ampInaboxPendingMessages come from the AdSense ad code it loads (rendered.html: pagead2.googlesyndication.com/pagead/js/adsbygoogle.js and show_ads_impl_fy2021.js), which keeps them to host AMP ads.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "AOS",
@@ -165,8 +166,9 @@
    "verdict": "correct",
    "reason": "browser.json js_globals has AOS.init, AOS.refresh and AOS.refreshHard, and rendered.html <body data-aos-easing=\"ease\" data-aos-duration=\"400\"> is set by AOS at init, so the library runs on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "AccessiBe",
@@ -226,8 +228,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://acsbapp.com/apps/app/dist/js/app.js (200) and cdn.acsbapp.com/config/11thhourracing.org/config.json loaded, plus acsb/acsbJS globals and acsbJS.init() in rendered.html.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "AccessiWay",
@@ -266,8 +269,9 @@
    "verdict": "wrong",
    "reason": "accessWidget.config.footerHtml is set by the accessiBe widget loaded from acsbapp.com; no file of the domain mentions accessiway and no AccessiWay script was requested.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The widget is accessiBe loaded directly (static.html: acsbapp.com/apps/app/dist/js/app.js, browser.json: cdn.acsbapp.com/config/11thhourracing.org/config.json), and the matched accessWidget.config.footerHtml is the site's own name \"11th Hour Racing\", not AccessiWay branding.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Adobe Experience Manager",
@@ -319,8 +323,9 @@
    "verdict": "wrong",
    "reason": "the /etc.clientlibs/ files are served from penyakitmancinggila.pages.dev/samsung/etc.clientlibs/... on a gambling page (static.html title \"BOS88 | Agen Togel Online\") that is a static copy of samsung.com, so the site is not built on AEM.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The domain is hijacked (title \"BOS88 | Agen Togel Online...\") and shows a copied Samsung page whose files load from penyakitmancinggila.pages.dev/samsung/etc.clientlibs/..., a static copy on Cloudflare Pages, so it does not prove the site is built on AEM.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Adobe Experience Platform Launch",
@@ -359,8 +364,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://assets.adobedtm.com/72afb75f5516/07a30e78d4a7/launch-9f62b0723785.min.js loaded (200) and _satellite.buildInfo defined, so the Launch library runs on the page (a cloned samsung.com page, but the code is loaded and runs).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Adobe Flash",
@@ -406,8 +412,9 @@
    "verdict": "correct",
    "reason": "static.html embeds a Flash movie with <object classid=\"clsid:D27CDB6E...\">, <param name=\"movie\" value=\"swf/deneitop04.swf\"> and AC_FL_RunContent, the site's own choice of Flash.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Akamai Bot Manager",
@@ -452,8 +459,9 @@
    "verdict": "correct",
    "reason": "static.json shows the site's own responses from server AkamaiGHost setting bm_sz, bm_s and _abck cookies on jackwills.com, so the owner runs Akamai bot protection.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Akamai Web Application Protector",
@@ -560,8 +568,9 @@
    "verdict": "wrong",
    "reason": "the domain is served by nginx (browser.json main_document_headers) and aksb.min.js is an Akamai timing beacon copied into a cloned XM page (favicon from cloud.xm-cdn.com), so no Akamai WAF protects this site.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The page is a copied XMTrading page served by nginx from 202.254.239.47 (main_document_headers: server nginx, no Akamai headers); the AKSB snippet with ds-aksb-a.akamaihd.net/aksb.min.js was copied into the HTML, and it is Akamai's page-timing beacon, not a WAF protecting this site.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Amazon ALB",
@@ -647,8 +656,9 @@
    "verdict": "correct",
    "reason": "static.json shows server awselb/2.0 on https://imgs.co.jp/ and AWSALB/AWSALBCORS cookies set by the site's own www.imgs.co.jp responses, the owner's own load balancer.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "American Express",
@@ -694,8 +704,9 @@
    "verdict": "correct",
    "reason": "static.html has the payment icon aria-labelledby=\"pi-american_express\" in the Shopify store's accepted payment methods list, a deliberate list per the definitions.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Amplience",
@@ -734,8 +745,9 @@
    "verdict": "correct",
    "reason": "static.html preloads the page background image from https://cdn.media.amplience.net/i/frasersdev/fras-bf-2026-background-1x1, an asset in the owner group's own Amplience account.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Animate.css",
@@ -802,8 +814,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://www.velvety-cosmetics.com/wp-content/plugins/cf7-multi-step/assets/frontend/animate/animate.min.css?ver=2.9.1 loaded (200), bundled page code of an installed plugin.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Apple Pay",
@@ -877,8 +890,9 @@
    "verdict": "correct",
    "reason": "static.html has <script id=\"apple-pay-shop-capabilities\"> with merchantName \"Herbal Wise \" and the pi-apple_pay icon among accepted payment methods, so the store offers Apple Pay.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "ArvanCloud",
@@ -930,8 +944,9 @@
    "verdict": "correct",
    "reason": "static.json shows server: ArvanCloud on the site's own responses for https://cytofastmed.com/ and https://www.cytofastmed.com/, a CDN the self-hosted WordPress owner chose.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Astro",
@@ -1073,8 +1088,9 @@
    "verdict": "correct",
    "reason": "static.html has Astro scoped classes (astro-hghgmujw and others) and build assets /_astro/Layout.DdNzbuYh.css and /_astro/_..Bqspa9ZU.css loaded from solvos.nl.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Backbone.js",
@@ -1113,8 +1129,9 @@
    "verdict": "wrong",
    "reason": "the only evidence is the file name http://celiabedilia.com/backbone-forms-local.js on a spam page, and browser.json window_keys has no Backbone global, so Backbone itself is not shown to run.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The only match is a file name, /backbone-forms-local.js, injected on a hijacked gambling page next to spam scripts; browser.json js_globals has no Backbone even though the Backbone chain was asked, and the 9 window_keys contain nothing from Backbone.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Baidu Analytics (百度统计)",
@@ -1165,8 +1182,9 @@
    "verdict": "unsure",
    "reason": "rendered.html contains three hm.baidu.com/hm.js?... tags and _hmt exists, but every hm.js request failed (browser.json failure net::ERR_NAME_NOT_RESOLVED), so the saved evidence does not show the tracker running.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Bandzoogle",
@@ -1218,8 +1236,9 @@
    "verdict": "correct",
    "reason": "The site's own application, theme and stylesheet files load from Bandzoogle's asset host (static.html: //assets-openresty-kamal-production.bndzgl.com/assets/usersite/application-...js and .../assets/usersite/themes/style-23-...js) and the main document carries the Bandzoogle header x-usersite-assets: b2d428d710ba405b, so the site is built on the Bandzoogle platform, which counts as the site's website platform.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Beaver Builder",
@@ -1298,8 +1317,9 @@
    "verdict": "correct",
    "reason": "static.html loads many /wp-content/plugins/bb-plugin/... files (ver 2.11.1), uses fl-builder-content markup and body class fl-builder-2-11-1.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Beusable",
@@ -1359,8 +1379,9 @@
    "verdict": "correct",
    "reason": "browser.json shows the script https://samsungrum.beusable.net/load/b170105e175055u968?url=...jonesbuickgmc.com loaded and the __beusablerumclient__ global defined, so the code runs on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Bitmovin",
@@ -1399,8 +1420,9 @@
    "verdict": "wrong",
    "reason": "no Bitmovin script was requested; window.bitmovin sits among placeholder globals (mapboxgl, L, Twitch, H, js3q, Calendly, instgrm, hbspt) created by Usercentrics' blocker sdp.eu.usercentrics.eu/latest/uc-block.bundle.js.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "No Bitmovin script was requested (browser.json requests); 'bitmovin' sits in window_keys among consent-blocker placeholders (mapboxgl, L, bitmovin, Twitch, grecaptcha, H, _wcomWidget, Microsoft, js3q, Calendly...) set by Usercentrics uc-block.bundle.js.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Bootstrap Icons",
@@ -1467,8 +1489,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://bas-ingenieria.cl/assets/vendor/bootstrap-icons/bootstrap-icons.css loaded (200) with its bootstrap-icons.woff2 font.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Breakdance",
@@ -1549,8 +1572,9 @@
    "verdict": "correct",
    "reason": "browser.json has BreakdanceFrontend, BreakdanceHeaderBuilder and BreakdanceSwiper globals and 26 requests to /wp-content/plugins/breakdance/... (bd_ver=3.0.2).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Bricks",
@@ -1597,8 +1621,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://2agateway.com/wp-content/themes/bricks/assets/js/bricks.min.js and frontend.min.css loaded (200), plus a bricks-child theme.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Burst",
@@ -1665,8 +1690,9 @@
    "verdict": "correct",
    "reason": "browser.json shows wp-content/plugins/burst-statistics/assets/js/build/burst.min.js?ver=1.5.0.2 loaded, burst.url global set and a request to /burst-statistics-endpoint.php.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Chaty",
@@ -1705,8 +1731,9 @@
    "verdict": "correct",
    "reason": "browser.json shows wp-content/plugins/chaty/js/cht-front-script.min.js loaded (200) and launch_chaty and chaty_settings.chaty_widgets globals defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Cloudflare Browser Insights",
@@ -1759,8 +1786,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe... loaded (200), page code that runs on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Cloudflare Turnstile",
@@ -1799,8 +1827,9 @@
    "verdict": "correct",
    "reason": "browser.json shows the simple-cloudflare-turnstile plugin script, challenges.cloudflare.com/turnstile/v0/api.js loaded and a Turnstile widget iframe, plus the turnstile global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Cloudimage",
@@ -1840,8 +1869,9 @@
    "verdict": "wrong",
    "reason": "the images come from xaf2dc8d1v.cloudimg.io/v7/_agp_/.../cockpit/pharmacies/1410084/..., the shared image CDN of a hosted pharmacy website platform (apotheken-umschau.de / wortundbildverlag.de assets), so it is the platform's infrastructure, not the owner's choice.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The site is a pharmacy page on Wort & Bild Verlag's hosted platform (CSP report-uri api.wortundbildverlag.com, frame-ancestors cockpit.wub-service.de, image path _agp_/.../cockpit/pharmacies/1410084), so the xaf2dc8d1v.cloudimg.io image CDN is the platform's infrastructure, not the pharmacy's choice.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Complianz",
@@ -1886,8 +1916,9 @@
    "verdict": "correct",
    "reason": "browser.json shows wp-content/plugins/complianz-gdpr/cookiebanner/js/complianz.min.js loaded and complianz.version = 7.5.7.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Conditional Fields for Contact Form 7",
@@ -1987,8 +2018,9 @@
    "verdict": "correct",
    "reason": "browser.json shows wp-content/plugins/cf7-conditional-fields/js/scripts.js?ver=2.8.5 and style.css?ver=2.8.5 loaded (200).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Cookie Information plugin",
@@ -2035,8 +2067,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://mysterion.hr/wp-content/plugins/wp-gdpr-compliance/assets/js/front.min.js loaded (200); wp-gdpr-compliance is the WordPress plugin now published as Cookie Information.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Cornerstone",
@@ -2079,8 +2112,9 @@
    "verdict": "correct",
    "reason": "browser.json shows /wp-content/themes/pro/cornerstone/assets/js/site/cs-classic.7.9.8.js loaded (200), the Cornerstone builder bundled in the Pro theme.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Criteo",
@@ -2141,8 +2175,9 @@
    "verdict": "correct",
    "reason": "browser.json has Criteo and criteo_q globals and requests to dynamic.criteo.com and gum.criteo.com, so the Criteo tag loaded and runs.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "DISH",
@@ -2194,8 +2229,9 @@
    "verdict": "correct",
    "reason": "the site is built on the DISH website platform: static.html loads https://order.dish.co/hdfo.js, assets come from cdn.website.dish.co and the data layer says productName \"DISH WEBSITE B2C\".",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Decibel",
@@ -2256,8 +2292,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://cdn.decibelinsight.net/i/14121/1818647/di.js loaded, a collection.decibelinsight.net request and the decibelInsight global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Directorist",
@@ -2296,8 +2333,9 @@
    "verdict": "correct",
    "reason": "browser.json shows /wp-content/plugins/directorist/assets/... stylesheets loaded (200) and the directorist global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Divi",
@@ -2370,8 +2408,9 @@
    "verdict": "correct",
    "reason": "static.html has meta generator \"Divi v.4.22.2\" and browser.json shows /wp-content/themes/Divi/js/scripts.min.js?ver=4.22.2 loaded with the DIVI global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "DoubleClick Ad Exchange (AdX)",
@@ -2417,8 +2456,9 @@
    "verdict": "wrong",
    "reason": "static.html references http://pagead2.googlesyndication.com/pagead/show_ads.js (legacy AdSense code with google_ad_client), and browser.json shows that request blocked as mixed-content, so the code never loaded.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The script http://pagead2.googlesyndication.com/pagead/show_ads.js is only referenced: browser.json shows it blocked with failure 'mixed-content' on the https page, so no ad code ran.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "DoubleClick Floodlight",
@@ -2463,8 +2503,9 @@
    "verdict": "wrong",
    "reason": "the matched .doubleclick.net scripts are Google Publisher Tag files (securepubads.g.doubleclick.net/tag/js/gpt.js, pubads_impl.js); there is no Floodlight (fls.doubleclick.net) request.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The matched scripts are Google Publisher Tag (securepubads.g.doubleclick.net/tag/js/gpt.js and pubads_impl.js, which belong to Google Ad Manager), and there is no fls.doubleclick.net Floodlight request; the broad .doubleclick.net pattern matched another product.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "DreamWeaver",
@@ -2503,8 +2544,9 @@
    "verdict": "correct",
    "reason": "static.html contains Dreamweaver-generated behaviour functions MM_preloadImages, MM_swapImage, MM_swapImgRestore and MM_findObj, and MM_preloadImages is defined in browser.json.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Duda",
@@ -2544,8 +2586,9 @@
    "verdict": "correct",
    "reason": "The site runs on Duda's white-label engine resold by IONOS as MyWebsite Creator: browser.json has js d_version 'production_6933' and loads Duda runtime files from static-cdn.website-editor.net, dd-cdn.multiscreensite.com and static-cdn.dwhitelabel.com (the upstream MyWebsite Creator rule itself implies Duda).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Easy Pie Chart",
@@ -2591,8 +2634,9 @@
    "verdict": "correct",
    "reason": "browser.json shows the Divi theme loading .../dynamic-assets/assets/js/easypiechart.js?ver=4.21.0 with status 200, so the library runs on the page (bundled page code counts).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Elementor Cloud",
@@ -2644,8 +2688,9 @@
    "verdict": "correct",
    "reason": "The site's own main document returns 'x-powered-by: Elementor Cloud' (static.json and browser.json), i.e. the owner hosts the WordPress site on Elementor's hosting plan.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "The site's own main document carries x-powered-by: Elementor Cloud (static.json and browser.json), the header of Elementor's hosted website platform that the owner chose.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Elementor Header & Footer Builder",
@@ -2718,8 +2763,9 @@
    "verdict": "correct",
    "reason": "static.html links /wp-content/plugins/header-footer-elementor/assets/css/header-footer-elementor.css?ver=1.6.23 and browser.json shows it loaded, so the plugin's code is on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "ElementsKit",
@@ -2779,8 +2825,9 @@
    "verdict": "correct",
    "reason": "browser.json has globals ElementsKit_Helper and elementskit and loads /wp-content/plugins/elementskit-lite/.../frontend-script.js?ver=3.0.4 with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Emotion",
@@ -2820,8 +2867,9 @@
    "verdict": "correct",
    "reason": "rendered.html contains runtime-inserted <style data-emotion=\"css-global\"> (x3) and <style data-emotion=\"css\"> tags absent from static.html, which only Emotion's style cache creates, so Emotion code ran on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Engintron",
@@ -2872,8 +2920,9 @@
    "verdict": "correct",
    "reason": "The site's own main document returns 'X-Server-Powered-By: Engintron' (browser.json), the nginx front end of the owner's self-chosen (non-builder) WordPress hosting.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Etracker",
@@ -2947,8 +2996,9 @@
    "verdict": "correct",
    "reason": "browser.json shows code.etracker.com/code/e.js and t.js?...et=OXEC8K loaded with status 200, tracking calls to www.etracker.de/cntcc, and the _etracker global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Facebook Chat Plugin",
@@ -2987,8 +3037,9 @@
    "verdict": "wrong",
    "reason": "The script connect.facebook.net/ro_RO/sdk/xfbml.customerchat.js is only referenced: browser.json records the request as failed (net::ERR_BLOCKED_BY_ORB, no status) and no facebookChatSettings global or customerchat iframe exists, so the (discontinued) chat plugin never loaded.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The markup and loader exist (static.html: div class=\"fb-customerchat\" page_id=...), but browser.json shows connect.facebook.net/ro_RO/sdk/xfbml.customerchat.js failed with net::ERR_BLOCKED_BY_ORB and no FB global exists, so the chat code never loaded.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Facebook Login",
@@ -3027,8 +3078,9 @@
    "verdict": "wrong",
    "reason": "The only evidence is the global FB.getLoginStatus, which every load of the Facebook JS SDK defines; here the SDK is loaded as sdk.js#xfbml=1 for social plugins and neither static.html nor rendered.html has a login button or FB.login call.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "FB.getLoginStatus is a method of every Facebook JS SDK load (here connect.facebook.net/en_US/sdk.js#xfbml=1), and the page has no login button, fb-login markup or FB.login call, so it proves the SDK, not Facebook Login.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Facebook Pixel",
@@ -3113,8 +3165,9 @@
    "verdict": "correct",
    "reason": "browser.json shows connect.facebook.net/en_US/fbevents.js and signals/config/1048294223511789 loaded with status 200, a ping to www.facebook.com/tr/ and the _fbq global (the domain now serves a gambling page cloned from Samsung Indonesia, but the pixel does run on it).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Finsweet",
@@ -3153,8 +3206,9 @@
    "verdict": "correct",
    "reason": "browser.json loads cdn.jsdelivr.net/npm/@finsweet/attributes@2/attributes.js and its chunks with status 200 and has the FinsweetAttributes.load global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "FitVids.JS",
@@ -3205,8 +3259,9 @@
    "verdict": "correct",
    "reason": "browser.json shows the theme script /wp-content/themes/natural-lite/js/jquery.fitvids.js?ver=1.0 loaded with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "FlexSlider",
@@ -3252,8 +3307,9 @@
    "verdict": "correct",
    "reason": "browser.json shows Avada's .../js/library/jquery.flexslider.js (and fusion-flexslider.js) loaded with status 200, so the library runs on the page as bundled theme code.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Flickity",
@@ -3292,8 +3348,9 @@
    "verdict": "correct",
    "reason": "browser.json has the Flickity global (window_keys includes 'Flickity'), a name only the Flickity library defines, loaded through the Semplice theme's bundled scripts.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Flywheel",
@@ -3486,8 +3543,9 @@
    "verdict": "correct",
    "reason": "The site's own main document returns 'server: Flywheel/5.1.0', 'x-fw-server: Flywheel/5.1.0' and other x-fw-* headers (static.json, browser.json), the owner's chosen WordPress host.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Formidable Form",
@@ -3556,8 +3614,9 @@
    "verdict": "correct",
    "reason": "static.html links /wp-content/plugins/formidable/css/formidableforms.css and browser.json shows it loaded with status 200, so the plugin's code is on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "GenerateBlocks",
@@ -3597,8 +3656,9 @@
    "verdict": "correct",
    "reason": "rendered.html has <link id=\"generateblocks-css\" href=\".../wp-content/uploads/generateblocks/style-25.css\">, loaded with status 200 in browser.json, the stylesheet the plugin generates.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Glide.js",
@@ -3665,8 +3725,9 @@
    "verdict": "correct",
    "reason": "browser.json loads cdnjs.cloudflare.com/ajax/libs/Glide.js/3.2.0/glide.js with status 200, has the Glide global, and the page has data-glide-el=\"track\" markup with a runtime transform in rendered.html.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "GoCache",
@@ -3752,8 +3813,9 @@
    "verdict": "correct",
    "reason": "The site's own main document returns 'server: gocache' and 'x-gocache-cachestatus: BYPASS' on a self-hosted Magento store (x-magento-tags: FPC), so the CDN is the owner's choice.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "GoDaddy CoBlocks",
@@ -3800,8 +3862,9 @@
    "verdict": "correct",
    "reason": "browser.json shows /wp-content/plugins/coblocks/dist/js/coblocks-animation.js?ver=3.1.17 loaded with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "GoDaddy Website Builder",
@@ -3879,8 +3942,9 @@
    "verdict": "correct",
    "reason": "static.html has <meta name=\"generator\" content=\"Starfield Technologies; Go Daddy Website Builder 8.0.0000\"> and the dps_site_id cookie is set, so the site is built on it.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Google AdSense",
@@ -3953,8 +4017,9 @@
    "verdict": "correct",
    "reason": "browser.json shows adsbygoogle.js?client=ca-pub-9070848367485711 and show_ads_impl_fy2021.js loaded with status 200, an ad iframe pagead/ads?client=ca-pub-..., and the adsbygoogle global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Google Pay",
@@ -4000,8 +4065,9 @@
    "verdict": "correct",
    "reason": "static.html of this Shopify store lists Google Pay among its accepted payment icons (aria-labelledby=\"pi-google_pay\" next to pi-visa, pi-paypal, pi-apple_pay etc.), a deliberate list of payment methods.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "Google Pay is in the shop's list of accepted payment icons (static.html: svg aria-labelledby=\"pi-google_pay\" next to pi-visa, pi-apple_pay, pi-paypal...), a deliberate payment list that counts under the definitions.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Google Publisher Tag",
@@ -4040,8 +4106,9 @@
    "verdict": "correct",
    "reason": "browser.json shows securepubads.g.doubleclick.net/tag/js/gpt.js and pubads_impl.js loaded with status 200 and the googletag global, so GPT runs on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Google Sign-in",
@@ -4087,8 +4154,9 @@
    "verdict": "correct",
    "reason": "static.html loads accounts.google.com/gsi/client (status 200 in browser.json) and the page renders a Google button iframe accounts.google.com/gsi/button?...text=signin_with&client_id=1088...",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Gravity Forms",
@@ -4186,8 +4254,9 @@
    "verdict": "correct",
    "reason": "rendered.html has <div class=\"gf_browser_safari gform_wrapper ...\" id=\"gform_wrapper_2\"> and browser.json loads /wp-content/plugins/gravityforms/js/gravityforms.min.js?ver=3.1.2 with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Hotjar",
@@ -4247,8 +4316,9 @@
    "verdict": "correct",
    "reason": "browser.json shows static.hotjar.com/c/hotjar-3054936.js and script.hotjar.com modules loaded with status 200, an xhr to content.hotjar.io?site_id=3054936, and hj.apiUrlBase = 'https://in.hotjar.com/api/v1'.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Htmx",
@@ -4287,8 +4357,9 @@
    "verdict": "correct",
    "reason": "browser.json loads the site's own /js/htmx.min.js and has the htmx global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "HubSpot",
@@ -4348,8 +4419,9 @@
    "verdict": "correct",
    "reason": "browser.json has the _hsq and hubspot globals with the HubSpot tracking script js.hs-analytics.net/analytics/.../4620545.js loaded (status 200), on a site served by HubSpot (x-hs-hub-id: 4620545).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "HubSpot Analytics",
@@ -4388,8 +4460,9 @@
    "verdict": "correct",
    "reason": "browser.json shows js.hs-analytics.net/analytics/1795177500000/4620545.js loaded with status 200 for the site's own hub id 4620545.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "HubSpot CMS Hub",
@@ -4463,8 +4536,9 @@
    "verdict": "correct",
    "reason": "static.html has <meta name=\"generator\" content=\"HubSpot\"> and the main document returns 'x-hs-hub-id: 4620545', with images served from a3sec.com/hs-fs/hubfs/, so the site is built on HubSpot CMS.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "HubSpot Cookie Policy Banner",
@@ -4503,8 +4577,9 @@
    "verdict": "correct",
    "reason": "rendered.html has <div id=\"hs-eu-cookie-confirmation\" ... role=\"dialog\"> and browser.json loads js.hs-banner.com/v2/4620545/banner.js with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "HubSpot WordPress plugin",
@@ -4547,8 +4622,9 @@
    "verdict": "correct",
    "reason": "browser.json has leadin_wordpress.leadinPluginVersion = '11.3.82' and loads js-na2.hs-scripts.com/245569946.js?integration=WordPress&ver=11.3.82, the plugin's embed.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Humblytics",
@@ -4594,8 +4670,9 @@
    "verdict": "correct",
    "reason": "static.html loads app.humblytics.com/hmbl.min.js?id=309fd21 (status 200 in browser.json) and the page then posts to app.humblytics.com/api/v1/metrics.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Insider",
@@ -4655,8 +4732,9 @@
    "verdict": "correct",
    "reason": "browser.json shows samsungid.api.useinsider.com/ins.js?id=10006300 loaded with status 200, the insider-worker iframe and the Insider global (the domain now serves a gambling page cloned from Samsung Indonesia, hence Samsung's Insider account, but the code does run on it).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Jetpack",
@@ -4702,8 +4780,9 @@
    "verdict": "correct",
    "reason": "browser.json shows /wp-content/plugins/jetpack/jetpack_vendor/automattic/jetpack-image-cdn/dist/image-cdn.js loaded with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "JivoChat",
@@ -4788,8 +4867,9 @@
    "verdict": "correct",
    "reason": "browser.json shows code.jivosite.com/script/widget/1fSu60YPOP and bundle.js loaded with status 200, widget config/status calls, and globals jivo_api and jivo_version = '207.5.0'.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Kadence WP Blocks",
@@ -4868,8 +4948,9 @@
    "verdict": "correct",
    "reason": "static.html links /wp-content/plugins/kadence-blocks/dist/style-blocks-rowlayout.css?ver=3.9.1.1 (plus column and icon CSS), all loaded with status 200 in browser.json.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Kinsta",
@@ -4916,8 +4997,9 @@
    "verdict": "correct",
    "reason": "The site's own main document returns 'x-kinsta-cache: HIT' plus Kinsta edge headers (ki-cache-type: Edge, ki-edge) on a self-hosted WordPress site, so Kinsta is the owner's host.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "LazySizes",
@@ -4957,8 +5039,9 @@
    "verdict": "correct",
    "reason": "browser.json has the lazySizes global (from Avada's combined fusion-scripts bundle) and rendered.html shows its runtime classes 'lazyautosizes lazyloaded' on images.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Leaflet",
@@ -5145,8 +5228,9 @@
    "verdict": "correct",
    "reason": "static.html loads /wp-content/plugins/wp-job-board-pro/assets/js/leaflet/leaflet.js?ver=1.5.1 and browser.json has L.version = '1.5.1+HEAD.2e3e0ff' with L.PosAnimation and L.DistanceGrid, so this L is Leaflet.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Lightbox",
@@ -5192,8 +5276,9 @@
    "verdict": "wrong",
    "reason": "The matched file .../plugins/breakdance/plugin/elements/dependencies-files/elements-reusable-code/lightbox.js is the Breakdance page builder's own wrapper, used in rendered.html as 'new BreakdanceLightbox('.bde-gallery-26277-431', {' on top of lightgallery@2/lightgallery-bundle.min.js, and browser.json window_keys contain only lightGallery, BreakdanceLightbox and BreakdanceGallery with no 'lightbox' global, so Lokesh Dhakar's Lightbox2 is not loaded (the gallery is lightGallery).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The matched file is Breakdance's own .../breakdance/plugin/elements/dependencies-files/elements-reusable-code/lightbox.js (window_keys: BreakdanceLightbox), and the Lightbox2 globals Lightbox.activeImage and lightbox.$lightbox were asked but are absent from js_globals.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Linkedin Ads",
@@ -5239,8 +5324,9 @@
    "verdict": "correct",
    "reason": "static.html has the site's own LinkedIn tag with a noscript pixel px.ads.linkedin.com/collect/?pid=7056076, and browser.json shows requests to px.ads.linkedin.com/collect and /wa/, so the LinkedIn ads conversion pixel fires.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Linkedin Insight Tag",
@@ -5300,8 +5386,9 @@
    "verdict": "correct",
    "reason": "rendered.html loads https://snap.licdn.com/li.lms-analytics/insight.min.js and browser.json js global _linkedin_partner_id = 7056076 (the site's partner id).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "LiteSpeed Cache",
@@ -5369,8 +5456,9 @@
    "verdict": "correct",
    "reason": "rendered.html loads /wp-content/plugins/litespeed-cache/assets/js/webfontloader.min.js and the response header x-litespeed-cache: hit in static.json confirms the plugin's cache is active on this WordPress site.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "The response has x-litespeed-cache: hit, and browser.json loads plugin files with status 200 (wp-content/plugins/litespeed-cache/guest.vary.php, assets/js/webfontloader.min.js).",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Litespeed Cache",
@@ -5457,8 +5545,9 @@
    "verdict": "correct",
    "reason": "static.json header x-litespeed-cache: hit/miss on a WordPress site (generator WordPress 7.1.5), and static.html ends with the plugin's own comment 'Page cached by LiteSpeed Cache 7.9.3'.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Livefyre",
@@ -5497,8 +5586,9 @@
    "verdict": "wrong",
    "reason": "The js global L.version = '1.5.1+HEAD.2e3e0ff' is Leaflet's version (L is Leaflet's global), loaded from wp-content/plugins/wp-job-board-pro/assets/js/leaflet/leaflet.js?ver=1.5.1; nothing from Livefyre is on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "L.version \"1.5.1+HEAD.2e3e0ff\" is Leaflet's version string (browser.json loads wp-job-board-pro/assets/js/leaflet/leaflet.js?ver=1.5.1 and L.DistanceGrid/L.PosAnimation exist); no Livefyre resource is present.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "LottieFiles",
@@ -5537,8 +5627,9 @@
    "verdict": "correct",
    "reason": "static.html loads the Enfold theme's .../config-lottie-animations/assets/lottie-player/dotlottie-player.js (LottieFiles' player), requested in browser.json, and the js global dotlottie-player is defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Lucide",
@@ -5577,8 +5668,9 @@
    "verdict": "correct",
    "reason": "static.html contains inline icons rendered by the Lucide icon library, e.g. <svg ... class=\"lucide lucide-check size-4\"> and class=\"lucide lucide-chevron-down ...\".",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "MUI",
@@ -5617,8 +5709,9 @@
    "verdict": "correct",
    "reason": "rendered.html contains MUI-generated markup <div class=\"MuiContainer-root MuiContainer-maxWidthXl css-1cmizrj\"> with MuiPaper-root/MuiAppBar-root, emitted by the MUI React components at runtime.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Magento",
@@ -5751,8 +5844,9 @@
    "verdict": "correct",
    "reason": "static.html has <script type=\"text/x-magento-init\">, rendered.html loads .../pt_BR/mage/common via RequireJS (data-requiremodule=\"mage/common\"), and browser.json has Magento's mage-cache-storage cookie.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Magnific Popup",
@@ -5802,8 +5896,9 @@
    "verdict": "correct",
    "reason": "static.html loads .../themes/construction-light/assets/library/magnific-popup/magnific-popup.min.js?ver=1.1.0, theme-bundled page code that runs on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "MailChimp for WordPress",
@@ -5875,8 +5970,9 @@
    "verdict": "correct",
    "reason": "static.html loads /wp-content/plugins/mailchimp-for-wp/assets/js/forms.js?ver=4.15.0 and browser.json js global mc4wp is defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Mailcheck",
@@ -5926,8 +6022,9 @@
    "verdict": "correct",
    "reason": "static.html loads /wp-content/plugins/wpforms-lite/assets/lib/mailcheck.min.js?ver=1.1.2, the Mailcheck library bundled by the WPForms plugin, so its code runs on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Mapbox GL JS",
@@ -6012,8 +6109,9 @@
    "verdict": "correct",
    "reason": "rendered.html loads static-cdn.website-editor.net/editor/ed/vendor/mapbox/v0.52.0/mapbox-gl.js and browser.json js global mapboxgl.version = 0.52.0; library code bundled by the platform still counts as page code.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Mastercard",
@@ -6059,8 +6157,9 @@
    "verdict": "correct",
    "reason": "The site's accepted-payment icons in static.html include <svg ... aria-labelledby=\"pi-master\"><title id=\"pi-master\">Mastercard</title>, a deliberate list of payment methods.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Material UI",
@@ -6099,8 +6198,9 @@
    "verdict": "correct",
    "reason": "rendered.html contains MUI-generated markup <div class=\"MuiContainer-root ...\"> and <header class=\"MuiPaper-root ... MuiAppBar-root\">; same evidence as the MUI entry (duplicate rule for one product).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Matter.js",
@@ -6139,8 +6239,9 @@
    "verdict": "wrong",
    "reason": "The scriptSrc pattern matched 'matter.js' inside Magento_Ui/js/lib/logger/formatter.js (a Magento file named formatter.js); Matter.js is not loaded.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "\"matter.js\" matched inside the file name Magento_Ui/js/lib/logger/formatter.js, a Magento logger file, not the Matter.js physics library.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Max Mega Menu",
@@ -6187,8 +6288,9 @@
    "verdict": "correct",
    "reason": "static.html has <link rel=\"stylesheet\" id=\"megamenu-css\" href=\".../wp-content/uploads/maxmegamenu/style.css?ver=60792d\">, the stylesheet the Max Mega Menu plugin generates.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Medallia",
@@ -6229,8 +6331,9 @@
    "verdict": "correct",
    "reason": "browser.json js global KAMPYLE_COMMON is defined and Medallia scripts loaded (resources.digital-cloud-west.medallia.com/wdcwest/564755/onsite/embed.js, events sent to analytics-fe.digital-cloud-west.medallia.com); note the page itself is a cloned gambling page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Microsoft HTTPAPI",
@@ -6286,8 +6389,9 @@
    "verdict": "unsure",
    "reason": "The only evidence is the server header 'Nginx Microsoft-HTTPAPI/2.0' with x-powered-by 'Nginx' in static.json on a spam page; the header names two different servers in one hand-set string, so it cannot show which server really answers.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Microsoft Word",
@@ -6365,8 +6469,9 @@
    "verdict": "correct",
    "reason": "static.html declares <META CONTENT=\"Word.Document\" NAME=\"ProgId\"> and <META CONTENT=\"Microsoft Word 10\" NAME=\"Generator\"> with mso- styles, so the page was authored in Microsoft Word.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "MobX",
@@ -6426,8 +6531,9 @@
    "verdict": "correct",
    "reason": "browser.json js globals __mobxGlobals = true and __mobxInstanceCount = 1, defined by MobX in the Canva website bundle (_assets/...vendor.js); library code bundled by the platform counts as page code.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Moment.js",
@@ -6519,8 +6625,9 @@
    "verdict": "correct",
    "reason": "static.html loads /wp-includes/js/dist/vendor/moment.min.js?ver=2.30.1 and browser.json js global moment.version = 2.30.1.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Moove GDPR Consent",
@@ -6560,8 +6667,9 @@
    "verdict": "correct",
    "reason": "browser.json js global moove_frontend_gdpr_scripts is defined and rendered.html loads wp-content/plugins/gdpr-cookie-compliance/dist/scripts/main.js?ver=4.12.8 (the Moove plugin).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "MyWebsite Creator",
@@ -6613,8 +6721,9 @@
    "verdict": "correct",
    "reason": "static.html loads scripts from static-cdn.website-editor.net, sets window.SystemID = '1AND1_EU_PROD', loads 1and1-runtime.css and shows 'Erstellt mit IONOS' linking to ionos.de/websites/homepage-erstellen, and the A record 217.160.0.16 is IONOS.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "NProgress",
@@ -6657,8 +6766,9 @@
    "verdict": "correct",
    "reason": "browser.json js global NProgress.version = 0.2.0, defined by the Semplice theme's bundled scripts that run on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "NightsBridge",
@@ -6704,8 +6814,9 @@
    "verdict": "correct",
    "reason": "The site's booking button in static.html links to its own NightsBridge booking page <a href=\"https://book.nightsbridge.com/26811\" ...>, so the guesthouse takes bookings through NightsBridge.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Nuxt.js",
@@ -6851,8 +6962,9 @@
    "verdict": "correct",
    "reason": "static.html has <div id=\"__nuxt\"> and loads /_nuxt/entry.BtyGwx14.js, and browser.json js globals __NUXT__ and useNuxtApp are defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "OpenResty",
@@ -6908,8 +7020,9 @@
    "verdict": "correct",
    "reason": "The main document header is 'server: openresty/1.25.3.2' on the domain's own IP 78.46.86.91, the page is a custom Tailwind/htmx page with no website-builder markers, and the owner is the domain company KV GmbH (page text 'Oder besteht Interesse am Kauf dieser Domain? ... domain@kv-gmbh.de', NS ns1.kv-gmbh.de, MX parking12.kv.de, its own 'KV Tracking (info.kv.de)' script), so the server is the owner's own choice, not a hosted platform's.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The domain is parked (MX parking12.kv.de, NS ns1.kv-gmbh.de, TXT afternic-verification and elitedomains entries, a search-box page with the Taboola kvgmbh-network loader), so server: openresty/1.25.3.2 belongs to the parking provider's platform, not to a host the owner chose.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Optimise",
@@ -6949,8 +7062,9 @@
    "verdict": "correct",
    "reason": "rendered.html loads //track.omguk.com/e/qs/?action=Content&MID=2317964&PID=52352 and browser.json shows the request to track.omguk.com, the Optimise affiliate tracker.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "PIXIjs",
@@ -6989,8 +7103,9 @@
    "verdict": "correct",
    "reason": "browser.json js global PIXI is defined, set by PixiJS in the Semplice theme's bundled scripts (semplice6/assets/js/*.min.js) that run on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "PhotoSwipe",
@@ -7051,8 +7166,9 @@
    "verdict": "correct",
    "reason": "browser.json js globals PhotoSwipe and PhotoSwipeUI_Default are both defined, PhotoSwipe's own globals from the Semplice theme's bundled scripts.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Pinterest Ads",
@@ -7091,8 +7207,9 @@
    "verdict": "correct",
    "reason": "browser.json shows requests to ct.pinterest.com/user/?tid=2612572721428 and ct.pinterest.com/v3/?event=PageVisit after s.pinimg.com/ct/core.js loaded, so the Pinterest ads tag fires.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Pinterest Conversion Tag",
@@ -7131,8 +7248,9 @@
    "verdict": "correct",
    "reason": "browser.json js global pintrk is defined and the tag's script s.pinimg.com/ct/core.js loaded and sent PageVisit events to ct.pinterest.com.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Plesk",
@@ -7184,8 +7302,9 @@
    "verdict": "correct",
    "reason": "static.json response header x-powered-by: PleskLin on the site's own WordPress server (server: nginx), so the owner's chosen host runs the site under Plesk.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Plyr",
@@ -7224,8 +7343,9 @@
    "verdict": "correct",
    "reason": "browser.json js global Plyr is defined; the original <script src=\".../plugins/easy-video-player/lib/plyr.js?ver=6.2.2\"> is commented out in static.html only because WP Fastest Cache combined it into wp-content/cache/wpfc-minified/*.js, which loaded.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Popper",
@@ -7264,8 +7384,9 @@
    "verdict": "correct",
    "reason": "browser.json js global Popper.Defaults is defined, which is specific to Popper.js v1.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "browser.json js_globals has Popper.Defaults = true (a Popper.js v1 property) and window_keys lists Popper among the Bootstrap component globals (Util, Dropdown, Collapse) from the JupiterX theme's minified scripts, so Popper code runs on the page.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "PostHog",
@@ -7304,8 +7425,9 @@
    "verdict": "correct",
    "reason": "browser.json js global __PosthogExtensions__ is defined by sdk.getlimy.ai/p/limy-analytics.min.js, a PostHog-based SDK (capture requests to analytics.getlimy.ai/e/?...&ver=1.298.1&compression=gzip-js), so PostHog code runs on the page although data goes to Limy, not PostHog; a borderline case for the human to confirm.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Premio Chaty",
@@ -7372,8 +7494,9 @@
    "verdict": "correct",
    "reason": "static.html loads /wp-content/plugins/chaty/js/cht-front-script.min.js and browser.json js global chaty_settings.chaty_widgets is defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "ProfilePress",
@@ -7423,8 +7546,9 @@
    "verdict": "correct",
    "reason": "static.html loads /wp-content/plugins/wp-user-avatar/assets/js/frontend.min.js?ver=4.18.0, the ProfilePress plugin's front-end script.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "ProvenExpert",
@@ -7470,8 +7594,9 @@
    "verdict": "correct",
    "reason": "static.html loads https://www.provenexpert.com/widget/richsnippet.js?u=2NQA2ZGpj9Tp1Vaoj9zAhywA2DwZ5HwZ and browser.json shows it and google-stars2025.css being fetched.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "PubSubJS",
@@ -7535,8 +7660,9 @@
    "verdict": "unsure",
    "reason": "Only the generic js global PubSub with PubSub.version = 3.4.0 is seen, coming from combined wpfc-minified bundles that were not saved; 3.4.0 does not match PubSubJS's known 1.x releases, so another library may define the same PubSub name.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Qualtrics",
@@ -7596,8 +7722,9 @@
    "verdict": "correct",
    "reason": "rendered.html loads znewylzpqds1jt1sh-samsunggdc.siteintercept.qualtrics.com/WRSiteInterceptEngine/ and browser.json js global QSI.ClientSideTargeting is defined (the page is a cloned copy, but the code runs on it).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "RTB House",
@@ -7636,8 +7763,9 @@
    "verdict": "correct",
    "reason": "rendered.html loads https://tags.creativecdn.com/I1NPjjM7jHwae2QF7zfQ.js and browser.json shows xhr calls to asia.creativecdn.com/tags/v2, RTB House's tag.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "The RTB House tag loads and fires on the page (browser.json: tags.creativecdn.com/I1NPjjM7jHwae2QF7zfQ.js status 200, asia.creativecdn.com/tags/v2?type=json fetches 307 then 204); it is page code that runs, even though it came with the copied Samsung page on this hijacked domain.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "RankMath SEO",
@@ -7684,8 +7812,9 @@
    "verdict": "correct",
    "reason": "static.html contains <script type=\"application/ld+json\" class=\"rank-math-schema\"> with the site's schema graph, output by the Rank Math plugin.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "React Router",
@@ -7728,8 +7857,9 @@
    "verdict": "correct",
    "reason": "browser.json js_globals has __reactRouterVersion = \"7.9.1\", a global React Router itself sets, on a single-page app whose only script is /assets/index-35gHEikw.js.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Redux Framework",
@@ -7779,8 +7909,9 @@
    "verdict": "correct",
    "reason": "static.html and rendered.html carry <meta name=\"generator\" content=\"Redux 4.3.26\">, the generator tag the Redux Framework WordPress plugin writes, on a WordPress 7.1.5 site.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Responsive Lightbox & Gallery",
@@ -7862,8 +7993,9 @@
    "verdict": "correct",
    "reason": "browser.json shows the plugin's globals rlArgs.activeGalleries, rl_view_image and rl_hide_image plus a 200 request for /wp-content/plugins/responsive-lightbox/assets/swipebox/swipebox.min.css.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Retina.js",
@@ -7902,8 +8034,9 @@
    "verdict": "correct",
    "reason": "browser.json js_globals has RetinaImage, the constructor Retina.js defines, so the library (bundled in js/theme-vendors.min.js) ran on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Rich Plugins Reviews",
@@ -7999,8 +8132,9 @@
    "verdict": "correct",
    "reason": "browser.json has 200 requests for /wp-content/plugins/widget-google-reviews/assets/7.2/js/public-main.js and its public-main.css, the Rich Plugins Google reviews widget.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Salesforce Commerce Cloud",
@@ -8093,8 +8227,9 @@
    "verdict": "correct",
    "reason": "static.html loads scripts from /on/demandware.static/Sites-shopDisney-Site/ and static.json shows the response set the dwsid, dw_dnt and dwanonymous_ cookies of Salesforce Commerce Cloud (Demandware).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Salesforce Interaction Studio",
@@ -8134,8 +8269,9 @@
    "verdict": "correct",
    "reason": "static.html has <script src=\"//cdn.evgnet.com/beacon/waltdisney/production/scripts/evergage.min.js\">, the Evergage (Interaction Studio) beacon under Disney's own account; the browser fetch failed so loading was not observed, but the tag is unconditional.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Sanity",
@@ -8219,8 +8355,9 @@
    "verdict": "correct",
    "reason": "static.html images come from cdn.sanity.io/images/w82rk2si/production/, the site's own Sanity project and dataset, so its content is managed in Sanity.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Sanity.io",
@@ -8304,8 +8441,9 @@
    "verdict": "correct",
    "reason": "same evidence as Sanity: static.html images from the site's own Sanity project cdn.sanity.io/images/w82rk2si/production/ (duplicate rule for the same product).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Segment",
@@ -8365,8 +8503,9 @@
    "verdict": "correct",
    "reason": "browser.json has a 200 request for cdn.segment.com/analytics.js/v1/78lzomm3tOKRxdD0TcH2edkEMYIhl5Em/analytics.min.js, a fetch of its project settings, and the __SEGMENT_INSPECTOR__ global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Semplice",
@@ -8439,8 +8578,9 @@
    "verdict": "correct",
    "reason": "browser.json shows 200 requests for /wp-content/themes/semplice6/assets/js/*.js and a semplice6-child theme, and the global semplice.template_dir = https://5w.design/wp-content/themes/semplice6.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Seravo",
@@ -8493,8 +8633,9 @@
    "verdict": "correct",
    "reason": "the main document header x-powered-by: Seravo (static.json and browser.json) names the managed WordPress host the self-hosted WordPress site chose.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "ShareThis",
@@ -8567,8 +8708,9 @@
    "verdict": "correct",
    "reason": "browser.json has 200 requests for platform-api.sharethis.com/js/sharethis.js and buttons-config.sharethis.com/js/6782dfbac1886b001ae16e93.js, a pview call for sticky-share-buttons, and the __sharethis__docReady global.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Shop Pay",
@@ -8635,8 +8777,9 @@
    "verdict": "correct",
    "reason": "on this Shopify store the ShopifyPay.apiHost global is shop.app/pay, the shopify_pay storefront script loaded (200), and the accepted-payments list has the pi-shopify_pay icon \"Shop Pay\".",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Shopify",
@@ -8779,8 +8922,9 @@
    "verdict": "correct",
    "reason": "the shopify-digital-wallet meta, scripts loaded from cdn.shopify.com/shopifycloud/, product images under cdn.shopify.com/s/files/1/0665/8342/9255/ and the Shopify and ShopifyAnalytics globals show a Shopify store.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Shopware",
@@ -8830,8 +8974,9 @@
    "verdict": "correct",
    "reason": "the /web/cache/1761889490_<hash>.js bundle is Shopware 5's asset path, confirmed by the footer text \"Realisiert mit Shopware\", the icon--shopware logo, sUniqueID in static.html and the session-1 cookie.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Site Kit",
@@ -8882,8 +9027,9 @@
    "verdict": "correct",
    "reason": "static.html has <meta name=\"generator\" content=\"Site Kit by Google 1.192.0\"> and browser.json loaded /wp-content/plugins/google-site-kit/dist/assets/js/googlesitekit-events-provider-content-events-*.js.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "SiteGround",
@@ -8944,8 +9090,9 @@
    "verdict": "correct",
    "reason": "the self-hosted WordPress site's response carries SiteGround's host-header hash and sg-f-cache: HIT header, and dns.json SOA is ns1.siteground.net.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "The owner's own host is SiteGround: NS ns1/ns2.siteground.net, SOA admins.siteground.com, and the main document has SiteGround headers host-header 6b7412fb82ca5edfd0917e3957f05d89 and sg-f-cache: HIT.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Smart Slider 3",
@@ -8997,8 +9144,9 @@
    "verdict": "correct",
    "reason": "browser.json has 200 requests for /wp-content/plugins/smart-slider-3/Public/SmartSlider3/.../smartslider-frontend.min.js and smartslider.min.css.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Sprinklr",
@@ -9079,8 +9227,9 @@
    "verdict": "correct",
    "reason": "browser.json loaded prod-live-chat.sprinklr.com/api/livechat/handshake/widget/... and the live-chat-static.sprinklr.com app bundles (200), with the sprChat and sprChatSettings globals.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Square Online",
@@ -9119,8 +9268,9 @@
    "verdict": "correct",
    "reason": "browser.json has APP_ORIGIN = https://square.online, the page meta generator is \"Square Online\", and the page calls Checkout::getSquareStoreConfig.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Squarespace",
@@ -9218,8 +9368,9 @@
    "verdict": "correct",
    "reason": "the response header server: Squarespace and the globals Squarespace and Static.SQUARESPACE_CONTEXT.templateVersion = 7.1 show a Squarespace site.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Squarespace Commerce",
@@ -9345,8 +9496,9 @@
    "verdict": "correct",
    "reason": "assets.squarespace.com/universal/scripts-compressed/commerce-f2b3fd77b8d4e73b-min.en-US.js and async-commerce-cart-utils loaded (200), and static.html has a header cart (href=\"/cart\", sqs-custom-cart).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "SweetAlert2",
@@ -9480,8 +9632,9 @@
    "verdict": "correct",
    "reason": "browser.json has 200 requests for /web/script/sweetalert2.min.js?v=11.4.4 and /web/stili/sweetalert2.min.css, and the Sweetalert2 global is defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Taboola",
@@ -9604,8 +9757,9 @@
    "verdict": "correct",
    "reason": "browser.json loaded cdn.taboola.com/libtrc/kvgmbh-network/loader.js (200), called trc.taboola.com, and defines the _taboola, TRCImpl.global and taboola_view_id globals.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "The SEO Framework",
@@ -9652,8 +9806,9 @@
    "verdict": "correct",
    "reason": "static.html wraps its SEO meta tags in the plugin's own comments \"<!-- The SEO Framework by Sybre Waaijer -->\" and \"<!-- / The SEO Framework by Sybre Waaijer | 5.55ms meta | 0.94ms boot -->\", which only the running plugin writes.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Three.js",
@@ -9747,8 +9902,9 @@
    "verdict": "correct",
    "reason": "three.min.js from the transition-slider-lite plugin loaded (200) and the globals THREE.REVISION and __THREE__ = 128 are set, so Three.js runs on the page (bundled page code counts).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Tiny Slider",
@@ -9794,8 +9950,9 @@
    "verdict": "correct",
    "reason": "browser.json has 200 requests for /wp-content/plugins/jeg-elementor-kit/assets/js/tiny-slider/tiny-slider.js?ver=2.9.3 and tiny-slider.css, loaded by an Elementor add-on (bundled page code counts).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Tippy.js",
@@ -9855,8 +10012,9 @@
    "verdict": "correct",
    "reason": "gs-logo-slider loaded libs/tippyjs/tippy-bundle.umd.min.js (200), rendered.html has the injected <style data-tippy-stylesheet>, and the tippy.defaultProps global exists.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Trusted Shops",
@@ -9901,8 +10059,9 @@
    "verdict": "correct",
    "reason": "browser.json loaded widgets.trustedshops.com/js/X35E0A1CBD8B9DEEE12E4CD16F6B00241.js and the trustbadge.js bundles (200), the shop's own Trusted Shops badge ID.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Turbo",
@@ -9941,8 +10100,9 @@
    "verdict": "correct",
    "reason": "browser.json js_globals has Turbo and static.html has the turbo-prefetch, turbo-refresh-method and turbo-cache-control metas, so Hotwire Turbo runs on the page (bundled by the Bandzoogle platform, page code counts).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Twitter Ads",
@@ -10002,8 +10162,9 @@
    "verdict": "correct",
    "reason": "browser.json has a 200 request for static.ads-twitter.com/uwt.js, the X/Twitter conversion tracking pixel.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Typed.js",
@@ -10042,8 +10203,9 @@
    "verdict": "correct",
    "reason": "files.ideenhunger.com/src/ideenhunger/js/typed.js loaded (200) and static.html calls new Typed(\".typedjs-multiple\", {...}), the Typed.js API.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "UIKit",
@@ -10089,8 +10251,9 @@
    "verdict": "correct",
    "reason": "static.html uses UIkit markup (uk-container, data-uk-sticky, data-uk-grid) and rendered.html gains the JS-added classes uk-first-column (8) and uk-active (4), so UIkit's script (original tag commented out by the cache plugin and served minified) ran.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "UNIX",
@@ -10136,8 +10299,9 @@
    "verdict": "unsure",
    "reason": "the only evidence is server: Apache/2.4.71 (Unix) on a 646-byte \"Something went wrong\" error page behind Varnish/AWS with NS ns1.w4rserver.com, so the saved data cannot tell whether this server belongs to a hosted website platform or to a host the owner chose.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "The domain's own response carries server: Apache/2.4.71 (Unix) (static.json and browser.json), and nothing in the saved data shows a hosted website builder, so the server's OS belongs to the site's hosting even though the page is a generic error page.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Ubuntu",
@@ -10189,8 +10353,9 @@
    "verdict": "correct",
    "reason": "the main document header server: nginx/1.18.0 (Ubuntu) comes from the site's own server (A record 107.21.239.191, a hand-built Bootstrap site, no hosted builder).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Unpkg",
@@ -10257,8 +10422,9 @@
    "verdict": "correct",
    "reason": "static.html links https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css and browser.json shows it loaded (200), so the site uses the unpkg CDN.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Usercentrics",
@@ -10338,8 +10504,9 @@
    "verdict": "correct",
    "reason": "app.eu.usercentrics.eu/browser-ui/latest/loader.js and uc-block.bundle.js loaded (200) and the site's settings config.eu.usercentrics.eu/settings/AYGJTv1ERgTxMs/ were fetched; static.html also has script[data-usercentrics] blocks.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Vercel",
@@ -10420,8 +10587,9 @@
    "verdict": "correct",
    "reason": "the final 200 response for https://www.jackwills.com/ in static.json has server: Vercel, x-vercel-cache: HIT and x-vercel-id: lhr1::..., on the brand's own Next.js storefront (_next/static paths).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Vimeo",
@@ -10460,8 +10628,9 @@
    "verdict": "correct",
    "reason": "the Avada theme's vimeoPlayer.js loaded (200) with Avada's status_vimeo:\"1\" option and the Vimeo.Player global is set, so Vimeo's player code runs on the page (bundled page code counts), though no Vimeo video iframe was seen.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Visa",
@@ -10507,8 +10676,9 @@
    "verdict": "correct",
    "reason": "the store's accepted-payments list in static.html contains the pi-visa icon (<svg ... aria-labelledby=\"pi-visa\">), a payment method the site lists on purpose.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Vue.js",
@@ -10568,8 +10738,9 @@
    "verdict": "correct",
    "reason": "rendered.html has Vue's <meta data-vue-meta=\"1\"> tags and browser.json loaded cdn3.editmysite.com/app/website/js/vue-modules.*.js, Vue code bundled by Square Online (page code counts).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WOW",
@@ -10617,8 +10788,9 @@
    "verdict": "correct",
    "reason": "the theme's wow.js?ver=1 loaded (200) and rendered.html elements with class \"wow fadeInLeft\" etc. gained the \"animated\" class WOW.js adds, so it ran.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WP Engine",
@@ -10658,8 +10830,9 @@
    "verdict": "correct",
    "reason": "browser.json main document header of https://www.natedea.co.uk/ is 'x-powered-by: WP Engine' on a self-hosted WordPress site, so the owner chose WP Engine as its host.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WP Fastest Cache",
@@ -10773,8 +10946,9 @@
    "verdict": "correct",
    "reason": "static.html loads the plugin's minified files /wp-content/cache/wpfc-minified/f3ihhar9/2hqld.js (requested with status 200 in browser.json) and carries the comment 'WP Fastest Cache file was created in 0.32 seconds'.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WP Rocket",
@@ -10939,8 +11113,9 @@
    "verdict": "correct",
    "reason": "static.html has <meta name=\"generator\" content=\"WP Rocket 3.24.1\">, loads /wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js (200 in browser.json) and the globals RocketPreloadLinksConfig and rocket_lazy exist.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WP-PageNavi",
@@ -11007,8 +11182,9 @@
    "verdict": "correct",
    "reason": "The page loads the plugin's stylesheet /wp-content/plugins/wp-pagenavi/css/wp-pagenavi.css?ver=3.0.1 (status 200 in browser.json), so the owner installed this WordPress plugin.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WPForms",
@@ -11069,8 +11245,9 @@
    "verdict": "correct",
    "reason": "browser.json shows globals wpforms and wpforms_settings, wpforms-lite scripts loaded with status 200, and rendered.html contains <form id=\"wpforms-form-381\" class=\"wpforms-validate wpforms-form\">.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WPML",
@@ -11170,8 +11347,9 @@
    "verdict": "correct",
    "reason": "static.html of www.velvety-cosmetics.com has generator 'WPML ver:5.2.0 stt:1,3;', loads /wp-content/plugins/sitepress-multilingual-cms/res/js/cookies/language-cookie.js (200) and sets cookie wp-wpml_current_language=de.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Web Font Loader",
@@ -11210,8 +11388,9 @@
    "verdict": "correct",
    "reason": "rendered.html loads /wp-content/plugins/litespeed-cache/assets/js/webfontloader.min.js (status 200 in browser.json) and the WebFont and WebFontConfig globals exist, so the library runs on the page (loaded by the LiteSpeed Cache plugin).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WebNode",
@@ -11283,8 +11462,9 @@
    "verdict": "correct",
    "reason": "static.html has <meta name=\"generator\" content=\"Webnode 2\">, the response header is 'server: webnode' and the Webnode global wnd.$system exists in browser.json.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Webflow",
@@ -11376,8 +11556,9 @@
    "verdict": "correct",
    "reason": "static.html root is <html data-wf-domain=\"www.253media.com\" data-wf-site=\"632c860a24501a288ed72e24\"> and browser.json has Webflow._.VERSION = '1.6.0-Webflow', so the site is built on Webflow.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Wix eCommerce",
@@ -11423,8 +11604,9 @@
    "verdict": "unsure",
    "reason": "The #wix-viewer-model in static.html lists an installed 'Wix Stores' app with its own instanceId (so the owner added it), but no Wix Stores code or markup loads on the page, the site's page list has no shop or product page, and the visible links send buyers to squareup.com and square.site, so the saved evidence cannot show a store in use.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "WordPress Multisite",
@@ -11504,8 +11686,9 @@
    "verdict": "wrong",
    "reason": "The images under /wp-content/uploads/sites/196/ and the footer 'Website by Spectora' in static.html show the site is subsite 196 of Spectora's hosted WordPress network, so the multisite setup (a Hosting-category item) is the platform's hosting choice, not the site owner's.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "The WordPress site (static.html generator \"WordPress 7.1.5\") serves its images from /wp-content/uploads/sites/196/ (e.g. www.38inspect.com/wp-content/uploads/sites/196/2022/03/veteran-owned-180x180.png), the upload path of a Multisite sub-site.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "WordPress Site Editor",
@@ -11551,8 +11734,9 @@
    "verdict": "correct",
    "reason": "static.html contains <div class=\"wp-site-blocks\"><header class=\"wp-block-template-part\">, the markup WordPress outputs for block-theme templates built with the Site Editor (theme titan-digital-agency, generator WordPress 7.1.5).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "X-Clacks-Overhead",
@@ -11598,8 +11782,9 @@
    "verdict": "correct",
    "reason": "static.json and browser.json both show the response header 'x-clacks-overhead: GNU Terry Pratchett' on https://davidloeppke.com/, a header feature present on the page whoever set it.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "YUI",
@@ -11642,8 +11827,9 @@
    "verdict": "correct",
    "reason": "browser.json js_globals has YUI.version = '3.17.2' on this Squarespace site (server: Squarespace), so the YUI library bundled by the platform runs on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Yandex.Metrika",
@@ -11682,8 +11868,9 @@
    "verdict": "correct",
    "reason": "rendered.html loads https://mc.yandex.ru/metrika/tag.js (status 200 in browser.json) and the counter sends hits to https://mc.yandex.com/watch/70826719 (status 200), with globals ym and Ya present.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "ZURB Foundation",
@@ -11743,8 +11930,9 @@
    "verdict": "wrong",
    "reason": "The only match is Gravity Forms' own stylesheet gravity-forms-theme-foundation.min.css (id gravity_forms_theme_foundation-css) in rendered.html, and browser.json shows Foundation.version was asked but not defined, so ZURB Foundation is not on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The matched stylesheet is Gravity Forms' own theme file wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-foundation.min.css (id gravity_forms_theme_foundation-css), not the ZURB Foundation framework.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Zoho PageSense",
@@ -11805,8 +11993,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://cdn.pagesense.io/js/2comportal/71aae30f7f404c35a6934433e58f78d3.js loaded (200), the $pagesense global and a ping to pagesense-collect.zoho.com.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Zoho SalesIQ",
@@ -11873,8 +12062,9 @@
    "verdict": "correct",
    "reason": "static.html loads https://salesiq.zohopublic.com/widget?wc=siqac17e4093ef16e22f6ba3f04541055bc (200 in browser.json), the $zoho.salesiq global exists and the widget calls salesiq.zohopublic.com/visitor/v3/channels/website.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Zotabox",
@@ -11913,8 +12103,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://static2.zotabox.com/widgets.js and its index bundle loaded with status 200 and the Zotabox global defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "anime.js",
@@ -11957,8 +12148,9 @@
    "verdict": "correct",
    "reason": "browser.json has anime.version = '3.2.1' and the script /wp-content/plugins/dethemekit-for-elementor/includes/ext/sina/assets/js/anime.min.js loaded with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "crypto-js",
@@ -12018,8 +12210,9 @@
    "verdict": "correct",
    "reason": "browser.json shows globals CryptoJS.Rabbit and CryptoJS.algo and the script .../clientlib-common/global/js/crypto-js.min.6fa2276cf659f30cabde72a6fc452171.js loaded (200); note the domain now serves a copied gambling page ('BOS88 | Agen Togel Online'), whose current owner runs this code.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "eWAY Payments",
@@ -12065,8 +12258,9 @@
    "verdict": "wrong",
    "reason": "The pattern [^/]*eway\\.com matched the site's own logo URL '<img src=\"https://2agateway.com' (2aGATEWAY.com contains 'eway.com'); no eWAY script, domain or logo appears in static.html, rendered.html or browser.json.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The pattern matched \"eway.com\" inside the site's own host name in <img src=\"https://2agateway.com/wp-content/uploads/2023/01/2a-gateway-l...\" (its logo), not an eWAY image.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "iubenda",
@@ -12138,8 +12332,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://cdn.iubenda.com/iubenda.js and cookie_solution/iubenda_cs/1.109.0/core-it.js loaded with status 200 and the _iub global defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "jQuery CDN",
@@ -12185,8 +12380,9 @@
    "verdict": "correct",
    "reason": "static.html loads https://code.jquery.com/jquery-3.3.1.min.js (200 in browser.json) and jQuery.fn.jquery = '3.3.1', so the site serves jQuery from the jQuery CDN.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "jQuery Mobile",
@@ -12264,8 +12460,9 @@
    "verdict": "unsure",
    "reason": "The Divi theme loads /wp-content/themes/Divi/includes/builder/feature/dynamic-assets/assets/js/jquery.mobile.js?ver=4.21.0 (200), but browser.json shows jQuery.mobile.version was asked and not defined, so the saved data cannot tell whether this is a jQuery Mobile build (likely touch events only) or only a file of that name; the version 4.21.0 is Divi's, not jQuery Mobile's.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "jQuery-pjax",
@@ -12311,8 +12508,9 @@
    "verdict": "wrong",
    "reason": "The only evidence is the attribute '<div data-pjax-container>' in static.html of this Bandzoogle site; no jquery.pjax script is loaded and browser.json shows jQuery.pjax was asked but not defined although jQuery 1.12.4 is present, so the platform uses its own page-transition code, not the jQuery-pjax plugin.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "The <div data-pjax-container> is Bandzoogle platform markup, and jQuery.pjax was asked but is absent from js_globals (only jQuery 1.12.4); the page navigates with Hotwire Turbo (window_keys: Turbo, stimulusApplication).",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "p5.js",
@@ -12393,8 +12591,9 @@
    "verdict": "correct",
    "reason": "browser.json shows https://files.ideenhunger.com/src/ideenhunger/js/p5.js/1.6.0/p5.min.js loaded (200) and the globals p5.Camera and p5.ColorConversion defined.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "prettyPhoto",
@@ -12475,8 +12674,9 @@
    "verdict": "correct",
    "reason": "rendered.html links the theme's prettyphoto/css/prettyPhoto.css and browser.json shows .../prettyphoto/js/jquery.prettyPhoto.js loaded with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "punycode",
@@ -12526,8 +12726,9 @@
    "verdict": "correct",
    "reason": "static.html loads /wp-content/plugins/wpforms-lite/assets/lib/punycode.min.js?ver=1.0.0 (200 in browser.json) and the punycode global is in window_keys, so the library bundled by WPForms runs on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "browser.json loads wp-content/plugins/wpforms-lite/assets/lib/punycode.min.js?ver=1.0.0 with status 200, and window_keys contains 'punycode', so the library runs on the page.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "scrollreveal",
@@ -12566,8 +12767,9 @@
    "verdict": "correct",
    "reason": "browser.json js_globals has ScrollReveal = true and window_keys include ScrollReveal and sr (the usual instance name), loaded from the Semplice theme's bundled scripts; the global name is specific to this library.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "styled-components",
@@ -12632,8 +12834,9 @@
    "verdict": "correct",
    "reason": "rendered.html contains <style data-styled=\"active\" data-styled-version=\"6.5.3\">, tags written at runtime by the styled-components library (absent from static.html), so it runs on the page, likely inside one of the embedded widgets.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "correct",
+   "second_reason": "rendered.html contains <style data-styled=\"active\" data-styled-version=\"6.5.3\">, injected at runtime by the Elfsight Google Reviews widget it loads (browser.json: elfsightcdn.com/platform.js, googleReviews.js status 200); page code counts whoever loaded it.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "wetter.com",
@@ -12672,8 +12875,9 @@
    "verdict": "wrong",
    "reason": "The only evidence is the global _wcomWidget, which sits in browser.json window_keys among stubs for many unused services (mapboxgl, L, bitmovin, Twitch, H, Calendly, hbspt) created by the Usercentrics blocker uc-block.bundle.js; no request to wetter.com or wettercomassets.com and no wetter text exists on the page.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "human_verdict": null,
-   "human_note": null
+   "second_verdict": "wrong",
+   "second_reason": "No wetter.com script or request appears in browser.json; _wcomWidget is one of the Usercentrics uc-block.bundle.js placeholder globals listed together in window_keys (bitmovin, Twitch, _wcomWidget, js3q, Calendly...).",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   }
  ]
 }

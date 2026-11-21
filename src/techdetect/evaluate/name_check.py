@@ -8,7 +8,9 @@ been checked at least once.
 
     sheet       pick one example per unchecked core name -> data/name_check.json
     merge       copy reviewers' verdicts (one JSON file per batch) into the sheet
-    spot-check  the human re-judges a seeded sample of verdicts plus every "wrong" one
+    spot-check  a second reviewer, blind to the first one's verdicts, re-judges every
+                "wrong" verdict plus a seeded sample of the others; where the two disagree,
+                the name counts as unsure
     report      docs/NAME_CHECK.md (generated)
 
 What one example proves: the name is really used by at least one site in the list. It
@@ -32,6 +34,15 @@ BATCH_SIZE = 45  # about what one reviewer can judge carefully in one session
 SPOT_CHECK_SIZE = 10
 VERDICTS = ("correct", "wrong", "unsure")
 SHEET_FORMAT = 1
+# Kept when the sheet is rebuilt, for an entry whose name and example site are unchanged.
+SECOND_KEYS = (
+    "verdict",
+    "reason",
+    "reviewer",
+    "second_verdict",
+    "second_reason",
+    "second_reviewer",
+)
 
 
 def counted(line: dict[str, Any]) -> bool:
@@ -111,12 +122,13 @@ def build_sheet(
             "verdict": None,
             "reason": None,
             "reviewer": None,
-            "human_verdict": None,
-            "human_note": None,
+            "second_verdict": None,
+            "second_reason": None,
+            "second_reviewer": None,
         }
         kept = old.get((name, domain))
         if kept:
-            for key in ("verdict", "reason", "reviewer", "human_verdict", "human_note"):
+            for key in SECOND_KEYS:
                 entry[key] = kept.get(key)
         entries.append(entry)
     for i, entry in enumerate(entries):
@@ -155,9 +167,35 @@ def merge_verdicts(sheet: dict[str, Any], verdicts: list[dict[str, Any]], review
     return applied
 
 
+def merge_second(sheet: dict[str, Any], verdicts: list[dict[str, Any]], reviewer: str) -> int:
+    """Copy the second reviewer's verdicts into the sheet; returns how many were applied."""
+    by_key = {(e["name"], e["domain"]): e for e in sheet["names"]}
+    for item in verdicts:
+        if item.get("verdict") not in VERDICTS or not item.get("reason"):
+            raise ValueError(f"bad second verdict for {item.get('name')}")
+        if (item["name"], item["domain"]) not in by_key:
+            raise ValueError(f"not in the sheet: {item['name']} on {item['domain']}")
+    for item in verdicts:
+        entry = by_key[(item["name"], item["domain"])]
+        entry["second_verdict"] = item["verdict"]
+        entry["second_reason"] = item["reason"]
+        entry["second_reviewer"] = reviewer
+    return len(verdicts)
+
+
+def final_verdict(entry: dict[str, Any]) -> str | None:
+    """The verdict that counts. Where the second reviewer disagrees with the first, nobody
+    can settle it from the evidence, so the name counts as unsure: a disagreement can lower
+    the headline, never raise it."""
+    second = entry.get("second_verdict")
+    if second and second != entry["verdict"]:
+        return "unsure"
+    return entry["verdict"]
+
+
 def spot_check_pick(sheet: dict[str, Any], seed: int = NAME_CHECK_SEED) -> list[dict[str, Any]]:
-    """What the human re-judges: every "wrong" verdict, plus SPOT_CHECK_SIZE others drawn
-    at random (seeded) among the judged ones."""
+    """What the second reviewer re-judges: every "wrong" verdict, plus SPOT_CHECK_SIZE
+    others drawn at random (seeded) among the judged ones."""
     judged = [e for e in sheet["names"] if e["verdict"]]
     wrong = [e for e in judged if e["verdict"] == "wrong"]
     others = [e for e in judged if e["verdict"] != "wrong"]
@@ -194,9 +232,10 @@ def summarise(
     # that detection): its verdict is about something that no longer exists, so it counts
     # as not judged until `sheet --force` picks a new example.
     checked = Counter(
-        (e["verdict"] if e["domain"] in examples[e["name"]] else None) or "none" for e in current
+        (final_verdict(e) if e["domain"] in examples[e["name"]] else None) or "none"
+        for e in current
     )
-    human = [e for e in current if e.get("human_verdict")]
+    second = [e for e in current if e.get("second_verdict")]
     return Summary(
         core_names=len(examples),
         covered=len(covered_core),
@@ -206,8 +245,8 @@ def summarise(
         ),
         checked=checked,
         gone=gone,
-        agree=sum(e["human_verdict"] == e["verdict"] for e in human),
-        spot_checked=len(human),
+        agree=sum(e["second_verdict"] == e["verdict"] for e in second),
+        spot_checked=len(second),
     )
 
 
@@ -229,22 +268,22 @@ def evidence_line(entry: dict[str, Any]) -> str:
     )
 
 
-def _rows(entries: list[dict[str, Any]], with_human: bool = False) -> list[str]:
-    head = "| Technology | Example site | Sites | Conf. | Why (reviewer) | Evidence |"
+def _rows(entries: list[dict[str, Any]], with_second: bool = False) -> list[str]:
+    head = "| Technology | Example site | Sites | Conf. | Why (first reviewer) | Evidence |"
     rule = "|---|---|---|---|---|---|"
-    if with_human:
-        head += " Human |"
+    if with_second:
+        head += " Second reviewer |"
         rule += "---|"
     rows = [head, rule]
     for e in sorted(entries, key=lambda e: e["name"]):
         row = (
             f"| {e['name']} | {e['domain']} | {e['sites']} | {e['confidence']} "
-            f"| {_code(e['reason'] or '', 300)} | {evidence_line(e)} |"
+            f"| {e['verdict']}: {_code(e['reason'] or '', 300)} | {evidence_line(e)} |"
         )
-        if with_human:
-            human = e.get("human_verdict") or "-"
-            note = f": {_code(e['human_note'], 120)}" if e.get("human_note") else ""
-            row += f" {human}{note} |"
+        if with_second:
+            second = e.get("second_verdict") or "-"
+            why = f": {_code(e['second_reason'], 300)}" if e.get("second_reason") else ""
+            row += f" {second}{why} |"
         rows.append(row)
     return rows
 
@@ -273,7 +312,9 @@ def render_report(summary: Summary, sheet: dict[str, Any], meta: dict[str, Any])
         "change when other names come or go).",
         "- **Who judged:** reviewer agents separate from the tool's author, following "
         "`docs/DEFINITIONS.md`, from the evidence and the saved raw data of the example "
-        "site. The tool's author then re-judged a sample (spot-check below).",
+        "site. A second reviewer agent, blind to the first one's verdicts, re-judged every "
+        "`wrong` verdict and a seeded sample of the others (spot-check below); where the two "
+        "disagree, the name counts as unsure.",
         "- **What it proves:** one correct example shows the name is really used by at "
         "least one site in the list. It does not prove every site with that name is right.",
         "",
@@ -296,21 +337,24 @@ def render_report(summary: Summary, sheet: dict[str, Any], meta: dict[str, Any])
     ]
     if s.spot_checked:
         out.append(
-            f"The tool's author re-judged {s.spot_checked} verdicts (every `wrong` one plus "
-            f"a seeded random sample of the others) and agreed with "
-            f"{rate(s.agree, s.spot_checked)}."
+            f"A second reviewer agent re-judged {s.spot_checked} verdicts (every `wrong` one "
+            "plus a seeded random sample of the others) from the same evidence and raw data, "
+            "without seeing the first reviewer's verdicts. It agreed on "
+            f"{rate(s.agree, s.spot_checked)}. Both reviewers are agents; no human re-judged "
+            "these verdicts."
         )
         disagreements = [
-            e for e in current if e.get("human_verdict") and e["human_verdict"] != e["verdict"]
+            e for e in current if e.get("second_verdict") and e["second_verdict"] != e["verdict"]
         ]
         if disagreements:
-            out += ["", "Disagreements:", ""] + _rows(disagreements, with_human=True)
+            out += ["", "Disagreements (counted as unsure):", ""]
+            out += _rows(disagreements, with_second=True)
     else:
         out.append("Not done yet.")
     for title, verdict in (("Judged wrong", "wrong"), ("Unsure", "unsure")):
-        items = [e for e in current if e["verdict"] == verdict]
+        items = [e for e in current if final_verdict(e) == verdict]
         out += ["", f"## {title} ({len(items)})", ""]
-        out += _rows(items, with_human=True) if items else ["None."]
+        out += _rows(items, with_second=True) if items else ["None."]
     out += [
         "",
         f"## On a labelled domain, but never judged correct ({len(s.covered_without_correct)})",
@@ -343,7 +387,7 @@ def render_report(summary: Summary, sheet: dict[str, Any], meta: dict[str, Any])
     ]
     for e in sorted(current, key=lambda e: e["name"]):
         out.append(
-            f"| {e['name']} | {e['domain']} | {e['sites']} | {e['verdict'] or '-'} "
+            f"| {e['name']} | {e['domain']} | {e['sites']} | {final_verdict(e) or '-'} "
             f"| {_code(e['reason'] or '', 200)} |"
         )
     return "\n".join(out) + "\n"

@@ -8,6 +8,8 @@ from techdetect.evaluate.name_check import (
     BATCH_SIZE,
     build_sheet,
     core_examples,
+    final_verdict,
+    merge_second,
     merge_verdicts,
     pick_domain,
     render_report,
@@ -164,7 +166,7 @@ def test_spot_check_takes_every_wrong_plus_a_sample() -> None:
 
 def test_report_headline_counts_names_with_a_correct_detection() -> None:
     sheet = build_sheet(LINES, GT)
-    sheet["names"][0].update(verdict="wrong", reason="a mention", human_verdict="wrong")
+    sheet["names"][0].update(verdict="wrong", reason="a mention", second_verdict="wrong")
     sheet["names"][1].update(verdict="correct", reason="script loaded")
     summary = summarise(LINES, GT, sheet)
     # jQuery and PHP (labelled) + Hotjar (checked) = 3 of 4 core names.
@@ -174,3 +176,26 @@ def test_report_headline_counts_names_with_a_correct_detection() -> None:
     text = render_report(summary, sheet, {"tool_version": "t", "ruleset_version": "r"})
     assert "**3 of 4 core names have at least one detection judged correct.**" in text
     assert "## Judged wrong (1)" in text
+    assert "no human re-judged" in text  # the report never presents agents as a human
+
+
+def test_a_disagreement_between_reviewers_counts_as_unsure() -> None:
+    sheet = build_sheet(LINES, GT)
+    criteo, hotjar = sheet["names"]
+    criteo.update(verdict="wrong", reason="a mention")
+    hotjar.update(verdict="correct", reason="script loaded")
+    merge_second(
+        sheet,
+        [
+            {"name": "Criteo", "domain": criteo["domain"], "verdict": "wrong", "reason": "x"},
+            {"name": "Hotjar", "domain": hotjar["domain"], "verdict": "unsure", "reason": "y"},
+        ],
+        "second reviewer",
+    )
+    assert final_verdict(criteo) == "wrong"  # agreed
+    assert final_verdict(hotjar) == "unsure"  # disagreed: can only lower the headline
+    summary = summarise(LINES, GT, sheet)
+    assert summary.names_with_correct == 2  # Hotjar no longer counts as correct
+    assert (summary.agree, summary.spot_checked) == (1, 2)
+    rebuilt = build_sheet(LINES, GT, previous=sheet)  # second verdicts survive a rebuild
+    assert [e["second_verdict"] for e in rebuilt["names"]] == ["wrong", "unsure"]
