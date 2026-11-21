@@ -6,11 +6,13 @@ link between our output and the original row, so a bad value is reported instead
 """
 
 import csv
+import functools
 import string
 from dataclasses import dataclass, field
 from pathlib import Path
 
 import pyarrow.parquet as pq
+import tldextract
 
 COLUMN = "root_domain"
 
@@ -149,3 +151,29 @@ def load_domains(path: Path) -> LoadResult:
                 Domain(row=row, original_input=value, display_name=to_display_name(value))
             )
     return result
+
+
+@functools.cache
+def _offline_extractor() -> tldextract.TLDExtract:
+    # suffix_list_urls=() means "never download the Public Suffix List"; cache_dir=None
+    # means "no cached copy". Results then depend only on the installed tldextract.
+    return tldextract.TLDExtract(suffix_list_urls=(), cache_dir=None)
+
+
+def registered_domain(host: str) -> str:
+    """The part of a host name a company registers: static.example.co.uk -> example.co.uk.
+
+    Uses the public (ICANN) suffixes of tldextract's bundled list, never the network.
+    A host without a known suffix (e.g. "localhost") is returned unchanged.
+    """
+    host = host.lower().rstrip(".")
+    return _offline_extractor()(host).top_domain_under_public_suffix or host
+
+
+def domain_name(host: str) -> str:
+    """The registered name without its public suffix.
+
+    www.velvety-cosmetics.com -> velvety-cosmetics (offline, like registered_domain).
+    """
+    host = host.lower().rstrip(".")
+    return _offline_extractor()(host).domain or host

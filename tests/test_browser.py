@@ -330,7 +330,9 @@ def globals_rules(tmp_path: Path) -> RuleSet:
         "FooLib": {"cats": [1], "js": {"FooLib.version": "([\\d.]+)\\;version:\\1", "FooLib": ""}},
         "Edges": {"cats": [1], "js": {chain: "" for chain in EDGE_CHAINS}},
     }
-    (rules_dir / "custom" / "globals.json").write_text(json.dumps(rule), encoding="utf-8")
+    (rules_dir / "custom" / "globals.json").write_text(
+        json.dumps({n: {**r, "reviewed_by": "human"} for n, r in rule.items()}), encoding="utf-8"
+    )
     return load_rules(rules_dir)
 
 

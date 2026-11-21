@@ -227,7 +227,7 @@ def test_5xx_is_retried_twice_per_address() -> None:
     result, _, sleep = run_fetch(handler)
 
     assert result["error_category"] == "http_5xx"
-    assert len(sleep.calls) == 2 * 3  # 2 retries for each of the 3 addresses
+    assert len(sleep.calls) == 2 * 4  # 2 retries for each of the 4 addresses
     assert all(len(a["retries"]) == 2 for a in result["attempts"])
 
 
@@ -239,7 +239,7 @@ def test_timeout_is_retried_then_categorised() -> None:
 
     assert result["error_category"] == "timeout"
     assert body is None
-    assert len(sleep.calls) == 6
+    assert len(sleep.calls) == 8  # 2 retries x 4 addresses
 
 
 def test_tls_error_is_retried_without_verification_and_recorded() -> None:
@@ -257,6 +257,82 @@ def test_tls_error_is_retried_without_verification_and_recorded() -> None:
     assert "certificate verify failed" in attempt["tls_error"]
 
 
+MISMATCH = (
+    "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, "
+    "certificate is not valid for 'd.com'"
+)
+
+
+def test_certificate_for_another_name_does_not_end_the_search() -> None:
+    # Shared hosting: over https the host's certificate and default page; the real site
+    # is on plain http:// (seen on dioxoxigenio.com.br in the collected data).
+    def verified(request: httpx.Request) -> httpx.Response:
+        if request.url.scheme == "https":
+            raise connect_error(ssl.SSLCertVerificationError(MISMATCH))
+        return httpx.Response(200, headers=HTML, text="<html>the real site</html>")
+
+    def unverified(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, headers=HTML, text="<html>Site Hospedado na Host</html>")
+
+    result, body, _ = run_fetch(verified, unverified)
+
+    outcomes = [a["outcome"] for a in result["attempts"]]
+    assert outcomes == ["ok", "ok", "ok"]  # https://d, https://www.d (weak), then http://d
+    assert result["chosen_attempt"] == 3
+    assert result["final_url"] == "http://d.com/"
+    assert body == b"<html>the real site</html>"
+
+
+def test_certificate_for_another_name_is_kept_if_nothing_else_works() -> None:
+    def verified(request: httpx.Request) -> httpx.Response:
+        if request.url.scheme == "https":
+            raise connect_error(ssl.SSLCertVerificationError(MISMATCH))
+        raise connect_error(ConnectionRefusedError(10061, "refused"))
+
+    def unverified(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, headers=HTML, text="<html>only page</html>")
+
+    result, body, _ = run_fetch(verified, unverified)
+
+    assert result["status"] == "ok"
+    assert result["chosen_attempt"] == 1  # the first weak success, better than nothing
+    assert body == b"<html>only page</html>"
+
+
+def test_self_signed_certificate_for_the_right_name_ends_the_search() -> None:
+    def verified(request: httpx.Request) -> httpx.Response:
+        raise connect_error(ssl.SSLCertVerificationError("self-signed certificate"))
+
+    def unverified(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, headers=HTML, text="<html>the site's own page</html>")
+
+    result, _, _ = run_fetch(verified, unverified)
+    assert len(result["attempts"]) == 1  # the site's own page: nothing more to try
+
+
+def test_http_www_is_tried_last() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.scheme == "http" and request.url.host == "www.d.com":
+            return httpx.Response(200, headers=HTML, text="<html>real site</html>")
+        return httpx.Response(404, headers=HTML, text="<html>not here</html>")
+
+    result, _, _ = run_fetch(handler)
+    assert [a["url"] for a in result["attempts"]] == [
+        "https://d.com/",
+        "https://www.d.com/",
+        "http://d.com/",
+        "http://www.d.com/",
+    ]
+    assert result["chosen_attempt"] == 4
+
+
+def test_is_name_mismatch_reads_both_python_and_chromium_messages() -> None:
+    assert static_fetch.is_name_mismatch(MISMATCH)
+    assert static_fetch.is_name_mismatch("Page.goto: net::ERR_CERT_COMMON_NAME_INVALID at ...")
+    assert not static_fetch.is_name_mismatch("certificate verify failed: self-signed certificate")
+    assert not static_fetch.is_name_mismatch(None)
+
+
 def test_challenge_is_kept_and_preferred_over_other_failures() -> None:
     challenge = (FIXTURES / "cloudflare.html").read_bytes()
 
@@ -269,7 +345,9 @@ def test_challenge_is_kept_and_preferred_over_other_failures() -> None:
 
     result, body, _ = run_fetch(handler)
 
-    assert [a["outcome"] for a in result["attempts"]] == ["dns_fail", "bot_challenge", "http_4xx"]
+    # http://www.d.com answers with the same challenge: the earlier one is kept.
+    outcomes = [a["outcome"] for a in result["attempts"]]
+    assert outcomes == ["dns_fail", "bot_challenge", "http_4xx", "bot_challenge"]
     assert result["status"] == "failed"
     assert result["error_category"] == "bot_challenge"
     assert result["challenge"] == "cloudflare"

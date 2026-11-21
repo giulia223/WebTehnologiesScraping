@@ -118,10 +118,12 @@ class LoadReport:
     patterns_by_field: Counter[str] = field(default_factory=Counter)
     patterns_by_confidence: Counter[int] = field(default_factory=Counter)
     skipped: list[Skipped] = field(default_factory=list)
+    converted: list[Skipped] = field(default_factory=list)  # JS-only escapes rewritten
     ignored_fields: Counter[str] = field(default_factory=Counter)  # field -> techs
     unknown_tags: Counter[str] = field(default_factory=Counter)
     merged: list[str] = field(default_factory=list)  # custom/candidate names already known
     candidates_left_out: Counter[str] = field(default_factory=Counter)  # status -> count
+    unreviewed_custom: list[str] = field(default_factory=list)  # custom rules not loaded
     unknown_relations: list[tuple[str, str, str]] = field(default_factory=list)
     unknown_categories: list[tuple[str, int]] = field(default_factory=list)
     candidates_loaded: bool = False
@@ -152,12 +154,19 @@ class LoadReport:
             f"skipped patterns: {len(self.skipped)}",
         ]
         lines += [f"  {s.technology} [{s.field}] {s.pattern!r}: {s.reason}" for s in self.skipped]
+        lines.append(f"patterns with JavaScript-only escapes rewritten: {len(self.converted)}")
+        lines += [f"  {s.technology} [{s.field}] {s.pattern!r}: {s.reason}" for s in self.converted]
         if self.unknown_tags:
             lines.append(f"unknown pattern tags (ignored): {dict(self.unknown_tags)}")
         if self.ignored_fields:
             lines.append(f"fields not used (techs having them): {dict(self.ignored_fields)}")
         if self.merged:
             lines.append(f"merged into existing technologies: {', '.join(self.merged)}")
+        if self.unreviewed_custom:
+            lines.append(
+                "custom rules NOT loaded (no reviewed_by: human): "
+                + ", ".join(self.unreviewed_custom)
+            )
         if self.candidates_left_out:
             lines.append(f"candidates left out, by status: {dict(self.candidates_left_out)}")
         lines.append(f"relations naming an unknown technology: {len(self.unknown_relations)}")
@@ -209,6 +218,37 @@ def split_tags(raw: Any) -> tuple[str, dict[str, str]]:
     return head, attrs
 
 
+# Letters that are real escapes in a JavaScript RegExp (without the `u` flag). Any other
+# backslash + letter is just that letter in JavaScript, but can mean something else in
+# Python: "\A" is "start of text", "\a" is the bell character.
+JS_ESCAPE_LETTERS = frozenset("dDwWsSbBtnvfrcxuk")
+
+
+def js_regex_to_python(text: str) -> tuple[str, int]:
+    """Rewrite JavaScript-only escapes so the pattern means in Python what its author meant.
+
+    Returns the pattern and how many escapes were changed. Only "backslash + letter that
+    JavaScript treats as a plain letter" is changed; everything else is kept as written.
+    """
+    out: list[str] = []
+    changed = 0
+    i = 0
+    while i < len(text):
+        char = text[i]
+        if char == "\\" and i + 1 < len(text):
+            following = text[i + 1]
+            if following.isascii() and following.isalpha() and following not in JS_ESCAPE_LETTERS:
+                out.append(following)
+                changed += 1
+            else:
+                out.append(char + following)  # also keeps "\\" (an escaped backslash) whole
+            i += 2
+            continue
+        out.append(char)
+        i += 1
+    return "".join(out), changed
+
+
 def parse_pattern(
     raw: Any,
     field_name: str,
@@ -229,6 +269,9 @@ def parse_pattern(
             )
         )
         return None
+    text, changed = js_regex_to_python(text)
+    if changed:
+        report.converted.append(Skipped(tech, field_name, str(raw), f"{changed} JS escape(s)"))
     try:
         # Rules are written for JavaScript's RegExp; the `regex` module accepts this
         # syntax (lookbehind, named groups...). Anything it rejects is counted, not fixed.
@@ -421,7 +464,7 @@ def _load_folder(
     for path in sorted(folder.glob("*.json")):
         report.files[origin] += 1
         for name, rule in _read_json(path).items():
-            if keep is not None and not keep(rule):
+            if keep is not None and not keep(name, rule):
                 continue
             used[name] = rule
             tech = parse_technology(name, rule, origin, report)
@@ -443,13 +486,22 @@ def load_rules(rules_dir: Path, include_candidates: bool = False) -> RuleSet:
     technologies: dict[str, Technology] = {}
 
     _load_folder(upstream_dir / "technologies", "webappanalyzer", technologies, report)
-    custom = _load_folder(rules_dir / "custom", "custom", technologies, report)
+
+    def reviewed(name: str, rule: dict[str, Any]) -> bool:
+        # Only rules a human reviewed reach the results (see candidates.promote);
+        # anything else in custom/ is left out and listed, never counted silently.
+        if rule.get("reviewed_by") == "human":
+            return True
+        report.unreviewed_custom.append(name)
+        return False
+
+    custom = _load_folder(rules_dir / "custom", "custom", technologies, report, keep=reviewed)
     version = f"webappanalyzer@{report.upstream.get('commit', 'unknown')[:12]}"
     version += f"+custom:{content_hash(custom) if custom else 'none'}"
 
     if include_candidates:
 
-        def reviewable(rule: dict[str, Any]) -> bool:
+        def reviewable(name: str, rule: dict[str, Any]) -> bool:
             status = rule.get("status")
             if status in CANDIDATE_STATUSES:
                 return True

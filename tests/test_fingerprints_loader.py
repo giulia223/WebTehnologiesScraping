@@ -13,7 +13,7 @@ import pytest
 from typer.testing import CliRunner
 
 from techdetect.cli import app
-from techdetect.fingerprints.loader import RuleSet, load_rules, split_tags
+from techdetect.fingerprints.loader import RuleSet, js_regex_to_python, load_rules, split_tags
 
 MINI = Path(__file__).parent / "fixtures" / "fingerprints" / "mini"
 REAL = Path(__file__).parents[1] / "fingerprints"
@@ -101,6 +101,19 @@ def test_relations(mini: RuleSet) -> None:
     assert gamma.requires_category == (1,)
     assert mini.technologies["Beta"].excludes == ("Gamma",)
     assert one(mini, "Gamma", "certIssuer").source == "Gamma CA"
+
+
+@pytest.mark.parametrize(
+    ("js", "python", "changed"),
+    [
+        ("\\APC\\b", "APC\\b", 1),  # JS "\A" is the letter A; Python's is "start of text"
+        ("openpay\\.com.\\au", "openpay\\.com.au", 1),  # JS "\a" is "a"; Python's is a bell
+        ("\\d+\\.\\w\\s\\b\\x41\\u0041", "\\d+\\.\\w\\s\\b\\x41\\u0041", 0),  # real escapes
+        ("a\\\\Ab", "a\\\\Ab", 0),  # an escaped backslash followed by A stays as it is
+    ],
+)
+def test_javascript_only_escapes_are_rewritten(js: str, python: str, changed: int) -> None:
+    assert js_regex_to_python(js) == (python, changed)
 
 
 # ------------------------------------------------------------ problems are reported

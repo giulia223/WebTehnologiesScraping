@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from techdetect.domains import load_domains, to_display_name, validate_hostname
+from techdetect.domains import load_domains, registered_domain, to_display_name, validate_hostname
 
 REPO = Path(__file__).resolve().parent.parent
 INPUT = REPO / "data" / "input" / "domains.parquet"
@@ -107,3 +107,16 @@ def test_inspect_script_tldextract_works_offline() -> None:
 
     assert (sub, domain, suffix, private) == ("", "kande-hoikuen", "ed.jp", False)
     assert script.is_public_suffix("co.uk")
+
+
+@pytest.mark.parametrize(
+    ("host", "expected"),
+    [
+        ("static.example.co.uk", "example.co.uk"),  # a two-label public suffix
+        ("WWW.Example.com.", "example.com"),  # case and the trailing dot do not matter
+        ("x.weebly.com", "weebly.com"),  # platform hosts are not private suffixes (bundled list)
+        ("localhost", "localhost"),  # no known suffix: returned unchanged
+    ],
+)
+def test_registered_domain_offline(host: str, expected: str) -> None:
+    assert registered_domain(host) == expected

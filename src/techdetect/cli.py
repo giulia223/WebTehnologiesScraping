@@ -5,6 +5,7 @@ report, plus `rules` to inspect the fingerprint rules. Commands not built yet ar
 """
 
 import asyncio
+import time
 from pathlib import Path
 from typing import Annotated, Any
 
@@ -23,12 +24,34 @@ from techdetect.collect.run import (
     run_collect,
 )
 from techdetect.collect.static_fetch import collect_static
+from techdetect.collect.storage import write_json_atomic
 from techdetect.collect.tls_probe import collect_tls
 from techdetect.collect.wellknown import collect_wellknown
 from techdetect.config import Config
 from techdetect.console import use_utf8_output
+from techdetect.detect import (
+    NotFinishedError,
+    check_run_complete,
+    default_workers,
+    detect_all,
+    write_outputs,
+)
 from techdetect.domains import Domain, LoadResult, load_domains
+from techdetect.evaluate.importer import import_blind, parse_inspection_file
+from techdetect.evaluate.labels import (
+    REVIEW_SEED,
+    blind_domains,
+    load_ground_truth,
+    pick_review,
+    read_all_detections,
+    save_ground_truth,
+)
+from techdetect.evaluate.metrics import compute, rate
+from techdetect.evaluate.metrics_report import render
+from techdetect.evaluate.session import label_domain
+from techdetect.fingerprints.candidates import promote
 from techdetect.fingerprints.loader import load_rules
+from techdetect.fingerprints.review import candidate_summary, review_candidates
 
 app = typer.Typer(
     help="Detect website technologies with evidence.",
@@ -249,18 +272,232 @@ def rules(rules_dir: RulesDirOpt = None, include_candidates: CandidatesOpt = Fal
     typer.echo(ruleset.report.format(ruleset.version))
 
 
+candidates_app = typer.Typer(
+    help="Proposed rules: review them, then promote the accepted ones into custom/.",
+    no_args_is_help=True,
+)
+app.add_typer(candidates_app, name="candidates")
+
+
+@candidates_app.command("review")
+def candidates_review(rules_dir: RulesDirOpt = None, raw_dir: RawDirOpt = None) -> None:
+    """Accept or reject each proposed rule, seeing what it matches on saved data."""
+    config = Config().with_overrides(rules_dir=rules_dir, raw_dir=raw_dir)
+    base = load_rules(config.rules_dir)  # for category names
+    review_candidates(config.rules_dir / "candidates", base, config.raw_dir)
+
+
+@candidates_app.command("promote")
+def candidates_promote(rules_dir: RulesDirOpt = None) -> None:
+    """Move only `accepted` rules into custom/, stamped reviewed_by: human and dated."""
+    config = Config().with_overrides(rules_dir=rules_dir)
+    try:
+        moved = promote(config.rules_dir / "candidates", config.rules_dir / "custom")
+    except ValueError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=1) from None
+    for name in moved:
+        typer.echo(f"promoted {name}")
+    left = candidate_summary(config.rules_dir / "candidates")
+    typer.echo(f"{len(moved)} promoted; still in candidates/: {left or 'nothing'}")
+
+
+AllowPartialOpt = Annotated[
+    bool,
+    typer.Option(
+        "--allow-partial",
+        help="Run on a raw folder whose collection did not finish (summary.json says so).",
+    ),
+]
+MinConfidenceOpt = Annotated[
+    int,
+    typer.Option(
+        "--min-confidence",
+        min=0,
+        max=100,
+        help="Count only detections at or above this confidence (default 0: all, "
+        "as Wappalyzer). detections.jsonl always keeps every detection.",
+    ),
+]
+WorkersOpt = Annotated[
+    int | None,
+    typer.Option("--workers", min=1, help="Processes matching domains in parallel."),
+]
+
+
 @app.command()
-def detect(raw_dir: RawDirOpt = None, output_dir: OutputDirOpt = None) -> None:
+def detect(
+    input_path: InputOpt = None,
+    raw_dir: RawDirOpt = None,
+    output_dir: OutputDirOpt = None,
+    rules_dir: RulesDirOpt = None,
+    include_candidates: CandidatesOpt = False,
+    allow_partial: AllowPartialOpt = False,
+    min_confidence: MinConfidenceOpt = 0,
+    workers: WorkersOpt = None,
+) -> None:
     """Find technologies in saved raw artifacts (offline)."""
-    config = Config().with_overrides(raw_dir=raw_dir, output_dir=output_dir)
-    _not_implemented("detect", config)
+    config = Config().with_overrides(
+        input_path=input_path, raw_dir=raw_dir, output_dir=output_dir, rules_dir=rules_dir
+    )
+    try:
+        complete = check_run_complete(config.raw_dir, allow_partial)
+    except NotFinishedError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=1) from None
+
+    domains = _load_and_report(config).domains
+    ruleset = load_rules(config.rules_dir, include_candidates=include_candidates)
+    started = time.perf_counter()
+    lines = detect_all(
+        config.raw_dir,
+        domains,
+        config.rules_dir,
+        include_candidates=include_candidates,
+        workers=workers or default_workers(),
+    )
+    outputs = write_outputs(lines, ruleset, config.output_dir, min_confidence, partial=not complete)
+    unique = outputs.summary["unique_technologies"]
+    per_domain = outputs.summary["core_per_domain"]
+    typer.echo(
+        f"{len(lines)} domains in {time.perf_counter() - started:.0f} s; "
+        f"core technologies: {unique['core']}, extended total: {unique['extended_total']} "
+        f"({', '.join(f'{g} {n}' for g, n in unique['separately'].items())})"
+    )
+    typer.echo(
+        f"average core technologies per domain: {per_domain['average']} "
+        f"({per_domain['denominator']}); outputs in {config.output_dir}"
+    )
 
 
-@app.command()
-def evaluate(output_dir: OutputDirOpt = None) -> None:
-    """Measure precision and recall against hand labels."""
-    config = Config().with_overrides(output_dir=output_dir)
-    _not_implemented("evaluate", config)
+evaluate_app = typer.Typer(
+    help="Hand labels (ground truth), precision and recall.", no_args_is_help=True
+)
+app.add_typer(evaluate_app, name="evaluate")
+GroundTruthOpt = Annotated[
+    Path | None, typer.Option("--ground-truth", help="Labels file (data/ground_truth.json).")
+]
+
+
+@evaluate_app.command("pick-review")
+def pick_review_command(
+    input_path: InputOpt = None,
+    output_dir: OutputDirOpt = None,
+    ground_truth: GroundTruthOpt = None,
+    seed: Annotated[int, typer.Option("--seed", help="Random seed for the pick.")] = REVIEW_SEED,
+    force: Annotated[
+        bool, typer.Option("--force", help="Draw again over an existing pick.")
+    ] = False,
+) -> None:
+    """Set the blind set (every 20th row) and draw the review set (random, fixed seed)."""
+    config = Config().with_overrides(
+        input_path=input_path, output_dir=output_dir, ground_truth_path=ground_truth
+    )
+    data = load_ground_truth(config.ground_truth_path)
+    if data["sets"]["review"] and not force:
+        typer.echo(
+            f"review set already picked: {', '.join(data['sets']['review'])} "
+            "(use --force to draw again)",
+            err=True,
+        )
+        raise typer.Exit(code=1)
+    data["sets"]["blind"] = blind_domains(_load_and_report(config).domains)
+    data["sets"]["review"] = pick_review(
+        read_all_detections(config.output_dir), data["sets"]["blind"], seed
+    )
+    data["review_seed"] = seed
+    save_ground_truth(config.ground_truth_path, data)
+    typer.echo(f"blind ({len(data['sets']['blind'])}): {', '.join(data['sets']['blind'])}")
+    typer.echo(f"review ({len(data['sets']['review'])}): {', '.join(data['sets']['review'])}")
+    typer.echo(f"saved in {config.ground_truth_path}")
+
+
+@evaluate_app.command("import-blind")
+def import_blind_command(
+    inspection: Annotated[
+        Path, typer.Option("--file", help="The blind inspection notes (Task 0.3).")
+    ] = Path("docs/manual_inspect_domains.md"),
+    ground_truth: GroundTruthOpt = None,
+    rules_dir: RulesDirOpt = None,
+    force: Annotated[
+        bool, typer.Option("--force", help="Replace lists already in the ground truth.")
+    ] = False,
+) -> None:
+    """Read the blind domains' technology lists from the inspection notes."""
+    config = Config().with_overrides(ground_truth_path=ground_truth, rules_dir=rules_dir)
+    data = load_ground_truth(config.ground_truth_path)
+    if not data["sets"]["blind"]:
+        typer.echo("No sets yet: run `techdetect evaluate pick-review` first.", err=True)
+        raise typer.Exit(code=1)
+    names = sorted(load_rules(config.rules_dir).technologies)
+    parsed = parse_inspection_file(inspection.read_text(encoding="utf-8"))
+    for domain, outcome in import_blind(data, parsed, names, force).items():
+        typer.echo(f"{domain}: {outcome}")
+        for entry in data["domains"].get(domain, {}).get("human_found", []):
+            if not entry["in_rules"] and outcome.startswith("imported"):
+                hint = (
+                    f" (close: {', '.join(entry['suggestions'][:3])})"
+                    if entry["suggestions"]
+                    else ""
+                )
+                typer.echo(f"   not in the rules: {entry['technology']}{hint}")
+    save_ground_truth(config.ground_truth_path, data)
+    typer.echo(f"saved in {config.ground_truth_path}")
+
+
+@evaluate_app.command("label")
+def label_command(
+    domain: Annotated[str, typer.Argument(help="The domain to label, as in the input list.")],
+    output_dir: OutputDirOpt = None,
+    ground_truth: GroundTruthOpt = None,
+    rules_dir: RulesDirOpt = None,
+    relabel: Annotated[
+        bool, typer.Option("--relabel", help="Ask again for detections already labelled.")
+    ] = False,
+) -> None:
+    """Mark each detection of a domain correct / wrong / unsure, and add missed ones."""
+    config = Config().with_overrides(
+        output_dir=output_dir, ground_truth_path=ground_truth, rules_dir=rules_dir
+    )
+    data = load_ground_truth(config.ground_truth_path)
+    if not data["sets"]["blind"]:
+        typer.echo("No sets yet: run `techdetect evaluate pick-review` first.", err=True)
+        raise typer.Exit(code=1)
+    names = sorted(load_rules(config.rules_dir).technologies)
+    label_domain(domain, config.ground_truth_path, config.output_dir, names, relabel=relabel)
+
+
+@evaluate_app.command("metrics")
+def metrics_command(
+    output_dir: OutputDirOpt = None,
+    ground_truth: GroundTruthOpt = None,
+    report_path: Annotated[
+        Path, typer.Option("--report", help="Where to write the readable report.")
+    ] = Path("docs/METRICS.md"),
+) -> None:
+    """Precision, recall and F1 from the labels; every false positive with its evidence."""
+    config = Config().with_overrides(output_dir=output_dir, ground_truth_path=ground_truth)
+    data = load_ground_truth(config.ground_truth_path)
+    if not data["sets"]["blind"]:
+        typer.echo("No sets yet: run `techdetect evaluate pick-review` first.", err=True)
+        raise typer.Exit(code=1)
+    lines = {line["domain"]: line for line in read_all_detections(config.output_dir)}
+    metrics = compute(data, lines)
+    write_json_atomic(config.output_dir / "metrics.json", metrics)
+    report_path.write_text(render(metrics), encoding="utf-8")
+    for h in metrics["headline"]:
+        f1 = f"{h['f1']:.2f}" if h["f1"] is not None else "n/a"
+        typer.echo(
+            f"threshold {h['threshold']:>2}: precision {rate(*h['precision'])}, "
+            f"recall {rate(*h['recall'])}, F1 {f1}, unsure {h['unsure']}"
+        )
+    if metrics["unlabelled"] or metrics["stale"]:
+        typer.echo(
+            f"warning: {len(metrics['unlabelled'])} detections without a verdict, "
+            f"{len(metrics['stale'])} verdicts for detections no longer reported",
+            err=True,
+        )
+    typer.echo(f"wrote {report_path} and {config.output_dir / 'metrics.json'}")
 
 
 @app.command()

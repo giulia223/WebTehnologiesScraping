@@ -32,7 +32,12 @@ from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from techdetect.collect.challenge import detect_challenge
 from techdetect.collect.provenance import provenance_header
 from techdetect.collect.runner import OnResult, run_per_domain
-from techdetect.collect.static_fetch import candidate_urls, choose_attempt, classify_status
+from techdetect.collect.static_fetch import (
+    candidate_urls,
+    choose_attempt,
+    classify_status,
+    is_weak_success,
+)
 from techdetect.collect.storage import domain_dir, sha256_hex, write_atomic, write_json_atomic
 from techdetect.config import Config
 from techdetect.domains import Domain
@@ -546,13 +551,17 @@ class BrowserFetcher:
                 record, loaded = await self._attempt(contexts, url)
                 attempts.append(record)
                 pages.append(loaded)
-                if record["outcome"] == "ok":
+                # Same rule as the static fetch: a page reached only by ignoring a
+                # certificate for another name does not end the search.
+                if record["outcome"] == "ok" and not is_weak_success(record):
                     break
         finally:
             for context in contexts.values():
                 await context.close()
 
-        chosen = choose_attempt([a["outcome"] for a in attempts])
+        chosen = choose_attempt(
+            [a["outcome"] for a in attempts], [is_weak_success(a) for a in attempts]
+        )
         record, page = attempts[chosen], pages[chosen]
         ok = record["outcome"] == "ok"
         scripts = page.dom if page else {"external": [], "inline": []}

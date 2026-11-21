@@ -19,6 +19,8 @@ class Config:
     input_path: Path = Path("data/input/domains.parquet")
     raw_dir: Path = Path("data/raw")
     output_dir: Path = Path("data/output")
+    # Hand-made labels: what a human confirmed on a sample of domains (blind + review).
+    ground_truth_path: Path = Path("data/ground_truth.json")
     # Fingerprint rules: webappanalyzer's pinned copy, our custom rules, candidates.
     rules_dir: Path = Path("fingerprints")
 

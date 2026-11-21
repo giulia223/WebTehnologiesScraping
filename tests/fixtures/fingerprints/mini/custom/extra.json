@@ -1,4 +1,21 @@
 {
-  "Alpha": {"cats": [2], "html": ["alpha-custom-marker"]},
-  "Delta": {"cats": [2], "website": "https://delta.example", "headers": {"X-Delta": ""}}
+  "Alpha": {
+    "cats": [
+      2
+    ],
+    "html": [
+      "alpha-custom-marker"
+    ],
+    "reviewed_by": "human"
+  },
+  "Delta": {
+    "cats": [
+      2
+    ],
+    "website": "https://delta.example",
+    "headers": {
+      "X-Delta": ""
+    },
+    "reviewed_by": "human"
+  }
 }
