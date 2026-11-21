@@ -46,6 +46,9 @@ SOURCES = frozenset({"static", "browser", "dns", "tls", "robots"})
 # static page's inline scripts (a tracker's loader snippet names its script URL). Off by
 # default; `detect --inline-urls` and the ablation's "static+" row turn it on (Task 7.3).
 INLINE_URLS = "inline_urls"
+# Another option, not a step of normal detection: also match the script files
+# downloaded over plain HTTP (collect step "js", fingerprints/js_files.py, Task 7.4).
+JS_FILES = "js_files"
 INLINE_URL_KEY = "inline script URL"
 # A URL in script text: http(s):// or protocol-relative //, then a host with a dot.
 # Escaped slashes (https:\/\/host) are unescaped first: JSON written into scripts uses them.
@@ -317,36 +320,51 @@ def _match_page(m: _Matcher, html: str, page_url: str, artifact: str) -> None:
             # properties.*: only exist in a live browser; counted once per domain below.
 
 
-def inline_script_urls(html: str, page_url: str) -> list[tuple[str, str, int, int]]:
-    """URLs written inside the page's inline scripts: (absolute URL, script text, start,
-    end), each URL once. Scripts with a src, and data blocks such as JSON-LD, are skipped."""
-    found: dict[str, tuple[str, str, int, int]] = {}
+UrlInText = tuple[str, str, int, int]  # (absolute URL, the text around it, start, end)
+
+
+def urls_in_script_text(text: str, base_url: str) -> list[UrlInText]:
+    """URLs written in JavaScript text, each once. Escaped slashes (https:\\/\\/host, as
+    JSON inside scripts writes them) are unescaped first; a protocol-relative //host URL
+    takes the base URL's scheme."""
+    text = text.replace("\\/", "/")
+    found: dict[str, UrlInText] = {}
+    for match in INLINE_URL.finditer(text):
+        absolute = urljoin(base_url, match.group(0))
+        found.setdefault(absolute, (absolute, text, match.start(), match.end()))
+    return list(found.values())
+
+
+def inline_script_urls(html: str, page_url: str) -> list[UrlInText]:
+    """URLs written inside the page's inline scripts, each once. Scripts with a src, and
+    data blocks such as JSON-LD, are skipped."""
+    found: dict[str, UrlInText] = {}
     for node in LexborHTMLParser(html).css("script"):
         attrs = node.attributes
         if "src" in attrs or (attrs.get("type") or "").strip().lower() not in JS_TYPES:
             continue
-        text = (node.text(deep=True) or "").replace("\\/", "/")
-        for match in INLINE_URL.finditer(text):
-            absolute = urljoin(page_url, match.group(0))
-            found.setdefault(absolute, (absolute, text, match.start(), match.end()))
+        for item in urls_in_script_text(node.text(deep=True) or "", page_url):
+            found.setdefault(item[0], item)
     return list(found.values())
 
 
-def _match_inline_urls(m: _Matcher, html: str, page_url: str) -> None:
-    """scriptSrc rules on each inline-script URL, xhr rules on its host, as in the browser.
+def match_script_urls(
+    m: _Matcher, urls: list[UrlInText], artifact: str, key: str, tier: str = "declared"
+) -> None:
+    """scriptSrc rules on each URL, xhr rules on its host, as for the browser's requests.
 
-    Tier "declared": the site's own code names the script, but nothing was seen running
-    (decided by the human, Task 7.3)."""
-    for url, text, start, end in inline_script_urls(html, page_url):
+    Tier "declared" by default: the site's code names the script, but nothing was seen
+    running (decided by the human, Task 7.3)."""
+    for url, text, start, end in urls:
         where = (text, start, end)
-        m.test(
-            m.index.unkeyed["scriptSrc"], url, "static.html", url, INLINE_URL_KEY, "declared", where
-        )
+        m.test(m.index.unkeyed["scriptSrc"], url, artifact, url, key, tier, where)
         host = _host(url)
         if host:
-            m.test(
-                m.index.unkeyed["xhr"], host, "static.html", url, INLINE_URL_KEY, "declared", where
-            )
+            m.test(m.index.unkeyed["xhr"], host, artifact, url, key, tier, where)
+
+
+def _match_inline_urls(m: _Matcher, html: str, page_url: str) -> None:
+    match_script_urls(m, inline_script_urls(html, page_url), "static.html", INLINE_URL_KEY)
 
 
 def _match_headers(
@@ -501,6 +519,11 @@ def match_domain(
         result.not_checked["js (no browser page)"] += index.counts["js"]
         result.not_checked["xhr (no browser page)"] += index.counts["xhr"]
 
+    if JS_FILES in sources:
+        # Imported here: js_files builds on this module, so a top-level import would loop.
+        from techdetect.fingerprints.js_files import match_js_files
+
+        match_js_files(m, folder)
     for source, artifact in (("static", "static.html"), ("browser", "rendered.html")):
         if source not in sources:
             result.artifacts[artifact] = "not used: left out"

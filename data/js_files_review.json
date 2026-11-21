@@ -1,0 +1,656 @@
+[
+ {
+  "domain": "cytofastmed.com",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"//www.facebook.com/plugins/like.php?locale=...\" in the prettyPhoto social template, which is Facebook's endpoint, not the site's. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "gutendorf.ru",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/sharer/sharer.php?u={{url}}\" in fancybox's share-button template, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "katesworldtravel.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "imgs.co.jp",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "newbeaverborough.org",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/plugins/video.php?href=\" in the bundled lity lightbox, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "largsbaychiropractic.com.au",
+  "name": "Afterpay",
+  "verdict": "wrong",
+  "reason": "Matched only the chunk name \"async-commerce-afterpay\" in Squarespace's shared runtime chunk map; no Afterpay script, request or markup on the site."
+ },
+ {
+  "domain": "largsbaychiropractic.com.au",
+  "name": "Marko",
+  "verdict": "wrong",
+  "reason": "Matched \".markO\" from \"o.markOverflow(I,j)\" in the qs query-string library inside Squarespace's common-vendors bundle, not Marko."
+ },
+ {
+  "domain": "largsbaychiropractic.com.au",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Squarespace's common bundle, loaded on the page, contains the web-vitals implementation (id:\"v3-\".concat(Date.now(),\"-\").concat(Math.floor(8999999999999*Math.random())+1e12) with PerformanceObserver metrics); platform-bundled page code counts."
+ },
+ {
+  "domain": "doringpoort.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "lojatatical.com.br",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "jobresourcecentre.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "253media.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "velvety.eu",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "empresasori.com",
+  "name": "reCAPTCHA",
+  "verdict": "wrong",
+  "reason": "The Chaty widget script appends \"https://www.google.com/recaptcha/api.js?onload=onloadChatyCallback...\" only when a v2/v3 site key field is set; there is no key on the page and no reCAPTCHA request."
+ },
+ {
+  "domain": "infoaboutnetwork.com",
+  "name": "Altcha",
+  "verdict": "unsure",
+  "reason": "Altcha (<altcha-widget ... challengeurl=\"/.lsrecap/recaptcha\">) appears only on the LiteSpeed bot-challenge page served to the static crawler, not on the page the browser loaded; whether the owner or the host enabled this bot protection cannot be settled."
+ },
+ {
+  "domain": "passwordstore.it",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "passwordstore.it",
+  "name": "Google Tag Manager",
+  "verdict": "correct",
+  "reason": "The site's own config sets window.lwAioTracking={\"trackingId\":\"GTM-53Q2V39\"} with lwAioTrackingType=\"GTM\", its plugin script loads \"https://www.googletagmanager.com/gtm.js?id=\" after analytics consent, and the container is live with configured tags."
+ },
+ {
+  "domain": "passwordstore.it",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/sharer.php?u={url}\" (and vkontakte share.php) in a share-button map, other companies' endpoints. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "avocatalinamanciu.ro",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "dssfla.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "dssfla.com",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched window.open('https://www.facebook.com/sharer/sharer.php?u='+...) in a share function, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "weducars.co.za",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "4stonebuildings.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "maniaupiekszania.pl",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/plugins/video.php?href=\" in lity code bundled in a cookie plugin, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "loizillon.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "loizillon.com",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched $.getJSON('include/twitter/tweets.php?username='...) in a generic theme functions file on cdn.drouot.com that runs only for a Twitter-feed widget absent here; the site's server sets JSESSIONID (Java)."
+ },
+ {
+  "domain": "haus-muehlenfeld-pommerby.de",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"http://www.facebook.com/sharer/sharer.php?u=\" in the Duda runtime's share map, which is Facebook's endpoint, and Duda's server side is the platform's anyway."
+ },
+ {
+  "domain": "haus-muehlenfeld-pommerby.de",
+  "name": "reCAPTCHA",
+  "verdict": "wrong",
+  "reason": "The Duda runtime loads \"https://www.google.com/recaptcha/api.js?onload=onCaptchaLoad...\" only when a form is submitted; the page has no form and no reCAPTCHA request, and the captcha keys are Duda's."
+ },
+ {
+  "domain": "restwellstreetmedicalcentre.com.au",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "365outsource.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "365outsource.com",
+  "name": "Google Analytics Enhanced eCommerce",
+  "verdict": "wrong",
+  "reason": "\"//www.google-analytics.com/plugins/ua/ecommerce.js\" is in the Universal Analytics tag template, used only for trackType \"TRACK_TRANSACTION\"; the container's tags are TRACK_EVENT and its settings have \"vtp_enableEcommerce\":false."
+ },
+ {
+  "domain": "2020wealthadvisory.com",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Cloudflare's beacon.min.js, loaded on the page, bundles web-vitals (id:`v6-${Date.now()}-${Math.floor(8999999999999*Math.random())+1e12}`); page code counts whoever loaded it."
+ },
+ {
+  "domain": "aaice.net",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "aaice.net",
+  "name": "reCAPTCHA",
+  "verdict": "wrong",
+  "reason": "Popups for Divi only reads an existing script[src*=\"google.com/recaptcha/api.js\"] tag; the page has no reCAPTCHA script, key or request."
+ },
+ {
+  "domain": "aaice.net",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "GoDaddy's tccl-tti.min.js, loaded on the page, bundles web-vitals v2 (getLCP/getFID/getTTFB, id \"v2-\"...8999999999999*Math.random()); page code counts whoever loaded it."
+ },
+ {
+  "domain": "laplumedelisibilite.fr",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "westchesterpointechiro.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "westchesterpointechiro.com",
+  "name": "Strava",
+  "verdict": "wrong",
+  "reason": "Matched strava:\"https://www.strava.com/athletes/\" in ShareThis's built-in map of social profile URLs; a list entry is a mention."
+ },
+ {
+  "domain": "soziale-dreigliederung.de",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"http://l.cdn-fileserver.com/flping.php?pid=...\" inside a third-party script from kwserving.com, which is another company's server."
+ },
+ {
+  "domain": "premierhomeremodeling.net",
+  "name": "Amazon Web Services",
+  "verdict": "wrong",
+  "reason": "Matched \"...us-west-2.elb.amazonaws.com\" in an event-endpoint map inside Houzz's Next.js chunk (st.hzcdn.com); that is the hosted platform's infrastructure, not the site's."
+ },
+ {
+  "domain": "premierhomeremodeling.net",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "The Next.js main chunk loaded on the page bundles web-vitals v3 (id:\"v3-\".concat(Date.now(),...8999999999999*Math.random())+1e12)); page code counts."
+ },
+ {
+  "domain": "produkttheater.de",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "unnames.com",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Shopify's shopify-perf-kit-3.16.1.min.js, loaded on the page, bundles web-vitals v5 (id:`v5-${Date.now()}-...`); platform-bundled page code counts."
+ },
+ {
+  "domain": "handycars.com",
+  "name": "Algolia",
+  "verdict": "wrong",
+  "reason": "Matched \"algoliaSearch\" inside the @algolia/autocomplete-js UI library; the site's search queries go to Typesense (\"new Typesense.Client\", typesense.min.js) and no request goes to Algolia's hosted search."
+ },
+ {
+  "domain": "handycars.com",
+  "name": "Amazon Web Services",
+  "verdict": "wrong",
+  "reason": "Matched \"https://mpop-prod-primary.s3.amazonaws.com/media-tag/dt-media-tag-v2.js\" in ComplyAuto's consent-blocker list of scripts to block; a list entry is not use."
+ },
+ {
+  "domain": "handycars.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "handycars.com",
+  "name": "Facebook Pixel",
+  "verdict": "wrong",
+  "reason": "Matched \"//connect.facebook.net/en_US/fbevents.js\" in ComplyAuto's consent-blocker list; the page has no fbq code and no request to connect.facebook.net."
+ },
+ {
+  "domain": "handycars.com",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched 'https://www.facebook.com/sharer/sharer.php?u=' in a share-vehicle modal, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "resourceservicesolutions.com",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/sharer/sharer.php?u={{url}}\" in fancybox loaded from cdn.jsdelivr.net, which is Facebook's endpoint."
+ },
+ {
+  "domain": "skywardspeech.com.au",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"//ilightbox.net/getSource/jsonp.php?url=\" and \"http://www.facebook.com/share.php\" in the iLightBox library, other companies' endpoints. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "sevecoitalia.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "phucankhanggroup.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "phucankhanggroup.com",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/sharer/sharer.php?u={{url}}\" in a self-hosted copy of fancybox, which is Facebook's endpoint."
+ },
+ {
+  "domain": "massageforworldpeace.com",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched webPath+'cc/getloginbox.php?isTrialOverlay' in Jimdo's shared web.js (runs only for trial sites), which is the hosted platform's own server-side language."
+ },
+ {
+  "domain": "cultivateventures.co.nz",
+  "name": "Afterpay",
+  "verdict": "wrong",
+  "reason": "Matched only the chunk name \"async-commerce-afterpay\" in Squarespace's shared runtime chunk map; no Afterpay script, request or markup on the site."
+ },
+ {
+  "domain": "cultivateventures.co.nz",
+  "name": "Marko",
+  "verdict": "wrong",
+  "reason": "Matched \".markO\" from \"o.markOverflow(I,j)\" in the qs query-string library inside Squarespace's common-vendors bundle, not Marko."
+ },
+ {
+  "domain": "cultivateventures.co.nz",
+  "name": "reCAPTCHA",
+  "verdict": "wrong",
+  "reason": "Squarespace's shared form module builds \"https://www.google.com/recaptcha/api.js?onload=__grecaptchaOnLoadCallback...\" only on a captcha-protected form submit, with a platform-wide key; no reCAPTCHA request was made."
+ },
+ {
+  "domain": "cultivateventures.co.nz",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Squarespace's common bundle, loaded on the page, contains the web-vitals implementation (id:\"v3-\".concat(Date.now(),\"-\").concat(Math.floor(8999999999999*Math.random())+1e12) with PerformanceObserver metrics); platform-bundled page code counts."
+ },
+ {
+  "domain": "2-com.net",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "hansis-knusperhendl-foodtruck.eatbu.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "orifoodsco.com",
+  "name": "Afterpay",
+  "verdict": "wrong",
+  "reason": "Matched only the chunk name \"async-commerce-afterpay\" in Squarespace's shared runtime chunk map; no Afterpay script, request or markup on the site."
+ },
+ {
+  "domain": "orifoodsco.com",
+  "name": "Marko",
+  "verdict": "wrong",
+  "reason": "Matched \".markO\" from \"o.markOverflow(I,j)\" in the qs query-string library inside Squarespace's common-vendors bundle, not Marko."
+ },
+ {
+  "domain": "orifoodsco.com",
+  "name": "reCAPTCHA",
+  "verdict": "wrong",
+  "reason": "Squarespace's shared form module builds \"https://www.google.com/recaptcha/api.js?onload=__grecaptchaOnLoadCallback...\" only on a captcha-protected form submit, with a platform-wide key; no reCAPTCHA request was made."
+ },
+ {
+  "domain": "orifoodsco.com",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Squarespace's common bundle, loaded on the page, contains the web-vitals implementation (id:\"v3-\".concat(Date.now(),\"-\").concat(Math.floor(8999999999999*Math.random())+1e12) with PerformanceObserver metrics); platform-bundled page code counts."
+ },
+ {
+  "domain": "insieme.stanford.edu",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "oakwell.vet",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "mysterion.hr",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "domekvefaru.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "domekvefaru.com",
+  "name": "Google Tag Manager",
+  "verdict": "unsure",
+  "reason": "The page has only a <noscript> iframe \"googletagmanager.com/ns.html?id=GTM-542MMSL\" (Webnode's GTM setting); no gtm.js loader ran in the browser (no dataLayer) and the container holds only paused tags, so whether GTM runs cannot be settled."
+ },
+ {
+  "domain": "ideenhunger.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "ideenhunger.com",
+  "name": "Friendly Captcha",
+  "verdict": "correct",
+  "reason": "The page loads the self-hosted widget \"files.ideenhunger.com/src/ideenhunger/friendly-captcha/widget.min.js\" (comment \"Friendly Catpcha Script\"), whose code sends [[\"x-frc-client\",\"js-0.9.8\"]], and window.friendlyChallenge exists in the browser."
+ },
+ {
+  "domain": "ideenhunger.com",
+  "name": "Piwik PRO Core",
+  "verdict": "wrong",
+  "reason": "Matched {title:\"Piwik\",...} in Usercentrics' uc-block.bundle.js list of known vendors to block; no Piwik script or request on the site."
+ },
+ {
+  "domain": "ideenhunger.com",
+  "name": "SnatchBot",
+  "verdict": "wrong",
+  "reason": "Matched regexp:\"account.snatchbot.me/script.js\" in Usercentrics' uc-block.bundle.js list of known vendors to block; no SnatchBot script or request on the site."
+ },
+ {
+  "domain": "jenniferbacksteininteriors.com",
+  "name": "Afterpay",
+  "verdict": "wrong",
+  "reason": "Matched only the chunk name \"async-commerce-afterpay\" in Squarespace's shared runtime chunk map; no Afterpay script, request or markup on the site."
+ },
+ {
+  "domain": "jenniferbacksteininteriors.com",
+  "name": "Marko",
+  "verdict": "wrong",
+  "reason": "Matched \".markO\" from \"o.markOverflow(I,j)\" in the qs query-string library inside Squarespace's common-vendors bundle, not Marko."
+ },
+ {
+  "domain": "jenniferbacksteininteriors.com",
+  "name": "reCAPTCHA",
+  "verdict": "wrong",
+  "reason": "Squarespace's shared form module builds \"https://www.google.com/recaptcha/api.js?onload=__grecaptchaOnLoadCallback...\" only on a captcha-protected form submit, with a platform-wide key; no reCAPTCHA request was made."
+ },
+ {
+  "domain": "jenniferbacksteininteriors.com",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Squarespace's common bundle, loaded on the page, contains the web-vitals implementation (id:\"v3-\".concat(Date.now(),\"-\").concat(Math.floor(8999999999999*Math.random())+1e12) with PerformanceObserver metrics); platform-bundled page code counts."
+ },
+ {
+  "domain": "stoperbis.pl",
+  "name": "PHP",
+  "verdict": "unsure",
+  "reason": "The site's own script calls its own endpoints (\"inne/autouzupelnienie.php?tok=...\", \"inne/zmien_jezyk.php?tok=...\"), but file names like \"skrypty.php.html\" and \"style.php@css=...\" plus Last-Modified/ETag on the home page suggest a static mirror, so whether PHP still runs cannot be settled."
+ },
+ {
+  "domain": "a3sec.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "a3sec.com",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "HubSpot's content-cwv-embed/embed.js, loaded on the page, bundles web-vitals v3 (id:\"v3-\".concat(Date.now(),...)); page code counts."
+ },
+ {
+  "domain": "nicholsonchiro.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "nicholsonchiro.com",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://facebook.com/profile.php?id=\" in a Gravity Forms URL-template helper, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "jonesbuickgmc.com",
+  "name": "Brightcove",
+  "verdict": "wrong",
+  "reason": "Matched \"https://players.brightcove.net/\"+accountId+... in a copied Samsung clientlib, used only by a video component; no Brightcove request or player markup on the page."
+ },
+ {
+  "domain": "jonesbuickgmc.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "jonesbuickgmc.com",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "The Adobe Launch library loaded on the page (25 adobedtm requests) bundles web-vitals v4 and its ss-page-speed-extension calls onLCP/onFCP/onCLS; note the domain now serves a copied Samsung page for a gambling site."
+ },
+ {
+  "domain": "pcb-cpb.com",
+  "name": "Surge",
+  "verdict": "wrong",
+  "reason": "Matched console.log(\"...Playground link:\",`https://pro-gallery.surge.sh?${e}`) debug code in Wix's blog gallery chunk; a mention, nothing on the site is hosted on Surge."
+ },
+ {
+  "domain": "pcb-cpb.com",
+  "name": "Wix eCommerce",
+  "verdict": "wrong",
+  "reason": "Matched a regex for \"https://static.wixstatic.com/media/\" URLs in Wix's blog gallery chunk, present on any Wix site; the Wix Stores app is not among the page's installed apps."
+ },
+ {
+  "domain": "chiantifiorentino.it",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "chiantifiorentino.it",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/sharer/sharer.php?u={{url}}\" in fancybox's share template, which is Facebook's endpoint."
+ },
+ {
+  "domain": "11thhourracing.org",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "fluxar.com.ar",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "redpants.jp",
+  "name": "Afterpay",
+  "verdict": "wrong",
+  "reason": "Matched only the chunk name \"async-commerce-afterpay\" in Squarespace's shared runtime chunk map; no Afterpay script, request or markup on the site."
+ },
+ {
+  "domain": "redpants.jp",
+  "name": "Marko",
+  "verdict": "wrong",
+  "reason": "Matched \".markO\" from \"o.markOverflow(I,j)\" in the qs query-string library inside Squarespace's common-vendors bundle, not Marko."
+ },
+ {
+  "domain": "redpants.jp",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Squarespace's common bundle, loaded on the page, contains the web-vitals implementation (id:\"v3-\".concat(Date.now(),\"-\").concat(Math.floor(8999999999999*Math.random())+1e12) with PerformanceObserver metrics); platform-bundled page code counts."
+ },
+ {
+  "domain": "davidloeppke.com",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "koniczynka.info.pl",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/sharer/sharer.php?u={{url}}\" in PhotoSwipe's default share buttons, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "ledestjernenstu.dk",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "ledestjernenstu.dk",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"//www.facebook.com/plugins/like.php?locale=...\" in the prettyPhoto social template, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ },
+ {
+  "domain": "herbalwise.ie",
+  "name": "Afterpay",
+  "verdict": "wrong",
+  "reason": "Matched \"afterPay\" from \"afterPaymentUpdate\" in Shopify's portable-wallets checkout code; no Afterpay script, request or markup on the site."
+ },
+ {
+  "domain": "herbalwise.ie",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Shopify's shopify-perf-kit-3.16.1.min.js, loaded on the page, bundles web-vitals v5 (id:`v5-${Date.now()}-...`); platform-bundled page code counts."
+ },
+ {
+  "domain": "thomasrosenbaum.com",
+  "name": "Afterpay",
+  "verdict": "wrong",
+  "reason": "Matched only the chunk name \"async-commerce-afterpay\" in Squarespace's shared runtime chunk map; no Afterpay script, request or markup on the site."
+ },
+ {
+  "domain": "thomasrosenbaum.com",
+  "name": "Marko",
+  "verdict": "wrong",
+  "reason": "Matched \".markO\" from \"o.markOverflow(I,j)\" in the qs query-string library inside Squarespace's common-vendors bundle, not Marko."
+ },
+ {
+  "domain": "thomasrosenbaum.com",
+  "name": "reCAPTCHA",
+  "verdict": "wrong",
+  "reason": "Squarespace's shared form module builds \"https://www.google.com/recaptcha/api.js?onload=__grecaptchaOnLoadCallback...\" only on a captcha-protected form submit, with a platform-wide key; no reCAPTCHA request was made."
+ },
+ {
+  "domain": "thomasrosenbaum.com",
+  "name": "web-vitals",
+  "verdict": "correct",
+  "reason": "Squarespace's common bundle, loaded on the page, contains the web-vitals implementation (id:\"v3-\".concat(Date.now(),\"-\").concat(Math.floor(8999999999999*Math.random())+1e12) with PerformanceObserver metrics); platform-bundled page code counts."
+ },
+ {
+  "domain": "lighthouseprc.org",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "lighthouseprc.org",
+  "name": "Google Analytics",
+  "verdict": "correct",
+  "reason": "The page itself has gtag('config', 'UA-100992585-1') and gtag('config', 'G-ERCFRY755K') (delayed by WP Rocket until user interaction), and the GTM container has a __ua TRACK_PAGEVIEW tag."
+ },
+ {
+  "domain": "lighthouseprc.org",
+  "name": "Google Analytics Enhanced eCommerce",
+  "verdict": "wrong",
+  "reason": "\"//www.google-analytics.com/plugins/ua/ecommerce.js\" is in the Universal Analytics tag template, used only for trackType \"TRACK_TRANSACTION\"; the container's tags are TRACK_PAGEVIEW/TRACK_EVENT and its settings have \"vtp_enableEcommerce\":false."
+ },
+ {
+  "domain": "joburgheritage.org.za",
+  "name": "DoubleClick Floodlight",
+  "verdict": "wrong",
+  "reason": "The only \"fls.doubleclick.net\" (and \"ad.doubleclick.net/activity\") text is the Google tag runtime's built-in endpoint table (tk[3]=function(a){return\"https://\"+a.jm+\".fls.doubleclick.net/activityi;\"}), present in every gtm.js/gtag.js; the container configures no Floodlight tag (__flc/__fls) and no DC- destination."
+ },
+ {
+  "domain": "joburgheritage.org.za",
+  "name": "PHP",
+  "verdict": "wrong",
+  "reason": "Matched \"https://www.facebook.com/sharer/sharer.php?u={{url}}\" in PhotoSwipe's default share buttons, which is Facebook's endpoint. (PHP on this WordPress site is shown by other evidence, not by this match.)"
+ }
+]

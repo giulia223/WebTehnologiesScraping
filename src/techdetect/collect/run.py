@@ -25,8 +25,8 @@ from techdetect.collect.storage import domain_dir, write_json_atomic
 from techdetect.config import Config
 from techdetect.domains import Domain
 
-# Order matters: tls and wellknown use static.json; browser fills nothing others need.
-STEPS = ("static", "dns", "tls", "wellknown", "browser")
+# Order matters: tls, wellknown and js use static.json; browser fills nothing others need.
+STEPS = ("static", "dns", "tls", "wellknown", "js", "browser")
 STEP_FILES = {step: f"{step}.json" for step in STEPS}
 RUN_COMPLETE = "_run_complete.json"
 RUN_LOG = "_run_log.jsonl"

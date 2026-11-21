@@ -10,7 +10,9 @@ from techdetect.domains import Domain
 from techdetect.evaluate.ablation import ROWS, check_against_summary, step_costs
 
 REAL_RULES = Path(__file__).parents[1] / "fingerprints"
-STATIC_ROW, STATIC_PLUS_ROW, BROWSER_ROW, FULL_ROW = (sources for _, sources, _ in ROWS)
+STATIC_ROW, STATIC_PLUS_ROW, JS_FILES_ROW, BROWSER_ROW, FULL_ROW = (
+    sources for _, sources, _ in ROWS
+)
 
 
 def names(line: dict) -> dict[str, str]:

@@ -668,6 +668,7 @@ def write_outputs(
     threshold: int,
     partial: bool,
     inline_urls: bool = False,
+    js_files: bool = False,
 ) -> Outputs:
     output_dir.mkdir(parents=True, exist_ok=True)
     text = "".join(json.dumps(line, ensure_ascii=False) + "\n" for line in lines)
@@ -676,6 +677,7 @@ def write_outputs(
     summary = build_summary(lines, ruleset, threshold, partial)
     # Off by default; when on, the counts include URLs read from inline scripts (Task 7.3).
     summary["inline_urls"] = inline_urls
+    summary["js_files"] = js_files  # likewise for downloaded script files (Task 7.4)
     write_json_atomic(output_dir / "summary.json", summary)
     return Outputs(lines, summary)
 
