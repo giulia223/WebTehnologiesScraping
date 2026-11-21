@@ -24,7 +24,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from techdetect.detect import NOT_THE_SITE
+from techdetect.detect import counted
 from techdetect.evaluate.labels import now
 from techdetect.evaluate.metrics import rate
 from techdetect.evaluate.metrics_report import _code
@@ -43,13 +43,6 @@ SECOND_KEYS = (
     "second_reason",
     "second_reviewer",
 )
-
-
-def counted(line: dict[str, Any]) -> bool:
-    """Same rule as the headline counts in summary.json: the domain's own site (no redirect
-    to another company) and a real website (not a parking or placeholder page)."""
-    credited = not line["redirected_to"] or bool(line.get("redirect_same_name"))
-    return credited and line["status"] not in NOT_THE_SITE
 
 
 def core_examples(lines: list[dict[str, Any]]) -> dict[str, dict[str, dict[str, Any]]]:

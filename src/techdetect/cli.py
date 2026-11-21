@@ -55,6 +55,7 @@ from techdetect.fingerprints.candidates import promote
 from techdetect.fingerprints.loader import load_rules
 from techdetect.fingerprints.matcher import INLINE_URLS, SOURCES
 from techdetect.fingerprints.review import candidate_summary, review_candidates
+from techdetect.report import leads
 
 app = typer.Typer(
     help="Detect website technologies with evidence.",
@@ -120,12 +121,6 @@ OverwriteOpt = Annotated[
         "steps' files are replaced.",
     ),
 ]
-
-
-def _not_implemented(command: str, config: Config) -> None:
-    # Exit code 1, not 0: a script calling a stub must not believe it succeeded.
-    typer.echo(f"{command}: not implemented yet")
-    raise typer.Exit(code=1)
 
 
 def _load_and_report(config: Config) -> LoadResult:
@@ -564,9 +559,15 @@ def ablation_command(
 
 @app.command()
 def report(output_dir: OutputDirOpt = None) -> None:
-    """Write the final tables and summaries."""
+    """Write the lead list (leads.csv): one row of facts per domain, from detect's output."""
     config = Config().with_overrides(output_dir=output_dir)
-    _not_implemented("report", config)
+    rows = leads.build_leads(read_all_detections(config.output_dir))
+    path = leads.write_leads(rows, config.output_dir)
+    shopify = [r["domain"] for r in rows if r["shopify"] == "yes"]
+    typer.echo(
+        f"{len(rows)} domains -> {path}; Shopify stores: {len(shopify)}"
+        + (f" ({', '.join(shopify)})" if shopify else "")
+    )
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ These claims come from research and from other projects. They are **not verified
 | H4 | Subpages mainly add payment / chat / forms / reviews technologies | Crawling a few subpages per site and comparing | - |
 | H5 | DNS reveals SaaS (email, CRM, support) invisible in HTML | Adding DNS records as a signal | - |
 | H6 | Each coverage expansion lowers precision unless its evidence tier is accounted for | Measuring precision after each expansion | - |
-| H7 | Analytics/marketing tools on Shopify stores are often visible only in network traffic (web pixels), not in HTML | Comparing HTML vs network-request evidence on Shopify stores | - |
+| H7 | Analytics/marketing tools on Shopify stores are often visible only in network traffic (web pixels), not in HTML | Comparing HTML vs network-request evidence on Shopify stores | Too few Shopify stores to test (2 of 154 working sites). On both, Google Analytics and Google Tag Manager were seen only by the browser, and Facebook Pixel on one. On all sites, 42% (53/126) of the detections of the 7 most common trackers (Google Analytics 19/50, Google Tag Manager 18/55, Facebook Pixel 5/9, Microsoft Clarity 4/4, Matomo 4/4, LinkedIn Insight Tag 2/3, Hotjar 1/1) were seen only by the browser (`leads.csv`, column `only_seen_by_browser`). "Only by the browser" means every piece of evidence came from the rendered page or the browser's requests, cookies and variables; web-pixel sandboxes were not separated. |
 | H8 | An honest robot User-Agent gets noticeably more bot-check pages / fewer technologies than a Chrome User-Agent | Re-running the static fetch with a Chrome User-Agent | - |
 
 ## Rule set

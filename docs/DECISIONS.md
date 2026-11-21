@@ -536,3 +536,16 @@ Template:
 - **Decision:** (A), behind a flag (`detect --inline-urls`, off by default, recorded in `summary.json`), measured as a "static+" row in the ablation. Tier `declared` (chosen by the human). The browser data we already have is the referee: an addition is **confirmed** if the browser requested a URL that the same rule matches; the rest are judged by a separate reviewer.
 - **Why:** it costs no request, so it is the cheapest possible substitute for the browser; the browser referee measures its precision on all 200 domains without hand labels.
 - **Consequences:** EXPERIMENTS run 6. The evidence key is `inline script URL`; like the stylesheet-request key (D-028), a pattern found both as a tag and inline forms two groups, harmless because nearly every script-URL pattern is worth 100. The referee ignores `data:` and `blob:` URLs (page-made, possibly megabytes long, which hung an early run) and uses the matcher's per-search regex timeout.
+
+## D-033 Lead list: one row of facts per domain, no score
+- **Date:** 2026-11-21
+- **Context:** The client is a company selling a Shopify analytics plugin; its salespeople want sites to contact. The run found only 2 Shopify stores among 154 working sites, 24 shops on other platforms, and 73 sites with at least one analytics or marketing tool. Decision F8.1 already rules out labelling any product a competitor.
+- **Options considered:**
+  - (A) Tiers: Shopify store, shop on another platform (migration prospect), no shop; within a tier, more analytics tools first.
+  - (B) Points: weights for Shopify, other shop, each analytics tool.
+  - (C) No score: facts only, the salesperson sorts and filters.
+  - For the tools: list only an "analytics / marketing" subset of categories, or every technology found.
+- **Decision:** (C), with every core technology listed, no category filter (both chosen by the human). `data/output/leads.csv` has one row per input domain: status, a note in plain words (not reachable, bot check, parked, placeholder, redirect), Shopify yes/no with its first piece of evidence, every core technology, the ones only the browser saw, and the DNS-only facts (mail provider, verification tokens).
+- **Why:** any weighting would be a guess about the client's sales priorities that this project cannot check; the facts with their proof are what the tool can stand behind, and a spreadsheet sorts and filters them in seconds.
+- **Consequences:** `techdetect report` writes the file (it was the last stub command). Rows stay in input order; the 3 domains that redirect to another company's site are listed last with "redirects to <target>" and no technologies, and parked or placeholder pages have none either, since what was found there is not the owner's. Inferred-only technologies and themes are not listed (same as the headline core count). The `only_seen_by_browser` column measures H7 (EXPERIMENTS): too few Shopify stores to test it, but 42% of the common trackers' detections on all sites needed the browser.
+

@@ -13,7 +13,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from techdetect.evaluate.name_check import counted
+from techdetect.detect import counted
 from techdetect.fingerprints.loader import RuleSet
 from techdetect.fingerprints.matcher import INLINE_URL_KEY, REGEX_TIMEOUT_S
 

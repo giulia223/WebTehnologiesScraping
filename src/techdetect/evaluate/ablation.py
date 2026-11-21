@@ -24,10 +24,9 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-from techdetect.detect import build_summary, detect_all
+from techdetect.detect import build_summary, counted, detect_all
 from techdetect.domains import Domain
 from techdetect.evaluate.metrics import compute, rate
-from techdetect.evaluate.name_check import counted
 from techdetect.evaluate.static_plus import load_review, referee
 from techdetect.fingerprints.loader import RuleSet
 from techdetect.fingerprints.matcher import INLINE_URLS

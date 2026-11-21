@@ -293,6 +293,13 @@ def same_name(host: str, target: str) -> bool:
     return len(shorter) >= SAME_NAME_MIN_CHARS and shorter in longer
 
 
+def counted(line: dict[str, Any]) -> bool:
+    """Same rule as the headline counts in summary.json: the domain's own site (no redirect
+    to another company) and a real website (not a parking or placeholder page)."""
+    credited = not line["redirected_to"] or bool(line.get("redirect_same_name"))
+    return credited and line["status"] not in NOT_THE_SITE
+
+
 def counting_group(result: TechnologyResult, ruleset: RuleSet) -> str:
     """Which count a detection belongs to on this domain."""
     categories = set(ruleset.technologies[result.name].categories)
