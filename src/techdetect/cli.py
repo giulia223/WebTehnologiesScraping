@@ -5,6 +5,7 @@ report, plus `rules` to inspect the fingerprint rules. Commands not built yet ar
 """
 
 import asyncio
+import json
 import time
 from pathlib import Path
 from typing import Annotated, Any
@@ -37,6 +38,7 @@ from techdetect.detect import (
     write_outputs,
 )
 from techdetect.domains import Domain, LoadResult, load_domains
+from techdetect.evaluate import ablation
 from techdetect.evaluate.importer import import_blind, parse_inspection_file
 from techdetect.evaluate.labels import (
     REVIEW_SEED,
@@ -51,7 +53,9 @@ from techdetect.evaluate.metrics_report import render
 from techdetect.evaluate.session import label_domain
 from techdetect.fingerprints.candidates import promote
 from techdetect.fingerprints.loader import load_rules
+from techdetect.fingerprints.matcher import INLINE_URLS, SOURCES
 from techdetect.fingerprints.review import candidate_summary, review_candidates
+from techdetect.report import leads
 
 app = typer.Typer(
     help="Detect website technologies with evidence.",
@@ -117,12 +121,6 @@ OverwriteOpt = Annotated[
         "steps' files are replaced.",
     ),
 ]
-
-
-def _not_implemented(command: str, config: Config) -> None:
-    # Exit code 1, not 0: a script calling a stub must not believe it succeeded.
-    typer.echo(f"{command}: not implemented yet")
-    raise typer.Exit(code=1)
 
 
 def _load_and_report(config: Config) -> LoadResult:
@@ -309,6 +307,14 @@ AllowPartialOpt = Annotated[
         help="Run on a raw folder whose collection did not finish (summary.json says so).",
     ),
 ]
+InlineUrlsOpt = Annotated[
+    bool,
+    typer.Option(
+        "--inline-urls",
+        help="Also match script-URL rules against URLs inside the static page's inline "
+        "scripts (tracker loader snippets). Off by default.",
+    ),
+]
 MinConfidenceOpt = Annotated[
     int,
     typer.Option(
@@ -335,6 +341,7 @@ def detect(
     allow_partial: AllowPartialOpt = False,
     min_confidence: MinConfidenceOpt = 0,
     workers: WorkersOpt = None,
+    inline_urls: InlineUrlsOpt = False,
 ) -> None:
     """Find technologies in saved raw artifacts (offline)."""
     config = Config().with_overrides(
@@ -355,8 +362,11 @@ def detect(
         config.rules_dir,
         include_candidates=include_candidates,
         workers=workers or default_workers(),
+        sources=SOURCES | {INLINE_URLS} if inline_urls else SOURCES,
     )
-    outputs = write_outputs(lines, ruleset, config.output_dir, min_confidence, partial=not complete)
+    outputs = write_outputs(
+        lines, ruleset, config.output_dir, min_confidence, not complete, inline_urls
+    )
     unique = outputs.summary["unique_technologies"]
     per_domain = outputs.summary["core_per_domain"]
     typer.echo(
@@ -500,11 +510,64 @@ def metrics_command(
     typer.echo(f"wrote {report_path} and {config.output_dir / 'metrics.json'}")
 
 
+@evaluate_app.command("ablation")
+def ablation_command(
+    input_path: InputOpt = None,
+    raw_dir: RawDirOpt = None,
+    output_dir: OutputDirOpt = None,
+    rules_dir: RulesDirOpt = None,
+    ground_truth: GroundTruthOpt = None,
+    workers: WorkersOpt = None,
+    report_path: Annotated[
+        Path, typer.Option("--report", help="Where to write the readable report.")
+    ] = Path("docs/ABLATION.md"),
+) -> None:
+    """Re-run detection with fewer collection steps: what each step adds, and its cost."""
+    config = Config().with_overrides(
+        input_path=input_path,
+        raw_dir=raw_dir,
+        output_dir=output_dir,
+        rules_dir=rules_dir,
+        ground_truth_path=ground_truth,
+    )
+    domains = _load_and_report(config).domains
+    ruleset = load_rules(config.rules_dir)
+    started = time.perf_counter()
+    result = ablation.run_ablation(
+        config.raw_dir,
+        domains,
+        config.rules_dir,
+        ruleset,
+        load_ground_truth(config.ground_truth_path),
+        workers or default_workers(),
+    )
+    summary = json.loads((config.output_dir / "summary.json").read_text(encoding="utf-8"))
+    report_path.write_text(ablation.render(result, ruleset, summary), encoding="utf-8")
+    write_json_atomic(config.output_dir / "ablation.json", result)
+    for row in result["rows"]:
+        typer.echo(
+            f"{row['label']:<10} core {row['unique_core']}, extended {row['unique_extended']}, "
+            f"precision {rate(*row['precision'])}, recall {rate(*row['recall'])}, "
+            f"{row['cost_s_per_domain']} s/domain"
+        )
+    typer.echo(f"{time.perf_counter() - started:.0f} s; wrote {report_path}")
+    problem = ablation.check_against_summary(result, summary)
+    if problem:
+        typer.echo(f"check failed: {problem}", err=True)
+        raise typer.Exit(code=1)
+
+
 @app.command()
 def report(output_dir: OutputDirOpt = None) -> None:
-    """Write the final tables and summaries."""
+    """Write the lead list (leads.csv): one row of facts per domain, from detect's output."""
     config = Config().with_overrides(output_dir=output_dir)
-    _not_implemented("report", config)
+    rows = leads.build_leads(read_all_detections(config.output_dir))
+    path = leads.write_leads(rows, config.output_dir)
+    shopify = [r["domain"] for r in rows if r["shopify"] == "yes"]
+    typer.echo(
+        f"{len(rows)} domains -> {path}; Shopify stores: {len(shopify)}"
+        + (f" ({', '.join(shopify)})" if shopify else "")
+    )
 
 
 if __name__ == "__main__":

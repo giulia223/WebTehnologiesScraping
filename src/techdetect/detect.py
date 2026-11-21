@@ -39,7 +39,7 @@ from techdetect.collect.storage import write_atomic, write_json_atomic
 from techdetect.domains import Domain, domain_name, registered_domain
 from techdetect.fingerprints.combine import PatternGroup, TechnologyResult, combine
 from techdetect.fingerprints.loader import RuleSet, load_rules
-from techdetect.fingerprints.matcher import RuleIndex, match_domain
+from techdetect.fingerprints.matcher import SOURCES, RuleIndex, match_domain
 from techdetect.fingerprints.resolve import resolve
 
 # Themes are reported as their own group, not in core: a theme is mostly the site's look
@@ -51,7 +51,70 @@ THEME_CATEGORIES = frozenset({80, 81, 82})  # WordPress, Shopify, Drupal themes
 PLUGIN_CATEGORIES = frozenset({87, 100})  # WordPress plugins, Shopify apps
 # Name-level precedence: website evidence on any domain makes a technology core; seen in
 # DNS beats only inferred.
-GROUPS = ("core", "dns_only", "inferred_only", "themes")
+GROUPS = ("core", "dns_only", "inferred_only", "themes", "platform_infra")
+# Hosted website builders: the platform, not the site's owner, chose the servers, CDN,
+# storage, bot protection and certificate behind every site it hosts. On such a site those
+# detections are true but belong to the platform (docs/DEFINITIONS.md), so they move to the
+# group "platform_infra": reported, never counted as the site's technologies.
+HOSTED_PLATFORMS = frozenset(
+    {
+        "Wix",
+        "Weebly",
+        "MyWebsite",  # IONOS MyWebsite
+        "Squarespace",
+        "Shopify",
+        "Webflow",
+        "GoDaddy Website Builder",
+        "Duda",
+        "WebNode",
+        "Square Online",
+        # Added after the name check (Task 4.5): a restaurant-site builder (sites live on
+        # *.eatbu.com) and a musicians' site builder (Bandzoogle: a reviewed custom rule).
+        "DISH",
+        "Bandzoogle",
+    }
+)
+INFRASTRUCTURE_CATEGORIES = frozenset(
+    {
+        "CDN",
+        "PaaS",
+        "IaaS",
+        "Hosting",
+        "Web servers",
+        "Caching",
+        "SSL/TLS certificate authorities",
+        "Reverse proxies",
+        "Load balancers",
+    }
+)
+# Bot protection sits in "Security" with HSTS and other things a page itself carries, so
+# it is named one by one.
+BOT_PROTECTION = frozenset(
+    {"Cloudflare Bot Management", "Akamai Bot Manager", "DataDome", "PerimeterX"}
+)
+# The platform's own monitoring and tracking, reporting to the platform, not to the owner:
+# Wix's Sentry sends to sentry.wixpress.com, Weebly's Snowplow to ec.editmysite.com.
+# Found by the name check (Task 4.5), each seen on every site of that platform here:
+# - Wix: Firebase from the Wix Chat frame (wix-engage-visitors-*.firebaseio.com, 4 sites);
+# - Square Online: Datadog reporting as service "spi-ecom-square-online-buyer-journey";
+# - DISH: the template's Adobe stack (data layer productName "DISH WEBSITE B2C");
+# - Bandzoogle: Ruby on Rails from its `csrf-param` meta (the builder's server framework;
+#   its servers OpenResty and Varnish move anyway, by category).
+# Trade-off: an owner who adds the same tool themselves on that platform is moved too.
+PLATFORM_OWN_TOOLS = {
+    "Wix": frozenset({"Sentry", "Firebase"}),
+    "Weebly": frozenset({"Snowplow Analytics"}),
+    "Square Online": frozenset({"Datadog"}),
+    "DISH": frozenset(
+        {
+            "Adobe Analytics",
+            "Adobe Client Data Layer",
+            "Adobe Experience Platform Identity Service",
+            "Adobe Experience Platform Launch",
+        }
+    ),
+    "Bandzoogle": frozenset({"Ruby on Rails"}),
+}
 # Statuses of domains whose page is not the owner's website: left out of all counts.
 NOT_THE_SITE = frozenset({"parked", "placeholder"})
 
@@ -230,6 +293,13 @@ def same_name(host: str, target: str) -> bool:
     return len(shorter) >= SAME_NAME_MIN_CHARS and shorter in longer
 
 
+def counted(line: dict[str, Any]) -> bool:
+    """Same rule as the headline counts in summary.json: the domain's own site (no redirect
+    to another company) and a real website (not a parking or placeholder page)."""
+    credited = not line["redirected_to"] or bool(line.get("redirect_same_name"))
+    return credited and line["status"] not in NOT_THE_SITE
+
+
 def counting_group(result: TechnologyResult, ruleset: RuleSet) -> str:
     """Which count a detection belongs to on this domain."""
     categories = set(ruleset.technologies[result.name].categories)
@@ -240,6 +310,39 @@ def counting_group(result: TechnologyResult, ruleset: RuleSet) -> str:
     if {g.signal for g in result.groups} == {"dns"}:
         return "dns_only"
     return "core"
+
+
+def hosted_platform(technologies: list[dict[str, Any]]) -> str | None:
+    """The hosted builder the site runs on, if one is seen on the site itself (core)."""
+    for tech in technologies:
+        if tech["name"] in HOSTED_PLATFORMS and tech["group"] == "core":
+            return tech["name"]
+    return None
+
+
+def is_platform_infrastructure(tech: dict[str, Any], platform: str) -> bool:
+    return (
+        bool(INFRASTRUCTURE_CATEGORIES & set(tech["categories"]))
+        or tech["name"] in BOT_PROTECTION
+        or tech["name"] in PLATFORM_OWN_TOOLS.get(platform, ())
+    )
+
+
+def move_platform_infrastructure(technologies: list[dict[str, Any]]) -> str | None:
+    """On a hosted builder's site, move the platform's infrastructure out of core.
+
+    Only core detections move: DNS records (the domain's mail, its name servers) are the
+    owner's choice even on a builder, and page code the platform bundles still runs on the
+    site's page. Returns the platform, or None.
+    """
+    platform = hosted_platform(technologies)
+    if platform is None:
+        return None
+    for tech in technologies:
+        if tech["group"] == "core" and is_platform_infrastructure(tech, platform):
+            tech["group"] = "platform_infra"
+            tech["platform"] = platform
+    return platform
 
 
 def _group_json(group: PatternGroup) -> dict[str, Any]:
@@ -280,8 +383,18 @@ def _technology_json(result: TechnologyResult, ruleset: RuleSet) -> dict[str, An
     }
 
 
-def detect_domain(raw_dir: Path, domain: Domain, ruleset: RuleSet, index: RuleIndex) -> dict:
-    """One line of detections.jsonl: the domain's status and every detection with proof."""
+def detect_domain(
+    raw_dir: Path,
+    domain: Domain,
+    ruleset: RuleSet,
+    index: RuleIndex,
+    sources: frozenset[str] = SOURCES,
+) -> dict:
+    """One line of detections.jsonl: the domain's status and every detection with proof.
+
+    `sources` limits which collection steps are matched (the ablation). The status and the
+    redirect are always read from both fetches, so every ablation row counts the same
+    domains and only the evidence differs."""
     folder = raw_dir / domain.host
     static = refine_failure(folder, _read_json(folder / "static.json"))
     browser = refine_failure(folder, _read_json(folder / "browser.json"))
@@ -302,11 +415,12 @@ def detect_domain(raw_dir: Path, domain: Domain, ruleset: RuleSet, index: RuleIn
     }
     if status == "failed:not_collected":
         return line
-    matches = match_domain(raw_dir, domain.host, index)
+    matches = match_domain(raw_dir, domain.host, index, sources)
     resolution = resolve(combine(matches.evidence), ruleset)
     line["technologies"] = [
         _technology_json(result, ruleset) for result in resolution.technologies.values()
     ]
+    line["hosted_platform"] = move_platform_infrastructure(line["technologies"])
     line["excluded"] = resolution.excluded
     line["unmet_requirements"] = {k: list(v) for k, v in resolution.unmet_requirements.items()}
     line["artifacts"] = matches.artifacts
@@ -328,10 +442,10 @@ def _init_worker(rules_dir: str, include_candidates: bool) -> None:
     _worker_rules = (ruleset, RuleIndex(ruleset))
 
 
-def _work(args: tuple[str, Domain]) -> dict:
+def _work(args: tuple[str, Domain, frozenset[str]]) -> dict:
     assert _worker_rules is not None
-    raw_dir, domain = args
-    return detect_domain(Path(raw_dir), domain, *_worker_rules)
+    raw_dir, domain, sources = args
+    return detect_domain(Path(raw_dir), domain, *_worker_rules, sources)
 
 
 def detect_all(
@@ -341,10 +455,11 @@ def detect_all(
     include_candidates: bool = False,
     workers: int = 1,
     progress: Callable[[dict], None] | None = None,
+    sources: frozenset[str] = SOURCES,
 ) -> list[dict]:
     """Every domain's line, in input order. Domains are independent, so with workers > 1
     they are matched in parallel processes (matching is CPU work, about 1 s per domain)."""
-    jobs = [(str(raw_dir), d) for d in domains]
+    jobs = [(str(raw_dir), d, sources) for d in domains]
     if workers <= 1:
         _init_worker(str(rules_dir), include_candidates)
         lines = []
@@ -528,7 +643,8 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
         "unique_technologies": {
             "core": unique["core"],
             "separately": {group: unique[group] for group in GROUPS[1:]},
-            "extended_total": len(group_of),
+            # The site's technologies in the wider sense: a platform's infrastructure is not.
+            "extended_total": sum(1 for g in group_of.values() if g != "platform_infra"),
             "core_at_confidence_50_or_more": sum(1 for n in core_names if best_confidence[n] >= 50),
             "core_at_confidence_80_or_more": sum(1 for n in core_names if best_confidence[n] >= 80),
         },
@@ -546,13 +662,20 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
 
 
 def write_outputs(
-    lines: list[dict], ruleset: RuleSet, output_dir: Path, threshold: int, partial: bool
+    lines: list[dict],
+    ruleset: RuleSet,
+    output_dir: Path,
+    threshold: int,
+    partial: bool,
+    inline_urls: bool = False,
 ) -> Outputs:
     output_dir.mkdir(parents=True, exist_ok=True)
     text = "".join(json.dumps(line, ensure_ascii=False) + "\n" for line in lines)
     write_atomic(output_dir / "detections.jsonl", text.encode("utf-8"))
     _write_tables(_rows(lines, threshold), output_dir)
     summary = build_summary(lines, ruleset, threshold, partial)
+    # Off by default; when on, the counts include URLs read from inline scripts (Task 7.3).
+    summary["inline_urls"] = inline_urls
     write_json_atomic(output_dir / "summary.json", summary)
     return Outputs(lines, summary)
 

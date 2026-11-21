@@ -2,10 +2,13 @@
 
 precision  of the detections that were judged, the share judged correct. Both sets count:
            every detection of the 20 labelled domains has a verdict. "unsure" is left out
-           of the share and reported with its own count.
+           of the share and reported with its own count. Detections the tool reports as a
+           hosted platform's infrastructure (group platform_infra) are not a claim about
+           the site, so they are left out too and listed apart.
 recall     of the technologies the blind inspection found on a blind domain, the share the
-           tool also reports (in any group). Entries marked `counts: false` (not the site's
-           under docs/DEFINITIONS.md) and entries added after seeing the tool are left out.
+           tool also reports as the site's (in any group but platform_infra). Entries
+           marked `counts: false` (not the site's under docs/DEFINITIONS.md) and entries
+           added after seeing the tool are left out.
 F1         the harmonic mean of the two.
 
 Verdicts are matched to the *current* detections by name, and the current confidence is
@@ -23,6 +26,7 @@ MIN_N = 10  # below this, a per-group / per-category rate is noise, not a measur
 CONFIDENCE_BANDS = (("100", 100, 100), ("75-99", 75, 99), ("50-74", 50, 74), ("below 50", 0, 49))
 GROUP_ORDER = ("core", "dns_only", "inferred_only", "themes")
 SETS = ("blind", "review")
+PLATFORM_GROUP = "platform_infra"
 
 
 @dataclass
@@ -72,6 +76,9 @@ class Labelled:
     judged: list[Judged] = field(default_factory=list)
     unlabelled: list[str] = field(default_factory=list)  # detected, no verdict yet
     stale: list[str] = field(default_factory=list)  # verdict, but no longer detected
+    # Reported as a hosted platform's infrastructure: the tool does not claim the site uses
+    # them, so they are not in precision. (domain, name, verdict) for the report.
+    platform_infra: list[tuple[str, str, str]] = field(default_factory=list)
 
 
 def rate(num: int, den: int) -> str:
@@ -101,6 +108,10 @@ def labelled_detections(gt: dict[str, Any], lines: dict[str, dict[str, Any]]) ->
             techs = lines.get(domain, {}).get("technologies", [])
             for tech in techs:
                 label = verdicts.get(tech["name"])
+                if tech["group"] == PLATFORM_GROUP:
+                    verdict = label["verdict"] if label else "unlabelled"
+                    out.platform_infra.append((domain, tech["name"], verdict))
+                    continue
                 if label is None:
                     out.unlabelled.append(f"{domain}: {tech['name']}")
                     continue
@@ -140,7 +151,7 @@ def expected_on_blind(
         reported = {
             tech["name"].lower()
             for tech in lines.get(domain, {}).get("technologies", [])
-            if tech["confidence"] >= threshold
+            if tech["confidence"] >= threshold and tech["group"] != PLATFORM_GROUP
         }
         for entry in gt["domains"].get(domain, {}).get("human_found", []):
             if entry.get("counts") is False or entry.get("after_seeing_tool"):
@@ -199,6 +210,9 @@ def compute(gt: dict[str, Any], lines: dict[str, dict[str, Any]]) -> dict[str, A
         "judged": len(judged),
         "unlabelled": labelled.unlabelled,
         "stale": labelled.stale,
+        "platform_infra": [
+            {"domain": d, "technology": n, "verdict": v} for d, n, v in labelled.platform_infra
+        ],
         "headline": headline,
         "by_group": _as_pairs(_breakdown(judged, lambda j: [j.group])),
         "by_tier": _as_pairs(_breakdown(judged, lambda j: [j.tier])),

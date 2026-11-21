@@ -211,6 +211,43 @@ def test_xhr_rules_match_request_hosts(index: RuleIndex, tmp_path: Path) -> None
     assert "Adventive" not in result.technologies()  # an image is not an xhr request
 
 
+def test_link_rules_see_stylesheets_the_page_requested(index: RuleIndex, tmp_path: Path) -> None:
+    # rivithead.com: Google Fonts pulled in by a CSS @import, so there is no <link> tag.
+    fonts = "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap"
+    site = Site(tmp_path, "shop.example").static("plain.html")
+    site.browser(
+        "plain.html", requests=[{"url": fonts, "resource_type": "stylesheet", "origin": "main"}]
+    )
+    font = evidence_for(site.match(index), "Google Font API", "dom")[0]
+    assert font.matched_value == "fonts.googleapis.com"
+    assert font.location == fonts
+    assert font.key == "stylesheet request, as link[href*='fonts.g']"  # not a <link> tag
+
+
+def test_frames_and_script_requests_are_not_the_pages_own(index: RuleIndex, tmp_path: Path) -> None:
+    # Google's own font inside a Google Maps frame; a Wix chunk whose name contains
+    # "bootstrap" was measured to give false libraries, so scripts are not tested.
+    site = Site(tmp_path, "shop.example").static("plain.html")
+    site.browser(
+        "plain.html",
+        requests=[
+            {
+                "url": "https://fonts.googleapis.com/css?family=Google+Sans+Text:400",
+                "resource_type": "stylesheet",
+                "origin": "iframe",
+            },
+            {
+                "url": "https://assets.squarespace.com/scripts/async-reserved-cart-bootstrap-x.js",
+                "resource_type": "script",
+                "origin": "main",
+            },
+        ],
+    )
+    found = site.match(index).technologies()
+    assert "Google Font API" not in found
+    assert "Bootstrap" not in found
+
+
 def test_dns_tiers_and_certificate_rule(index: RuleIndex, tmp_path: Path) -> None:
     site = Site(tmp_path, "mail.example").static("plain.html")
     site.dns(

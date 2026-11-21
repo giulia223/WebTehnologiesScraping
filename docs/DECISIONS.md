@@ -320,6 +320,7 @@ Template:
   - Each technology result lists its pattern groups with `match_count`, the artifacts they matched in, and up to 3 example matches, preferring different places.
   - On 60 of the collected domains (900 technology results: 890 at 100, 2 at 50, 8 at 0), counting each pattern once changed no confidence compared with Wappalyzer's every-match sum: almost every pattern is already worth 100. The rule matters only for weak patterns, which are rare in the rule set (about 200 of 15,838).
   - Rule authors use `confidence:0` for hints they do not trust alone; such a technology stays at 0 unless another clue adds to it, and is still reported (the confidence threshold defaults to 0).
+  - **Noisy-OR measured (2026-11-20, EXPERIMENTS run 2c), sum kept:** on all 200 domains, noisy-OR changed 1 confidence of 2,827 detections (AccessiBe on one site, two 50 hints: 100 -> 75). Counts, precision and recall are identical at thresholds 0, 50 and 80. With almost every pattern worth 100 the formula hardly matters, so the simpler Wappalyzer formula stays.
 
 ## D-017 Relations between technologies: Wappalyzer's implies, excludes and requires, in its order
 - **Date:** 2026-11-19
@@ -440,3 +441,111 @@ Template:
 - **Decision:** keep 0.
 - **Why:** 332 of the 334 judged detections have confidence 100 (precision 90%, 299/332). Only 2 are below 50, both wrong (Lodash at confidence 0, really Underscore): a threshold would remove them, but 2 cases are not a measurement, and recall is the same at 0, 50 and 80. Most false positives are at confidence 100, from rules that match the wrong thing (gtag.js read as Google Tag Manager, a hosted platform's infrastructure, a mention in a header); a threshold cannot fix those, fixing the rules can.
 - **Consequences:** the 2 low-confidence false positives stay counted until the Lodash / Underscore rule is fixed. To be measured again once more labels exist.
+
+## D-025 A hosted platform's infrastructure is reported apart (group `platform_infra`)
+- **Date:** 2026-11-20
+- **Context:** D-022 decided that on a site built with a hosted website builder, the platform's servers, CDN, storage, bot protection, certificate and own tracking are not the site's. The detector still put them in core: 16 of the 35 false positives on the labelled domains (`docs/FAILURES.md`, detection failures).
+- **Options considered:**
+  - (A) Move them to a separate group, reported with their evidence, never counted as the site's.
+  - (B) Drop them from the output.
+  - (C) Change nothing until the rule work.
+- **Decision:** (A). In `detect`, after matching: if the site itself shows a hosted builder (Wix, Weebly, IONOS MyWebsite, Squarespace, Shopify, Webflow, GoDaddy Website Builder, Duda, WebNode, Square Online; seen in core, not only inferred), every core detection in an infrastructure category (CDN, PaaS, IaaS, Hosting, Web servers, Caching, SSL/TLS certificate authorities, Reverse proxies, Load balancers), every bot-protection product (named one by one, since their "Security" category also holds HSTS) and the platform's own tools (Wix's Sentry, Weebly's Snowplow, found reporting to the platform's servers) move to `platform_infra`, with a `platform` field. DNS detections stay (the domain's mail and name servers are the owner's choice), and page code the platform bundles stays (D-022).
+- **Why:** the facts are true and useful ("runs on Wix, which serves it through Cloudflare"), but they are not the company's purchases; a separate group keeps both.
+- **Consequences:**
+  - Name level: a technology counts in core if any site chose it itself; only a name seen solely as platform infrastructure (Snowplow Analytics) leaves core. `extended_total` leaves the group out; the summary lists it under `separately`.
+  - Metrics: the group is not a claim about the site, so it is left out of precision and recall and listed apart. All 16 labelled detections it moved were labelled "not the site's"; nothing labelled correct moved.
+  - On all 200 domains, 105 detections moved, on 29 sites (Wix 56 on 9 sites, Weebly 19, Webflow 9, Squarespace 6, Shopify 6, Duda 3, Square Online 3, IONOS 2, WebNode 1).
+  - Open edge, not labelled: a public library CDN (cdnjs, jsDelivr, jQuery CDN) on a Webflow or Shopify site may be the owner's own custom code rather than the platform's; 5 such detections moved. The eatbu.com restaurant builder (DISH) is not in the list, so its Adobe Analytics and Tag Manager, probably the platform's, still count.
+
+## D-026 Two matcher fixes found by checking false positives against Wappalyzer's behaviour
+- **Date:** 2026-11-20
+- **Context:** Before calling any of the 35 false positives a "bad rule", each was checked twice: is our copy of the pattern exactly what webappanalyzer says (yes, for all), and would Wappalyzer's own engine have matched the same input? For two cases the answer was no: the fault was ours.
+- **Options considered and decision:**
+  - **Visible text only.** `text` rules were tested on the whole body text, including the contents of `<script>` and `<style>`. Wappalyzer reads `document.body.innerText`, which never includes them. "DPD" (the courier) matched `.ot-dpd-desc`, a CSS class of a cookie banner. Now `<script>`, `<style>`, `<noscript>` and `<template>` are removed before reading the text (on a separate parse, so script tags stay for the `scriptSrc` rules).
+  - **A weaker detection does not exclude a stronger one.** Lodash and Underscore exclude each other, and both have a confidence-0 pattern on `_.VERSION` (a variable both libraries define). Lodash's 0 removed Underscore even where Underscore was seen loading its own file (confidence 100). Now an exclusion applies only if the excluding technology's confidence is at least the excluded one's. This differs from Wappalyzer, which excludes by order alone; on a tie, order still decides.
+- **Why:** the first is a port bug (we read more than Wappalyzer did); the second lets a hint its author marked "not proof alone" overrule real proof.
+- **Consequences:** on all 200 domains, "DPD" disappeared from one site and Lodash became Underscore.js on 8 (EXPERIMENTS run 3b). A tie at confidence 0 (only `_.VERSION` seen) still reports whichever rule comes first.
+
+## D-027 Corrections to upstream rules: one pattern or link at a time, reviewed by a person
+- **Date:** 2026-11-20
+- **Context:** Some false positives come from an upstream pattern that is too broad even by Wappalyzer's own standard (it fires on every Wix or Weebly site), or from evidence `docs/DEFINITIONS.md` rules out (another company's infrastructure). The upstream copy is pinned and never edited, and custom rules can only add patterns, never remove one.
+- **Options considered:**
+  - (A) A `fingerprints/corrections/` folder: each entry removes one named pattern (field, key and the pattern exactly as upstream wrote it) or one `implies` link from one technology, with a reason and the real example that proves it. Applied only when marked `reviewed_by: human`; a correction that no longer matches anything is listed by `techdetect rules` and fails a test, never ignored. The rule-set version gains `+corrections:<hash>`.
+  - (B) Edit the upstream files: quick, but our changes could no longer be told apart from upstream.
+  - (C) A deny-list in `detect` by technology name: too blunt (Google Tag Manager's real `gtm.js` and `gtag.js` share a name).
+- **Decision:** (A). Before writing any correction, each false positive was checked against Wappalyzer's own behaviour: 2 were our matcher's fault and fixed in the matcher instead (D-026), and 9 follow Wappalyzer's looser reading on purpose (`docs/DEFINITIONS.md`, "How strict"); only the rest became corrections.
+- **Why:** the technology list stays Wappalyzer's; only a proven-wrong clue is switched off, visibly and reversibly.
+- **Consequences:** 6 corrections written from the labelled examples: WebsiteBuilder (generic generator text, matches Wix's), Store Vantage (`svSession`, Wix's session cookie), Vimeo (`VimeoPlayer`, a class in Weebly's bundle), MyWebsite Creator (`mywebsite-editor.com`, shared with IONOS's older builder; also stops the Duda inferred from it), cdnjs -> Cloudflare, Amazon S3 from security-policy headers. Previewed on all 200 domains: 25 detections disappear (8 WebsiteBuilder and 8 Store Vantage, all on Wix sites; 3 Vimeo, all on Weebly sites, real Vimeo embeds stay; 3 Cloudflare from cdnjs; 1 MyWebsite Creator; 1 Duda; 1 Amazon S3); unique core 343 -> 341.
+  - All 6 reviewed and applied, plus a 7th found by the label re-check: Apple iCloud Mail's unanchored `apple-domain` also matches `apple-domain-verification=`, Apple's business-account check (all 5 such detections in the 200 domains); iCloud mail is still found by its MX records. EXPERIMENTS run 3c: 30 detections removed.
+  - An 8th waits: Wix eCommerce's `wixstores` pattern fires on any Wix site with Wix's built-in checkout (Bookings sites too). Removing it alone would lose the 3 real stores, so it is paired with a stricter candidate rule (the installed-app list names "Wix Stores"), which needs a person's acceptance before either applies. Previewed together: Wix eCommerce stays on exactly the 3 stores. Accepted and applied (run 3d).
+  - The labels were re-checked by a separate reviewer against `docs/DEFINITIONS.md` after its "How strict" section was added: 6 wrong -> correct, 3 -> wrong (inferences through a hosting supplier or a hosted builder: AWS from Acquia, PHP and MySQL from Weebly). Each changed label keeps its previous verdict; labels of detections that no longer exist are kept as retired.
+
+## D-028 Network requests: only the page's own stylesheets are matched, not scripts or frames
+- **Date:** 2026-11-20
+- **Context:** Two blind-set misses were in `browser.json` but not where the rules look: Google Fonts pulled in by a CSS `@import` (no `<link>` tag) and Google Maps loaded inside a map frame (no `<script>` tag in the page). The rules were written for the tags a site puts in its HTML, as Wappalyzer matched them.
+- **Options considered** (each previewed on all 200 domains before deciding):
+  - (A) Test `link[href*=...]` rules on the stylesheets the page itself requested: 6 additions, all Google Fonts, all plausible.
+  - (B) A, plus `scriptSrc` rules on every script request, frames included: 54 more, mostly wrong. Files that scripts load later have generated names that collide with library names ("Onsen UI" from a Wix chunk named `consentPolicy` on 7 Wix sites, "Bootstrap" from Squarespace's `async-reserved-cart-bootstrap` on 6, "RequireJS" from `form-required.js`), and frames hold other companies' code (YouTube's ad script read as DoubleClick Floodlight on 6 sites, a weather widget's AngularJS, Google's own font inside the Maps frame).
+  - (C) Nothing.
+- **Decision:** (A).
+- **Why:** a stylesheet the page requests is the site's choice whichever way it was loaded; script requests and frames add far more noise than findings.
+- **Consequences:** EXPERIMENTS run 3e: 6 Google Font API added, recall 65% -> 66% (75/113). Google Maps inside a frame stays a miss. A request's `origin` (main page or frame) is what tells them apart, so this works only on browser data.
+
+## D-029 Name check: one judged example for every core technology name
+- **Date:** 2026-11-20
+- **Context:** The headline is a count of technology **names** (341 core in run 3e). Precision was measured on every detection of 20 labelled domains, but those domains contain only 128 of the 341 names; the other 213 had never been looked at by anyone. Rare names are where faulty rules hide: 140 of them were on one site only, and one example found while counting (Livefyre from a global `L.version = "1.5.1+HEAD..."`, which looks like Leaflet's `L`) had the same shape as an earlier false positive (Lodash from Underscore's `_.VERSION`).
+- **Options considered:**
+  - (A) Judge every detection of every unchecked name, on all its sites: proves every site, far too slow for the time left.
+  - (B) One example per unchecked name: proves the name is really used by at least one site in the list, which is what the headline claims.
+  - (C) Label more random domains: improves per-detection precision, but leaves most rare names unchecked.
+- **Decision:** (B). The example site is drawn at random with `random.Random(f"20261120:{name}")`: the seed is combined with the name, so a name's pick does not change when other names appear or disappear after a rule correction. A name counts as already checked when it has a verdict on a labelled domain in any group (for example PHP judged as inferred), and only if that detection still exists. Verdicts come from reviewer agents separate from the tool's author, following `docs/DEFINITIONS.md`, from the evidence and the saved raw data; a second reviewer agent then re-judges every `wrong` verdict and 10 others drawn with the same seed, blind to the first verdicts (first planned as a check by the tool's author; changed on 2026-11-21 because judging these needs product knowledge the author does not have). Where the two reviewers disagree, the name counts as unsure, so a disagreement can only lower the headline.
+- **Why:** it checks exactly the claim being presented (a list of names), at a cost of one judgement per name; the second reviewer's agreement rate measures how consistent the verdicts are (not whether a human agrees: both reviewers are agents).
+- **Consequences:** `scripts/name_check.py` (sheet / merge / spot-check / report), `data/name_check.json` (the sheet with verdicts), `docs/NAME_CHECK.md` (generated). The report states the limit: a name on 5 sites has 1 checked. A wrong name is first checked on its other sites (the rule may be wrong everywhere), then corrected through `fingerprints/corrections/` (D-027) or listed as a known false positive.
+
+## D-030 Fixes from the name check: more hosted platforms, four broad patterns switched off
+- **Date:** 2026-11-21
+- **Context:** The name check (D-029) judged 30 of 213 names wrong. Two causes cost the most: hosted builders missing from the platform list (their own servers and tracking credited to the site: 10 names), and upstream patterns matching any file whose name contains a short word (Lightbox on 14 sites, parallax.js on 11, Stimulus on 8, Onsen UI on 3).
+- **Options considered:**
+  - (A) Fix only these two causes, the ones that remove the most wrong detections; list the other wrong names as known false positives.
+  - (B) Fix every wrong name: about 20 more one-off corrections, each needing its own preview and review, for names mostly on 1 site.
+  - (C) Fix nothing, report 86% name-level precision.
+- **Decision:** (A).
+  - Platform list (D-025): add DISH (restaurant sites on `*.eatbu.com`) and Bandzoogle (musicians' sites) as hosted builders; add each platform's own tools: Wix's Firebase (the Wix Chat frame talks to `wix-engage-visitors-*.firebaseio.com`, on all 4 Wix sites with Firebase), Square Online's Datadog (reports as `spi-ecom-square-online-buyer-journey`), DISH's Adobe stack (its template's data layer says `DISH WEBSITE B2C`), Bandzoogle's Ruby on Rails. Bandzoogle had no rule: a reviewed custom rule on its asset host `bndzgl.com/assets/usersite` (also seen: name servers `sitezoogle.com`, images from `zoogletools.com`).
+  - Corrections (D-027): Lightbox's script and stylesheet patterns (any `lightbox` file name: Elementor, OceanWP, GLightbox, AMP, GoDaddy, Avada), replaced by a reviewed custom rule on Lightbox2's own file names after a slash; both parallax.js script patterns (every theme ships a `parallax.js`; the library's own variables were on none of the 11 sites); Stimulus's `data-controller` HTML pattern (Squarespace, Bandzoogle and Shopware use the attribute for their own code); Onsen UI's script pattern (matched `onsen` inside `consent`), replaced by a reviewed custom rule on Onsen UI's own file names. Each product's other rules (its JS variables, its own files) stay.
+- **Why:** these two causes are systematic: each fix removes a whole class of wrong detections on every site, not one example. The rest are mostly single-site cases better reported than patched under time pressure.
+- **Consequences:** EXPERIMENTS run 4b: previewed on all 200 domains, then applied after the human's approval: 34 detections removed, 14 moved to `platform_infra`, Bandzoogle added; unique core 341 -> 332. Lightbox stays on 2 sites (one, inside the Breakdance builder, is not certainly Lightbox2). Trade-off: an owner who adds Firebase on Wix or Datadog on Square Online themselves is now moved to the platform's group too. Still wrong and listed in `docs/NAME_CHECK.md`: about 18 names, among them Livefyre (Leaflet's `L`), Facebook Login (any Facebook SDK), placeholder variables from the Usercentrics consent blocker (Bitmovin, wetter.com), ZURB Foundation (Gravity Forms' stylesheet), eWAY (a host name ending in `eway.com`).
+
+## D-031 Ablation: a cumulative table, detection re-run for each set of steps
+- **Date:** 2026-11-21
+- **Context:** The scaling answer depends on what the expensive browser step buys compared with the cheap static fetch. Every piece of evidence records the artifact it came from, so the comparison can be made offline on the saved data, with no new crawl.
+- **Options considered:**
+  - (A) A cumulative table: static, then + browser, then + DNS. Answers "what does adding X buy", in the order a tiered crawler would add steps.
+  - (B) A plus leave-one-out rows (the full system minus one step at a time): order-independent, but twice the rows and a harder table to read.
+  - (C) Filter the full output by evidence artifact instead of re-running detection: faster, but wrong. Implies, excludes and requires depend on everything else found (React implied by a Next.js seen only in the browser would wrongly stay in the static row).
+- **Decision:** (A), with detection re-run for each row (not C). The certificate and robots.txt sit in the static row: they cost one plain request each, like the page. The domain's status and redirect always come from both fetches, so every row counts the same domains and only the evidence differs; the report states how many pages each fetch could read on its own.
+- **Why:** it answers the one question the scaling design needs (static vs browser), with the same engine, rules and labels as the headline, and checks itself: the last row must equal `summary.json`.
+- **Consequences:** `techdetect evaluate ablation` writes `docs/ABLATION.md` and `data/output/ablation.json`; `match_domain` and `detect_all` take an optional set of allowed sources (default: all, so normal detection is unchanged; a test checks the full row equals normal detection). Cost is wall time per domain from the collect run log; CPU and memory per browser were not measured. EXPERIMENTS run 5: the browser adds 116 of 332 core names (+54% over the static row) for 2.8x the per-domain time.
+
+## D-032 Static+: URLs inside inline scripts, tier "declared", the browser as referee
+- **Date:** 2026-11-21
+- **Context:** At scale the browser is the expensive step, and it is what finds most trackers (D-031: it adds 116 of 332 core names). Many trackers are installed by a small inline loader snippet whose text contains the script URL (`'https://static.hotjar.com/c/hotjar-'`, `'//www.google-analytics.com/analytics.js'`). Those URLs are already in the plain HTML; the browser only runs them. Could reading them replace part of the browser, at no extra cost?
+- **Options considered:**
+  - (A) Match the existing script-URL rules (scriptSrc on the URL, xhr on its host) against URLs found inside inline `<script>` blocks of `static.html`. Data blocks (`application/ld+json` and other non-JavaScript types) are skipped: they list links and settings, not scripts.
+  - (B) A, plus fetching the Google Tag Manager container and the site's own JS bundles over plain HTTP. Finds more, but is a new collection step; kept as an idea.
+  - Tier of these detections: `declared` (the site's code names the script, nothing was seen running) or `observed` (like a `<script src>` tag).
+- **Decision:** (A), behind a flag (`detect --inline-urls`, off by default, recorded in `summary.json`), measured as a "static+" row in the ablation. Tier `declared` (chosen by the human). The browser data we already have is the referee: an addition is **confirmed** if the browser requested a URL that the same rule matches; the rest are judged by a separate reviewer.
+- **Why:** it costs no request, so it is the cheapest possible substitute for the browser; the browser referee measures its precision on all 200 domains without hand labels.
+- **Consequences:** EXPERIMENTS run 6. The evidence key is `inline script URL`; like the stylesheet-request key (D-028), a pattern found both as a tag and inline forms two groups, harmless because nearly every script-URL pattern is worth 100. The referee ignores `data:` and `blob:` URLs (page-made, possibly megabytes long, which hung an early run) and uses the matcher's per-search regex timeout.
+
+## D-033 Lead list: one row of facts per domain, no score
+- **Date:** 2026-11-21
+- **Context:** The client is a company selling a Shopify analytics plugin; its salespeople want sites to contact. The run found only 2 Shopify stores among 154 working sites, 24 shops on other platforms, and 73 sites with at least one analytics or marketing tool. Decision F8.1 already rules out labelling any product a competitor.
+- **Options considered:**
+  - (A) Tiers: Shopify store, shop on another platform (migration prospect), no shop; within a tier, more analytics tools first.
+  - (B) Points: weights for Shopify, other shop, each analytics tool.
+  - (C) No score: facts only, the salesperson sorts and filters.
+  - For the tools: list only an "analytics / marketing" subset of categories, or every technology found.
+- **Decision:** (C), with every core technology listed, no category filter (both chosen by the human). `data/output/leads.csv` has one row per input domain: status, a note in plain words (not reachable, bot check, parked, placeholder, redirect), Shopify yes/no with its first piece of evidence, every core technology, the ones only the browser saw, and the DNS-only facts (mail provider, verification tokens).
+- **Why:** any weighting would be a guess about the client's sales priorities that this project cannot check; the facts with their proof are what the tool can stand behind, and a spreadsheet sorts and filters them in seconds.
+- **Consequences:** `techdetect report` writes the file (it was the last stub command). Rows stay in input order; the 3 domains that redirect to another company's site are listed last with "redirects to <target>" and no technologies, and parked or placeholder pages have none either, since what was found there is not the owner's. Inferred-only technologies and themes are not listed (same as the headline core count). The `only_seen_by_browser` column measures H7 (EXPERIMENTS): too few Shopify stores to test it, but 42% of the common trackers' detections on all sites needed the browser.
+

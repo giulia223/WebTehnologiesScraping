@@ -1,0 +1,157 @@
+{
+  "WebsiteBuilder": {
+    "remove": [
+      {
+        "field": "meta",
+        "key": "generator",
+        "pattern": "^[\\w\\s.&-]{0,40}\\bWebsite Builder$"
+      }
+    ],
+    "reason": "The generic generator pattern matches any builder whose generator text ends in 'Website Builder', including Wix's own ('Wix.com Website Builder'). The product's own marker (the mywebsitebuilder.com data proxy) stays.",
+    "example": "appelpsychotherapy.com: generator 'Wix.com Website Builder' on a Wix site; the pattern fired on 8 of the 200 domains, mostly Wix sites.",
+    "reviewed_by": "human"
+  },
+  "Store Vantage": {
+    "remove": [
+      {
+        "field": "cookies",
+        "key": "svSession",
+        "pattern": ""
+      }
+    ],
+    "reason": "svSession is Wix's own visitor-session cookie, set on every Wix site. The product's own cookie (storevantage) and variable stay.",
+    "example": "appelpsychotherapy.com: only the svSession cookie, on a Wix site.",
+    "reviewed_by": "human"
+  },
+  "Vimeo": {
+    "remove": [
+      {
+        "field": "js",
+        "key": "VimeoPlayer",
+        "pattern": ""
+      }
+    ],
+    "reason": "Weebly's own script bundle defines a wrapper class named VimeoPlayer on every Weebly site, with no Vimeo video. Vimeo's own player (Vimeo.Player) and embeds stay.",
+    "example": "5rcircleprocess.weebly.com: VimeoPlayer from Weebly's main.js; no Vimeo iframe, embed or request.",
+    "reviewed_by": "human"
+  },
+  "MyWebsite Creator": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "mywebsite-editor\\.com"
+      }
+    ],
+    "reason": "IONOS's older MyWebsite (a Jimdo-based builder) loads scripts from the same mywebsite-editor.com host, so the host alone does not mean MyWebsite Creator (Duda-based). The removal also stops the false Duda inferred from it. Creator's own host (website-editor.net) stays.",
+    "example": "massageforworldpeace.com: generator 'IONOS MyWebsite', Jimdo globals (jimdoData, diy), no Duda marker.",
+    "reviewed_by": "human"
+  },
+  "cdnjs": {
+    "remove_implies": [
+      "Cloudflare"
+    ],
+    "reason": "Loading a file from cdnjs (a free public CDN run by Cloudflare) does not make the site Cloudflare's customer (docs/DEFINITIONS.md: another company's infrastructure). cdnjs itself is still reported.",
+    "example": "loizillon.com and insieme.stanford.edu: Font Awesome from cdnjs; the sites' own responses carry no Cloudflare header.",
+    "reviewed_by": "human"
+  },
+  "Amazon S3": {
+    "remove": [
+      {
+        "field": "headers",
+        "key": "Content-Security-Policy",
+        "pattern": "s3[^ ]*amazonaws\\.com"
+      },
+      {
+        "field": "headers",
+        "key": "Content-Security-Policy-Report-Only",
+        "pattern": "s3[^ ]*\\.amazonaws\\.com"
+      }
+    ],
+    "reason": "A security-policy header lists hosts the page may load from; an S3 bucket there usually belongs to a vendor, not to the site (docs/DEFINITIONS.md: another company's infrastructure). S3 seen serving the site's own files (server: AmazonS3, x-amz headers, script URLs) stays.",
+    "example": "footasylum.com: 'delight-s3-bucket...amazonaws.com' only in content-security-policy; no request to S3.",
+    "reviewed_by": "human"
+  },
+  "Apple iCloud Mail": {
+    "remove": [
+      {
+        "field": "dns",
+        "key": "TXT",
+        "pattern": "apple-domain"
+      }
+    ],
+    "reason": "The unanchored text 'apple-domain' also matches 'apple-domain-verification=', Apple's business-account domain check, which says nothing about mail. iCloud mail stays detected by its MX records (mail.icloud.com) and its 'redirect=icloud.com' record.",
+    "example": "footasylum.com: TXT 'apple-domain-verification=...', mail on Mimecast. All 5 detections in the 200 domains were this record; none had iCloud MX.",
+    "reviewed_by": "human"
+  },
+  "Wix eCommerce": {
+    "remove": [
+      {
+        "field": "dom",
+        "key": "#wix-viewer-model",
+        "pattern": "wixstores"
+      }
+    ],
+    "reason": "Wix's page data names 'wixstores' widgets on any Wix site with the built-in checkout (for example Wix Bookings), store or not. Replaced by the candidate rule that requires the installed 'Wix Stores' app; apply both together.",
+    "example": "appelpsychotherapy.com and gitesducharmois.fr: Bookings sites, no 'Wix Stores' app. The 3 real stores (broganlmt.com, radxmobile.com, northshoremacnut.com) list 'Wix Stores'.",
+    "reviewed_by": "human"
+  },
+  "Lightbox": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "lightbox(?:-plus-jquery)?.{0,32}\\.js"
+      },
+      {
+        "field": "dom",
+        "key": "link[href*='lightbox']",
+        "pattern": "/lightbox(?:\\.min)?\\.css"
+      }
+    ],
+    "reason": "Both patterns match any file whose name contains 'lightbox', so other products' lightboxes are read as Lightbox (Lokesh Dhakar's Lightbox2): Elementor's lightbox chunk and stylesheet, OceanWP's ow-lightbox, GLightbox, AMP's amp-auto-lightbox, GoDaddy's renderLightbox, Avada's fusion-lightbox. The JS rules stay, and a stricter file-name rule (candidate in fingerprints/candidates/name_check.json) replaces the script pattern.",
+    "example": "avocatalinamanciu.ro: oceanwp/assets/js/ow-lightbox.min.js; katesworldtravel.com: elementor/assets/js/chunks/lightbox-lightbox.min.js and elementor/assets/css/conditionals/lightbox.min.css. 14 sites in run 3e, 2 left by the stricter rule.",
+    "reviewed_by": "human"
+  },
+  "parallax.js": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "parallax(?:\\/assets\\/js)?(?:\\/jquery)?(?:\\/scripts)?(?:\\/wow)?(?:[_\\.]move)?(?:\\.inview)?(?:\\.pkgd)?(?:\\.scrolling)?(?:\\.min)?\\.js(?:\\?v(?:er)?=((?:\\d+\\.)+\\d+))?\\;version:\\1"
+      },
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "(?:((?:\\d+\\.)+\\d+)\\/)?parallax(?:\\/assets\\/js)?(?:\\/jquery)?(?:\\/scripts)?(?:\\/wow)?(?:[_\\.]move)?(?:\\.inview)?(?:\\.pkgd)?(?:\\.scrolling)?(?:\\.min)?\\.js\\;version:\\1"
+      }
+    ],
+    "reason": "Both patterns match any file ending in 'parallax.js', and almost every theme, builder and platform ships its own parallax script under that name. On none of the 11 sites did the library's own variables (parallax, parallaxInstance) exist. The JS rules stay.",
+    "example": "skywardspeech.com.au: Avada's fusion-parallax.js; 6 Squarespace sites: Squarespace's imageFluid component parallax.js; unitedveterinaryservice.com: bt_parallax.js; 2agateway.com: BricksExtras' parallax.js.",
+    "reviewed_by": "human"
+  },
+  "Stimulus": {
+    "remove": [
+      {
+        "field": "html",
+        "key": null,
+        "pattern": "<[^>]+data-controller"
+      }
+    ],
+    "reason": "data-controller is a generic attribute name: Squarespace, Bandzoogle and Shopware use it for their own controllers, so it does not show Stimulus. The JS rules (Stimulus.Application) and the stimulus-bundle script rule stay.",
+    "example": "thomasrosenbaum.com (Squarespace 7.1): data-controller=\"Header\" and \"SectionWrapperController\", no Stimulus global, the word 'stimulus' nowhere. 8 sites in run 3e: 6 Squarespace, 1 Bandzoogle, 1 Shopware.",
+    "reviewed_by": "human"
+  },
+  "Onsen UI": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "(/.*onsen.*min\\.js|.*angular-onsenui\\.min\\.js)"
+      }
+    ],
+    "reason": "The first half matches 'onsen' anywhere in a script path, including the word 'consent'. A stricter rule on Onsen UI's own file names (candidate in fingerprints/candidates/name_check.json) replaces it.",
+    "example": "gapconstructionwi.com, needaphysio.com, trs-energycontrol.de (Wix): static.parastorage.com/services/cookie-consent-banner-for-uou/.../app.bundle.min.js.",
+    "reviewed_by": "human"
+  }
+}

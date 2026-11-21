@@ -10,7 +10,6 @@ from techdetect.config import Config
 
 runner = CliRunner()
 COMMANDS = ["collect", "rules", "detect", "evaluate", "report"]
-STUBS = ["report"]
 
 
 def test_help_lists_all_commands() -> None:
@@ -25,13 +24,6 @@ def tiny_input(tmp_path: Path) -> Path:
     path = tmp_path / "domains.txt"
     path.write_text("example.com\n", encoding="utf-8")
     return path
-
-
-@pytest.mark.parametrize("command", STUBS)
-def test_stub_exits_with_error(command: str) -> None:
-    result = runner.invoke(app, [command])
-    assert result.exit_code == 1
-    assert "not implemented yet" in result.output
 
 
 def test_config_defaults() -> None:

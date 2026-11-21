@@ -40,7 +40,14 @@ def _excludes(resolved: dict[str, TechnologyResult], ruleset: RuleSet) -> dict[s
         if name not in resolved:
             continue  # already removed by an earlier technology: it excludes nothing
         for target in ruleset.technologies[name].excludes:
-            if target != name and target in resolved:
+            # One change from Wappalyzer: a weaker detection never removes a stronger one.
+            # Lodash's confidence-0 hint (`_.VERSION`, shared with Underscore) must not
+            # remove Underscore seen loading its own file at confidence 100.
+            if (
+                target != name
+                and target in resolved
+                and resolved[target].confidence <= resolved[name].confidence
+            ):
                 del resolved[target]
                 excluded[target] = name
     return excluded

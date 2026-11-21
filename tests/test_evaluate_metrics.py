@@ -149,3 +149,17 @@ def test_headline_numbers_and_report_lists_every_false_positive() -> None:
     assert "| blind.com | Own CMS | no rule |" in report
     assert "too few to measure" in report  # 4 judged detections per group at most
     assert "Warning:" in report
+
+
+def test_platform_infrastructure_is_left_out_of_precision_and_listed() -> None:
+    gt = ground_truth()
+    gt["domains"]["review.com"]["verdicts"]["Cloudflare"] = verdict("wrong", "Wix's CDN")
+    data = lines()
+    data["review.com"]["technologies"].append(tech("Cloudflare", group="platform_infra"))
+
+    m = compute(gt, data)
+    assert m["headline"][0]["precision"] == [3, 4]  # unchanged: not a claim about the site
+    assert m["platform_infra"] == [
+        {"domain": "review.com", "technology": "Cloudflare", "verdict": "wrong"}
+    ]
+    assert "Left out of precision:** 1 detections" in render(m)

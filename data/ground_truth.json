@@ -1255,12 +1255,17 @@
           "tier": "observed"
         },
         "Google Tag Manager": {
-          "verdict": "wrong",
-          "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container.",
-          "at": "2026-11-20T13:52:34Z",
+          "verdict": "correct",
+          "note": "The page loads the Google tag googletagmanager.com/gtag/js?id=G-HCJ5MXKWJ2 and the google_tag_manager/google_tag_data globals exist; DEFINITIONS 'How strict' counts GTM from gtag.js because the site added Google's tag.",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "core",
-          "tier": "observed"
+          "tier": "observed",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "wrong",
+            "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container."
+          }
         },
         "HSTS": {
           "verdict": "correct",
@@ -1373,19 +1378,22 @@
           "confidence": 100,
           "group": "core",
           "tier": "observed"
-        },
+        }
+      },
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "works (the site of the auction house \"Acteon - Compiegne Encheres\", in French)",
+      "retired_verdicts": {
         "Cloudflare": {
           "verdict": "wrong",
           "note": "Inferred from cdnjs only; the site's own responses have no Cloudflare headers (no server: cloudflare, no cf-ray), cdnjs is a third-party CDN that runs on Cloudflare.",
           "at": "2026-11-20T13:52:34Z",
           "confidence": 100,
           "group": "inferred_only",
-          "tier": "inferred"
+          "tier": "inferred",
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
         }
-      },
-      "missed": [],
-      "human_found_saved_at": "2026-11-20T12:54:44Z",
-      "site_status_label": "works (the site of the auction house \"Acteon - Compiegne Encheres\", in French)"
+      }
     },
     "seringa-safaris.com": {
       "human_found": [
@@ -1546,12 +1554,17 @@
           "tier": "observed"
         },
         "Google Tag Manager": {
-          "verdict": "wrong",
-          "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container.",
-          "at": "2026-11-20T13:52:34Z",
+          "verdict": "correct",
+          "note": "rendered.html loads googletagmanager.com/gtag/js?id=G-3E8YXZ8CD1 and browser.json has the google_tag_manager/google_tag_data globals; DEFINITIONS 'How strict' counts GTM from gtag.js.",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "core",
-          "tier": "observed"
+          "tier": "observed",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "wrong",
+            "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container."
+          }
         },
         "Open Graph": {
           "verdict": "correct",
@@ -1724,14 +1737,6 @@
           "group": "core",
           "tier": "declared"
         },
-        "MyWebsite Creator": {
-          "verdict": "wrong",
-          "note": "Matched only the editor host mywebsite-editor.com, which this Jimdo-based IONOS MyWebsite (globals diy, diysdk, jimdoData) also uses; nothing shows the separate Duda-based MyWebsite Creator product.",
-          "at": "2026-11-20T13:52:34Z",
-          "confidence": 100,
-          "group": "core",
-          "tier": "observed"
-        },
         "Open Graph": {
           "verdict": "correct",
           "note": "meta property=\"og:type\" present in the page.",
@@ -1773,6 +1778,20 @@
           "confidence": 100,
           "group": "core",
           "tier": "observed"
+        }
+      },
+      "missed": [],
+      "human_found_saved_at": "2026-11-20T12:54:44Z",
+      "site_status_label": "works",
+      "retired_verdicts": {
+        "MyWebsite Creator": {
+          "verdict": "wrong",
+          "note": "Matched only the editor host mywebsite-editor.com, which this Jimdo-based IONOS MyWebsite (globals diy, diysdk, jimdoData) also uses; nothing shows the separate Duda-based MyWebsite Creator product.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
         },
         "Duda": {
           "verdict": "wrong",
@@ -1780,12 +1799,10 @@
           "at": "2026-11-20T13:52:34Z",
           "confidence": 100,
           "group": "inferred_only",
-          "tier": "inferred"
+          "tier": "inferred",
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
         }
-      },
-      "missed": [],
-      "human_found_saved_at": "2026-11-20T12:54:44Z",
-      "site_status_label": "works"
+      }
     },
     "nevsproductions.com": {
       "human_found": [
@@ -2134,12 +2151,17 @@
           "tier": "observed"
         },
         "Google Tag Manager": {
-          "verdict": "wrong",
-          "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container.",
-          "at": "2026-11-20T13:52:34Z",
+          "verdict": "correct",
+          "note": "rendered.html loads googletagmanager.com/gtag/js for G-S4YD61CZTN and AW-17813400584 and the google_tag_manager global exists; DEFINITIONS 'How strict' counts GTM from gtag.js.",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "core",
-          "tier": "observed"
+          "tier": "observed",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "wrong",
+            "note": "Only gtag.js (googletagmanager.com/gtag/js?id=G-...) is loaded and no GTM- container ID appears anywhere in the saved data; the google_tag_manager/google_tag_data globals are created by gtag.js itself, so this is Google Analytics, not a Tag Manager container."
+          }
         },
         "Google Workspace": {
           "verdict": "correct",
@@ -2225,14 +2247,6 @@
           "original_verdict": "correct",
           "original_note": "Scripts from browser.sentry-cdn.com/7.120.3 loaded and Sentry.SDK_VERSION = 7.120.3."
         },
-        "Store Vantage": {
-          "verdict": "wrong",
-          "note": "Matched only the cookie svSession, which is Wix's own session cookie; nothing else points to Store Vantage on this Wix site.",
-          "at": "2026-11-20T13:52:34Z",
-          "confidence": 100,
-          "group": "core",
-          "tier": "observed"
-        },
         "Varnish": {
           "verdict": "wrong",
           "note": "Changed to wrong by the hosted-platform rule in docs/DEFINITIONS.md: the Wix platform's infrastructure, not chosen by the site's owner.",
@@ -2243,25 +2257,9 @@
           "original_verdict": "correct",
           "original_note": "Main document header server-timing names varnish (varnish;desc=miss_hit) and x-varnish appears on same-host responses."
         },
-        "WebsiteBuilder": {
-          "verdict": "wrong",
-          "note": "The generic pattern matched meta generator 'Wix.com Website Builder'; the site is Wix, not the WebsiteBuilder product.",
-          "at": "2026-11-20T13:52:34Z",
-          "confidence": 100,
-          "group": "core",
-          "tier": "declared"
-        },
         "Wix": {
           "verdict": "correct",
           "note": "Meta generator 'Wix.com Website Builder', x-wix-request-id headers and scripts from static.parastorage.com.",
-          "at": "2026-11-20T13:52:34Z",
-          "confidence": 100,
-          "group": "core",
-          "tier": "observed"
-        },
-        "Wix eCommerce": {
-          "verdict": "wrong",
-          "note": "Only the text 'wixstores' in the #wix-viewer-model JSON (app catalogue references such as wixstores-client-cart-ooi); no Wix Stores script is requested, so the store code is referenced but not loaded.",
           "at": "2026-11-20T13:52:34Z",
           "confidence": 100,
           "group": "core",
@@ -2270,7 +2268,41 @@
       },
       "missed": [],
       "human_found_saved_at": "2026-11-20T12:54:44Z",
-      "site_status_label": "works"
+      "site_status_label": "works",
+      "retired_verdicts": {
+        "Store Vantage": {
+          "verdict": "wrong",
+          "note": "Matched only the cookie svSession, which is Wix's own session cookie; nothing else points to Store Vantage on this Wix site.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
+        },
+        "WebsiteBuilder": {
+          "verdict": "wrong",
+          "note": "The generic pattern matched meta generator 'Wix.com Website Builder'; the site is Wix, not the WebsiteBuilder product.",
+          "at": "2026-11-20T13:52:34Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "declared",
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
+        },
+        "Wix eCommerce": {
+          "verdict": "wrong",
+          "note": "The 'wixstores' match is widget URLs in Wix's #wix-viewer-model data; the site's installed-app list has no 'Wix Stores' app, only the 'Checkout & Orders' component that comes with Wix Bookings (cart/checkout/my-orders pages, no shop or product page), and no Stores script is requested, so the online store is mentioned, not used.",
+          "at": "2026-11-20T16:50:47Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "wrong",
+            "note": "Only the text 'wixstores' in the #wix-viewer-model JSON (app catalogue references such as wixstores-client-cart-ooi); no Wix Stores script is requested, so the store code is referenced but not loaded."
+          },
+          "retired_because": "no longer detected after the Wix eCommerce correction and its stricter rule (run 3d)"
+        }
+      }
     },
     "1stlocksheathscouts.org.uk": {
       "human_found": [
@@ -2744,6 +2776,14 @@
           "confidence": 100,
           "group": "core",
           "tier": "observed"
+        },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "browser.json shows the main frame of www.rivithead.com loading the stylesheet fonts.googleapis.com/css2?family=Rajdhani (status 200, after the site's own CSS and scripts on images.rivithead.com), and the browser then requested the font file fonts.gstatic.com/s/rajdhani/...woff2, which the collector aborts by design because it blocks every font request.",
+          "at": "2026-11-20T17:07:15Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
         }
       },
       "missed": [],
@@ -3031,22 +3071,6 @@
           "group": "core",
           "tier": "observed"
         },
-        "Amazon S3": {
-          "verdict": "wrong",
-          "note": "Only a mention in the content-security-policy header (a third party's delight-s3-bucket.s3...amazonaws.com); no request to S3 was made.",
-          "at": "2026-11-20T13:55:36Z",
-          "confidence": 100,
-          "group": "core",
-          "tier": "observed"
-        },
-        "Apple iCloud Mail": {
-          "verdict": "wrong",
-          "note": "apple-domain-verification TXT is Apple's domain check (used e.g. for Apple Pay, which the site's permissions-policy references); MX records point to Mimecast, not iCloud.",
-          "at": "2026-11-20T13:55:36Z",
-          "confidence": 100,
-          "group": "dns_only",
-          "tier": "declared"
-        },
         "Atlassian Cloud": {
           "verdict": "correct",
           "note": "atlassian-domain-verification TXT record: the domain is verified in an Atlassian Cloud organisation.",
@@ -3074,14 +3098,6 @@
         "Cloudflare": {
           "verdict": "correct",
           "note": "server: cloudflare, cf-ray and cf-cache-status HIT on the www page response (Cloudflare sits behind Akamai).",
-          "at": "2026-11-20T13:55:36Z",
-          "confidence": 100,
-          "group": "core",
-          "tier": "observed"
-        },
-        "DPD": {
-          "verdict": "wrong",
-          "note": "The match is 'dpd' inside OneTrust's CSS class '.ot-dpd-desc', not the courier DPD.",
           "at": "2026-11-20T13:55:36Z",
           "confidence": 100,
           "group": "core",
@@ -3120,12 +3136,17 @@
           "tier": "observed"
         },
         "Klarna Checkout": {
-          "verdict": "wrong",
-          "note": "Only *.klarnaservices.com in the content-security-policy header (plus a klarna.svg payment logo); no Klarna script or request, and payments go through Adyen per permissions-policy.",
-          "at": "2026-11-20T13:55:36Z",
+          "verdict": "correct",
+          "note": "The site's own content-security-policy allows https://*.klarnaservices.com and https://*.klarna.com, the footer lists a Klarna logo among accepted payment methods, and the page config has show_pdp_pay_later_klarna:1, so the site allows Klarna on purpose.",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "core",
-          "tier": "observed"
+          "tier": "observed",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "wrong",
+            "note": "Only *.klarnaservices.com in the content-security-policy header (plus a klarna.svg payment logo); no Klarna script or request, and payments go through Adyen per permissions-policy."
+          }
         },
         "Meta": {
           "verdict": "correct",
@@ -3200,12 +3221,17 @@
           "tier": "observed"
         },
         "PayPal": {
-          "verdict": "wrong",
-          "note": "Only a self-hosted payment logo image (alt=\"PayPal\") in the footer; no PayPal script, iframe or request, and the page config even has \"paypal\":0.",
-          "at": "2026-11-20T13:55:36Z",
+          "verdict": "correct",
+          "note": "The footer's accepted-payment-methods list includes media.footasylum.com/payment-methods/with-bg/paypal.svg (alt=\"PayPal\") and the page config has show_pdp_pay_later_paypal:1 and paypal_threshold:30; the \"paypal\":0 value sits in a Monetate experiment block next to \"klarna\":0, not a payment switch.",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "core",
-          "tier": "observed"
+          "tier": "observed",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "wrong",
+            "note": "Only a self-hosted payment logo image (alt=\"PayPal\") in the footer; no PayPal script, iframe or request, and the page config even has \"paypal\":0."
+          }
         },
         "Priority Hints": {
           "verdict": "correct",
@@ -3264,7 +3290,41 @@
           "tier": "inferred"
         }
       },
-      "missed": []
+      "missed": [],
+      "retired_verdicts": {
+        "DPD": {
+          "verdict": "wrong",
+          "note": "The match is 'dpd' inside OneTrust's CSS class '.ot-dpd-desc', not the courier DPD.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "retired_because": "no longer detected after the matcher fixes (run 3b)"
+        },
+        "Amazon S3": {
+          "verdict": "wrong",
+          "note": "Only a mention in the content-security-policy header (a third party's delight-s3-bucket.s3...amazonaws.com); no request to S3 was made.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
+        },
+        "Apple iCloud Mail": {
+          "verdict": "wrong",
+          "note": "The TXT record is apple-domain-verification=..., Apple's business domain check (iCloud+ custom mail uses an apple-domain=... record plus iCloud MX); the token proves an Apple business account, not iCloud Mail, and MX is eu-smtp-inbound-1/2.mimecast.com with an SPF that names Mimecast, not icloud.com.",
+          "at": "2026-11-20T16:50:47Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "declared",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "wrong",
+            "note": "apple-domain-verification TXT is Apple's domain check (used e.g. for Apple Pay, which the site's permissions-policy references); MX records point to Mimecast, not iCloud."
+          },
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
+        }
+      }
     },
     "mehmetefendimacedonia.com": {
       "human_found": [],
@@ -3837,14 +3897,6 @@
           "group": "core",
           "tier": "observed"
         },
-        "Vimeo": {
-          "verdict": "wrong",
-          "note": "VimeoPlayer is a wrapper class in Weebly's main.js bundle; there is no Vimeo iframe, embed or request on the page.",
-          "at": "2026-11-20T13:55:36Z",
-          "confidence": 100,
-          "group": "core",
-          "tier": "observed"
-        },
         "Weebly": {
           "verdict": "correct",
           "note": "cdn2.editmysite.com Weebly site scripts loaded and _W.configDomain = www.weebly.com.",
@@ -3862,23 +3914,44 @@
           "tier": "observed"
         },
         "PHP": {
-          "verdict": "unsure",
-          "note": "Inferred from Weebly only; Weebly's server stack is not visible in the saved data (no PHP header or cookie).",
-          "at": "2026-11-20T13:55:36Z",
+          "verdict": "wrong",
+          "note": "Inferred only from Weebly; Weebly's server-side stack is the hosted platform's own choice, and DEFINITIONS say a technology that belongs to a platform, not to the site, is wrong (not merely unsure).",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "inferred_only",
-          "tier": "inferred"
+          "tier": "inferred",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "unsure",
+            "note": "Inferred from Weebly only; Weebly's server stack is not visible in the saved data (no PHP header or cookie)."
+          }
         },
         "MySQL": {
-          "verdict": "unsure",
-          "note": "Inferred from Weebly only; nothing in the saved data shows Weebly's database.",
-          "at": "2026-11-20T13:55:36Z",
+          "verdict": "wrong",
+          "note": "Inferred only from Weebly; the database behind a hosted builder is the platform's storage, which DEFINITIONS list as not the site's, so it is wrong rather than unsure.",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "inferred_only",
-          "tier": "inferred"
+          "tier": "inferred",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "unsure",
+            "note": "Inferred from Weebly only; nothing in the saved data shows Weebly's database."
+          }
         }
       },
-      "missed": []
+      "missed": [],
+      "retired_verdicts": {
+        "Vimeo": {
+          "verdict": "wrong",
+          "note": "VimeoPlayer is a wrapper class in Weebly's main.js bundle; there is no Vimeo iframe, embed or request on the page.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
+        }
+      }
     },
     "hoffmaninstitute.co.uk": {
       "human_found": [],
@@ -3984,14 +4057,6 @@
           "note": "tls.json shows the certificate issuer is Let's Encrypt.",
           "at": "2026-11-20T13:55:36Z",
           "confidence": 100,
-          "group": "core",
-          "tier": "observed"
-        },
-        "Lodash": {
-          "verdict": "wrong",
-          "note": "_.VERSION = 1.13.8 is Underscore.js (wp-includes/js/underscore.min.js?ver=1.13.8 was loaded); Lodash never had a 1.13.8 release, and Underscore was wrongly excluded in favour of Lodash.",
-          "at": "2026-11-20T13:55:36Z",
-          "confidence": 0,
           "group": "core",
           "tier": "observed"
         },
@@ -4114,9 +4179,37 @@
           "confidence": 100,
           "group": "inferred_only",
           "tier": "inferred"
+        },
+        "Underscore.js": {
+          "verdict": "correct",
+          "note": "browser.json shows wp-includes/js/underscore.min.js?ver=1.13.8 requested with status 200 and the global _.VERSION = 1.13.8 (an Underscore version) plus _.restArguments, so Underscore runs on the page.",
+          "at": "2026-11-20T16:50:47Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20"
+        },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "browser.json shows the main frame of hoffmaninstitute.co.uk loading fonts.googleapis.com/css2?family=Poppins...&family=Source+Serif+4 (status 200), and the browser then requested 7 Poppins font files from fonts.gstatic.com, which the collector aborted by design (fonts are blocked).",
+          "at": "2026-11-20T17:07:15Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
         }
       },
-      "missed": []
+      "missed": [],
+      "retired_verdicts": {
+        "Lodash": {
+          "verdict": "wrong",
+          "note": "_.VERSION = 1.13.8 is Underscore.js (wp-includes/js/underscore.min.js?ver=1.13.8 was loaded); Lodash never had a 1.13.8 release, and Underscore was wrongly excluded in favour of Lodash.",
+          "at": "2026-11-20T13:55:36Z",
+          "confidence": 0,
+          "group": "core",
+          "tier": "observed",
+          "retired_because": "no longer detected after the matcher fixes (run 3b)"
+        }
+      }
     },
     "insieme.stanford.edu": {
       "human_found": [],
@@ -4242,12 +4335,17 @@
           "tier": "observed"
         },
         "Amazon Web Services": {
-          "verdict": "correct",
-          "note": "Inferred from Acquia Cloud Platform, which is hosted on AWS.",
-          "at": "2026-11-20T13:55:36Z",
+          "verdict": "wrong",
+          "note": "Inferred only from Acquia Cloud Platform: Stanford chose Acquia (its hosting company, which counts), but AWS is Acquia's own infrastructure; like Cloudflare inferred from cdnjs, the site is not AWS's customer, so 'How strict' says not counted.",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "inferred_only",
-          "tier": "inferred"
+          "tier": "inferred",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "correct",
+            "note": "Inferred from Acquia Cloud Platform, which is hosted on AWS."
+          }
         },
         "PHP": {
           "verdict": "correct",
@@ -4257,16 +4355,27 @@
           "group": "inferred_only",
           "tier": "inferred"
         },
+        "Google Font API": {
+          "verdict": "correct",
+          "note": "browser.json shows the main frame of insieme.stanford.edu loading 5 stylesheets from fonts.googleapis.com/css2 (Source Sans 3, Source Serif 4, Roboto Slab, Kalam, Noto Sans Devanagari; all status 200), and the browser then requested Source Sans 3 and Source Serif 4 font files from fonts.gstatic.com, which the collector aborted by design (fonts are blocked).",
+          "at": "2026-11-20T17:07:15Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed"
+        }
+      },
+      "missed": [],
+      "retired_verdicts": {
         "Cloudflare": {
           "verdict": "wrong",
           "note": "Inferred from cdnjs only: cdnjs runs on Cloudflare, but that is the CDN supplier's infrastructure; the site's own responses carry no Cloudflare headers (Acquia/Varnish headers instead).",
           "at": "2026-11-20T13:55:36Z",
           "confidence": 100,
           "group": "inferred_only",
-          "tier": "inferred"
+          "tier": "inferred",
+          "retired_because": "no longer detected after the reviewed rule corrections (run 3c)"
         }
-      },
-      "missed": []
+      }
     },
     "newbeaverborough.org": {
       "human_found": [],
@@ -4494,12 +4603,17 @@
           "tier": "observed"
         },
         "PWA": {
-          "verdict": "wrong",
-          "note": "Only a <link rel=\"manifest\"> to Content/favicon/site.webmanifest (a favicon-generator manifest); no service worker is registered (browser.json workers is empty), so it is not a Progressive Web App.",
-          "at": "2026-11-20T13:55:36Z",
+          "verdict": "correct",
+          "note": "static.html and rendered.html contain <link rel=\"manifest\" href=\"Content/favicon/site.webmanifest\">; DEFINITIONS 'How strict' counts PWA from a web app manifest, so the missing service worker no longer makes it wrong.",
+          "at": "2026-11-20T16:50:47Z",
           "confidence": 100,
           "group": "core",
-          "tier": "observed"
+          "tier": "observed",
+          "rechecked_against": "docs/DEFINITIONS.md 2026-11-20",
+          "previous": {
+            "verdict": "wrong",
+            "note": "Only a <link rel=\"manifest\"> to Content/favicon/site.webmanifest (a favicon-generator manifest); no service worker is registered (browser.json workers is empty), so it is not a Progressive Web App."
+          }
         },
         "jQuery": {
           "verdict": "correct",

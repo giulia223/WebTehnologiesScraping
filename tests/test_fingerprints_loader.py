@@ -211,7 +211,10 @@ def real() -> RuleSet:
 
 def test_real_rules_load_at_the_pinned_commit(real: RuleSet) -> None:
     assert real.report.upstream["commit"] == "9e52f10a9533c8f7f8d0703c843f7295d56c95a3"
-    assert real.version == "webappanalyzer@9e52f10a9533+custom:none"
+    # The custom and corrections hashes change whenever a reviewed rule is added, so only
+    # the pinned upstream commit and the order of the parts are fixed here.
+    assert real.version.startswith("webappanalyzer@9e52f10a9533+custom:")
+    assert "+corrections:" in real.version
     assert len(real.technologies) > 7000
     assert real.categories[1].name == "CMS"
 
@@ -243,3 +246,76 @@ def test_real_shopify(real: RuleSet) -> None:
     assert [p.confidence for p in href] == [50]
     cookies = {p.key for p in real.technologies["Shopify"].patterns if p.field == "cookies"}
     assert "_shopify_y" in cookies
+
+
+# ------------------------------------------------------------ corrections
+
+
+def write_corrections(rules: Path, corrections: dict) -> None:
+    folder = rules / "corrections"
+    folder.mkdir(exist_ok=True)
+    (folder / "corrections.json").write_text(json.dumps(corrections), encoding="utf-8")
+
+
+def test_reviewed_corrections_remove_one_pattern_or_link(mini: RuleSet, tmp_path: Path) -> None:
+    copy = tmp_path / "rules"
+    shutil.copytree(MINI, copy)
+    write_corrections(
+        copy,
+        {
+            "Alpha": {
+                "remove": [{"field": "cookies", "key": "ALPHA_SID", "pattern": ""}],
+                "reason": "a cookie another product sets too",
+                "reviewed_by": "human",
+            },
+            "Broken": {"remove_implies": ["Nobody"], "reviewed_by": "human"},
+            "Beta": {"remove": [{"field": "scriptSrc", "pattern": "beta\.js"}]},  # unreviewed
+        },
+    )
+    corrected = load_rules(copy)
+
+    alpha = corrected.technologies["Alpha"]
+    assert [p.field for p in alpha.patterns if p.field == "cookies"] == []
+    assert len(alpha.patterns) == len(mini.technologies["Alpha"].patterns) - 1
+    assert corrected.technologies["Broken"].implies == ()
+    # Not reviewed by a person: listed, not applied.
+    sources = [p.source for p in corrected.technologies["Beta"].patterns]
+    assert sources == [p.source for p in mini.technologies["Beta"].patterns]
+    assert corrected.report.unreviewed_corrections == ["Beta"]
+    assert len(corrected.report.corrections_applied) == 2
+    assert "+corrections:none" not in corrected.version
+    assert "+corrections:none" in mini.version
+
+
+def test_a_correction_that_matches_nothing_is_reported(tmp_path: Path) -> None:
+    copy = tmp_path / "rules"
+    shutil.copytree(MINI, copy)
+    write_corrections(
+        copy,
+        {
+            "Alpha": {
+                "remove": [{"field": "cookies", "key": "OTHER", "pattern": ""}],
+                "reviewed_by": "human",
+            },
+            "Nowhere": {"remove_implies": ["Alpha"], "reviewed_by": "human"},
+        },
+    )
+    report = load_rules(copy).report
+    assert report.corrections_applied == []
+    assert report.corrections_not_applied == [
+        "Alpha: cookies OTHER '' (no such pattern)",
+        "Nowhere: no such technology",
+    ]
+
+
+def test_every_real_correction_matches_the_pinned_rules(tmp_path: Path) -> None:
+    # If upstream changes a pattern we correct, this fails instead of silently doing nothing.
+    copy = tmp_path / "rules"
+    shutil.copytree(REAL, copy)
+    path = copy / "corrections" / "corrections.json"
+    corrections = json.loads(path.read_text(encoding="utf-8"))
+    for correction in corrections.values():
+        correction["reviewed_by"] = "human"
+        assert correction["reason"] and correction["example"]
+    path.write_text(json.dumps(corrections), encoding="utf-8")
+    assert load_rules(copy).report.corrections_not_applied == []
