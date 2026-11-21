@@ -37,6 +37,26 @@ MAX_VALUE_CHARS = 200
 CONTEXT_CHARS = 40
 XHR_TYPES = frozenset({"xhr", "fetch"})  # Chrome's extension API reports fetch() as XHR
 NOT_CHECKABLE_FIELDS = ("scripts", "css")  # file contents are never saved
+# The collection steps whose files can be matched. Normal detection uses all of them; the
+# ablation (evaluate/ablation.py) leaves some out to measure what each step adds.
+# static = static.html + static.json, browser = rendered.html + browser.json,
+# robots = robots.txt (the well-known step).
+SOURCES = frozenset({"static", "browser", "dns", "tls", "robots"})
+# An option, not a step: also match script-URL rules against URLs written inside the
+# static page's inline scripts (a tracker's loader snippet names its script URL). Off by
+# default; `detect --inline-urls` and the ablation's "static+" row turn it on (Task 7.3).
+INLINE_URLS = "inline_urls"
+INLINE_URL_KEY = "inline script URL"
+# A URL in script text: http(s):// or protocol-relative //, then a host with a dot.
+# Escaped slashes (https:\/\/host) are unescaped first: JSON written into scripts uses them.
+INLINE_URL = regex.compile(
+    r"(?:https?:)?//[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+"
+    r"(?::\d+)?(?:/[^\s\"'`<>()\\]*)?",
+    regex.IGNORECASE,
+)
+# Only code: data blocks (application/ld+json, application/json, text/template...) list
+# URLs that are links or settings, not scripts the page loads.
+JS_TYPES = frozenset({"", "text/javascript", "application/javascript", "module", "text/ecmascript"})
 KEYED_FIELDS = ("headers", "cookies", "meta", "js", "dns")
 # Tier (what kind of proof): "declared" = the site states it (a generator tag, a DNS
 # verification token, a robots.txt line); everything else shows the thing in use.
@@ -153,7 +173,12 @@ class _Matcher:
         artifact: str,
         location: str | None,
         key: str | None = None,
+        tier: str | None = None,
+        surrounding: tuple[str, int, int] | None = None,
     ) -> None:
+        """Search `value` with each pattern. `tier` overrides the field's usual tier;
+        `surrounding` = (text, start, end) of `value` inside a larger text, so the context
+        shown comes from that text (e.g. the script around an inline URL)."""
         for tech, pattern in entries:
             try:
                 found = pattern.regex.search(value, timeout=REGEX_TIMEOUT_S)
@@ -166,6 +191,11 @@ class _Matcher:
             # A presence rule (empty pattern: "this header exists") matches nothing
             # visible; the value itself is then the proof worth showing.
             matched = found.group(0) or value
+            if surrounding is None:
+                context = value[max(0, start - CONTEXT_CHARS) : end + CONTEXT_CHARS]
+            else:
+                text, at, until = surrounding
+                context = text[max(0, at - CONTEXT_CHARS) : until + CONTEXT_CHARS]
             self.result.evidence.append(
                 Evidence(
                     technology=tech,
@@ -178,9 +208,9 @@ class _Matcher:
                     version_template=pattern.version,
                     groups=found.groups(),
                     matched_value=_clip(matched, MAX_VALUE_CHARS),
-                    context=value[max(0, start - CONTEXT_CHARS) : end + CONTEXT_CHARS],
+                    context=context,
                     location=location,
-                    tier=_tier(pattern),
+                    tier=tier or _tier(pattern),
                 )
             )
 
@@ -285,6 +315,38 @@ def _match_page(m: _Matcher, html: str, page_url: str, artifact: str) -> None:
                     if value is not None:
                         m.test([(tech, pattern)], value, artifact, page_url)
             # properties.*: only exist in a live browser; counted once per domain below.
+
+
+def inline_script_urls(html: str, page_url: str) -> list[tuple[str, str, int, int]]:
+    """URLs written inside the page's inline scripts: (absolute URL, script text, start,
+    end), each URL once. Scripts with a src, and data blocks such as JSON-LD, are skipped."""
+    found: dict[str, tuple[str, str, int, int]] = {}
+    for node in LexborHTMLParser(html).css("script"):
+        attrs = node.attributes
+        if "src" in attrs or (attrs.get("type") or "").strip().lower() not in JS_TYPES:
+            continue
+        text = (node.text(deep=True) or "").replace("\\/", "/")
+        for match in INLINE_URL.finditer(text):
+            absolute = urljoin(page_url, match.group(0))
+            found.setdefault(absolute, (absolute, text, match.start(), match.end()))
+    return list(found.values())
+
+
+def _match_inline_urls(m: _Matcher, html: str, page_url: str) -> None:
+    """scriptSrc rules on each inline-script URL, xhr rules on its host, as in the browser.
+
+    Tier "declared": the site's own code names the script, but nothing was seen running
+    (decided by the human, Task 7.3)."""
+    for url, text, start, end in inline_script_urls(html, page_url):
+        where = (text, start, end)
+        m.test(
+            m.index.unkeyed["scriptSrc"], url, "static.html", url, INLINE_URL_KEY, "declared", where
+        )
+        host = _host(url)
+        if host:
+            m.test(
+                m.index.unkeyed["xhr"], host, "static.html", url, INLINE_URL_KEY, "declared", where
+            )
 
 
 def _match_headers(
@@ -394,11 +456,17 @@ def _match_tls(m: _Matcher, tls: dict[str, Any]) -> None:
 # ---------------------------------------------------------------- one domain
 
 
-def match_domain(raw_dir: Path, host: str, index: RuleIndex) -> DomainMatches:
-    """Every raw match for one domain, from its folder under raw_dir."""
+def match_domain(
+    raw_dir: Path, host: str, index: RuleIndex, sources: frozenset[str] = SOURCES
+) -> DomainMatches:
+    """Every raw match for one domain, from its folder under raw_dir.
+
+    `sources` names the collection steps whose files may be matched (default: all). A step
+    left out is treated as if it had never run, so the result is what a tool without that
+    step would see; its files are listed as "not used: left out"."""
     folder = raw_dir / host
-    static = _read_json(folder / "static.json")
-    browser = _read_json(folder / "browser.json")
+    static = _read_json(folder / "static.json") if "static" in sources else None
+    browser = _read_json(folder / "browser.json") if "browser" in sources else None
     result = DomainMatches(domain=host, site_domains=site_domains(host, static, browser))
     m = _Matcher(index, result)
 
@@ -415,7 +483,10 @@ def match_domain(raw_dir: Path, host: str, index: RuleIndex) -> DomainMatches:
     # Pages: only a real page is matched. A challenge page belongs to the bot-protection
     # vendor, and an error page may belong to a host or parking service (F2.4).
     if _usable(static, "static.html", folder, result):
-        _match_page(m, _read_html(folder / static["html_file"]), static["final_url"], "static.html")
+        static_html = _read_html(folder / static["html_file"])
+        _match_page(m, static_html, static["final_url"], "static.html")
+        if INLINE_URLS in sources:
+            _match_inline_urls(m, static_html, static["final_url"])
         responses, cookies = _static_responses(static)
         _match_headers(m, responses, "static.json", result.site_domains)
         _match_cookies(m, cookies, "static.json", result.site_domains)
@@ -430,11 +501,14 @@ def match_domain(raw_dir: Path, host: str, index: RuleIndex) -> DomainMatches:
         result.not_checked["js (no browser page)"] += index.counts["js"]
         result.not_checked["xhr (no browser page)"] += index.counts["xhr"]
 
-    dns = _read_json(folder / "dns.json")
+    for source, artifact in (("static", "static.html"), ("browser", "rendered.html")):
+        if source not in sources:
+            result.artifacts[artifact] = "not used: left out"
+    dns = _read_json(folder / "dns.json") if "dns" in sources else None
     if dns is not None:
         _match_dns(m, dns)
         result.artifacts["dns.json"] = "used"
-    tls = _read_json(folder / "tls.json")
+    tls = _read_json(folder / "tls.json") if "tls" in sources else None
     if tls is not None:
         _match_tls(m, tls)
         result.artifacts["tls.json"] = (
@@ -443,7 +517,7 @@ def match_domain(raw_dir: Path, host: str, index: RuleIndex) -> DomainMatches:
             else "not used: certificate does not cover the host (or could not be read)"
         )
     robots_path = folder / "robots.txt"
-    if robots_path.is_file():
+    if "robots" in sources and robots_path.is_file():
         text = robots_path.read_bytes().decode("utf-8", errors="replace")
         wellknown = _read_json(folder / "wellknown.json") or {}
         url = wellknown.get("robots", {}).get("final_url")

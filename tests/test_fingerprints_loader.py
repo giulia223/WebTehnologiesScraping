@@ -211,7 +211,10 @@ def real() -> RuleSet:
 
 def test_real_rules_load_at_the_pinned_commit(real: RuleSet) -> None:
     assert real.report.upstream["commit"] == "9e52f10a9533c8f7f8d0703c843f7295d56c95a3"
-    assert real.version.startswith("webappanalyzer@9e52f10a9533+custom:none+corrections:")
+    # The custom and corrections hashes change whenever a reviewed rule is added, so only
+    # the pinned upstream commit and the order of the parts are fixed here.
+    assert real.version.startswith("webappanalyzer@9e52f10a9533+custom:")
+    assert "+corrections:" in real.version
     assert len(real.technologies) > 7000
     assert real.categories[1].name == "CMS"
 

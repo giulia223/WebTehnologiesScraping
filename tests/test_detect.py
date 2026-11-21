@@ -471,6 +471,52 @@ def test_weebly_and_ionos_examples() -> None:
     assert moved(ionos) == ["Apache HTTP Server", "Sectigo"]
 
 
+def test_platforms_added_by_the_name_check() -> None:
+    # Real sites from the name check (Task 4.5), as detected.
+    dish = site(  # hansis-knusperhendl-foodtruck.eatbu.com
+        ("DISH", ["Reservations & delivery"]),
+        ("Google Cloud CDN", ["CDN"]),
+        ("Adobe Analytics", ["Analytics"]),
+        ("Adobe Client Data Layer", ["Customer data platform"]),
+        ("Adobe Experience Platform Identity Service", ["Customer data platform"]),
+        ("Adobe Experience Platform Launch", ["Tag managers"]),
+        ("Swiper", ["JavaScript libraries"]),
+    )
+    bandzoogle = site(  # davidloeppke.com
+        ("Bandzoogle", ["CMS"]),
+        ("OpenResty", ["Web servers"]),
+        ("Varnish", ["Caching"]),
+        ("Ruby on Rails", ["Web frameworks"]),
+        ("Turbo", ["JavaScript frameworks"]),
+    )
+    square = site(  # abbikadabbisbakingco.com
+        ("Square Online", ["Ecommerce"]),
+        ("Datadog", ["RUM"]),
+        ("Vue.js", ["JavaScript frameworks"]),
+    )
+    wix = site(("Wix", ["CMS"]), ("Firebase", ["Databases"]), ("React", ["JavaScript frameworks"]))
+    for techs in (dish, bandzoogle, square, wix):
+        move_platform_infrastructure(techs)
+    assert moved(dish) == [
+        "Google Cloud CDN",
+        "Adobe Analytics",
+        "Adobe Client Data Layer",
+        "Adobe Experience Platform Identity Service",
+        "Adobe Experience Platform Launch",
+    ]
+    # Page code bundled by the builder (Turbo, Vue.js, React, Swiper) still counts.
+    assert moved(bandzoogle) == ["OpenResty", "Varnish", "Ruby on Rails"]
+    assert moved(square) == ["Datadog"]
+    assert moved(wix) == ["Firebase"]
+
+
+def test_a_platforms_own_tool_stays_on_other_sites() -> None:
+    # Datadog is the platform's own only on Square Online; a site's own Datadog counts.
+    techs = site(("WordPress", ["CMS"]), ("Datadog", ["RUM"]))
+    assert move_platform_infrastructure(techs) is None
+    assert moved(techs) == []
+
+
 def test_a_self_hosted_site_keeps_its_infrastructure() -> None:
     # footasylum.com chose Cloudflare and Akamai itself: nothing moves.
     techs = site(("Next.js", ["JavaScript frameworks"]), ("Cloudflare", ["CDN"]))

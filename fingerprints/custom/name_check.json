@@ -1,0 +1,62 @@
+{
+  "Lightbox": {
+    "cats": [
+      59
+    ],
+    "scriptSrc": [
+      "/lightbox(?:-plus-jquery)?(?:\\.min)?\\.js"
+    ],
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 2,
+    "examples": [
+      "shapirolawfirm.com",
+      "bfnelson.it"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Replaces the upstream pattern removed by the Lightbox correction: the file must be named exactly lightbox.js, lightbox.min.js or lightbox-plus-jquery(.min).js (Lightbox2's own file names), right after a slash. Matches shapirolawfirm.com (lightbox.min.js?ver=2.7.1 with lightbox.css?ver=2.7.1: 2.7.1 is a Lightbox2 version) and bfnelson.it (Breakdance's dependencies-files/.../lightbox.js: not sure it is Lightbox2). Accepted by the human reviewer on 2026-11-21 after the preview on all 200 domains.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-21"
+  },
+  "Onsen UI": {
+    "cats": [
+      26
+    ],
+    "scriptSrc": [
+      "/(?:angular-)?onsenui(?:\\.min)?\\.js"
+    ],
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 0,
+    "examples": [],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Replaces the upstream pattern removed by the Onsen UI correction: Onsen UI's own file names (onsenui.js, onsenui.min.js, angular-onsenui.js). Matches none of the 200 domains; kept so the product can still be found elsewhere. Accepted by the human reviewer on 2026-11-21 after the preview on all 200 domains.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-21"
+  },
+  "Bandzoogle": {
+    "cats": [
+      1
+    ],
+    "website": "https://bandzoogle.com",
+    "scriptSrc": [
+      "\\.bndzgl\\.com/assets/usersite"
+    ],
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 1,
+    "examples": [
+      "davidloeppke.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "A hosted website builder for musicians, missing from the rules. On davidloeppke.com: every script and stylesheet from assets-openresty-kamal-production.bndzgl.com/assets/usersite..., images from images.zoogletools.com/s:bzglfiles/..., stats from stats.zoogletools.net, name servers dns1/dns2.sitezoogle.com. The vendor's ownership of bndzgl.com was not checked on its website (source_verified false). Needed so the builder's servers (OpenResty, Varnish, Let's Encrypt) and Ruby on Rails move to platform_infra. Accepted by the human reviewer on 2026-11-21 after the preview on all 200 domains.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-21"
+  }
+}

@@ -95,5 +95,63 @@
     "reason": "Wix's page data names 'wixstores' widgets on any Wix site with the built-in checkout (for example Wix Bookings), store or not. Replaced by the candidate rule that requires the installed 'Wix Stores' app; apply both together.",
     "example": "appelpsychotherapy.com and gitesducharmois.fr: Bookings sites, no 'Wix Stores' app. The 3 real stores (broganlmt.com, radxmobile.com, northshoremacnut.com) list 'Wix Stores'.",
     "reviewed_by": "human"
+  },
+  "Lightbox": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "lightbox(?:-plus-jquery)?.{0,32}\\.js"
+      },
+      {
+        "field": "dom",
+        "key": "link[href*='lightbox']",
+        "pattern": "/lightbox(?:\\.min)?\\.css"
+      }
+    ],
+    "reason": "Both patterns match any file whose name contains 'lightbox', so other products' lightboxes are read as Lightbox (Lokesh Dhakar's Lightbox2): Elementor's lightbox chunk and stylesheet, OceanWP's ow-lightbox, GLightbox, AMP's amp-auto-lightbox, GoDaddy's renderLightbox, Avada's fusion-lightbox. The JS rules stay, and a stricter file-name rule (candidate in fingerprints/candidates/name_check.json) replaces the script pattern.",
+    "example": "avocatalinamanciu.ro: oceanwp/assets/js/ow-lightbox.min.js; katesworldtravel.com: elementor/assets/js/chunks/lightbox-lightbox.min.js and elementor/assets/css/conditionals/lightbox.min.css. 14 sites in run 3e, 2 left by the stricter rule.",
+    "reviewed_by": "human"
+  },
+  "parallax.js": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "parallax(?:\\/assets\\/js)?(?:\\/jquery)?(?:\\/scripts)?(?:\\/wow)?(?:[_\\.]move)?(?:\\.inview)?(?:\\.pkgd)?(?:\\.scrolling)?(?:\\.min)?\\.js(?:\\?v(?:er)?=((?:\\d+\\.)+\\d+))?\\;version:\\1"
+      },
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "(?:((?:\\d+\\.)+\\d+)\\/)?parallax(?:\\/assets\\/js)?(?:\\/jquery)?(?:\\/scripts)?(?:\\/wow)?(?:[_\\.]move)?(?:\\.inview)?(?:\\.pkgd)?(?:\\.scrolling)?(?:\\.min)?\\.js\\;version:\\1"
+      }
+    ],
+    "reason": "Both patterns match any file ending in 'parallax.js', and almost every theme, builder and platform ships its own parallax script under that name. On none of the 11 sites did the library's own variables (parallax, parallaxInstance) exist. The JS rules stay.",
+    "example": "skywardspeech.com.au: Avada's fusion-parallax.js; 6 Squarespace sites: Squarespace's imageFluid component parallax.js; unitedveterinaryservice.com: bt_parallax.js; 2agateway.com: BricksExtras' parallax.js.",
+    "reviewed_by": "human"
+  },
+  "Stimulus": {
+    "remove": [
+      {
+        "field": "html",
+        "key": null,
+        "pattern": "<[^>]+data-controller"
+      }
+    ],
+    "reason": "data-controller is a generic attribute name: Squarespace, Bandzoogle and Shopware use it for their own controllers, so it does not show Stimulus. The JS rules (Stimulus.Application) and the stimulus-bundle script rule stay.",
+    "example": "thomasrosenbaum.com (Squarespace 7.1): data-controller=\"Header\" and \"SectionWrapperController\", no Stimulus global, the word 'stimulus' nowhere. 8 sites in run 3e: 6 Squarespace, 1 Bandzoogle, 1 Shopware.",
+    "reviewed_by": "human"
+  },
+  "Onsen UI": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "(/.*onsen.*min\\.js|.*angular-onsenui\\.min\\.js)"
+      }
+    ],
+    "reason": "The first half matches 'onsen' anywhere in a script path, including the word 'consent'. A stricter rule on Onsen UI's own file names (candidate in fingerprints/candidates/name_check.json) replaces it.",
+    "example": "gapconstructionwi.com, needaphysio.com, trs-energycontrol.de (Wix): static.parastorage.com/services/cookie-consent-banner-for-uou/.../app.bundle.min.js.",
+    "reviewed_by": "human"
   }
 }

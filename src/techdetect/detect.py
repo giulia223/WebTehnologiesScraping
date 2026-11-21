@@ -39,7 +39,7 @@ from techdetect.collect.storage import write_atomic, write_json_atomic
 from techdetect.domains import Domain, domain_name, registered_domain
 from techdetect.fingerprints.combine import PatternGroup, TechnologyResult, combine
 from techdetect.fingerprints.loader import RuleSet, load_rules
-from techdetect.fingerprints.matcher import RuleIndex, match_domain
+from techdetect.fingerprints.matcher import SOURCES, RuleIndex, match_domain
 from techdetect.fingerprints.resolve import resolve
 
 # Themes are reported as their own group, not in core: a theme is mostly the site's look
@@ -68,6 +68,10 @@ HOSTED_PLATFORMS = frozenset(
         "Duda",
         "WebNode",
         "Square Online",
+        # Added after the name check (Task 4.5): a restaurant-site builder (sites live on
+        # *.eatbu.com) and a musicians' site builder (Bandzoogle: a reviewed custom rule).
+        "DISH",
+        "Bandzoogle",
     }
 )
 INFRASTRUCTURE_CATEGORIES = frozenset(
@@ -90,7 +94,27 @@ BOT_PROTECTION = frozenset(
 )
 # The platform's own monitoring and tracking, reporting to the platform, not to the owner:
 # Wix's Sentry sends to sentry.wixpress.com, Weebly's Snowplow to ec.editmysite.com.
-PLATFORM_OWN_TOOLS = {"Wix": frozenset({"Sentry"}), "Weebly": frozenset({"Snowplow Analytics"})}
+# Found by the name check (Task 4.5), each seen on every site of that platform here:
+# - Wix: Firebase from the Wix Chat frame (wix-engage-visitors-*.firebaseio.com, 4 sites);
+# - Square Online: Datadog reporting as service "spi-ecom-square-online-buyer-journey";
+# - DISH: the template's Adobe stack (data layer productName "DISH WEBSITE B2C");
+# - Bandzoogle: Ruby on Rails from its `csrf-param` meta (the builder's server framework;
+#   its servers OpenResty and Varnish move anyway, by category).
+# Trade-off: an owner who adds the same tool themselves on that platform is moved too.
+PLATFORM_OWN_TOOLS = {
+    "Wix": frozenset({"Sentry", "Firebase"}),
+    "Weebly": frozenset({"Snowplow Analytics"}),
+    "Square Online": frozenset({"Datadog"}),
+    "DISH": frozenset(
+        {
+            "Adobe Analytics",
+            "Adobe Client Data Layer",
+            "Adobe Experience Platform Identity Service",
+            "Adobe Experience Platform Launch",
+        }
+    ),
+    "Bandzoogle": frozenset({"Ruby on Rails"}),
+}
 # Statuses of domains whose page is not the owner's website: left out of all counts.
 NOT_THE_SITE = frozenset({"parked", "placeholder"})
 
@@ -352,8 +376,18 @@ def _technology_json(result: TechnologyResult, ruleset: RuleSet) -> dict[str, An
     }
 
 
-def detect_domain(raw_dir: Path, domain: Domain, ruleset: RuleSet, index: RuleIndex) -> dict:
-    """One line of detections.jsonl: the domain's status and every detection with proof."""
+def detect_domain(
+    raw_dir: Path,
+    domain: Domain,
+    ruleset: RuleSet,
+    index: RuleIndex,
+    sources: frozenset[str] = SOURCES,
+) -> dict:
+    """One line of detections.jsonl: the domain's status and every detection with proof.
+
+    `sources` limits which collection steps are matched (the ablation). The status and the
+    redirect are always read from both fetches, so every ablation row counts the same
+    domains and only the evidence differs."""
     folder = raw_dir / domain.host
     static = refine_failure(folder, _read_json(folder / "static.json"))
     browser = refine_failure(folder, _read_json(folder / "browser.json"))
@@ -374,7 +408,7 @@ def detect_domain(raw_dir: Path, domain: Domain, ruleset: RuleSet, index: RuleIn
     }
     if status == "failed:not_collected":
         return line
-    matches = match_domain(raw_dir, domain.host, index)
+    matches = match_domain(raw_dir, domain.host, index, sources)
     resolution = resolve(combine(matches.evidence), ruleset)
     line["technologies"] = [
         _technology_json(result, ruleset) for result in resolution.technologies.values()
@@ -401,10 +435,10 @@ def _init_worker(rules_dir: str, include_candidates: bool) -> None:
     _worker_rules = (ruleset, RuleIndex(ruleset))
 
 
-def _work(args: tuple[str, Domain]) -> dict:
+def _work(args: tuple[str, Domain, frozenset[str]]) -> dict:
     assert _worker_rules is not None
-    raw_dir, domain = args
-    return detect_domain(Path(raw_dir), domain, *_worker_rules)
+    raw_dir, domain, sources = args
+    return detect_domain(Path(raw_dir), domain, *_worker_rules, sources)
 
 
 def detect_all(
@@ -414,10 +448,11 @@ def detect_all(
     include_candidates: bool = False,
     workers: int = 1,
     progress: Callable[[dict], None] | None = None,
+    sources: frozenset[str] = SOURCES,
 ) -> list[dict]:
     """Every domain's line, in input order. Domains are independent, so with workers > 1
     they are matched in parallel processes (matching is CPU work, about 1 s per domain)."""
-    jobs = [(str(raw_dir), d) for d in domains]
+    jobs = [(str(raw_dir), d, sources) for d in domains]
     if workers <= 1:
         _init_worker(str(rules_dir), include_candidates)
         lines = []
@@ -620,13 +655,20 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
 
 
 def write_outputs(
-    lines: list[dict], ruleset: RuleSet, output_dir: Path, threshold: int, partial: bool
+    lines: list[dict],
+    ruleset: RuleSet,
+    output_dir: Path,
+    threshold: int,
+    partial: bool,
+    inline_urls: bool = False,
 ) -> Outputs:
     output_dir.mkdir(parents=True, exist_ok=True)
     text = "".join(json.dumps(line, ensure_ascii=False) + "\n" for line in lines)
     write_atomic(output_dir / "detections.jsonl", text.encode("utf-8"))
     _write_tables(_rows(lines, threshold), output_dir)
     summary = build_summary(lines, ruleset, threshold, partial)
+    # Off by default; when on, the counts include URLs read from inline scripts (Task 7.3).
+    summary["inline_urls"] = inline_urls
     write_json_atomic(output_dir / "summary.json", summary)
     return Outputs(lines, summary)
 
