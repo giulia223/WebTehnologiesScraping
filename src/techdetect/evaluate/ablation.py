@@ -6,6 +6,8 @@ Detection is re-run four times on the same saved data:
     static+     the same files, plus URLs written inside the page's inline scripts (Task 7.3;
                 no extra request, so no extra cost; checked against the browser in
                 evaluate/static_plus.py)
+    + JS files  static+, plus the script files downloaded over plain HTTP (Task 7.4:
+                script-content rules, URLs inside Google Tag Manager containers)
     + browser   adds the browser's rendered page, requests, cookies and JS variables
     + DNS       adds the DNS records (= the full system, the same as `techdetect detect`)
 
@@ -27,9 +29,9 @@ from typing import Any
 from techdetect.detect import build_summary, counted, detect_all
 from techdetect.domains import Domain
 from techdetect.evaluate.metrics import compute, rate
-from techdetect.evaluate.static_plus import load_review, referee
+from techdetect.evaluate.static_plus import from_js_files, load_review, referee
 from techdetect.fingerprints.loader import RuleSet
-from techdetect.fingerprints.matcher import INLINE_URLS
+from techdetect.fingerprints.matcher import INLINE_URLS, JS_FILES
 
 # (label, sources matched, collection steps paid for). Each row adds one thing; static+
 # is a branch of static (the browser rows do not read inline URLs: the browser sees those
@@ -42,6 +44,11 @@ ROWS: tuple[tuple[str, frozenset[str], tuple[str, ...]], ...] = (
         ("static", "tls", "wellknown"),
     ),
     (
+        "static+ JS files",
+        frozenset({"static", "tls", "robots", INLINE_URLS, JS_FILES}),
+        ("static", "tls", "wellknown", "js"),
+    ),
+    (
         "+ browser",
         frozenset({"static", "tls", "robots", "browser"}),
         ("static", "tls", "wellknown", "browser"),
@@ -52,6 +59,8 @@ ROWS: tuple[tuple[str, frozenset[str], tuple[str, ...]], ...] = (
         ("static", "tls", "wellknown", "browser", "dns"),
     ),
 )
+
+JS_REVIEW_FILE = Path("data/js_files_review.json")
 
 
 def step_costs(run_log: Path) -> dict[str, float]:
@@ -143,7 +152,7 @@ def run_ablation(
         "rendered.html": pages_read(full, "rendered.html"),
         "ok_counted": sum(1 for x in full if counted(x) and x["status"] == "ok"),
     }
-    static_row, browser_row = rows[0], rows[2]
+    static_row, browser_row = rows[0], rows[3]
     static_plus = referee(
         raw_dir,
         lines_by_row["static"],
@@ -152,7 +161,23 @@ def run_ablation(
         set(static_row["core_sites"]),
         ruleset,
     )
-    return {"rows": rows, "step_costs": costs, "pages": pages, "static_plus": static_plus}
+    js_files = referee(
+        raw_dir,
+        lines_by_row["static+"],
+        lines_by_row["static+ JS files"],
+        set(browser_row["core_sites"]),
+        set(static_row["core_sites"]),
+        ruleset,
+        is_new=from_js_files,
+        browser_lines=lines_by_row["+ browser"],
+    )
+    return {
+        "rows": rows,
+        "step_costs": costs,
+        "pages": pages,
+        "static_plus": static_plus,
+        "js_files": js_files,
+    }
 
 
 def gained(before: dict[str, Any], after: dict[str, Any]) -> list[str]:
@@ -185,7 +210,7 @@ def check_against_summary(result: dict[str, Any], summary: dict[str, Any]) -> st
 
 def render(result: dict[str, Any], ruleset: RuleSet, meta: dict[str, Any]) -> str:
     rows = result["rows"]
-    static, plus, browser, full = rows
+    static, plus, js_row, browser, full = rows
     pages = result["pages"]
     costs = result["step_costs"]
     gain = browser["unique_core"] - static["unique_core"]
@@ -267,6 +292,7 @@ def render(result: dict[str, Any], ruleset: RuleSet, meta: dict[str, Any]) -> st
         + ((", ".join(dns_names) + ".") if dns_names else "none."),
     ]
     out += render_static_plus(result["static_plus"], static, plus, load_review())
+    out += render_js_files(result["js_files"], plus, js_row, load_review(JS_REVIEW_FILE))
     return "\n".join(out) + "\n"
 
 
@@ -339,3 +365,75 @@ def render_static_plus(
 def _cell(text: str, limit: int) -> str:
     text = str(text).replace("|", "\\|").replace("`", "'").replace("\n", " ")
     return text if len(text) <= limit else text[: limit - 3] + "..."
+
+
+def render_js_files(
+    sp: dict[str, Any],
+    plus: dict[str, Any],
+    js_row: dict[str, Any],
+    review: dict[tuple[str, str], dict[str, str]],
+) -> list[str]:
+    """The section for the script files downloaded over plain HTTP (Task 7.4)."""
+    items = sp["additions"]
+    by_browser = Counter(item["browser"] for item in items)
+    unconfirmed = [i for i in items if i["browser"] == "not_confirmed"]
+    verdicts = Counter(
+        review[(i["domain"], i["name"])]["verdict"]
+        for i in unconfirmed
+        if (i["domain"], i["name"]) in review
+    )
+    judged = verdicts["correct"] + verdicts["wrong"]
+    if review:
+        reviewed = (
+            f"{verdicts['correct']} correct, {verdicts['wrong']} wrong, "
+            f"{verdicts['unsure']} unsure; precision {rate(verdicts['correct'], judged)}; "
+            f"not judged yet {len(unconfirmed) - sum(verdicts.values())}."
+        )
+    else:
+        reviewed = "not judged yet."
+    recovered = sp["recovered_names"]
+    not_in_browser = sp["not_in_browser_row"]
+    extra = js_row["cost_s_per_domain"] - plus["cost_s_per_domain"]
+    out = [
+        "",
+        "## JS files: scripts downloaded over plain HTTP, without a browser",
+        "",
+        "The collect step `js` downloads, as plain files, every `<script src>` of the static "
+        "page and the Google Tag Manager container of every `GTM-` id in it; nothing is run. "
+        "Detection then matches the 828 rules that read script contents (a vendor's API host "
+        "or a library banner inside its code), and the script-URL rules against URLs inside "
+        "the GTM containers (tier `declared`, as for inline URLs).",
+        "",
+        f"- **Unique core:** {plus['unique_core']} (static+) -> {js_row['unique_core']} "
+        f"({js_row['unique_core'] - plus['unique_core']:+d}) for {extra:.2f} more seconds "
+        "per domain.",
+        f"- **Browser-only names recovered** (with static+): {len(recovered)} of the "
+        f"{sp['browser_only_names']} names the browser adds over the static row"
+        + (": " + ", ".join(recovered) + "." if recovered else "."),
+        f"- **Additions** (core on a site with JS files but not in static+): {len(items)}. "
+        "The browser is the referee: did the browser run find the same technology on the "
+        "same site by its own evidence? (That the file loaded proves nothing: text inside a "
+        "bundle is often only a mention.)",
+        f"  - confirmed (the browser run found it too): {by_browser['confirmed']}",
+        f"  - not confirmed (the browser got the page, but found no such technology): "
+        f"{by_browser['not_confirmed']}",
+        f"  - no browser page to check against: {by_browser['no_browser_page']}",
+        "- **Not confirmed, judged by a separate reviewer** (docs/DEFINITIONS.md): " + reviewed,
+        "- **Names the JS files claim that the browser rows never have as core:** "
+        + (", ".join(not_in_browser) + "." if not_in_browser else "none."),
+        "",
+        "### Every addition",
+        "",
+        "| Domain | Technology | Browser | Review | Evidence | File or URL |",
+        "|---|---|---|---|---|---|",
+    ]
+    for i in sorted(items, key=lambda i: (i["browser"], i["name"], i["domain"])):
+        e = i["evidence"][0] if i["evidence"] else {}
+        verdict = review.get((i["domain"], i["name"]))
+        shown = f"{verdict['verdict']}: {_cell(verdict['reason'], 160)}" if verdict else "-"
+        what = f"{e.get('signal', '?')} `{_cell(e.get('matched_value') or '', 60)}`"
+        out.append(
+            f"| {i['domain']} | {i['name']} | {i['browser']} | {shown} | {what} "
+            f"| {_cell(e.get('location') or '', 90)} |"
+        )
+    return out

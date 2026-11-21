@@ -16,6 +16,7 @@ from rich.table import Table
 
 from techdetect.collect.browser import collect_browser
 from techdetect.collect.dns_probe import collect_dns
+from techdetect.collect.js_fetch import collect_js
 from techdetect.collect.run import (
     RUN_COMPLETE,
     STEPS,
@@ -38,7 +39,7 @@ from techdetect.detect import (
     write_outputs,
 )
 from techdetect.domains import Domain, LoadResult, load_domains
-from techdetect.evaluate import ablation
+from techdetect.evaluate import ablation, tiering
 from techdetect.evaluate.importer import import_blind, parse_inspection_file
 from techdetect.evaluate.labels import (
     REVIEW_SEED,
@@ -53,7 +54,7 @@ from techdetect.evaluate.metrics_report import render
 from techdetect.evaluate.session import label_domain
 from techdetect.fingerprints.candidates import promote
 from techdetect.fingerprints.loader import load_rules
-from techdetect.fingerprints.matcher import INLINE_URLS, SOURCES
+from techdetect.fingerprints.matcher import INLINE_URLS, JS_FILES, SOURCES
 from techdetect.fingerprints.review import candidate_summary, review_candidates
 from techdetect.report import leads
 
@@ -200,6 +201,7 @@ def _collectors() -> dict[str, Collector]:
         "dns": collect_dns,
         "tls": collect_tls,
         "wellknown": collect_wellknown,
+        "js": collect_js,
         "browser": collect_browser,
     }
 
@@ -233,6 +235,11 @@ def _detail(step: str, result: dict[str, Any]) -> str:
             f"{result['probed_host']} verified={result['chain_verified']} "
             f"match={result['hostname_match']} issuer={issuer}"
         )
+    if step == "js":
+        if result["status"] != "ok":
+            return result["error_category"]
+        saved = sum(1 for f in result["files"] if f["outcome"] == "saved")
+        return f"{saved}/{len(result['files'])} script files saved"
     robots = result["robots"]
     if robots["outcome"] == "failed":
         return f"{robots['error_category']} {robots['url']}"
@@ -315,6 +322,14 @@ InlineUrlsOpt = Annotated[
         "scripts (tracker loader snippets). Off by default.",
     ),
 ]
+JsFilesOpt = Annotated[
+    bool,
+    typer.Option(
+        "--js-files",
+        help="Also match the script files downloaded over plain HTTP (collect step js): "
+        "script-content rules, and script URLs inside GTM containers. Off by default.",
+    ),
+]
 MinConfidenceOpt = Annotated[
     int,
     typer.Option(
@@ -342,6 +357,7 @@ def detect(
     min_confidence: MinConfidenceOpt = 0,
     workers: WorkersOpt = None,
     inline_urls: InlineUrlsOpt = False,
+    js_files: JsFilesOpt = False,
 ) -> None:
     """Find technologies in saved raw artifacts (offline)."""
     config = Config().with_overrides(
@@ -362,10 +378,12 @@ def detect(
         config.rules_dir,
         include_candidates=include_candidates,
         workers=workers or default_workers(),
-        sources=SOURCES | {INLINE_URLS} if inline_urls else SOURCES,
+        sources=SOURCES
+        | ({INLINE_URLS} if inline_urls else set())
+        | ({JS_FILES} if js_files else set()),
     )
     outputs = write_outputs(
-        lines, ruleset, config.output_dir, min_confidence, not complete, inline_urls
+        lines, ruleset, config.output_dir, min_confidence, not complete, inline_urls, js_files
     )
     unique = outputs.summary["unique_technologies"]
     per_domain = outputs.summary["core_per_domain"]
@@ -555,6 +573,49 @@ def ablation_command(
     if problem:
         typer.echo(f"check failed: {problem}", err=True)
         raise typer.Exit(code=1)
+
+
+@evaluate_app.command("tiering")
+def tiering_command(
+    input_path: InputOpt = None,
+    raw_dir: RawDirOpt = None,
+    output_dir: OutputDirOpt = None,
+    rules_dir: RulesDirOpt = None,
+    ground_truth: GroundTruthOpt = None,
+    workers: WorkersOpt = None,
+    report_path: Annotated[
+        Path, typer.Option("--report", help="Where to write the readable report.")
+    ] = Path("docs/TIERING.md"),
+) -> None:
+    """Simulate a browser only where it pays: cheap tier everywhere, browser by policy."""
+    config = Config().with_overrides(
+        input_path=input_path,
+        raw_dir=raw_dir,
+        output_dir=output_dir,
+        rules_dir=rules_dir,
+        ground_truth_path=ground_truth,
+    )
+    domains = _load_and_report(config).domains
+    result = tiering.run_tiering(
+        config.raw_dir,
+        domains,
+        config.rules_dir,
+        load_rules(config.rules_dir),
+        load_ground_truth(config.ground_truth_path),
+        workers or default_workers(),
+    )
+    summary = json.loads((config.output_dir / "summary.json").read_text(encoding="utf-8"))
+    report_path.write_text(tiering.render(result, summary), encoding="utf-8")
+    write_json_atomic(config.output_dir / "tiering.json", result)
+    for row in result["rows"]:
+        typer.echo(
+            f"{row['label']:<16} core {row['unique_core']}, "
+            f"precision {rate(*row['precision'])}, recall {rate(*row['recall'])}, "
+            f"{row['cost_s_per_domain']} s/domain"
+        )
+    typer.echo(
+        f"sent to the browser: {len(result['sent'])} of {result['domains']}; wrote {report_path}"
+    )
 
 
 @app.command()
