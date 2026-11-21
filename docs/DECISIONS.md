@@ -490,3 +490,49 @@ Template:
 - **Decision:** (A).
 - **Why:** a stylesheet the page requests is the site's choice whichever way it was loaded; script requests and frames add far more noise than findings.
 - **Consequences:** EXPERIMENTS run 3e: 6 Google Font API added, recall 65% -> 66% (75/113). Google Maps inside a frame stays a miss. A request's `origin` (main page or frame) is what tells them apart, so this works only on browser data.
+
+## D-029 Name check: one judged example for every core technology name
+- **Date:** 2026-11-20
+- **Context:** The headline is a count of technology **names** (341 core in run 3e). Precision was measured on every detection of 20 labelled domains, but those domains contain only 128 of the 341 names; the other 213 had never been looked at by anyone. Rare names are where faulty rules hide: 140 of them were on one site only, and one example found while counting (Livefyre from a global `L.version = "1.5.1+HEAD..."`, which looks like Leaflet's `L`) had the same shape as an earlier false positive (Lodash from Underscore's `_.VERSION`).
+- **Options considered:**
+  - (A) Judge every detection of every unchecked name, on all its sites: proves every site, far too slow for the time left.
+  - (B) One example per unchecked name: proves the name is really used by at least one site in the list, which is what the headline claims.
+  - (C) Label more random domains: improves per-detection precision, but leaves most rare names unchecked.
+- **Decision:** (B). The example site is drawn at random with `random.Random(f"20261120:{name}")`: the seed is combined with the name, so a name's pick does not change when other names appear or disappear after a rule correction. A name counts as already checked when it has a verdict on a labelled domain in any group (for example PHP judged as inferred), and only if that detection still exists. Verdicts come from reviewer agents separate from the tool's author, following `docs/DEFINITIONS.md`, from the evidence and the saved raw data; the tool's author then re-judges every `wrong` verdict and 10 others drawn with the same seed.
+- **Why:** it checks exactly the claim being presented (a list of names), at a cost of one judgement per name; the spot-check measures how far the reviewers can be trusted.
+- **Consequences:** `scripts/name_check.py` (sheet / merge / spot-check / report), `data/name_check.json` (the sheet with verdicts), `docs/NAME_CHECK.md` (generated). The report states the limit: a name on 5 sites has 1 checked. A wrong name is first checked on its other sites (the rule may be wrong everywhere), then corrected through `fingerprints/corrections/` (D-027) or listed as a known false positive.
+
+## D-030 Fixes from the name check: more hosted platforms, four broad patterns switched off
+- **Date:** 2026-11-21
+- **Context:** The name check (D-029) judged 30 of 213 names wrong. Two causes cost the most: hosted builders missing from the platform list (their own servers and tracking credited to the site: 10 names), and upstream patterns matching any file whose name contains a short word (Lightbox on 14 sites, parallax.js on 11, Stimulus on 8, Onsen UI on 3).
+- **Options considered:**
+  - (A) Fix only these two causes, the ones that remove the most wrong detections; list the other wrong names as known false positives.
+  - (B) Fix every wrong name: about 20 more one-off corrections, each needing its own preview and review, for names mostly on 1 site.
+  - (C) Fix nothing, report 86% name-level precision.
+- **Decision:** (A).
+  - Platform list (D-025): add DISH (restaurant sites on `*.eatbu.com`) and Bandzoogle (musicians' sites) as hosted builders; add each platform's own tools: Wix's Firebase (the Wix Chat frame talks to `wix-engage-visitors-*.firebaseio.com`, on all 4 Wix sites with Firebase), Square Online's Datadog (reports as `spi-ecom-square-online-buyer-journey`), DISH's Adobe stack (its template's data layer says `DISH WEBSITE B2C`), Bandzoogle's Ruby on Rails. Bandzoogle had no rule: a reviewed custom rule on its asset host `bndzgl.com/assets/usersite` (also seen: name servers `sitezoogle.com`, images from `zoogletools.com`).
+  - Corrections (D-027): Lightbox's script and stylesheet patterns (any `lightbox` file name: Elementor, OceanWP, GLightbox, AMP, GoDaddy, Avada), replaced by a reviewed custom rule on Lightbox2's own file names after a slash; both parallax.js script patterns (every theme ships a `parallax.js`; the library's own variables were on none of the 11 sites); Stimulus's `data-controller` HTML pattern (Squarespace, Bandzoogle and Shopware use the attribute for their own code); Onsen UI's script pattern (matched `onsen` inside `consent`), replaced by a reviewed custom rule on Onsen UI's own file names. Each product's other rules (its JS variables, its own files) stay.
+- **Why:** these two causes are systematic: each fix removes a whole class of wrong detections on every site, not one example. The rest are mostly single-site cases better reported than patched under time pressure.
+- **Consequences:** EXPERIMENTS run 4b: previewed on all 200 domains, then applied after the human's approval: 34 detections removed, 14 moved to `platform_infra`, Bandzoogle added; unique core 341 -> 332. Lightbox stays on 2 sites (one, inside the Breakdance builder, is not certainly Lightbox2). Trade-off: an owner who adds Firebase on Wix or Datadog on Square Online themselves is now moved to the platform's group too. Still wrong and listed in `docs/NAME_CHECK.md`: about 18 names, among them Livefyre (Leaflet's `L`), Facebook Login (any Facebook SDK), placeholder variables from the Usercentrics consent blocker (Bitmovin, wetter.com), ZURB Foundation (Gravity Forms' stylesheet), eWAY (a host name ending in `eway.com`).
+
+## D-031 Ablation: a cumulative table, detection re-run for each set of steps
+- **Date:** 2026-11-21
+- **Context:** The scaling answer depends on what the expensive browser step buys compared with the cheap static fetch. Every piece of evidence records the artifact it came from, so the comparison can be made offline on the saved data, with no new crawl.
+- **Options considered:**
+  - (A) A cumulative table: static, then + browser, then + DNS. Answers "what does adding X buy", in the order a tiered crawler would add steps.
+  - (B) A plus leave-one-out rows (the full system minus one step at a time): order-independent, but twice the rows and a harder table to read.
+  - (C) Filter the full output by evidence artifact instead of re-running detection: faster, but wrong. Implies, excludes and requires depend on everything else found (React implied by a Next.js seen only in the browser would wrongly stay in the static row).
+- **Decision:** (A), with detection re-run for each row (not C). The certificate and robots.txt sit in the static row: they cost one plain request each, like the page. The domain's status and redirect always come from both fetches, so every row counts the same domains and only the evidence differs; the report states how many pages each fetch could read on its own.
+- **Why:** it answers the one question the scaling design needs (static vs browser), with the same engine, rules and labels as the headline, and checks itself: the last row must equal `summary.json`.
+- **Consequences:** `techdetect evaluate ablation` writes `docs/ABLATION.md` and `data/output/ablation.json`; `match_domain` and `detect_all` take an optional set of allowed sources (default: all, so normal detection is unchanged; a test checks the full row equals normal detection). Cost is wall time per domain from the collect run log; CPU and memory per browser were not measured. EXPERIMENTS run 5: the browser adds 116 of 332 core names (+54% over the static row) for 2.8x the per-domain time.
+
+## D-032 Static+: URLs inside inline scripts, tier "declared", the browser as referee
+- **Date:** 2026-11-21
+- **Context:** At scale the browser is the expensive step, and it is what finds most trackers (D-031: it adds 116 of 332 core names). Many trackers are installed by a small inline loader snippet whose text contains the script URL (`'https://static.hotjar.com/c/hotjar-'`, `'//www.google-analytics.com/analytics.js'`). Those URLs are already in the plain HTML; the browser only runs them. Could reading them replace part of the browser, at no extra cost?
+- **Options considered:**
+  - (A) Match the existing script-URL rules (scriptSrc on the URL, xhr on its host) against URLs found inside inline `<script>` blocks of `static.html`. Data blocks (`application/ld+json` and other non-JavaScript types) are skipped: they list links and settings, not scripts.
+  - (B) A, plus fetching the Google Tag Manager container and the site's own JS bundles over plain HTTP. Finds more, but is a new collection step; kept as an idea.
+  - Tier of these detections: `declared` (the site's code names the script, nothing was seen running) or `observed` (like a `<script src>` tag).
+- **Decision:** (A), behind a flag (`detect --inline-urls`, off by default, recorded in `summary.json`), measured as a "static+" row in the ablation. Tier `declared` (chosen by the human). The browser data we already have is the referee: an addition is **confirmed** if the browser requested a URL that the same rule matches; the rest are judged by a separate reviewer.
+- **Why:** it costs no request, so it is the cheapest possible substitute for the browser; the browser referee measures its precision on all 200 domains without hand labels.
+- **Consequences:** EXPERIMENTS run 6. The evidence key is `inline script URL`; like the stylesheet-request key (D-028), a pattern found both as a tag and inline forms two groups, harmless because nearly every script-URL pattern is worth 100. The referee ignores `data:` and `blob:` URLs (page-made, possibly megabytes long, which hung an early run) and uses the matcher's per-search regex timeout.
