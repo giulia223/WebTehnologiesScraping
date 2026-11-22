@@ -1,0 +1,28 @@
+User-agent: *
+
+#System and Account Directories
+Disallow: /api/
+Disallow: /tools/
+Disallow: /actions/
+Disallow: /account/
+Disallow: /*/account/
+Disallow: /checkout/
+Disallow: /*/checkout/
+Disallow: /customer/
+Disallow: /*/customer/
+Disallow: /search/
+Disallow: /*/search/
+
+#Parameter Cleanups
+Disallow: /*?q=
+Disallow: /?term=
+Disallow: /?options=
+Disallow: /?sort=
+Disallow: /?reason=
+Disallow: /?action=
+Disallow: /?utm_
+Disallow: /?fbclid=
+Disallow: /?gclid=
+Disallow: /?*msclkid=
+
+Sitemap: https://www.footasylum.com/sitemaps/index.xml

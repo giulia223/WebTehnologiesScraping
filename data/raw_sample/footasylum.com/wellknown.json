@@ -1,0 +1,126 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:13Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "footasylum.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://www.footasylum.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://www.footasylum.com/robots.txt",
+    "content_type": "text/plain; charset=UTF-8",
+    "headers": [
+      [
+        "content-type",
+        "text/plain; charset=UTF-8"
+      ],
+      [
+        "cf-ray",
+        "a5d0dafacf1cdce7-AMS"
+      ],
+      [
+        "cf-cache-status",
+        "REVALIDATED"
+      ],
+      [
+        "nel",
+        "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+      ],
+      [
+        "etag",
+        "W/\"21b-1a1f4059140\""
+      ],
+      [
+        "last-modified",
+        "Thu, 19 Nov 2026 13:36:08 GMT"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "permissions-policy",
+        "camera=(), microphone=(), geolocation=(self), payment=(self \"https://pay.google.com\" \"https://checkoutshopper-test.adyen.com\" \"https://checkoutshopper-live.adyen.com\" \"https://applepay.cdn-apple.com\")"
+      ],
+      [
+        "referrer-policy",
+        "strict-origin-when-cross-origin"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "report-to",
+        "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Y5uclKBNk6%2FqCzhHx%2FP0G7HbT5s5lT50v7Qu2vkCnvpJNHedjEESWPVUjhF%2Fnwi5MFOjV71BBjk5OeWF6OMLKT7PYOYeKd5SRr1RR3RJfPyYQWbSSuMP1Bqpe4DdJGjIi2qrPLA%3D\"}]}"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "content-length",
+        "233"
+      ],
+      [
+        "cache-control",
+        "public, max-age=11553"
+      ],
+      [
+        "expires",
+        "Fri, 20 Nov 2026 15:35:57 GMT"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:24 GMT"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "set-cookie",
+        "x-new-site-version=true; expires=Thu, 18-Feb-2027 12:23:24 GMT; path=/; domain=.www.footasylum.com; secure; SameSite=None"
+      ],
+      [
+        "server-timing",
+        "cdn-cache; desc=HIT"
+      ],
+      [
+        "server-timing",
+        "edge; dur=10295"
+      ],
+      [
+        "set-cookie",
+        "akacd_www-ab-default=3972630192~rv=16~id=c75bfbfb6d2b61bf165571ca96c2ff39; path=/; Secure; SameSite=None"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=86400 ; includeSubDomains"
+      ],
+      [
+        "set-cookie",
+        "AK_PBassets=0b77891bd35e460ba3ac6ac52df0a501; path=/; domain=.www.footasylum.com; Secure"
+      ],
+      [
+        "server-timing",
+        "ak_p; desc=\"1795177393717_399784871_1161279054_1027581_10489_4_11_15\";dur=1"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "c87a2f2e27bdd85aa378f77f5a79eca9d6e596002406d54718299294fb343f98",
+    "bytes": 539,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 10390
+  }
+}

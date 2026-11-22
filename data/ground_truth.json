@@ -419,6 +419,15 @@
           "confidence": 100,
           "group": "inferred_only",
           "tier": "inferred"
+        },
+        "Jetpack": {
+          "verdict": "correct",
+          "note": "browser.json: script https://stats.wp.com/e-202647.js status 200; static.html has <script id='jetpack-stats-js'> and 'jetpack-stats-js-before' with _stq ... 'j':'1:16.4'.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
         }
       },
       "missed": [],
@@ -1378,6 +1387,24 @@
           "confidence": 100,
           "group": "core",
           "tier": "observed"
+        },
+        "Animate.css": {
+          "verdict": "correct",
+          "note": "browser.json: stylesheet https://www.loizillon.com/assets/animate-ca9c031f7663c9e52b815d368f541c0e.css status 200, <link rel='stylesheet'> in static.html; the body is not saved, but the page's scripts use Animate.css's class convention (Owl Carousel addClass('animated ...') with animateIn/animateOut, a text rotator writing class='animated '+animation).",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
+        },
+        "Magnific Popup": {
+          "verdict": "correct",
+          "note": "Stylesheet /assets/magnific-popup-bd76b2742b05e58017f0fe452a612c2c.css status 200; the loaded cdn.drouot.com cpg/plugins bundle (status 200) has the banner 'Magnific Popup - v1.0.0' and the site's script calls magnificPopup.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
         }
       },
       "missed": [],
@@ -1573,6 +1600,15 @@
           "confidence": 100,
           "group": "core",
           "tier": "observed"
+        },
+        "Hostgator": {
+          "verdict": "correct",
+          "note": "dns.json: NS ns2091.hostgator.com., ns2092.hostgator.com. for the input domain itself (SOA status timeout); the redirect to seringasafaris.com is same-name and counted, and this record is the input domain's own.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
         }
       },
       "missed": [],
@@ -1778,6 +1814,15 @@
           "confidence": 100,
           "group": "core",
           "tier": "observed"
+        },
+        "IONOS": {
+          "verdict": "correct",
+          "note": "dns.json: NS ns-us.1and1-dns.org., .us., .de., .com. for the domain itself; the upstream SOA pattern (ns1<digits>.ui-dns) does not match its SOA 'ns-us.1and1-dns.com. hostmaster.1and1.com.'.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "dns_only",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
         }
       },
       "missed": [],
@@ -2264,6 +2309,33 @@
           "confidence": 100,
           "group": "core",
           "tier": "observed"
+        },
+        "Google Ads Conversion Tracking": {
+          "verdict": "correct",
+          "note": "browser.json: scripts gtag/js?id=AW-17813400584 and ...&cx=c&gtm=4e6bh1 status 200; site-specific ID, so the owner's Google Ads account, not Wix's.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
+        },
+        "Google Maps": {
+          "verdict": "correct",
+          "note": "browser.json: iframe document googleMap.f3347ff6.html status 200, and inside it script https://maps.googleapis.com/maps/api/js?callback=initMap&key=... status 200 plus maps-api-v3 map.js, marker.js.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
+        },
+        "Google Ads": {
+          "verdict": "correct",
+          "note": "Inferred from Google Ads Conversion Tracking (AW- tag loaded, status 200); an AW- ID is a Google Ads account, so the inference is certain.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
         }
       },
       "missed": [],
@@ -2595,6 +2667,15 @@
           "confidence": 100,
           "group": "inferred_only",
           "tier": "inferred"
+        },
+        "BootstrapCDN": {
+          "verdict": "correct",
+          "note": "browser.json: stylesheet request https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=4.7.0 status 200, from <link id='skillsforlife-fontawesome-css'> in rendered.html.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
         }
       },
       "missed": [],
@@ -2784,6 +2865,15 @@
           "confidence": 100,
           "group": "core",
           "tier": "observed"
+        },
+        "PHP": {
+          "verdict": "correct",
+          "note": "<form name='login' action='login.php?action=process' method='post'> posts to the site's own server; supported by header expires: Thu, 19 Nov 1981 08:52:00 GMT (PHP session default) and a self-hosted matomo.php request.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
         }
       },
       "missed": [],
@@ -3288,6 +3378,24 @@
           "confidence": 100,
           "group": "inferred_only",
           "tier": "inferred"
+        },
+        "Google Ads Conversion Tracking": {
+          "verdict": "correct",
+          "note": "browser.json: script gtag/js?id=AW-1054792468&cx=c&gtm=4e6bi0h2 status 200.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "core",
+          "tier": "observed",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
+        },
+        "Google Ads": {
+          "verdict": "correct",
+          "note": "Inferred from Google Ads Conversion Tracking (AW- tag loaded, status 200); an AW- ID is a Google Ads account, so the inference is certain.",
+          "at": "2026-11-22T07:39:03Z",
+          "confidence": 100,
+          "group": "inferred_only",
+          "tier": "inferred",
+          "reviewer": "judge agent for the known-miss rules (Claude, separate session, docs/DEFINITIONS.md), 2026-11-22"
         }
       },
       "missed": [],

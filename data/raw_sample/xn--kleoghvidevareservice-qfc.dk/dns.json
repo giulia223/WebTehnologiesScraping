@@ -1,0 +1,117 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-17T20:53:38Z",
+    "tool_version": "0.1.0+1e0a67458837",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "xn--kleoghvidevareservice-qfc.dk",
+  "status": "ok",
+  "resolver": {
+    "nameservers": [
+      "100.100.1.1",
+      "100.100.0.1"
+    ],
+    "timeout_s": 5.0
+  },
+  "elapsed_ms": 2448,
+  "queries": [
+    {
+      "name": "xn--kleoghvidevareservice-qfc.dk",
+      "type": "A",
+      "status": "ok",
+      "ttl": 129,
+      "records": [
+        "172.104.246.93"
+      ],
+      "canonical_name": "xn--kleoghvidevareservice-qfc.dk."
+    },
+    {
+      "name": "xn--kleoghvidevareservice-qfc.dk",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: xn--kleoghvidevareservice-qfc.dk. IN AAAA"
+    },
+    {
+      "name": "xn--kleoghvidevareservice-qfc.dk",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: xn--kleoghvidevareservice-qfc.dk. IN CNAME"
+    },
+    {
+      "name": "www.xn--kleoghvidevareservice-qfc.dk",
+      "type": "A",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "172.104.246.93"
+      ],
+      "canonical_name": "www.xn--kleoghvidevareservice-qfc.dk."
+    },
+    {
+      "name": "www.xn--kleoghvidevareservice-qfc.dk",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: www.xn--kleoghvidevareservice-qfc.dk. IN AAAA"
+    },
+    {
+      "name": "www.xn--kleoghvidevareservice-qfc.dk",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: www.xn--kleoghvidevareservice-qfc.dk. IN CNAME"
+    },
+    {
+      "name": "xn--kleoghvidevareservice-qfc.dk",
+      "type": "MX",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "0 mail.xn--kleoghvidevareservice-qfc.dk."
+      ]
+    },
+    {
+      "name": "xn--kleoghvidevareservice-qfc.dk",
+      "type": "NS",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "primary.infoserv.dk.",
+        "secondary.infoserv.dk."
+      ]
+    },
+    {
+      "name": "xn--kleoghvidevareservice-qfc.dk",
+      "type": "TXT",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: xn--kleoghvidevareservice-qfc.dk. IN TXT"
+    },
+    {
+      "name": "xn--kleoghvidevareservice-qfc.dk",
+      "type": "SOA",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "primary.infoserv.dk. admin.infoserv. 202108306 900 300 3600 900"
+      ]
+    },
+    {
+      "name": "_dmarc.xn--kleoghvidevareservice-qfc.dk",
+      "type": "TXT",
+      "status": "nxdomain",
+      "ttl": null,
+      "records": [],
+      "error": "NXDOMAIN: The DNS query name does not exist: _dmarc.xn--kleoghvidevareservice-qfc.dk."
+    }
+  ]
+}

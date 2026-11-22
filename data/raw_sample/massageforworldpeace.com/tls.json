@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:42Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "massageforworldpeace.com",
+  "probed_host": "www.massageforworldpeace.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "*.massageforworldpeace.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "GB"
+      ],
+      [
+        "organizationName",
+        "Sectigo Limited"
+      ],
+      [
+        "commonName",
+        "Sectigo Public Server Authentication CA DV R36"
+      ]
+    ],
+    "sans": [
+      "*.massageforworldpeace.com",
+      "massageforworldpeace.com"
+    ],
+    "not_before": "2026-07-13T00:00:00Z",
+    "not_after": "2027-01-23T23:59:59Z",
+    "serial": "88A24488E3E1C06F1519B710F0E0D5EE",
+    "sha256": "ccdbbcd2dcd17b079e671ad9405de32d4aa6dd1e1c9de2aa433fdcf188b0ef45",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIGrzCCBRegAwIBAgIRAIiiRIjj4cBvFRm3EPDg1e4wDQYJKoZIhvcNAQELBQAw\nYDELMAkGA1UEBhMCR0IxGDAWBgNVBAoTD1NlY3RpZ28gTGltaXRlZDE3MDUGA1UE\nAxMuU2VjdGlnbyBQdWJsaWMgU2VydmVyIEF1dGhlbnRpY2F0aW9uIENBIERWIFIz\nNjAeFw0yNjA3MTMwMDAwMDBaFw0yNzAxMjMyMzU5NTlaMCUxIzAhBgNVBAMMGiou\nbWFzc2FnZWZvcndvcmxkcGVhY2UuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A\nMIIBCgKCAQEAy0ClDZ+b4gN4n38Ee3ksCrHsYg4oSG4JgZLdfVfRPpg9sKYH5w40\nsyq+vzRdpP86XGhjTpmmiNKn8aFWpnkyFBUqVcH+AARRDg1rlXpTnWhw3DgNUtwp\nG0YXEwA4JekzcuWILXBC5AbGxIEvdA1f7r1r8ehcwIHKi+OKbJrEfnCR0c00GUMQ\nx/BM9BLh93hENFP/mixaBB3+m+9hkpfQKNAAcJPSFVFM+Tdjt5s6pn16NaBry0xQ\nb2j5j/f/hYWd1gtiDruRK2uxnXVOWImTYxXJqSMycaHQTxdrzAimEgrjt+zgjUqa\nEeCRXY/GZx9meN8G6+LxQKnXIAL5pyEsMwIDAQABo4IDHTCCAxkwHwYDVR0jBBgw\nFoAUaMASFhgOr872h6YyV6NGUV3LBycwHQYDVR0OBBYEFDlcj/GPiUtWn3nPCjms\nOZAbbnqmMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMBMGA1UdJQQMMAoG\nCCsGAQUFBwMBMEkGA1UdIARCMEAwNAYLKwYBBAGyMQECAgcwJTAjBggrBgEFBQcC\nARYXaHR0cHM6Ly9zZWN0aWdvLmNvbS9DUFMwCAYGZ4EMAQIBMIGEBggrBgEFBQcB\nAQR4MHYwTwYIKwYBBQUHMAKGQ2h0dHA6Ly9jcnQuc2VjdGlnby5jb20vU2VjdGln\nb1B1YmxpY1NlcnZlckF1dGhlbnRpY2F0aW9uQ0FEVlIzNi5jcnQwIwYIKwYBBQUH\nMAGGF2h0dHA6Ly9vY3NwLnNlY3RpZ28uY29tMIIBjwYKKwYBBAHWeQIEAgSCAX8E\nggF7AXkAdgAcn2gs6frwRWlQ+BuWiofd2zIQ2EzmyLLjglJKxM9ZnwAAAZ9ZVQNQ\nAAAEAwBHMEUCIQD6vg95fNVqXDhN0tj6SoA0+Zzgcs0fI0didV9gpSOmZgIgXWOO\nlWQrtK/ULLPl9CJwPSQCem4UpwsnVixNbQcrjEgAfwCOykcLrN5q86IGsKR6hLdG\n/h/Gv5U+JeabTuQCSPPG6AAAAZ9ZVQZfAAgAAAUABeiRXQQDAEgwRgIhAP+mlLxj\n40WdlXxFnTnInDgjUgF6jDR9JuRj6Tl9WpMFAiEA1/3vqDqPTA86gwl5zMWEXv52\ny9pCN36LLddVm5VDmm4AfgBZbmwzhpSyWXKiVsig6N2QSnboCD3ahzsBCDgoFDzu\nWQAAAZ9ZVQPvAAgAAAUAAErEHQQDAEcwRQIhANR41SAbMMISoj3/8801YG6R6OTQ\nC9lIIZHly8iZLACQAiBJv79nWxBRtZvxsHO/Zo19b25Hp8MdHwa8fWvaYL8XJjA/\nBgNVHREEODA2ghoqLm1hc3NhZ2Vmb3J3b3JsZHBlYWNlLmNvbYIYbWFzc2FnZWZv\ncndvcmxkcGVhY2UuY29tMA0GCSqGSIb3DQEBCwUAA4IBgQB+bZtEKoSjQ6MPQYCJ\nwyGECtN3tncKlebo1P/qAs3JeJRppq/0nQ7GqZzOXaFE7AM6qrGPBwrqzqvnbAWM\nowDbuUagXxOf9KyZT1aHn+cBpx1wTo+IP+3iXSX7bCq9fk++KQ+Hg6jzTf5Qr+eo\nMdfc37rOnZwWgZ5/venw0cJ03UzSv7fce4TUsmB+7daBmQswWk3RXwbcc4DuypN/\nhrUjntlYYwd8n2jiffB5xOg9GZac9rkquKcCOdU5u8TLKiN6vsakDHucanZoxC2x\nwzashizCtVvRBU237J/ixgacq6rGv1+Z1B72v3/yHZ5R5jYbPLqIjjV9lJJmLz9p\nzZlRyWv+ff6L17UaGBbeNltN6ZRRkhI+yrDHgsKFhBIZyBkVO+1IRTeqiX99lcnv\n1J2fzk5P4c8qUv8EEA39Odr3l/zA1EVq8Eplap2IvrQjyi5JZ8gLHK0EZxCcSxjp\nr9iYkaQ6GaB5v2tiCYBd62p4dKh78UX/rC+MtxrLHmEZmn8=\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 727
+}

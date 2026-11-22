@@ -1,0 +1,90 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:10Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "insieme.stanford.edu",
+  "status": "ok",
+  "robots": {
+    "url": "https://insieme.stanford.edu/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://insieme.stanford.edu/robots.txt",
+    "content_type": "text/plain",
+    "headers": [
+      [
+        "content-type",
+        "text/plain"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "last-modified",
+        "Fri, 30 Oct 2026 00:36:10 GMT"
+      ],
+      [
+        "x-request-id",
+        "v-3715abe6-e462-11f1-9de4-1f4f07ba2a42"
+      ],
+      [
+        "x-ah-environment",
+        "01live"
+      ],
+      [
+        "x-cache-hits",
+        "20"
+      ],
+      [
+        "x-age",
+        "50404"
+      ],
+      [
+        "accept-ranges",
+        "bytes"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "content-length",
+        "890"
+      ],
+      [
+        "cache-control",
+        "max-age=60"
+      ],
+      [
+        "expires",
+        "Fri, 20 Nov 2026 12:24:10 GMT"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:10 GMT"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=15768000"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "a9fcfea6acda307b117c35dac6d7f5a2f7f67f9e02d93fdbe32b81ef12c1f3b5",
+    "bytes": 2754,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 238
+  }
+}

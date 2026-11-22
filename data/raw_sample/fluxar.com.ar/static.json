@@ -1,0 +1,154 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:28Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "fluxar.com.ar",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://www.fluxar.com.ar/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "1a6024a83ea24cbae6f014a75fdd6197f67d45e4977ebaa69bb9676bfb763607",
+  "html_bytes": 78697,
+  "html_truncated": false,
+  "elapsed_ms": 4715,
+  "attempts": [
+    {
+      "url": "https://fluxar.com.ar/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 4713,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://fluxar.com.ar/",
+          "status": 301,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "x-powered-by",
+              "PHP/8.1.34"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "permissions-policy",
+              "private-state-token-redemption=(self \"https://www.google.com\" \"https://www.gstatic.com\" \"https://recaptcha.net\" \"https://challenges.cloudflare.com\" \"https://hcaptcha.com\"), private-state-token-issuance=(self \"https://www.google.com\" \"https://www.gstatic.com\" \"https://recaptcha.net\" \"https://challenges.cloudflare.com\" \"https://hcaptcha.com\")"
+            ],
+            [
+              "x-redirect-by",
+              "WordPress"
+            ],
+            [
+              "location",
+              "https://www.fluxar.com.ar/"
+            ],
+            [
+              "content-length",
+              "0"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:30 GMT"
+            ],
+            [
+              "server",
+              "LiteSpeed"
+            ],
+            [
+              "platform",
+              "hostinger"
+            ],
+            [
+              "panel",
+              "hpanel"
+            ],
+            [
+              "content-security-policy",
+              "upgrade-insecure-requests"
+            ],
+            [
+              "alt-svc",
+              "h3=\":443\"; ma=2592000, h3-29=\":443\"; ma=2592000"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://www.fluxar.com.ar/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "x-powered-by",
+              "PHP/8.1.34"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "permissions-policy",
+              "private-state-token-redemption=(self \"https://www.google.com\" \"https://www.gstatic.com\" \"https://recaptcha.net\" \"https://challenges.cloudflare.com\" \"https://hcaptcha.com\"), private-state-token-issuance=(self \"https://www.google.com\" \"https://www.gstatic.com\" \"https://recaptcha.net\" \"https://challenges.cloudflare.com\" \"https://hcaptcha.com\")"
+            ],
+            [
+              "link",
+              "<https://www.fluxar.com.ar/wp-json/>; rel=\"https://api.w.org/\""
+            ],
+            [
+              "link",
+              "<https://www.fluxar.com.ar/wp-json/wp/v2/pages/2058>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\""
+            ],
+            [
+              "link",
+              "<https://www.fluxar.com.ar/>; rel=shortlink"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:32 GMT"
+            ],
+            [
+              "server",
+              "LiteSpeed"
+            ],
+            [
+              "platform",
+              "hostinger"
+            ],
+            [
+              "panel",
+              "hpanel"
+            ],
+            [
+              "content-security-policy",
+              "upgrade-insecure-requests"
+            ],
+            [
+              "alt-svc",
+              "h3=\":443\"; ma=2592000, h3-29=\":443\"; ma=2592000"
+            ]
+          ]
+        }
+      ],
+      "cookies": []
+    }
+  ]
+}

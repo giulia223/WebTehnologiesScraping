@@ -1,0 +1,29 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:11Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "littlerockafamily.de",
+  "status": "failed",
+  "robots": {
+    "url": "https://littlerockafamily.de/robots.txt",
+    "url_source": "input_host",
+    "outcome": "failed",
+    "reason": null,
+    "http_status": null,
+    "final_url": null,
+    "content_type": null,
+    "headers": [],
+    "tls_verified": true,
+    "file": null,
+    "sha256": null,
+    "bytes": null,
+    "truncated": false,
+    "error_category": "dns_fail",
+    "error": "ConnectError: [Errno 11001] getaddrinfo failed (caused by gaierror: [Errno 11001] getaddrinfo failed)",
+    "elapsed_ms": 25
+  }
+}

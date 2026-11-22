@@ -220,7 +220,7 @@ def test_blind_domain_asks_for_the_human_list_before_showing_anything(
         "\n".join(
             [
                 "alpha",
-                "Elements: generator tag",  # the human's own Task 0.3 list
+                "Elements: generator tag",  # the human's own blind-inspection list
                 "",  # list done: saved, and only now our detections appear
                 "w",
                 "",  # Gamma (ours): wrong

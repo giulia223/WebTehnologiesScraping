@@ -1,6 +1,6 @@
 """`techdetect evaluate label <domain>`: label one domain by hand, in the terminal.
 
-Blind domains first ask for the technologies the human found on their own (Task 0.3,
+Blind domains first ask for the technologies the human found on their own (the blind inspection,
 written down before the tool existed) and save them; only then is the tool's output shown,
 so it cannot influence that list. Every answer is saved at once, so quitting midway
 loses nothing and a later run continues where it stopped.
@@ -116,7 +116,8 @@ def label_domain(
     # Blind: the human's own list comes first and is saved before anything is shown.
     if host in sets["blind"] and not record["human_found"]:
         typer.echo(
-            f"{host} is a BLIND domain. Enter every technology you confirmed in Task 0.3 "
+            f"{host} is a BLIND domain. Enter every technology you confirmed "
+            "in the blind inspection "
             "(docs/manual_inspect_domains.md), one at a time. The tool's results are shown "
             "only after this list is saved."
         )

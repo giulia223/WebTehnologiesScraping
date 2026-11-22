@@ -1,0 +1,58 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:07Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "mehmetefendimacedonia.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://mehmetefendimacedonia.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "rejected",
+    "reason": "status_not_200",
+    "http_status": 404,
+    "final_url": "https://mehmetefendimacedonia.com/robots.txt",
+    "content_type": "text/html; charset=iso-8859-1",
+    "headers": [
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:07 GMT"
+      ],
+      [
+        "server",
+        "Apache"
+      ],
+      [
+        "referrer-policy",
+        "strict-origin-when-cross-origin"
+      ],
+      [
+        "content-length",
+        "272"
+      ],
+      [
+        "keep-alive",
+        "timeout=5, max=100"
+      ],
+      [
+        "connection",
+        "Keep-Alive"
+      ],
+      [
+        "content-type",
+        "text/html; charset=iso-8859-1"
+      ]
+    ],
+    "tls_verified": true,
+    "file": null,
+    "sha256": "0885ad6eefdfc17def2160677191aece63c0bc17eac15f43f593ca56d790db0c",
+    "bytes": 272,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 324
+  }
+}

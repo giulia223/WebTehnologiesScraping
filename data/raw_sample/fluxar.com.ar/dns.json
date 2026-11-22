@@ -1,0 +1,112 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-17T20:54:12Z",
+    "tool_version": "0.1.0+1e0a67458837",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "fluxar.com.ar",
+  "status": "ok",
+  "resolver": {
+    "nameservers": [
+      "100.100.1.1",
+      "100.100.0.1"
+    ],
+    "timeout_s": 5.0
+  },
+  "elapsed_ms": 5016,
+  "queries": [
+    {
+      "name": "fluxar.com.ar",
+      "type": "A",
+      "status": "ok",
+      "ttl": 7946,
+      "records": [
+        "46.202.196.200"
+      ],
+      "canonical_name": "fluxar.com.ar."
+    },
+    {
+      "name": "fluxar.com.ar",
+      "type": "AAAA",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.014 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.998 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.891 seconds"
+    },
+    {
+      "name": "fluxar.com.ar",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: fluxar.com.ar. IN CNAME"
+    },
+    {
+      "name": "www.fluxar.com.ar",
+      "type": "A",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.013 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.998 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.891 seconds"
+    },
+    {
+      "name": "www.fluxar.com.ar",
+      "type": "AAAA",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.013 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.998 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.891 seconds"
+    },
+    {
+      "name": "www.fluxar.com.ar",
+      "type": "CNAME",
+      "status": "ok",
+      "ttl": 7952,
+      "records": [
+        "fluxar.com.ar."
+      ]
+    },
+    {
+      "name": "fluxar.com.ar",
+      "type": "MX",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.013 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.995 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.891 seconds"
+    },
+    {
+      "name": "fluxar.com.ar",
+      "type": "NS",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.013 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.995 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.891 seconds"
+    },
+    {
+      "name": "fluxar.com.ar",
+      "type": "TXT",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.013 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.890 seconds"
+    },
+    {
+      "name": "fluxar.com.ar",
+      "type": "SOA",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.013 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.890 seconds"
+    },
+    {
+      "name": "_dmarc.fluxar.com.ar",
+      "type": "TXT",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.013 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.890 seconds"
+    }
+  ]
+}

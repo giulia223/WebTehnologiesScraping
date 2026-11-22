@@ -21,6 +21,10 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from techdetect.detect import is_core  # noqa: E402
+
 RAW = Path("data/raw")
 DETECTIONS = Path("data/output/detections.jsonl")
 GROUND_TRUTH = Path("data/ground_truth.json")
@@ -102,7 +106,7 @@ def page_facts(host: str) -> dict:
 
 def classify(line: dict, facts: dict) -> str | None:
     status = line["status"]
-    core = sum(1 for t in line["technologies"] if t["group"] == "core")
+    core = sum(1 for t in line["technologies"] if is_core(t))
     # Statuses come from `detect`, which holds the rules; this script only groups them.
     if status == "failed:dns_error":
         # Cloudflare error 1001 ("DNS resolution error"): the CDN answers, the site is gone.

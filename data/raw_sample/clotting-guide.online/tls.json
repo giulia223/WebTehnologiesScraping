@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:38Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "clotting-guide.online",
+  "probed_host": "www.clotting-guide.online",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "*.clotting-guide.online"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YR1"
+      ]
+    ],
+    "sans": [
+      "*.clotting-guide.online",
+      "clotting-guide.online"
+    ],
+    "not_before": "2026-10-07T07:25:25Z",
+    "not_after": "2027-01-05T07:25:24Z",
+    "serial": "058DCD92E4CF19887B08A0977400C028BDF8",
+    "sha256": "225426231e61cd3819c35fc0643616246caaa3f6fc2c615eb590328d2436a1a9",
+    "pem": "-----BEGIN CERTIFICATE-----\n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\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 235
+}

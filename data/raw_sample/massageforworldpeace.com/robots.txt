@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /c/
+Disallow: /protected/
+Sitemap: https://www.massageforworldpeace.com/sitemap.xml

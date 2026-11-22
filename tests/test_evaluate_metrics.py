@@ -1,4 +1,4 @@
-"""Precision, recall and F1 from the labels (Task 4.2)."""
+"""Precision, recall and F1 from the labels."""
 
 from typing import Any
 
@@ -95,7 +95,7 @@ def test_rates_always_carry_their_counts() -> None:
 
 def test_unsure_is_left_out_of_precision_and_thresholds_use_current_confidence() -> None:
     judged = labelled_detections(ground_truth(), lines()).judged
-    at_0 = tally(judged)
+    at_0 = tally(judged, 0)
     assert (at_0.correct, at_0.wrong, at_0.unsure, at_0.judged) == (3, 1, 1, 4)
     at_50 = tally(judged, 50)  # jQuery (40) drops out
     assert (at_50.correct, at_50.wrong) == (2, 1)
@@ -149,6 +149,22 @@ def test_headline_numbers_and_report_lists_every_false_positive() -> None:
     assert "| blind.com | Own CMS | no rule |" in report
     assert "too few to measure" in report  # 4 judged detections per group at most
     assert "Warning:" in report
+
+
+def test_the_headline_default_leaves_out_detections_worth_0() -> None:
+    data = lines()
+    data["review.com"]["technologies"].append(tech("Lodash", confidence=0))
+    gt = ground_truth()
+    gt["domains"]["review.com"]["verdicts"]["Lodash"] = verdict("wrong", "Underscore's _")
+    m = compute(gt, data)
+    everything, default = m["headline"][0], m["headline"][1]
+    assert (everything["threshold"], everything["default"]) == (0, False)
+    assert (default["threshold"], default["default"]) == (1, True)
+    assert everything["precision"] == [3, 5]
+    assert default["precision"] == [3, 4]
+    # The lists describe what is counted: the Lodash detection worth 0 is not among them.
+    assert [d["technology"] for d in m["false_positives"]] == ["PayPal"]
+    assert "| 1 (default) |" in render(m)
 
 
 def test_platform_infrastructure_is_left_out_of_precision_and_listed() -> None:

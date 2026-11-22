@@ -1,0 +1,100 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:34Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "5rcircleprocess.weebly.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://5rcircleprocess.weebly.com/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "028ff8027504b732510722166c7fd6522fffe981dfb82caf98033bd9e764a6c5",
+  "html_bytes": 32883,
+  "html_truncated": false,
+  "elapsed_ms": 582,
+  "attempts": [
+    {
+      "url": "https://5rcircleprocess.weebly.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 581,
+      "steps": [
+        {
+          "kind": "final",
+          "url": "https://5rcircleprocess.weebly.com/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:35 GMT"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "cf-ray",
+              "a5d7675f0b97e436-OTP"
+            ],
+            [
+              "cf-cache-status",
+              "EXPIRED"
+            ],
+            [
+              "cache-control",
+              "max-age=30, private, no-store"
+            ],
+            [
+              "server",
+              "cloudflare"
+            ],
+            [
+              "vary",
+              "Accept-Encoding,User-Agent"
+            ],
+            [
+              "x-host",
+              "blu176.sf2p.intern.weebly.net"
+            ],
+            [
+              "x-ua-compatible",
+              "IE=edge,chrome=1"
+            ],
+            [
+              "cdn-cache-control",
+              "max-age=30, public"
+            ],
+            [
+              "set-cookie",
+              "__cf_bm=upZiKQKaLAWCAgfADylST2p63doI.DH0m3o0JuILTQs-1795177174.8879192-1.0.1.1-mZL60xcGcEGRpS5AIoSix7PdNcVkHjiVDeZshcxQxJf6jP2hWwecs6bGAc_NYO0b.aiOSBlcWjqbfr11.k4ts.UzMM0A_DLAljN46bDhaf.Qf88EvERoq9tOBaFzjAdR; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=weebly.com; Expires=Fri, 20 Nov 2026 12:49:35 GMT"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ]
+          ]
+        }
+      ],
+      "cookies": [
+        {
+          "name": "__cf_bm",
+          "value": "upZiKQKaLAWCAgfADylST2p63doI.DH0m3o0JuILTQs-1795177174.8879192-1.0.1.1-mZL60xcGcEGRpS5AIoSix7PdNcVkHjiVDeZshcxQxJf6jP2hWwecs6bGAc_NYO0b.aiOSBlcWjqbfr11.k4ts.UzMM0A_DLAljN46bDhaf.Qf88EvERoq9tOBaFzjAdR",
+          "domain": ".weebly.com",
+          "path": "/",
+          "secure": true,
+          "expires": 1795178975,
+          "set_by": "https://5rcircleprocess.weebly.com/"
+        }
+      ]
+    }
+  ]
+}

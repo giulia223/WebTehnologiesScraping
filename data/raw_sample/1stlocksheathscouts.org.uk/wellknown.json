@@ -1,0 +1,114 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:13Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "1stlocksheathscouts.org.uk",
+  "status": "ok",
+  "robots": {
+    "url": "https://1stlocksheathscouts.org.uk/robots.txt",
+    "url_source": "input_host",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://1stlocksheathscouts.org.uk/robots.txt",
+    "content_type": "text/plain; charset=utf-8",
+    "headers": [
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:14 GMT"
+      ],
+      [
+        "content-type",
+        "text/plain; charset=utf-8"
+      ],
+      [
+        "content-length",
+        "121"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "link",
+        "<https://1stlocksheathscouts.org.uk/wp-json/>; rel=\"https://api.w.org/\""
+      ],
+      [
+        "x-tec-api-version",
+        "v1"
+      ],
+      [
+        "x-tec-api-root",
+        "https://1stlocksheathscouts.org.uk/wp-json/tribe/events/v1/"
+      ],
+      [
+        "x-tec-api-origin",
+        "https://1stlocksheathscouts.org.uk"
+      ],
+      [
+        "cache-control",
+        "max-age=86400"
+      ],
+      [
+        "expires",
+        "Sat, 21 Nov 2026 11:39:05 GMT"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "x-endurance-cache-level",
+        "0"
+      ],
+      [
+        "x-nginx-cache",
+        "WordPress"
+      ],
+      [
+        "accept-ranges",
+        "bytes"
+      ],
+      [
+        "set-cookie",
+        "__cf_bm=xY6gAqzxC8Lk9V5.ffn3o54m6G8qkdF14wAo_IXhTWI-1795177394.0012333-1.0.1.1-KGFHKPZU7DRrY18RgSrFriIGw9gv3a3ALXv9ZToZg6nHNU4tPupIvz_ObOchq3u.jf176jPNq96Ubq6GcljQP7YhvwlHbnySbV6lqgral4fm6RrJ.c2JJuB9zEJxALTf; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=1stlocksheathscouts.org.uk; Expires=Fri, 20 Nov 2026 12:53:14 GMT"
+      ],
+      [
+        "age",
+        "2648"
+      ],
+      [
+        "last-modified",
+        "Fri, 20 Nov 2026 11:39:05 GMT"
+      ],
+      [
+        "cf-cache-status",
+        "HIT"
+      ],
+      [
+        "cf-ray",
+        "a5d76cb87e2a3793-OTP"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "361472c93ee574422fe3b1a6924218fbf95b15a644575d4b7ae9f57c85b91f97",
+    "bytes": 125,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 63
+  }
+}

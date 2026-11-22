@@ -9,7 +9,7 @@ from techdetect.collect.runner import run_per_domain
 from techdetect.config import Config
 
 runner = CliRunner()
-COMMANDS = ["collect", "rules", "detect", "evaluate", "report"]
+COMMANDS = ["collect", "rules", "detect", "evaluate"]
 
 
 def test_help_lists_all_commands() -> None:

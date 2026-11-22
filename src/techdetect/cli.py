@@ -1,7 +1,7 @@
 """Command-line entry point: `techdetect <command>`.
 
-The commands mirror the pipeline: collect (network) -> detect (offline) -> evaluate ->
-report, plus `rules` to inspect the fingerprint rules. Commands not built yet are stubs.
+The commands mirror the pipeline: collect (network) -> detect (offline) -> evaluate,
+plus `rules` to inspect the fingerprint rules and `candidates` to review proposed rules.
 """
 
 import asyncio
@@ -32,6 +32,7 @@ from techdetect.collect.wellknown import collect_wellknown
 from techdetect.config import Config
 from techdetect.console import use_utf8_output
 from techdetect.detect import (
+    DEFAULT_MIN_CONFIDENCE,
     NotFinishedError,
     check_run_complete,
     default_workers,
@@ -56,7 +57,6 @@ from techdetect.fingerprints.candidates import promote
 from techdetect.fingerprints.loader import load_rules
 from techdetect.fingerprints.matcher import INLINE_URLS, JS_FILES, SOURCES
 from techdetect.fingerprints.review import candidate_summary, review_candidates
-from techdetect.report import leads
 
 app = typer.Typer(
     help="Detect website technologies with evidence.",
@@ -336,8 +336,9 @@ MinConfidenceOpt = Annotated[
         "--min-confidence",
         min=0,
         max=100,
-        help="Count only detections at or above this confidence (default 0: all, "
-        "as Wappalyzer). detections.jsonl always keeps every detection.",
+        help="Count only detections at or above this confidence (default 1: a "
+        "detection whose clues are all worth 0 is not counted). detections.jsonl always "
+        "keeps every detection.",
     ),
 ]
 WorkersOpt = Annotated[
@@ -354,7 +355,7 @@ def detect(
     rules_dir: RulesDirOpt = None,
     include_candidates: CandidatesOpt = False,
     allow_partial: AllowPartialOpt = False,
-    min_confidence: MinConfidenceOpt = 0,
+    min_confidence: MinConfidenceOpt = DEFAULT_MIN_CONFIDENCE,
     workers: WorkersOpt = None,
     inline_urls: InlineUrlsOpt = False,
     js_files: JsFilesOpt = False,
@@ -442,9 +443,9 @@ def pick_review_command(
 
 @evaluate_app.command("import-blind")
 def import_blind_command(
-    inspection: Annotated[
-        Path, typer.Option("--file", help="The blind inspection notes (Task 0.3).")
-    ] = Path("docs/manual_inspect_domains.md"),
+    inspection: Annotated[Path, typer.Option("--file", help="The blind inspection notes.")] = Path(
+        "docs/manual_inspect_domains.md"
+    ),
     ground_truth: GroundTruthOpt = None,
     rules_dir: RulesDirOpt = None,
     force: Annotated[
@@ -615,19 +616,6 @@ def tiering_command(
         )
     typer.echo(
         f"sent to the browser: {len(result['sent'])} of {result['domains']}; wrote {report_path}"
-    )
-
-
-@app.command()
-def report(output_dir: OutputDirOpt = None) -> None:
-    """Write the lead list (leads.csv): one row of facts per domain, from detect's output."""
-    config = Config().with_overrides(output_dir=output_dir)
-    rows = leads.build_leads(read_all_detections(config.output_dir))
-    path = leads.write_leads(rows, config.output_dir)
-    shopify = [r["domain"] for r in rows if r["shopify"] == "yes"]
-    typer.echo(
-        f"{len(rows)} domains -> {path}; Shopify stores: {len(shopify)}"
-        + (f" ({', '.join(shopify)})" if shopify else "")
     )
 
 

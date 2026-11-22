@@ -1,0 +1,90 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:14Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "5rcircleprocess.weebly.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://5rcircleprocess.weebly.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://5rcircleprocess.weebly.com/robots.txt",
+    "content_type": "text/plain; charset=UTF-8",
+    "headers": [
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:14 GMT"
+      ],
+      [
+        "content-type",
+        "text/plain; charset=UTF-8"
+      ],
+      [
+        "content-length",
+        "142"
+      ],
+      [
+        "cf-ray",
+        "a5d76cbcecb3ca29-OTP"
+      ],
+      [
+        "cf-cache-status",
+        "EXPIRED"
+      ],
+      [
+        "accept-ranges",
+        "bytes"
+      ],
+      [
+        "cache-control",
+        "public, no-store"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "etag",
+        "W/\"4894efdfc93b4452e41ca7f1bc1be3c6-gzip\""
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "vary",
+        "Accept-Encoding,User-Agent"
+      ],
+      [
+        "x-host",
+        "grn148.sf2p.intern.weebly.net"
+      ],
+      [
+        "x-ua-compatible",
+        "IE=edge,chrome=1"
+      ],
+      [
+        "cdn-cache-control",
+        "max-age=30, public"
+      ],
+      [
+        "set-cookie",
+        "__cf_bm=9dy0vhA0CH71ca3w7ZftR8u7rGSk91Y7ZX2g6XweW1U-1795177394.7110643-1.0.1.1-R.WJ1My.jJAIyAmcCO_bPoqJwiEzL4xeXChZBQXQRJNeMX2kpVEvfqEopCkrIB._UiHcGm9gsoIdrSnmmcy1OPAfjA3b7T1w3M8hs5Brhm8Ct4auouzkrfJtINk42dpH; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=weebly.com; Expires=Fri, 20 Nov 2026 12:53:14 GMT"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "718b8fe60f0ce9a4557b1c4f8a8b922718e5d58368908f1a58098d999cdeea60",
+    "bytes": 191,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 319
+  }
+}

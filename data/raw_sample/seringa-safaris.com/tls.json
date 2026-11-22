@@ -1,0 +1,50 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:41Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "seringa-safaris.com",
+  "probed_host": "seringasafaris.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "seringasafaris.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Google Trust Services"
+      ],
+      [
+        "commonName",
+        "WE1"
+      ]
+    ],
+    "sans": [
+      "seringasafaris.com"
+    ],
+    "not_before": "2026-09-28T19:00:36Z",
+    "not_after": "2026-12-27T20:00:32Z",
+    "serial": "F7F90579B64BEF0913BDF7C4416C83FA",
+    "sha256": "00e8252e428439402cc0726b8fc23d610fe441c4f3e1ecb0fbd8b03187033c3f",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIDejCCAyGgAwIBAgIRAPf5BXm2S+8JE733xEFsg/owCgYIKoZIzj0EAwIwOzEL\nMAkGA1UEBhMCVVMxHjAcBgNVBAoTFUdvb2dsZSBUcnVzdCBTZXJ2aWNlczEMMAoG\nA1UEAxMDV0UxMB4XDTI2MDkyODE5MDAzNloXDTI2MTIyNzIwMDAzMlowHTEbMBkG\nA1UEAxMSc2VyaW5nYXNhZmFyaXMuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcD\nQgAEMWcJRevLKtwXpO7CATi3YErUEjBGIcspDWVvr6K6l3ZULcOc0qf5Kqry1J8P\nFEaooTfAy9xiVUuMPyWB4HAD46OCAiIwggIeMA4GA1UdDwEB/wQEAwIHgDATBgNV\nHSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBSnGJSkKkax\nc9Px/z9c8xdIV539UTAfBgNVHSMEGDAWgBSQd5I1Z8T/qMyp5nvZgHl7zJP5ODA1\nBggrBgEFBQcBAQQpMCcwJQYIKwYBBQUHMAKGGWh0dHA6Ly9pLnBraS5nb29nL3dl\nMS5jcnQwHQYDVR0RBBYwFIISc2VyaW5nYXNhZmFyaXMuY29tMBMGA1UdIAQMMAow\nCAYGZ4EMAQIBMDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jLnBraS5nb29nL3dl\nMS9QMm5OdksyVWt1SS5jcmwwggEEBgorBgEEAdZ5AgQCBIH1BIHyAPAAdgDXbX0Q\n0af1d8LH6V/XAL/5gskzWmXh0LMBcxfAyMVpdwAAAaDpmuJYAAAEAwBHMEUCIDUk\naIs5GlDicsE5u1FYxj2esHnGCZ7Tj9tFr+g3q7qhAiEAmISwcYVKcIcbRPgvX1sa\nxZVty1RJlxewELg1ovxxqawAdgDCMX5XRRmjRe5/ON6ykEHrx8IhWiK/f9W1rXaa\n2Q5SzQAAAaDpmuZaAAAEAwBHMEUCIEJtOOoIN0EoB3FocKNKrxKQOEmvfznF0ppH\nepm+eeC1AiEAgitFyp3Ecrv3NGIL0/8dkNKETADAW9aBnRcFMqFVRwowCgYIKoZI\nzj0EAwIDRwAwRAIgFPBsJxVvcgRcCH/h/rJzN9yXTRGNzZSBFYD3Sor8cKICID9u\nOlkfEWXkz/URgAP+EnAf8hwuvDuCv+iz0fKt1FL8\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 93
+}

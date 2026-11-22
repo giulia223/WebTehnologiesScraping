@@ -8,10 +8,11 @@ per technology, apply implies/excludes/requires, and give the domain a status. W
   summary.json             the counts: core and every separate group, failures, coverage
 
 Counting rule (name level, no versions): a technology counts once however many domains
-use it. "Core" = technologies with observed or declared evidence from the website itself,
-plugins and apps included (for this tool's users, e.g. a Shopify analytics vendor, they
-are the competing products). Reported separately, never mixed in: technologies only ever
-inferred, only ever seen in DNS, and themes (mostly a site's look, not what it can do).
+use it. "Core" = the technologies used to build the website: evidence from the website
+itself (observed or declared), plugins, apps and themes included, and technologies implied
+by one of them (tier "inferred": WordPress implies PHP). Reported separately, never mixed
+in: technologies only ever seen in DNS (services of the company, not of the website), and
+a hosted platform's own infrastructure (`platform_infra`).
 """
 
 import csv
@@ -42,16 +43,10 @@ from techdetect.fingerprints.loader import RuleSet, load_rules
 from techdetect.fingerprints.matcher import SOURCES, RuleIndex, match_domain
 from techdetect.fingerprints.resolve import resolve
 
-# Themes are reported as their own group, not in core: a theme is mostly the site's look
-# and tells little about what the site can do. A technology is a theme here only if it
-# has a theme category and nothing but theme or plugin categories: Divi and Bricks are
-# also "Page builders", so they stay in core. Plugins and apps (WordPress plugins 87,
-# Shopify apps 100) are technologies like any other and count in core.
-THEME_CATEGORIES = frozenset({80, 81, 82})  # WordPress, Shopify, Drupal themes
-PLUGIN_CATEGORIES = frozenset({87, 100})  # WordPress plugins, Shopify apps
-# Name-level precedence: website evidence on any domain makes a technology core; seen in
-# DNS beats only inferred.
-GROUPS = ("core", "dns_only", "inferred_only", "themes", "platform_infra")
+# Themes, plugins and apps count in core like any technology used to build the site, and
+# so do implied technologies (they keep tier "inferred", so a reader sees they were not
+# seen directly). Name-level precedence: core on any domain wins, then DNS-only.
+GROUPS = ("core", "dns_only", "platform_infra")
 # Hosted website builders: the platform, not the site's owner, chose the servers, CDN,
 # storage, bot protection and certificate behind every site it hosts. On such a site those
 # detections are true but belong to the platform (docs/DEFINITIONS.md), so they move to the
@@ -68,7 +63,7 @@ HOSTED_PLATFORMS = frozenset(
         "Duda",
         "WebNode",
         "Square Online",
-        # Added after the name check (Task 4.5): a restaurant-site builder (sites live on
+        # Added after the name check: a restaurant-site builder (sites live on
         # *.eatbu.com) and a musicians' site builder (Bandzoogle: a reviewed custom rule).
         "DISH",
         "Bandzoogle",
@@ -94,7 +89,7 @@ BOT_PROTECTION = frozenset(
 )
 # The platform's own monitoring and tracking, reporting to the platform, not to the owner:
 # Wix's Sentry sends to sentry.wixpress.com, Weebly's Snowplow to ec.editmysite.com.
-# Found by the name check (Task 4.5), each seen on every site of that platform here:
+# Found by the name check, each seen on every site of that platform here:
 # - Wix: Firebase from the Wix Chat frame (wix-engage-visitors-*.firebaseio.com, 4 sites);
 # - Square Online: Datadog reporting as service "spi-ecom-square-online-buyer-journey";
 # - DISH: the template's Adobe stack (data layer productName "DISH WEBSITE B2C");
@@ -115,10 +110,20 @@ PLATFORM_OWN_TOOLS = {
     ),
     "Bandzoogle": frozenset({"Ruby on Rails"}),
 }
+# Page code a hosted platform bundles runs on the site's page and counts as the site's
+# (docs/DEFINITIONS.md), also when it is only implied by the platform (Wix implies React).
+PAGE_CODE_CATEGORIES = frozenset({"JavaScript frameworks", "JavaScript libraries"})
 # Statuses of domains whose page is not the owner's website: left out of all counts.
 NOT_THE_SITE = frozenset({"parked", "placeholder"})
+# A technology counts on a site only when its summed confidence is above 0. A sum of 0
+# means every clue found carries `confidence:0`: the rule author gave it no weight. In the
+# pinned rules 15 of the 16 such patterns also read a version, often from a global that
+# several products define (`_.VERSION` for Lodash and Underscore, `L.version` for Leaflet
+# and Livefyre): they look meant to read a version, not to prove the product is there.
+# detections.jsonl still keeps every detection, with its confidence.
+DEFAULT_MIN_CONFIDENCE = 1
 
-# Domain status (F3.6): the categories a failed domain can have.
+# Domain status: the categories a failed domain can have.
 _FAILURE_NAMES = {
     "dns_fail": "dns_error",
     "timeout": "timeout",
@@ -300,22 +305,24 @@ def counted(line: dict[str, Any]) -> bool:
     return credited and line["status"] not in NOT_THE_SITE
 
 
-def counting_group(result: TechnologyResult, ruleset: RuleSet) -> str:
-    """Which count a detection belongs to on this domain."""
-    categories = set(ruleset.technologies[result.name].categories)
-    if categories & THEME_CATEGORIES and categories <= THEME_CATEGORIES | PLUGIN_CATEGORIES:
-        return "themes"  # e.g. Astra, Twenty Twenty-Four, whatever evidence it has
-    if result.tier == "inferred":
-        return "inferred_only"
+def counting_group(result: TechnologyResult) -> str:
+    """Which count a detection belongs to on this domain, from its own evidence. An implied
+    detection starts in core; `place_implied` then follows what implies it."""
     if {g.signal for g in result.groups} == {"dns"}:
         return "dns_only"
     return "core"
 
 
+def is_core(tech: dict[str, Any], threshold: int = DEFAULT_MIN_CONFIDENCE) -> bool:
+    """A core detection that is counted: the same test as the headline in summary.json."""
+    return tech["group"] == "core" and tech["confidence"] >= threshold
+
+
 def hosted_platform(technologies: list[dict[str, Any]]) -> str | None:
-    """The hosted builder the site runs on, if one is seen on the site itself (core)."""
+    """The hosted builder the site runs on, if one is seen on the site itself (core, and
+    not only implied by another detection)."""
     for tech in technologies:
-        if tech["name"] in HOSTED_PLATFORMS and tech["group"] == "core":
+        if tech["name"] in HOSTED_PLATFORMS and is_core(tech) and tech.get("tier") != "inferred":
             return tech["name"]
     return None
 
@@ -336,13 +343,43 @@ def move_platform_infrastructure(technologies: list[dict[str, Any]]) -> str | No
     site's page. Returns the platform, or None.
     """
     platform = hosted_platform(technologies)
-    if platform is None:
-        return None
-    for tech in technologies:
-        if tech["group"] == "core" and is_platform_infrastructure(tech, platform):
-            tech["group"] = "platform_infra"
-            tech["platform"] = platform
+    if platform is not None:
+        for tech in technologies:
+            if tech["group"] == "core" and is_platform_infrastructure(tech, platform):
+                tech["group"] = "platform_infra"
+                tech["platform"] = platform
+    place_implied(technologies, platform)
     return platform
+
+
+def place_implied(technologies: list[dict[str, Any]], platform: str | None) -> None:
+    """An implied technology belongs where what implies it belongs.
+
+    Implied by a DNS-only detection: DNS-only. Implied by the platform's infrastructure
+    (Amazon S3 -> AWS on a Webflow site): the platform's. Implied by the hosted platform
+    itself: the platform's, for its server side (Weebly -> PHP and MySQL, docs/DEFINITIONS.md),
+    but not for page code that runs on the site's page (Wix -> React stays core). Repeated
+    until nothing moves, for chains (A -> B -> C)."""
+    by_name = {t["name"]: t for t in technologies}
+    moved = True
+    while moved:
+        moved = False
+        for tech in technologies:
+            parent = by_name.get(tech.get("implied_by") or "")
+            if tech.get("tier") != "inferred" or tech["group"] != "core" or parent is None:
+                continue
+            if parent["group"] == "dns_only":
+                tech["group"] = "dns_only"
+            elif parent["group"] == "platform_infra" or (
+                platform is not None
+                and parent["name"] in HOSTED_PLATFORMS  # Square Online's Weebly too
+                and not PAGE_CODE_CATEGORIES & set(tech["categories"])
+            ):
+                tech["group"] = "platform_infra"
+                tech["platform"] = platform
+            else:
+                continue
+            moved = True
 
 
 def _group_json(group: PatternGroup) -> dict[str, Any]:
@@ -376,7 +413,7 @@ def _technology_json(result: TechnologyResult, ruleset: RuleSet) -> dict[str, An
         "confidence": result.confidence,
         "versions": list(result.versions),
         "tier": result.tier,
-        "group": counting_group(result, ruleset),
+        "group": counting_group(result),
         "implied_by": result.implied_by,
         "signals": sorted({g.signal for g in result.groups}),
         "evidence": [_group_json(g) for g in result.groups],
@@ -491,6 +528,8 @@ class Outputs:
 
 
 def _rows(lines: list[dict], threshold: int) -> list[dict[str, Any]]:
+    # Only the counted domains (as summary.json): a redirect to another company, a parking
+    # or placeholder page describes someone else. detections.jsonl keeps every domain.
     return [
         {
             "domain": line["domain"],
@@ -504,6 +543,7 @@ def _rows(lines: list[dict], threshold: int) -> list[dict[str, Any]]:
             "signals": "; ".join(tech["signals"]),
         }
         for line in lines
+        if counted(line)
         for tech in line["technologies"]
         if tech["confidence"] >= threshold
     ]
@@ -550,7 +590,7 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
         for line in lines
         if line["redirected_to"] and credited(line) and line["status"] not in NOT_THE_SITE
     ]
-    # Left out of every count: another site's page (redirect, F4.4/F4.5), and pages that
+    # Left out of every count: another site's page (redirect), and pages that
     # are not a website at all (parking lander, hosting default page). Their detections
     # describe the parking service or the host, not the domain's owner.
     counted = [line for line in lines if credited(line) and line["status"] not in NOT_THE_SITE]
@@ -577,13 +617,7 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
     core_names = sorted(n for n, g in group_of.items() if g == "core")
 
     core_per_ok_domain = [
-        len(
-            {
-                t["name"]
-                for t in line["technologies"]
-                if t["group"] == "core" and t["confidence"] >= threshold
-            }
-        )
+        len({t["name"] for t in line["technologies"] if is_core(t, threshold)})
         for line in ok_counted
     ]
     by_category: Counter[str] = Counter()
@@ -606,6 +640,8 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
         "ruleset_version": ruleset.version,
         "partial_run": partial,
         "confidence_threshold": threshold,
+        "confidence_threshold_note": f"a technology counts on a site only when its summed "
+        f"confidence is at least {threshold}; detections.jsonl keeps every detection",
         "domains": {
             "input": len(lines),
             "ok": statuses["ok"],
@@ -630,8 +666,7 @@ def build_summary(lines: list[dict], ruleset: RuleSet, threshold: int, partial: 
             ),
             "redirected_elsewhere": {
                 "count": len(redirected),
-                "note": "to another company's site: left out of every count, average "
-                "and lead below",
+                "note": "to another company's site: left out of every count and average below",
                 "list": [f"{line['domain']} -> {line['redirected_to']}" for line in redirected],
             },
             "redirected_same_name": {
@@ -675,9 +710,9 @@ def write_outputs(
     write_atomic(output_dir / "detections.jsonl", text.encode("utf-8"))
     _write_tables(_rows(lines, threshold), output_dir)
     summary = build_summary(lines, ruleset, threshold, partial)
-    # Off by default; when on, the counts include URLs read from inline scripts (Task 7.3).
+    # Off by default; when on, the counts include URLs read from inline scripts.
     summary["inline_urls"] = inline_urls
-    summary["js_files"] = js_files  # likewise for downloaded script files (Task 7.4)
+    summary["js_files"] = js_files  # likewise for downloaded script files
     write_json_atomic(output_dir / "summary.json", summary)
     return Outputs(lines, summary)
 

@@ -1,0 +1,47 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:10Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "nevsproductions.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://nevsproductions.com/robots.txt",
+    "url_source": "input_host",
+    "outcome": "rejected",
+    "reason": "status_not_200",
+    "http_status": 404,
+    "final_url": "https://www.nevsproductions.com/robots.txt",
+    "content_type": "text/html",
+    "headers": [
+      [
+        "server",
+        "nginx"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:11 GMT"
+      ],
+      [
+        "content-type",
+        "text/html"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ]
+    ],
+    "tls_verified": false,
+    "file": null,
+    "sha256": "02fccdeeecb21c039fe22e623c19ac621438903b78be8e7230dca91fdd36a2fe",
+    "bytes": 160,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "tls_error": "ConnectError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.nevsproductions.com'. (_ssl.c:1028) (caused by SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.nevsproductions.com'. (_ssl.c:1028))",
+    "elapsed_ms": 773
+  }
+}

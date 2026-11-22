@@ -1,4 +1,4 @@
-"""`detect`: domain status, counting groups, outputs (F3.6), with the real pinned rules."""
+"""`detect`: domain status, counting groups, outputs, with the real pinned rules."""
 
 import csv
 import json
@@ -12,9 +12,12 @@ from typer.testing import CliRunner
 from techdetect.cli import app
 from techdetect.collect.run import RUN_COMPLETE
 from techdetect.detect import (
+    DEFAULT_MIN_CONFIDENCE,
+    _rows,
     build_summary,
     counting_group,
     domain_status,
+    hosted_platform,
     move_platform_infrastructure,
 )
 from techdetect.fingerprints.combine import PatternGroup, TechnologyResult
@@ -29,7 +32,7 @@ def rules() -> RuleSet:
     return load_rules(REAL_RULES)
 
 
-# ------------------------------------------------------------ domain status (F3.6)
+# ------------------------------------------------------------ domain status
 
 
 def page(status: str, category: str | None = None) -> dict:
@@ -63,18 +66,16 @@ def result(name: str, tier: str = "observed", signals: tuple[str, ...] = ("html"
     return TechnologyResult(name, 100, (), tier, () if tier == "inferred" else groups)
 
 
-def test_counting_groups(rules: RuleSet) -> None:
-    assert counting_group(result("WordPress"), rules) == "core"
-    assert counting_group(result("PHP", tier="inferred"), rules) == "inferred_only"
-    assert counting_group(result("Google Workspace", signals=("dns",)), rules) == "dns_only"
+def test_counting_groups() -> None:
+    assert counting_group(result("WordPress")) == "core"
+    # Implied technologies count in core; the tier still says "inferred".
+    assert counting_group(result("PHP", tier="inferred")) == "core"
+    assert counting_group(result("Google Workspace", signals=("dns",))) == "dns_only"
     # DNS plus website evidence stays core.
-    assert counting_group(result("Cloudflare", signals=("dns", "headers")), rules) == "core"
-    # Themes are reported apart; a theme that is also a page builder stays core.
-    assert counting_group(result("Astra"), rules) == "themes"
-    assert counting_group(result("Divi"), rules) == "core"
-    # Plugins count like any technology: Jetpack is only a WordPress plugin.
-    assert counting_group(result("Jetpack"), rules) == "core"
-    assert counting_group(result("WooCommerce"), rules) == "core"
+    assert counting_group(result("Cloudflare", signals=("dns", "headers"))) == "core"
+    # Themes, plugins and apps count like any technology used to build the site.
+    assert counting_group(result("Astra")) == "core"
+    assert counting_group(result("Jetpack")) == "core"
 
 
 def test_summary_counts_names_once_and_respects_the_threshold(rules: RuleSet) -> None:
@@ -96,6 +97,36 @@ def test_summary_counts_names_once_and_respects_the_threshold(rules: RuleSet) ->
 
     confident = build_summary(lines, rules, threshold=50, partial=False)
     assert confident["core_technologies"] == ["WordPress"]
+
+
+def test_a_detection_whose_clues_are_all_worth_0_is_not_counted_by_default(
+    rules: RuleSet,
+) -> None:
+    # Livefyre's `L.version` pattern is worth 0; on the real sites the `L` was Leaflet's.
+    lines = [
+        {
+            "domain": "maps.com",
+            "status": "ok",
+            "redirected_to": None,
+            "technologies": [
+                {
+                    "name": name,
+                    "confidence": confidence,
+                    "group": "core",
+                    "categories": [],
+                    "versions": [],
+                    "tier": "observed",
+                    "signals": ["js"],
+                }
+                for name, confidence in (("Leaflet", 100), ("Livefyre", 0))
+            ],
+        }
+    ]
+    assert DEFAULT_MIN_CONFIDENCE == 1
+    summary = build_summary(lines, rules, DEFAULT_MIN_CONFIDENCE, partial=False)
+    assert summary["core_technologies"] == ["Leaflet"]
+    assert summary["confidence_threshold"] == 1
+    assert [r["technology"] for r in _rows(lines, DEFAULT_MIN_CONFIDENCE)] == ["Leaflet"]
 
 
 # ------------------------------------------------------------ the command, end to end
@@ -192,13 +223,15 @@ def test_summary_separates_groups_and_failures(tmp_path: Path) -> None:
     summary = json.loads((out / "summary.json").read_text("utf-8"))
 
     assert summary["partial_run"] is False
+    assert summary["confidence_threshold"] == DEFAULT_MIN_CONFIDENCE  # the command's default
     assert summary["domains"]["failed"] == {"dns_error": 1, "not_collected": 1}
     assert summary["domains"]["redirected_elsewhere"]["list"] == ["old-shop.com -> new-shop.com"]
     # Averages over ok domains that were not redirected, with the denominator written out.
     assert summary["core_per_domain"]["denominator"] == "over 2 ok domains of 6"
     assert summary["core_technologies"].count("WordPress") == 1  # name level
     assert summary["unique_technologies"]["separately"]["dns_only"] == 1  # Google Workspace
-    assert summary["unique_technologies"]["separately"]["inferred_only"] >= 1  # MySQL
+    assert "MySQL" in summary["core_technologies"]  # implied by WordPress: core
+    assert set(summary["unique_technologies"]["separately"]) == {"dns_only", "platform_infra"}
 
 
 def test_tables_have_one_row_per_domain_and_technology(tmp_path: Path) -> None:
@@ -223,6 +256,22 @@ def test_tables_have_one_row_per_domain_and_technology(tmp_path: Path) -> None:
     )
     assert wordpress["version"] == "6.6.2"
     assert pq.read_table(out / "technologies.parquet").num_rows == len(rows)
+
+
+def test_tables_hold_only_the_counted_domains(tmp_path: Path) -> None:
+    # old-shop.com redirects to another company's site: it stays in detections.jsonl
+    # with its status, but not in the tables, so their unique core names equal the headline.
+    raw, domains = make_run(tmp_path)
+    out = tmp_path / "out"
+    run_detect(raw, domains, out)
+    with (out / "technologies.csv").open(encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    assert "old-shop.com" not in {r["domain"] for r in rows}
+    lines = [json.loads(t) for t in (out / "detections.jsonl").read_text("utf-8").splitlines()]
+    assert next(x for x in lines if x["domain"] == "old-shop.com")["technologies"]
+    summary = json.loads((out / "summary.json").read_text("utf-8"))
+    core = {r["technology"] for r in rows if r["group"] == "core"}
+    assert len(core) == summary["unique_technologies"]["core"]
 
 
 def test_detect_refuses_an_unfinished_collection(tmp_path: Path) -> None:
@@ -472,7 +521,7 @@ def test_weebly_and_ionos_examples() -> None:
 
 
 def test_platforms_added_by_the_name_check() -> None:
-    # Real sites from the name check (Task 4.5), as detected.
+    # Real sites from the name check, as detected.
     dish = site(  # hansis-knusperhendl-foodtruck.eatbu.com
         ("DISH", ["Reservations & delivery"]),
         ("Google Cloud CDN", ["CDN"]),
@@ -527,8 +576,60 @@ def test_a_self_hosted_site_keeps_its_infrastructure() -> None:
 def test_an_inferred_platform_does_not_move_anything() -> None:
     # Duda only implied by another detection is not proof the site runs on Duda.
     techs = site(("Cloudflare", ["CDN"]))
-    techs.append({"name": "Duda", "categories": ["CMS"], "group": "inferred_only"})
+    techs.append(implied("Duda", "MyWebsite Creator", ["CMS"]))
     assert move_platform_infrastructure(techs) is None
+
+
+def implied(name: str, by: str, categories: list[str]) -> dict:
+    return {
+        "name": name,
+        "categories": categories,
+        "group": "core",
+        "confidence": 100,
+        "tier": "inferred",
+        "implied_by": by,
+    }
+
+
+def test_what_a_hosted_platform_implies_is_the_platforms_except_page_code() -> None:
+    # 5rcircleprocess.weebly.com: Weebly implies PHP and MySQL (its own server side).
+    weebly = site(("Weebly", ["CMS"]))
+    weebly += [implied("PHP", "Weebly", ["Programming languages"])]
+    weebly += [implied("MySQL", "Weebly", ["Databases"])]
+    # A Wix site: Wix implies React, which runs on the site's page.
+    wix = site(("Wix", ["CMS"])) + [implied("React", "Wix", ["JavaScript frameworks"])]
+    move_platform_infrastructure(weebly)
+    move_platform_infrastructure(wix)
+    assert moved(weebly) == ["PHP", "MySQL"]
+    assert moved(wix) == []
+
+
+def test_an_implied_technology_follows_what_implies_it() -> None:
+    # A Webflow site: Amazon S3 is the platform's, so AWS implied by it is too (a chain).
+    webflow = site(("Webflow", ["Page builders"]), ("Amazon S3", ["CDN"]))
+    webflow += [implied("Amazon Web Services", "Amazon S3", ["PaaS"])]
+    webflow += [implied("Example Child", "Amazon Web Services", ["Miscellaneous"])]
+    move_platform_infrastructure(webflow)
+    assert moved(webflow) == ["Amazon S3", "Amazon Web Services", "Example Child"]
+    # On a self-hosted site, WordPress implies PHP: core. From a DNS-only record: DNS-only.
+    own = site(("WordPress", ["CMS"])) + [implied("PHP", "WordPress", ["Programming languages"])]
+    own.append({"name": "Mail Host", "categories": ["Email"], "group": "dns_only"})
+    own.append(implied("Mail Suite", "Mail Host", ["Email"]))
+    move_platform_infrastructure(own)
+    assert {t["name"]: t["group"] for t in own} == {
+        "WordPress": "core",
+        "PHP": "core",
+        "Mail Host": "dns_only",
+        "Mail Suite": "dns_only",
+    }
+
+
+def test_a_platform_below_the_threshold_is_not_the_sites_platform() -> None:
+    # haus-muehlenfeld-pommerby.de: Duda only at confidence 0, MyWebsite at 100.
+    duda = {"name": "Duda", "categories": ["CMS"], "group": "core", "confidence": 0}
+    mywebsite = {"name": "MyWebsite", "categories": ["CMS"], "group": "core", "confidence": 100}
+    assert hosted_platform([duda, mywebsite]) == "MyWebsite"
+    assert hosted_platform([duda]) is None
 
 
 def test_platform_infrastructure_is_not_counted_as_the_sites(rules: RuleSet) -> None:

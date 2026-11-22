@@ -1,0 +1,62 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:08Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "handycars.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://www.handycars.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://www.handycars.com/robots.txt",
+    "content_type": "text/plain; charset=utf-8",
+    "headers": [
+      [
+        "server",
+        "nginx/1.30.7"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:08 GMT"
+      ],
+      [
+        "content-type",
+        "text/plain; charset=utf-8"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "last-modified",
+        "Fri, 20 Nov 2026 12:11:22 GMT"
+      ],
+      [
+        "x-da-cache",
+        "HIT"
+      ],
+      [
+        "x-da-cache-age",
+        "706"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "129064c100558c3368f7816b16b988dd54b3aeff19e26330034e5ea4c950f910",
+    "bytes": 788,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 434
+  }
+}

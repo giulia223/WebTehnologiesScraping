@@ -19,7 +19,7 @@ is not repeated here; these are the differences and what they mean.
 | dioxoxigenio.com.br | placeholder (hosting default page) | **the company's real site** | **our bug**: the real site is only on `http://`; on `https://` the server shows a certificate for another name and the host's default page, which we took as the answer |
 | den-a-sha.co.jp | placeholder ("invalid URL") | **a real site** | **our bug**: same as above; the real site is at `http://www.den-a-sha.co.jp/`, an address we never try |
 
-**Our bug, in detail (fixed in Run 2):** when a site's certificate was made for another name, the fetcher
+**Our bug, in detail (now fixed):** when a site's certificate was made for another name, the fetcher
 retried without certificate checks and accepted the page it got. On shared hosting that
 page is often the host's default page, while the real site is served over plain `http://`.
 6 domains were collected this way (amaronbattery.in, cmresolutions.com, den-a-sha.co.jp,

@@ -1,0 +1,130 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:03Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "clotting-guide.online",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://www.clotting-guide.online/de/ueber/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "fb54747a32f3b3bf029cec61da24fdc3c05fc4b89b4d756d0543ef543ceab294",
+  "html_bytes": 63334,
+  "html_truncated": false,
+  "elapsed_ms": 2359,
+  "attempts": [
+    {
+      "url": "https://clotting-guide.online/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 2358,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://clotting-guide.online/",
+          "status": 302,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:03 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ],
+            [
+              "location",
+              "https://www.clotting-guide.online/"
+            ],
+            [
+              "content-length",
+              "218"
+            ],
+            [
+              "content-type",
+              "text/html; charset=iso-8859-1"
+            ]
+          ]
+        },
+        {
+          "kind": "redirect",
+          "url": "https://www.clotting-guide.online/",
+          "status": 302,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:04 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ],
+            [
+              "vary",
+              "Accept-Language"
+            ],
+            [
+              "x-redirect-by",
+              "Polylang"
+            ],
+            [
+              "location",
+              "https://www.clotting-guide.online/de/ueber/"
+            ],
+            [
+              "content-length",
+              "0"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://www.clotting-guide.online/de/ueber/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:04 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ],
+            [
+              "vary",
+              "accept,content-type"
+            ],
+            [
+              "permissions-policy",
+              "private-state-token-redemption=(self \"https://www.google.com\" \"https://www.gstatic.com\" \"https://recaptcha.net\" \"https://challenges.cloudflare.com\" \"https://hcaptcha.com\"), private-state-token-issuance=(self \"https://www.google.com\" \"https://www.gstatic.com\" \"https://recaptcha.net\" \"https://challenges.cloudflare.com\" \"https://hcaptcha.com\")"
+            ],
+            [
+              "link",
+              "<https://www.clotting-guide.online/wp-json/>; rel=\"https://api.w.org/\", <https://www.clotting-guide.online/wp-json/wp/v2/pages/1018>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\", <https://www.clotting-guide.online/?p=1018>; rel=shortlink"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ]
+          ]
+        }
+      ],
+      "cookies": []
+    }
+  ]
+}

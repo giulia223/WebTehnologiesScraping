@@ -1,12 +1,12 @@
-"""Signal ablation: what each collection step adds, and what it costs (Task 7.1).
+"""Signal ablation: what each collection step adds, and what it costs.
 
 Detection is re-run four times on the same saved data:
 
     static      the plain HTTP fetch (static.html, static.json), the certificate, robots.txt
-    static+     the same files, plus URLs written inside the page's inline scripts (Task 7.3;
+    static+     the same files, plus URLs written inside the page's inline scripts (off by default;
                 no extra request, so no extra cost; checked against the browser in
                 evaluate/static_plus.py)
-    + JS files  static+, plus the script files downloaded over plain HTTP (Task 7.4:
+    + JS files  static+, plus the script files downloaded over plain HTTP (
                 script-content rules, URLs inside Google Tag Manager containers)
     + browser   adds the browser's rendered page, requests, cookies and JS variables
     + DNS       adds the DNS records (= the full system, the same as `techdetect detect`)
@@ -26,7 +26,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
-from techdetect.detect import build_summary, counted, detect_all
+from techdetect.detect import DEFAULT_MIN_CONFIDENCE, build_summary, counted, detect_all, is_core
 from techdetect.domains import Domain
 from techdetect.evaluate.metrics import compute, rate
 from techdetect.evaluate.static_plus import from_js_files, load_review, referee
@@ -85,7 +85,7 @@ def core_sites(lines: list[dict[str, Any]]) -> dict[str, int]:
     sites: Counter[str] = Counter()
     for line in lines:
         if counted(line):
-            sites.update({t["name"] for t in line["technologies"] if t["group"] == "core"})
+            sites.update({t["name"] for t in line["technologies"] if is_core(t)})
     return dict(sites)
 
 
@@ -108,17 +108,23 @@ def measure_row(
     ground_truth: dict[str, Any],
     costs: dict[str, float],
 ) -> dict[str, Any]:
-    summary = build_summary(lines, ruleset, threshold=0, partial=False)
+    summary = build_summary(lines, ruleset, threshold=DEFAULT_MIN_CONFIDENCE, partial=False)
     unique = summary["unique_technologies"]
     metrics = compute(ground_truth, {line["domain"]: line for line in lines})
-    headline = metrics["headline"][0]  # threshold 0, as the headline counts
+    headline = next(h for h in metrics["headline"] if h["default"])  # as the headline counts
     return {
         "label": label,
         "steps": list(steps),
         "unique_core": unique["core"],
         "unique_extended": unique["extended_total"],
         "dns_only": unique["separately"].get("dns_only", 0),
-        "detections": sum(len(line["technologies"]) for line in lines),
+        # As technologies.csv: counted domains, counted detections.
+        "detections": sum(
+            t["confidence"] >= DEFAULT_MIN_CONFIDENCE
+            for line in lines
+            if counted(line)
+            for t in line["technologies"]
+        ),
         "core_per_domain": summary["core_per_domain"]["average"],
         "core_per_domain_over": summary["core_per_domain"]["denominator"],
         "precision": headline["precision"],
@@ -224,7 +230,8 @@ def render(result: dict[str, Any], ruleset: RuleSet, meta: dict[str, Any]) -> st
         "the rules and `data/ground_truth.json`. Do not edit by hand.",
         "",
         f"- **Run:** tool `{meta.get('tool_version', '?')}`, rules "
-        f"`{meta.get('ruleset_version', '?')}`, confidence threshold 0.",
+        f"`{meta.get('ruleset_version', '?')}`, confidence threshold {DEFAULT_MIN_CONFIDENCE} "
+        "(as `techdetect detect`).",
         "- **How:** detection is re-run once per row, each time allowing one more collection "
         "step. It is re-run, not filtered: a technology implied by one found only in the "
         "browser disappears with it. **static+** is the static row plus the URLs written "
@@ -238,6 +245,11 @@ def render(result: dict[str, Any], ruleset: RuleSet, meta: dict[str, Any]) -> st
         "- **Precision and recall** reuse the existing labels (20 labelled domains). "
         "Detections without a verdict (possible when a smaller set of evidence changes what "
         "is excluded or implied) are left out and counted in the table.",
+        "- **Recall** is measured on the 10 blind domains, and 9 rules were written for "
+        "misses on those same domains, so recall here is fitted to that set; 66% (75/113) "
+        "is the last independent figure.",
+        "- **Detections** counts the detections on the counted domains at the default "
+        "confidence threshold, as the rows of `technologies.csv`.",
         "- **Cost** is the average wall time per domain of the steps a row uses, from the "
         "collect run log (latest run of each step). CPU and memory per browser, the real "
         "cost at scale, were not measured.",
@@ -373,7 +385,7 @@ def render_js_files(
     js_row: dict[str, Any],
     review: dict[tuple[str, str], dict[str, str]],
 ) -> list[str]:
-    """The section for the script files downloaded over plain HTTP (Task 7.4)."""
+    """The section for the script files downloaded over plain HTTP."""
     items = sp["additions"]
     by_browser = Counter(item["browser"] for item in items)
     unconfirmed = [i for i in items if i["browser"] == "not_confirmed"]

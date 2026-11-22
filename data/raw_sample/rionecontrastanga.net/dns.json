@@ -1,0 +1,121 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-17T20:53:47Z",
+    "tool_version": "0.1.0+1e0a67458837",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "rionecontrastanga.net",
+  "status": "ok",
+  "resolver": {
+    "nameservers": [
+      "100.100.1.1",
+      "100.100.0.1"
+    ],
+    "timeout_s": 5.0
+  },
+  "elapsed_ms": 215,
+  "queries": [
+    {
+      "name": "rionecontrastanga.net",
+      "type": "A",
+      "status": "ok",
+      "ttl": 127,
+      "records": [
+        "89.40.175.188"
+      ],
+      "canonical_name": "rionecontrastanga.net."
+    },
+    {
+      "name": "rionecontrastanga.net",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: rionecontrastanga.net. IN AAAA"
+    },
+    {
+      "name": "rionecontrastanga.net",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: rionecontrastanga.net. IN CNAME"
+    },
+    {
+      "name": "www.rionecontrastanga.net",
+      "type": "A",
+      "status": "ok",
+      "ttl": 127,
+      "records": [
+        "89.40.175.188"
+      ],
+      "canonical_name": "rionecontrastanga.net."
+    },
+    {
+      "name": "www.rionecontrastanga.net",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: www.rionecontrastanga.net. IN AAAA"
+    },
+    {
+      "name": "www.rionecontrastanga.net",
+      "type": "CNAME",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "rionecontrastanga.net."
+      ]
+    },
+    {
+      "name": "rionecontrastanga.net",
+      "type": "MX",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "0 mail.rionecontrastanga.net."
+      ]
+    },
+    {
+      "name": "rionecontrastanga.net",
+      "type": "NS",
+      "status": "ok",
+      "ttl": 3600,
+      "records": [
+        "dns3.netsons.net.",
+        "dns1.netsons.net.",
+        "dns2.netsons.net.",
+        "dns4.netsons.net."
+      ]
+    },
+    {
+      "name": "rionecontrastanga.net",
+      "type": "TXT",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "v=spf1 +a +mx ~all"
+      ]
+    },
+    {
+      "name": "rionecontrastanga.net",
+      "type": "SOA",
+      "status": "ok",
+      "ttl": 3600,
+      "records": [
+        "dns1.netsons.net. admin.netsons.com. 2023060902 3600 2400 604800 3600"
+      ]
+    },
+    {
+      "name": "_dmarc.rionecontrastanga.net",
+      "type": "TXT",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: _dmarc.rionecontrastanga.net. IN TXT"
+    }
+  ]
+}

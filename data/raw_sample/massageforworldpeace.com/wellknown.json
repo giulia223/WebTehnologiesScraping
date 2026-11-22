@@ -1,0 +1,86 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:09Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "massageforworldpeace.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://www.massageforworldpeace.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://www.massageforworldpeace.com/robots.txt",
+    "content_type": "text/plain; charset=UTF-8",
+    "headers": [
+      [
+        "content-type",
+        "text/plain; charset=UTF-8"
+      ],
+      [
+        "transfer-encoding",
+        "chunked"
+      ],
+      [
+        "connection",
+        "keep-alive"
+      ],
+      [
+        "x-ws-origin",
+        "available"
+      ],
+      [
+        "x-ws-ratelimit-limit",
+        "1000"
+      ],
+      [
+        "x-ws-ratelimit-remaining",
+        "999"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:09 GMT"
+      ],
+      [
+        "server",
+        "Apache"
+      ],
+      [
+        "expires",
+        "Thu, 19 Nov 1981 08:52:00 GMT"
+      ],
+      [
+        "cache-control",
+        "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+      ],
+      [
+        "pragma",
+        "no-cache"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "set-cookie",
+        "DIY_SB=0c1d0ef36507852ba2da0ad2b04e7b93; path=/;SameSite=None; secure"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "0a4030d293d49386bfeec6350f06751a3a43a2bbad7b5119c1a82c591699b32e",
+    "bytes": 108,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 499
+  }
+}

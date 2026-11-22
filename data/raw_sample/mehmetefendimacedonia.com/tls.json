@@ -1,0 +1,65 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:40Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "mehmetefendimacedonia.com",
+  "probed_host": "mehmetefendimacedonia.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "mehmetefendi.bg"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YR2"
+      ]
+    ],
+    "sans": [
+      "mehmetefendi-bg.com",
+      "mehmetefendi.bg",
+      "mehmetefendibg.com",
+      "mehmetefendigreece.com",
+      "mehmetefendimacedonia.com",
+      "mehmetefendiserbia.com",
+      "www.mehmetefendi-bg.com",
+      "www.mehmetefendi.bg",
+      "www.mehmetefendibg.com",
+      "www.mehmetefendigreece.com",
+      "www.mehmetefendimacedonia.com",
+      "www.mehmetefendiserbia.com",
+      "www.xn--d1abaaatwbm1cxah.bg",
+      "www.xn--d1abaaatwbm1cxah.xn--90ae",
+      "xn--d1abaaatwbm1cxah.bg",
+      "xn--d1abaaatwbm1cxah.xn--90ae"
+    ],
+    "not_before": "2026-09-28T12:44:54Z",
+    "not_after": "2026-12-27T12:44:53Z",
+    "serial": "05F00C8494B410B63B2B243D47934B98B9CB",
+    "sha256": "632158b4775a39cef69c6dff42263f16e968596daac9893b221d5999dd31fd10",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIGhTCCBW2gAwIBAgISBfAMhJS0ELY7KyQ9R5NLmLnLMA0GCSqGSIb3DQEBCwUA\nMDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQD\nEwNZUjIwHhcNMjYwOTI4MTI0NDU0WhcNMjYxMjI3MTI0NDUzWjAaMRgwFgYDVQQD\nEw9tZWhtZXRlZmVuZGkuYmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB\nAQCdy+fwvWg/9U1PYNTaQJNFdWUyCnRYLjT3JH/gwvTTeU+HwLX6s1bOKBFgtHYr\nFGikhBgFKtLr3TzNYQ67O2rA8jWHgz79+dJQLheUJDAZ5RPUX6QTIz7Efgv56Y3w\n5Mld9PrTMwmfVvm4TIeKcSW0T+zCAtD0qmttYXY6P/Svu+QX3EUSI6IAjv+bssGi\nPgGKYkX/5oNbUzNlFK6alkN1c+E45315t+WC18fqZ0tGGuHwIrStEmXAez948Hdh\nrJAjgbxpEKf0vhCEttqUUh18vCEedLEPA0a3tYTDafS9dwx4Tcys9S3Bge4G63hM\nQ/nYiR89fhu7eCv8eebCdSIjAgMBAAGjggOqMIIDpjAOBgNVHQ8BAf8EBAMCBaAw\nEwYDVR0lBAwwCgYIKwYBBQUHAwEwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUOWr6\nYN4mGof2SqZjcufUNW5qu8swHwYDVR0jBBgwFoAUQBUtJnntMiCe35pyHdYyH4EM\ngQwwMwYIKwYBBQUHAQEEJzAlMCMGCCsGAQUFBzAChhdodHRwOi8veXIyLmkubGVu\nY3Iub3JnLzCCAacGA1UdEQSCAZ4wggGaghNtZWhtZXRlZmVuZGktYmcuY29tgg9t\nZWhtZXRlZmVuZGkuYmeCEm1laG1ldGVmZW5kaWJnLmNvbYIWbWVobWV0ZWZlbmRp\nZ3JlZWNlLmNvbYIZbWVobWV0ZWZlbmRpbWFjZWRvbmlhLmNvbYIWbWVobWV0ZWZl\nbmRpc2VyYmlhLmNvbYIXd3d3Lm1laG1ldGVmZW5kaS1iZy5jb22CE3d3dy5tZWht\nZXRlZmVuZGkuYmeCFnd3dy5tZWhtZXRlZmVuZGliZy5jb22CGnd3dy5tZWhtZXRl\nZmVuZGlncmVlY2UuY29tgh13d3cubWVobWV0ZWZlbmRpbWFjZWRvbmlhLmNvbYIa\nd3d3Lm1laG1ldGVmZW5kaXNlcmJpYS5jb22CG3d3dy54bi0tZDFhYmFhYXR3Ym0x\nY3hhaC5iZ4Ihd3d3LnhuLS1kMWFiYWFhdHdibTFjeGFoLnhuLS05MGFlghd4bi0t\nZDFhYmFhYXR3Ym0xY3hhaC5iZ4IdeG4tLWQxYWJhYWF0d2JtMWN4YWgueG4tLTkw\nYWUwEwYDVR0gBAwwCjAIBgZngQwBAgEwLgYDVR0fBCcwJTAjoCGgH4YdaHR0cDov\nL3lyMi5jLmxlbmNyLm9yZy83Ni5jcmwwggEKBgorBgEEAdZ5AgQCBIH7BIH4APYA\ndQDCMX5XRRmjRe5/ON6ykEHrx8IhWiK/f9W1rXaa2Q5SzQAAAaDoQYtMAAAEAwBG\nMEQCICUiJOmSTyrAYXZ4K4Ub1SDjnSIrPnTbQj10/jmR4O7HAiAMTTHXm1rvHDq0\nF6h7HwtC4EqrmgVaAqOoZsATRKaaKgB9AEavhj07PuWfpXfeqCRdNrDZ7SKiI/Rh\nd0EilFLulVBfAAABoOhBjAcACAAABQA3NG7CBAMARjBEAiAY6NYuiZAzI4FLIcoN\n0bO7IvJY1WWB4NfxjzP0W8nSwgIgJsEd/Gu6hgjH+08u0/c2hf2iYl6YCw8RSgmr\nmtA7PLYwDQYJKoZIhvcNAQELBQADggEBACL5R/yjzko0N3wZoJk6JKmpUJBtQbuq\nrNDtuvQlZ763K3GCZv7g5BiZ4jE2Qbyw0yvHIZjKKFSVV1X15NwlwA0b9F1Hkv3U\nIyHLbBCQ7nGarCzbRUnP9UsqG640Is8BHUkfSi1J8usE/pbJ73BLtkcnPZp1r4jq\nPHDKXRf7Gq4J/tXtpiKr2lib6y/vP1gsDy03fNCxtL0VW428+8RPKaz9WLDR7J4d\nb8R5P/fD0K4Zw8wUiE6Zc47p6ySs678OwYvRLS7u0n1Nge9zyCS8FFt/mItZqRK9\nakd2m/Ykt8DV+uEExNpMk4dPKMC7iBDxqHzZHbBdYEArwO5tcr597jg=\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 358
+}

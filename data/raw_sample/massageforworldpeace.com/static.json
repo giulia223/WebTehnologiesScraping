@@ -1,0 +1,168 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:17Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "massageforworldpeace.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://www.massageforworldpeace.com",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "59400f8c72dac7ad09ba61eb3ad42eeef5851d4e151f1c17913649d425a20f02",
+  "html_bytes": 24830,
+  "html_truncated": false,
+  "elapsed_ms": 1010,
+  "attempts": [
+    {
+      "url": "https://massageforworldpeace.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 1009,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://massageforworldpeace.com/",
+          "status": 301,
+          "http_version": "HTTP/1.1",
+          "headers": [
+            [
+              "content-type",
+              "text/html"
+            ],
+            [
+              "content-length",
+              "0"
+            ],
+            [
+              "connection",
+              "keep-alive"
+            ],
+            [
+              "x-ws-origin",
+              "available"
+            ],
+            [
+              "x-ws-ratelimit-limit",
+              "1000"
+            ],
+            [
+              "x-ws-ratelimit-remaining",
+              "999"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:17 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ],
+            [
+              "cache-control",
+              "max-age=3600"
+            ],
+            [
+              "location",
+              "https://www.massageforworldpeace.com"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://www.massageforworldpeace.com",
+          "status": 200,
+          "http_version": "HTTP/1.1",
+          "headers": [
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "transfer-encoding",
+              "chunked"
+            ],
+            [
+              "connection",
+              "keep-alive"
+            ],
+            [
+              "x-ws-origin",
+              "available"
+            ],
+            [
+              "x-ws-ratelimit-limit",
+              "1000"
+            ],
+            [
+              "x-ws-ratelimit-remaining",
+              "999"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:18 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ],
+            [
+              "expires",
+              "Thu, 19 Nov 1981 08:52:00 GMT"
+            ],
+            [
+              "cache-control",
+              "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"
+            ],
+            [
+              "pragma",
+              "no-cache"
+            ],
+            [
+              "x-content-type-options",
+              "nosniff"
+            ],
+            [
+              "x-xss-protection",
+              "0;report=https://cdn.initial-website.com/app/reporting/policyviolation/submit"
+            ],
+            [
+              "content-security-policy-report-only",
+              "default-src *;script-src 'unsafe-inline' 'unsafe-eval' *;style-src 'unsafe-inline' *;connect-src * blob:;report-uri https://cdn.initial-website.com/app/reporting/policyviolation/submit"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "set-cookie",
+              "DIY_SB=1ed8ea91dc1fd17e1f233a772ef367a9; path=/;SameSite=None; secure"
+            ]
+          ]
+        }
+      ],
+      "cookies": [
+        {
+          "name": "DIY_SB",
+          "value": "1ed8ea91dc1fd17e1f233a772ef367a9",
+          "domain": "www.massageforworldpeace.com",
+          "path": "/",
+          "secure": true,
+          "expires": null,
+          "set_by": "https://www.massageforworldpeace.com"
+        }
+      ]
+    }
+  ]
+}

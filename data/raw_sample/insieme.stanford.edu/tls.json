@@ -1,0 +1,67 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:44Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "insieme.stanford.edu",
+  "probed_host": "insieme.stanford.edu",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "stateOrProvinceName",
+        "California"
+      ],
+      [
+        "localityName",
+        "Stanford"
+      ],
+      [
+        "organizationName",
+        "Stanford University"
+      ],
+      [
+        "commonName",
+        "*.stanford.edu"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "DigiCert Inc"
+      ],
+      [
+        "commonName",
+        "DigiCert Global G3 TLS ECC SHA384 2020 CA1"
+      ]
+    ],
+    "sans": [
+      "*.stanford.edu",
+      "stanford.edu"
+    ],
+    "not_before": "2026-10-06T00:00:00Z",
+    "not_after": "2027-04-22T23:59:59Z",
+    "serial": "04177B1B00A8B2CFC9C3249C69E1AF06",
+    "sha256": "2432bd6955a41df479074e22493eea42442768a50c562595a9bcf010f3541fae",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIFcjCCBPmgAwIBAgIQBBd7GwCoss/JwyScaeGvBjAKBggqhkjOPQQDAzBZMQsw\nCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMTMwMQYDVQQDEypEaWdp\nQ2VydCBHbG9iYWwgRzMgVExTIEVDQyBTSEEzODQgMjAyMCBDQTEwHhcNMjYxMDA2\nMDAwMDAwWhcNMjcwNDIyMjM1OTU5WjBsMQswCQYDVQQGEwJVUzETMBEGA1UECBMK\nQ2FsaWZvcm5pYTERMA8GA1UEBxMIU3RhbmZvcmQxHDAaBgNVBAoTE1N0YW5mb3Jk\nIFVuaXZlcnNpdHkxFzAVBgNVBAMMDiouc3RhbmZvcmQuZWR1MFkwEwYHKoZIzj0C\nAQYIKoZIzj0DAQcDQgAE8+JUMoANVyvIQ8OA+GvEoMIndmX2WqpV+QI0fj2tqEyi\ntLJmKGgtLe6VZbRhHYpEYt0/FW9sY7zN8WseOdw+a6OCA44wggOKMB8GA1UdIwQY\nMBaAFIoj655r1/k3XfltITl2mqFn3hCoMB0GA1UdDgQWBBSls9PPaR7wlxr5XH3T\n4tIueDPAtTAnBgNVHREEIDAegg4qLnN0YW5mb3JkLmVkdYIMc3RhbmZvcmQuZWR1\nMD4GA1UdIAQ3MDUwMwYGZ4EMAQICMCkwJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cu\nZGlnaWNlcnQuY29tL0NQUzAOBgNVHQ8BAf8EBAMCA4gwEwYDVR0lBAwwCgYIKwYB\nBQUHAwEwgZ8GA1UdHwSBlzCBlDBIoEagRIZCaHR0cDovL2NybDMuZGlnaWNlcnQu\nY29tL0RpZ2lDZXJ0R2xvYmFsRzNUTFNFQ0NTSEEzODQyMDIwQ0ExLTIuY3JsMEig\nRqBEhkJodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRHbG9iYWxHM1RM\nU0VDQ1NIQTM4NDIwMjBDQTEtMi5jcmwwgYcGCCsGAQUFBwEBBHsweTAkBggrBgEF\nBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMFEGCCsGAQUFBzAChkVodHRw\nOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRHbG9iYWxHM1RMU0VDQ1NI\nQTM4NDIwMjBDQTEtMi5jcnQwDAYDVR0TAQH/BAIwADCCAX4GCisGAQQB1nkCBAIE\nggFuBIIBagFoAHUATGPcmOWcHauI9h6KPd6uj6tEozd7X5uUw/uhnPzBviYAAAGh\nEr504AAABAMARjBEAiAfjSC+frJPkptoSqZNoTYWx0jEcFcLjLJDbfA8lPAGVgIg\nMrQo6mUgEf8JJ2uYrZVk2TbBLS+rt/FPzjQe1VbaqmUAdwDW1Y2p0BdT82pKoMdX\nSQKv68fcLNOM2fdkyAyJGR6fAgAAAaESvnS9AAAEAwBIMEYCIQCQhrnswiaDDBLl\n/6ZLcjRZI7QbqnPZqXu83xcIgiQ4VQIhAICachQNKPwztO1dDz3hXQA3S3aKoaEv\nAP+hiKBCywSGAHYARMK9DOkUDmSlyUoBkwpaobs1lw4A7hEWiWgqHETXtWYAAAGh\nEr50/wAABAMARzBFAiEAiDh3I7OflmXDVz2hFP0Uv36vmXRjdQJQXNPiozb7PKwC\nIHQgy+111onACuLm0Hxo/Vu4H3HZN9FdKFyqSQGe/raJMAoGCCqGSM49BAMDA2cA\nMGQCMFq8xq2R4eDr4tTm+L5MinyYhx1XzT+e0E8DqHgxFPtJ4rk4JCkVSeBRwyM/\nUDRbwQIwNCG86ZJ+zHEDHscUpsYZnj3PRZBgbSqRh7My+DMTwzcBwBxw23iD2MQQ\nojPLr803\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 92
+}

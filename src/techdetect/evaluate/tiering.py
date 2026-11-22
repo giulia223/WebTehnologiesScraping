@@ -1,4 +1,4 @@
-"""A browser only where it pays: a tiered pipeline, simulated on saved data (Task 7.5).
+"""A browser only where it pays: a tiered pipeline, simulated on saved data.
 
 At scale the browser is the expensive step. Instead of rendering every domain, run the
 cheap tier everywhere and send a domain to the browser only when the cheap tier's own
@@ -6,7 +6,7 @@ result says it is likely worth it. The decision uses only cheap-tier facts (no b
 data), so it could run in production exactly as here.
 
     cheap tier   static fetch, certificate, robots.txt, DNS and inline-script URLs (no
-                 browser). The downloaded script files (Task 7.4) are left out on purpose:
+                 browser). The downloaded script files are left out on purpose:
                  most of what they add is a mention inside a bundle (docs/ABLATION.md), and
                  each approach should be judged on its own.
     policy       send a domain to the browser if the cheap tier found
@@ -28,7 +28,7 @@ precision and recall from the existing labels, and the cost per domain.
 from pathlib import Path
 from typing import Any
 
-from techdetect.detect import detect_all
+from techdetect.detect import DEFAULT_MIN_CONFIDENCE, detect_all, is_core
 from techdetect.domains import Domain
 from techdetect.evaluate.ablation import measure_row, step_costs
 from techdetect.evaluate.metrics import rate
@@ -53,7 +53,7 @@ def browser_reason(cheap_line: dict[str, Any]) -> str | None:
     if static_page != "used":
         why = static_page.removeprefix("not used: ")
         return f"plain fetch blocked ({why})" if why in BROWSER_MAY_HELP else None
-    core = [t for t in cheap_line["technologies"] if t["group"] == "core"]
+    core = [t for t in cheap_line["technologies"] if is_core(t)]
     if any(SHOP_CATEGORY in t["categories"] for t in core):
         return "shop"
     if any(TAG_MANAGER_CATEGORY in t["categories"] for t in core):
@@ -126,7 +126,8 @@ def render(result: dict[str, Any], meta: dict[str, Any]) -> str:
         "the rules and `data/ground_truth.json`. Do not edit by hand.",
         "",
         f"- **Run:** tool `{meta.get('tool_version', '?')}`, rules "
-        f"`{meta.get('ruleset_version', '?')}`, confidence threshold 0.",
+        f"`{meta.get('ruleset_version', '?')}`, confidence threshold {DEFAULT_MIN_CONFIDENCE} "
+        "(as `techdetect detect`).",
         "- **Cheap tier** (every domain, no browser): static fetch, certificate, robots.txt, "
         "DNS and URLs inside inline scripts. The script files downloaded over plain HTTP are "
         "left out: most of what they add is a mention inside a bundle (`docs/ABLATION.md`).",
@@ -140,6 +141,9 @@ def render(result: dict[str, Any], meta: dict[str, Any]) -> str:
         "made by the inline-URL approach there may have no verdict yet "
         "(column Unlabelled), so precision does not cover them (see `docs/ABLATION.md` for "
         "how those approaches were checked).",
+        "- **Recall** is measured on the 10 blind domains, and 9 rules were written for "
+        "misses on those same domains, so recall here is fitted to that set; 66% (75/113) "
+        "is the last independent figure.",
         "- **Cost** is the average wall time per domain from the collect run log; the tiered "
         "row pays the browser only for the domains it sends. CPU and memory per browser were "
         "not measured.",

@@ -21,7 +21,7 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
-from techdetect.detect import counted
+from techdetect.detect import counted, is_core
 from techdetect.fingerprints.js_files import GTM_URL_KEY
 from techdetect.fingerprints.loader import RuleSet
 from techdetect.fingerprints.matcher import INLINE_URL_KEY, REGEX_TIMEOUT_S
@@ -30,7 +30,7 @@ REVIEW_FILE = Path("data/static_plus_review.json")
 
 
 def core_names(line: dict[str, Any]) -> set[str]:
-    return {t["name"] for t in line["technologies"] if t["group"] == "core"}
+    return {t["name"] for t in line["technologies"] if is_core(t)}
 
 
 def from_inline_urls(evidence: dict[str, Any]) -> bool:
@@ -57,7 +57,7 @@ def additions(
         if not counted(line):
             continue
         for tech in line["technologies"]:
-            if tech["group"] != "core" or tech["name"] in before.get(line["domain"], set()):
+            if not is_core(tech) or tech["name"] in before.get(line["domain"], set()):
                 continue
             inline = [e for e in tech["evidence"] if is_new(e)]
             found.append(

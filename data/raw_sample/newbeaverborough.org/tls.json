@@ -1,0 +1,52 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:38Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "newbeaverborough.org",
+  "probed_host": "newbeaverborough.org",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "76521fa7bf.nxcli.io"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YR2"
+      ]
+    ],
+    "sans": [
+      "76521fa7bf.nxcli.io",
+      "newbeaverborough.org",
+      "www.newbeaverborough.org"
+    ],
+    "not_before": "2026-11-04T07:35:52Z",
+    "not_after": "2027-02-02T07:35:51Z",
+    "serial": "069B0F1CCD7891A3642E3F12B4D5F4358C78",
+    "sha256": "fcd2d103e8a195c15dca4e72f500ecd4c56e33d593d329b4d8ef47fe5d28b274",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIFMDCCBBigAwIBAgISBpsPHM14kaNkLj8StNX0NYx4MA0GCSqGSIb3DQEBCwUA\nMDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQD\nEwNZUjIwHhcNMjYxMTA0MDczNTUyWhcNMjcwMjAyMDczNTUxWjAeMRwwGgYDVQQD\nExM3NjUyMWZhN2JmLm54Y2xpLmlvMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB\nCgKCAQEAsg+lggWDSixRpAfRBIb/U+iPb5WCMsyiAvxyj2w//Gext0jpGdhXw1pt\nRnttQfqo4w11qHTov8sGASY/B0Vu4xKRuX4lE5H14EC6RLDFoDdDc1yMZlSaHgI6\nvz4vX/XcGq3hQvMnbd+QlSsz0Unc4wIZaFnJrLHNrfSnMvoPG81lfu6rwcGZRSUI\nprgk/u7XJLrF+8RdU8Q4iOLDXhBwd9liolqFJh2tDhc0rs5vRcjUMqXuhd7R4D3/\nWLYPayIdPae3d5QzGYxvori63TC6K5XUwKwbGak98XIlFQ4FC6OLFmqMMNqOetni\n3Fgyb2l2UTF5gHqOWcCBtW1bIq55iwIDAQABo4ICUTCCAk0wDgYDVR0PAQH/BAQD\nAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYE\nFMoJ9Hv89Mk3kWgoTxXGoiwGpIntMB8GA1UdIwQYMBaAFEAVLSZ57TIgnt+ach3W\nMh+BDIEMMDMGCCsGAQUFBwEBBCcwJTAjBggrBgEFBQcwAoYXaHR0cDovL3lyMi5p\nLmxlbmNyLm9yZy8wTgYDVR0RBEcwRYITNzY1MjFmYTdiZi5ueGNsaS5pb4IUbmV3\nYmVhdmVyYm9yb3VnaC5vcmeCGHd3dy5uZXdiZWF2ZXJib3JvdWdoLm9yZzATBgNV\nHSAEDDAKMAgGBmeBDAECATAvBgNVHR8EKDAmMCSgIqAghh5odHRwOi8veXIyLmMu\nbGVuY3Iub3JnLzEyMS5jcmwwggELBgorBgEEAdZ5AgQCBIH8BIH5APcAdgAAGl0a\nHC2TdbZIVXj4L3Ghrm7vOX0pfIrjFXvK3uGgHgAAAaGlsecCAAAEAwBHMEUCIQDW\nxosQnIrQpBjvzYE70XKbMRg0vAJ0gDYqs9NtFVYLiwIgaVKkHdfq5/31rBww7527\nL0zF5CmaR8JgDN8FEew37/4AfQCOykcLrN5q86IGsKR6hLdG/h/Gv5U+JeabTuQC\nSPPG6AAAAaGlsedEAAgAAAUAN+UUlQQDAEYwRAIgQN9lqh9JPatW/pdvAFM6mZbD\n2ntMjlvjkfgawIAaw8gCIGMhDf5G4q3tAyxoXCjPZX8nWgdrt9ewdBLYiv342UPF\nMA0GCSqGSIb3DQEBCwUAA4IBAQA6Ao18qfzZ+AEj3YBa4NiXX5KGFth5CIEB/HtM\nish8dCBKgJ6jG4MImZZXppNPs3Vm8xyz0hFDG3vCioh6tkoc2LezMokfJbo1p6qp\nuCmhr0wuVwtcVwRS1wYF24gNovfnsfIhPtm5WyFmOGlpGzXj8vEN8X6dg1liKgSl\nTcTvwM5h458GOVAlc7hfhrpt/vLg0w1bGo2/E2c3CbEYotWlylv6bPiPxvd1Ov1x\ngBvdcpASfPb66QqlxVTFPviTdDZED4/3UOLtf+ChRSnOCf8B12H1RdsLiY05+QSc\nkAkzQNEP4uRAOGxFgkbUrVs0FYcEn5cSlXyIW+fx4XSUNcGl\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 777
+}

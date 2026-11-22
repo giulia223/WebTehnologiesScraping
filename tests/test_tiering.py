@@ -1,12 +1,17 @@
-"""Task 7.5: a browser only where it pays, decided from the cheap tier's result."""
+"""A browser only where it pays, decided from the cheap tier's result."""
 
 from typing import Any
 
 from techdetect.evaluate.tiering import browser_reason, tiered_lines
 
 
-def tech(name: str, *categories: str, group: str = "core") -> dict[str, Any]:
-    return {"name": name, "categories": list(categories), "group": group}
+def tech(name: str, *categories: str, group: str = "core", confidence: int = 100) -> dict[str, Any]:
+    return {
+        "name": name,
+        "categories": list(categories),
+        "group": group,
+        "confidence": confidence,
+    }
 
 
 def line(domain: str, *techs: dict, page: str = "used") -> dict[str, Any]:
@@ -30,6 +35,8 @@ def test_a_plain_site_stays_in_the_cheap_tier() -> None:
     assert browser_reason(line("plain.com", tech("WordPress", "CMS"))) is None
     # Only the site's own (core) technologies count, not a DNS record.
     assert browser_reason(line("mail.com", tech("Shopify", "Ecommerce", group="dns_only"))) is None
+    # Nor a detection below the default threshold (all its clues worth 0).
+    assert browser_reason(line("hint.com", tech("Shop Hint", "Ecommerce", confidence=0))) is None
 
 
 def test_tiered_lines_use_the_browser_result_only_where_the_policy_says() -> None:

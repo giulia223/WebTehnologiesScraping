@@ -1,6 +1,6 @@
 """Script files over plain HTTP, no browser: data/raw/<domain>/js.json + js/<sha256>.js.
 
-A cheaper alternative to the headless browser (Task 7.4). The browser finds many
+A cheaper alternative to the headless browser. The browser finds many
 technologies because it runs scripts; here we only *download* them and read their text:
 
 - every `<script src>` in the saved static page (the page asks for these files), and

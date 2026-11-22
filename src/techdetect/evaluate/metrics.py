@@ -16,15 +16,20 @@ used for thresholds: after a re-run, a detection without a verdict is reported a
 unlabelled and a verdict whose detection is gone as stale, instead of silently skewing the
 numbers. Every rate is written with its counts ("92% (119/130)"); a breakdown with fewer
 than 10 judged detections says "too few to measure".
+
+The headline uses the same default confidence threshold as `detect` (a detection counts
+only above 0); the row at threshold 0 shows what counting everything would give.
 """
 
 from dataclasses import dataclass, field
 from typing import Any
 
-THRESHOLDS = (0, 50, 80)
+from techdetect.detect import DEFAULT_MIN_CONFIDENCE
+
+THRESHOLDS = (0, DEFAULT_MIN_CONFIDENCE, 50, 80)
 MIN_N = 10  # below this, a per-group / per-category rate is noise, not a measurement
 CONFIDENCE_BANDS = (("100", 100, 100), ("75-99", 75, 99), ("50-74", 50, 74), ("below 50", 0, 49))
-GROUP_ORDER = ("core", "dns_only", "inferred_only", "themes")
+GROUP_ORDER = ("core", "dns_only")
 SETS = ("blind", "review")
 PLATFORM_GROUP = "platform_infra"
 
@@ -135,7 +140,7 @@ def labelled_detections(gt: dict[str, Any], lines: dict[str, dict[str, Any]]) ->
     return out
 
 
-def tally(items: list[Judged], threshold: int = 0) -> Tally:
+def tally(items: list[Judged], threshold: int = DEFAULT_MIN_CONFIDENCE) -> Tally:
     result = Tally()
     for item in items:
         if item.confidence >= threshold:
@@ -144,7 +149,9 @@ def tally(items: list[Judged], threshold: int = 0) -> Tally:
 
 
 def expected_on_blind(
-    gt: dict[str, Any], lines: dict[str, dict[str, Any]], threshold: int = 0
+    gt: dict[str, Any],
+    lines: dict[str, dict[str, Any]],
+    threshold: int = DEFAULT_MIN_CONFIDENCE,
 ) -> list[Expected]:
     out = []
     for domain in gt["sets"]["blind"]:
@@ -184,6 +191,8 @@ def compute(gt: dict[str, Any], lines: dict[str, dict[str, Any]]) -> dict[str, A
     """Every number of the metrics report, as plain data (written to metrics.json)."""
     labelled = labelled_detections(gt, lines)
     judged = labelled.judged
+    # Breakdowns and lists describe what is counted, as the headline row at the default.
+    counted = [j for j in judged if j.confidence >= DEFAULT_MIN_CONFIDENCE]
     headline = []
     for threshold in THRESHOLDS:
         both = tally(judged, threshold)
@@ -196,6 +205,7 @@ def compute(gt: dict[str, Any], lines: dict[str, dict[str, Any]]) -> dict[str, A
         headline.append(
             {
                 "threshold": threshold,
+                "default": threshold == DEFAULT_MIN_CONFIDENCE,
                 "precision": [both.correct, both.judged],
                 "unsure": both.unsure,
                 "precision_blind": _pair(per_set["blind"]),
@@ -207,19 +217,21 @@ def compute(gt: dict[str, Any], lines: dict[str, dict[str, Any]]) -> dict[str, A
         )
     return {
         "labelled_domains": {s: list(gt["sets"][s]) for s in SETS},
-        "judged": len(judged),
+        "judged": len(counted),  # with a verdict and counted at the default threshold
+        "judged_below_threshold": len(judged) - len(counted),
+        "default_threshold": DEFAULT_MIN_CONFIDENCE,
         "unlabelled": labelled.unlabelled,
         "stale": labelled.stale,
         "platform_infra": [
             {"domain": d, "technology": n, "verdict": v} for d, n, v in labelled.platform_infra
         ],
         "headline": headline,
-        "by_group": _as_pairs(_breakdown(judged, lambda j: [j.group])),
-        "by_tier": _as_pairs(_breakdown(judged, lambda j: [j.tier])),
-        "by_confidence": _as_pairs(_breakdown(judged, lambda j: [band_of(j.confidence)])),
-        "by_category": _as_pairs(_breakdown(judged, lambda j: j.categories)),
-        "false_positives": [_detection(j) for j in judged if j.verdict == "wrong"],
-        "unsure": [_detection(j) for j in judged if j.verdict == "unsure"],
+        "by_group": _as_pairs(_breakdown(counted, lambda j: [j.group])),
+        "by_tier": _as_pairs(_breakdown(counted, lambda j: [j.tier])),
+        "by_confidence": _as_pairs(_breakdown(counted, lambda j: [band_of(j.confidence)])),
+        "by_category": _as_pairs(_breakdown(counted, lambda j: j.categories)),
+        "false_positives": [_detection(j) for j in counted if j.verdict == "wrong"],
+        "unsure": [_detection(j) for j in counted if j.verdict == "unsure"],
         "missed": [vars(e) for e in expected_on_blind(gt, lines) if not e.found],
         "not_counted": [
             {"domain": d, "technology": e["technology"], "why": e.get("not_counted_because", "")}

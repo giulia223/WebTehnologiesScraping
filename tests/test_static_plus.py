@@ -1,4 +1,4 @@
-"""Static+: script-URL rules on URLs inside inline scripts (Task 7.3)."""
+"""Static+: script-URL rules on URLs inside inline scripts."""
 
 from pathlib import Path
 

@@ -1,4 +1,4 @@
-"""Name check: one judged example per core technology name (Task 4.5)."""
+"""Name check: one judged example per core technology name."""
 
 from typing import Any
 
@@ -9,6 +9,7 @@ from techdetect.evaluate.name_check import (
     build_sheet,
     core_examples,
     final_verdict,
+    labelled_verdicts,
     merge_second,
     merge_verdicts,
     pick_domain,
@@ -100,6 +101,19 @@ def test_core_names_follow_the_summary_counting_rule() -> None:
     }
 
 
+def test_a_verdict_below_the_threshold_does_not_cover_a_name() -> None:
+    # Criteo judged on lab.com, but detected there only at confidence 0: not counted.
+    lines = [
+        {**ln, "technologies": [*ln["technologies"], {**tech("Criteo"), "confidence": 0}]}
+        if ln["domain"] == "lab.com"
+        else ln
+        for ln in LINES
+    ]
+    gt = ground_truth({"lab.com": {"jQuery": "correct", "PHP": "correct", "Criteo": "correct"}})
+    assert "Criteo" not in labelled_verdicts(gt, lines)
+    assert "Criteo" in [e["name"] for e in build_sheet(lines, gt)["names"]]
+
+
 def test_a_stale_verdict_does_not_cover_a_name() -> None:
     # lab.com was judged on Criteo once, but no longer detects it.
     gt = ground_truth({"lab.com": {"jQuery": "correct", "PHP": "correct", "Criteo": "correct"}})
@@ -129,9 +143,50 @@ def test_a_verdict_whose_example_detection_is_gone_counts_as_not_judged() -> Non
     summary = summarise(lines, GT, sheet)
     assert summary.checked["wrong"] == 0
     assert summary.checked["none"] == 2  # Hotjar (stale) and Criteo (never judged)
+    assert summary.example_gone == ["Hotjar"]
+    text = render_report(summary, sheet, {"tool_version": "t", "ruleset_version": "r"})
+    assert "## Judged wrong (0)" in text  # an old verdict is not listed as a current one
+    assert "## Not judged yet (2)" in text and "Hotjar (was wrong on" in text  # + Criteo
     rebuilt = build_sheet(lines, GT, previous=sheet)
     new_hotjar = next(e for e in rebuilt["names"] if e["name"] == "Hotjar")
     assert new_hotjar["domain"] != hotjar["domain"] and new_hotjar["verdict"] is None
+
+
+def test_a_correct_name_that_leaves_core_is_listed_not_counted() -> None:
+    # Like Duda: judged correct, then no longer counted (all its clues worth 0).
+    sheet = build_sheet(LINES, GT)
+    criteo = next(e for e in sheet["names"] if e["name"] == "Criteo")
+    criteo.update(verdict="correct", reason="script loaded")
+    lines = [
+        {
+            **ln,
+            "technologies": [
+                {**t, "confidence": 0} if t["name"] == "Criteo" else t for t in ln["technologies"]
+            ],
+        }
+        for ln in LINES
+    ]
+    summary = summarise(lines, GT, sheet)
+    assert summary.gone == ["Criteo"]
+    assert summary.checked["correct"] == 0
+    text = render_report(summary, sheet, {"tool_version": "t", "ruleset_version": "r"})
+    assert "## No longer core (1)" in text and "Criteo" in text
+
+
+def test_a_sheet_name_later_judged_on_a_labelled_domain_is_not_counted_twice() -> None:
+    sheet = build_sheet(LINES, GT)
+    hotjar = next(e for e in sheet["names"] if e["name"] == "Hotjar")
+    hotjar.update(verdict="correct", reason="script loaded")
+    lab = next(ln for ln in LINES if ln["domain"] == "lab.com")
+    lines = [
+        {**ln, "technologies": [*ln["technologies"], tech("Hotjar")]} if ln is lab else ln
+        for ln in LINES
+    ]
+    gt = ground_truth({"lab.com": {"jQuery": "correct", "PHP": "correct", "Hotjar": "correct"}})
+    summary = summarise(lines, gt, sheet)
+    assert summary.now_labelled == ["Hotjar"]
+    assert summary.checked["correct"] == 0  # counted once, on the labelled domain
+    assert summary.names_with_correct == 3  # jQuery, PHP, Hotjar
 
 
 def test_merge_refuses_bad_verdicts_and_other_sites() -> None:
@@ -176,7 +231,8 @@ def test_report_headline_counts_names_with_a_correct_detection() -> None:
     text = render_report(summary, sheet, {"tool_version": "t", "ruleset_version": "r"})
     assert "**3 of 4 core names have at least one detection judged correct.**" in text
     assert "## Judged wrong (1)" in text
-    assert "no human re-judged" in text  # the report never presents agents as a human
+    assert "Both reviewers are agents." in text  # the report never presents agents as a human
+    assert "no human" not in text
 
 
 def test_a_disagreement_between_reviewers_counts_as_unsure() -> None:

@@ -25,7 +25,9 @@
       "sevecoitalia.com"
     ]
   },
-  "judged": 323,
+  "judged": 332,
+  "judged_below_threshold": 1,
+  "default_threshold": 1,
   "unlabelled": [],
   "stale": [],
   "platform_infra": [
@@ -108,103 +110,132 @@
       "domain": "5rcircleprocess.weebly.com",
       "technology": "Snowplow Analytics",
       "verdict": "wrong"
+    },
+    {
+      "domain": "5rcircleprocess.weebly.com",
+      "technology": "PHP",
+      "verdict": "wrong"
+    },
+    {
+      "domain": "5rcircleprocess.weebly.com",
+      "technology": "MySQL",
+      "verdict": "wrong"
     }
   ],
   "headline": [
     {
       "threshold": 0,
+      "default": false,
       "precision": [
-        308,
-        312
+        320,
+        322
       ],
       "unsure": 11,
       "precision_blind": [
-        116,
-        116
+        126,
+        126
       ],
       "precision_review": [
-        192,
+        194,
         196
       ],
       "recall": [
-        75,
+        84,
         113
       ],
       "recall_with_rule": [
-        75,
+        84,
         87
       ],
-      "f1": 0.7937598790461138
+      "f1": 0.8505252499683585
     },
     {
-      "threshold": 50,
+      "threshold": 1,
+      "default": true,
       "precision": [
-        308,
-        311
+        320,
+        321
       ],
       "unsure": 11,
       "precision_blind": [
-        116,
-        116
+        126,
+        126
       ],
       "precision_review": [
-        192,
+        194,
         195
       ],
       "recall": [
-        75,
+        84,
         113
       ],
       "recall_with_rule": [
-        75,
+        84,
         87
       ],
-      "f1": 0.7947840148634934
+      "f1": 0.8516570559533617
+    },
+    {
+      "threshold": 50,
+      "default": false,
+      "precision": [
+        320,
+        321
+      ],
+      "unsure": 11,
+      "precision_blind": [
+        126,
+        126
+      ],
+      "precision_review": [
+        194,
+        195
+      ],
+      "recall": [
+        84,
+        113
+      ],
+      "recall_with_rule": [
+        84,
+        87
+      ],
+      "f1": 0.8516570559533617
     },
     {
       "threshold": 80,
+      "default": false,
       "precision": [
-        308,
-        311
+        320,
+        321
       ],
       "unsure": 10,
       "precision_blind": [
-        116,
-        116
+        126,
+        126
       ],
       "precision_review": [
-        192,
+        194,
         195
       ],
       "recall": [
-        75,
+        84,
         113
       ],
       "recall_with_rule": [
-        75,
+        84,
         87
       ],
-      "f1": 0.7947840148634934
+      "f1": 0.8516570559533617
     }
   ],
   "by_group": {
     "core": {
-      "correct": 273,
+      "correct": 297,
       "wrong": 1,
-      "unsure": 2
+      "unsure": 11
     },
     "dns_only": {
-      "correct": 21,
-      "wrong": 0,
-      "unsure": 0
-    },
-    "inferred_only": {
-      "correct": 11,
-      "wrong": 3,
-      "unsure": 9
-    },
-    "themes": {
-      "correct": 3,
+      "correct": 23,
       "wrong": 0,
       "unsure": 0
     }
@@ -216,31 +247,26 @@
       "unsure": 0
     },
     "inferred": {
-      "correct": 11,
-      "wrong": 3,
+      "correct": 13,
+      "wrong": 1,
       "unsure": 9
     },
     "observed": {
-      "correct": 288,
-      "wrong": 1,
+      "correct": 298,
+      "wrong": 0,
       "unsure": 2
     }
   },
   "by_confidence": {
     "100": {
-      "correct": 308,
-      "wrong": 3,
+      "correct": 320,
+      "wrong": 1,
       "unsure": 10
     },
     "50-74": {
       "correct": 0,
       "wrong": 0,
       "unsure": 1
-    },
-    "below 50": {
-      "correct": 0,
-      "wrong": 1,
-      "unsure": 0
     }
   },
   "by_category": {
@@ -254,8 +280,13 @@
       "wrong": 0,
       "unsure": 0
     },
+    "Advertising": {
+      "correct": 2,
+      "wrong": 0,
+      "unsure": 0
+    },
     "Analytics": {
-      "correct": 13,
+      "correct": 15,
       "wrong": 0,
       "unsure": 1
     },
@@ -270,7 +301,7 @@
       "unsure": 0
     },
     "CDN": {
-      "correct": 11,
+      "correct": 12,
       "wrong": 0,
       "unsure": 0
     },
@@ -291,7 +322,7 @@
     },
     "Databases": {
       "correct": 0,
-      "wrong": 1,
+      "wrong": 0,
       "unsure": 8
     },
     "Development": {
@@ -320,7 +351,7 @@
       "unsure": 0
     },
     "Hosting": {
-      "correct": 13,
+      "correct": 15,
       "wrong": 0,
       "unsure": 0
     },
@@ -340,8 +371,8 @@
       "unsure": 1
     },
     "JavaScript libraries": {
-      "correct": 63,
-      "wrong": 1,
+      "correct": 64,
+      "wrong": 0,
       "unsure": 0
     },
     "Live chat": {
@@ -355,7 +386,7 @@
       "unsure": 0
     },
     "Maps": {
-      "correct": 2,
+      "correct": 3,
       "wrong": 0,
       "unsure": 0
     },
@@ -405,8 +436,8 @@
       "unsure": 0
     },
     "Programming languages": {
-      "correct": 11,
-      "wrong": 1,
+      "correct": 12,
+      "wrong": 0,
       "unsure": 1
     },
     "RUM": {
@@ -460,7 +491,7 @@
       "unsure": 0
     },
     "UI frameworks": {
-      "correct": 3,
+      "correct": 4,
       "wrong": 0,
       "unsure": 0
     },
@@ -490,7 +521,7 @@
       "unsure": 0
     },
     "WordPress plugins": {
-      "correct": 20,
+      "correct": 21,
       "wrong": 0,
       "unsure": 0
     },
@@ -502,56 +533,11 @@
   },
   "false_positives": [
     {
-      "domain": "5rcircleprocess.weebly.com",
-      "set": "review",
-      "technology": "Lodash",
-      "confidence": 0,
-      "group": "core",
-      "tier": "observed",
-      "reason": "_.VERSION = 1.8.3 is Underscore.js (bundled in Weebly's main.js); Lodash has no 1.8.3 release, and Underscore was wrongly excluded in favour of Lodash.",
-      "implied_by": null,
-      "signal": "js _.VERSION",
-      "pattern": "^(.+)$\\;confidence:0\\;version:\\1",
-      "matched": "1.8.3",
-      "artifact": "browser.json",
-      "location": "https://5rcircleprocess.weebly.com/"
-    },
-    {
-      "domain": "5rcircleprocess.weebly.com",
-      "set": "review",
-      "technology": "PHP",
-      "confidence": 100,
-      "group": "inferred_only",
-      "tier": "inferred",
-      "reason": "Inferred only from Weebly; Weebly's server-side stack is the hosted platform's own choice, and DEFINITIONS say a technology that belongs to a platform, not to the site, is wrong (not merely unsure).",
-      "implied_by": "Weebly",
-      "signal": "",
-      "pattern": "",
-      "matched": "",
-      "artifact": "",
-      "location": ""
-    },
-    {
-      "domain": "5rcircleprocess.weebly.com",
-      "set": "review",
-      "technology": "MySQL",
-      "confidence": 100,
-      "group": "inferred_only",
-      "tier": "inferred",
-      "reason": "Inferred only from Weebly; the database behind a hosted builder is the platform's storage, which DEFINITIONS list as not the site's, so it is wrong rather than unsure.",
-      "implied_by": "Weebly",
-      "signal": "",
-      "pattern": "",
-      "matched": "",
-      "artifact": "",
-      "location": ""
-    },
-    {
       "domain": "insieme.stanford.edu",
       "set": "review",
       "technology": "Amazon Web Services",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Inferred only from Acquia Cloud Platform: Stanford chose Acquia (its hosting company, which counts), but AWS is Acquia's own infrastructure; like Cloudflare inferred from cdnjs, the site is not AWS's customer, so 'How strict' says not counted.",
       "implied_by": "Acquia Cloud Platform",
@@ -568,7 +554,7 @@
       "set": "blind",
       "technology": "MySQL",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Implied by WordPress only; WordPress runs on MySQL or MariaDB (or other drop-ins), and no saved artifact names the database, so MySQL is not certain.",
       "implied_by": "WordPress",
@@ -598,7 +584,7 @@
       "set": "blind",
       "technology": "MySQL",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Implied by WordPress only; WordPress runs on MySQL or MariaDB (or other drop-ins), and no saved artifact names the database, so MySQL is not certain.",
       "implied_by": "WordPress",
@@ -613,7 +599,7 @@
       "set": "blind",
       "technology": "MySQL",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Implied by WordPress only; WordPress runs on MySQL or MariaDB (or other drop-ins), and no saved artifact names the database, so MySQL is not certain.",
       "implied_by": "WordPress",
@@ -628,7 +614,7 @@
       "set": "review",
       "technology": "MySQL",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
       "implied_by": "WordPress",
@@ -658,7 +644,7 @@
       "set": "review",
       "technology": "MySQL",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
       "implied_by": "WordPress",
@@ -673,7 +659,7 @@
       "set": "review",
       "technology": "MySQL",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
       "implied_by": "WordPress",
@@ -688,7 +674,7 @@
       "set": "review",
       "technology": "MySQL",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
       "implied_by": "WordPress",
@@ -703,7 +689,7 @@
       "set": "review",
       "technology": "TypeScript",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Inferred only from FullCalendar, whose source is written in TypeScript; the site runs compiled JavaScript and nothing shows the site itself uses TypeScript.",
       "implied_by": "FullCalendar",
@@ -718,7 +704,7 @@
       "set": "review",
       "technology": "MySQL",
       "confidence": 100,
-      "group": "inferred_only",
+      "group": "core",
       "tier": "inferred",
       "reason": "Inferred from WordPress only; WordPress runs on MySQL or MariaDB (or SQLite via plugin), and nothing in the saved data shows which database is used.",
       "implied_by": "WordPress",
@@ -730,13 +716,6 @@
     }
   ],
   "missed": [
-    {
-      "domain": "clotting-guide.online",
-      "technology": "Jetpack",
-      "in_rules": true,
-      "where": "Console globals `_stq`, `wpcom`, `st_go`, `linktracker_init`",
-      "found": false
-    },
     {
       "domain": "clotting-guide.online",
       "technology": "Jetpack Stats",
@@ -837,20 +816,6 @@
     },
     {
       "domain": "loizillon.com",
-      "technology": "Magnific Popup",
-      "in_rules": true,
-      "where": "Network: stylesheet `/assets/magnific-popup-bd76b2742b05e58017f0fe452a612c2c.css` (CSS file loaded; JS not checked separately)",
-      "found": false
-    },
-    {
-      "domain": "loizillon.com",
-      "technology": "Animate.css",
-      "in_rules": true,
-      "where": "Network: stylesheet `/assets/animate-ca9c031f7663c9e52b815d368f541c0e.css`",
-      "found": false
-    },
-    {
-      "domain": "loizillon.com",
       "technology": "Drouot",
       "in_rules": false,
       "where": "Network: scripts `cdn.drouot.com/assets?name=cpg/plugins-...js`, `cpg/functions-...js`, `cpg/cookiechoices-...js`, sale images `cdn.drouot.com/d/vente/...`; Page source: \"DROUOT LIVE\" link to `drouot.com/fr`",
@@ -861,13 +826,6 @@
       "technology": "Google Trust Services",
       "in_rules": false,
       "where": "Certificate (seringasafaris.com): Issued by O = Google Trust Services, CN = WE1",
-      "found": false
-    },
-    {
-      "domain": "seringa-safaris.com",
-      "technology": "Hostgator",
-      "in_rules": true,
-      "where": "DNS TXT / SPF: `v=spf1 ip4:184.173.239.119 a mx include:websitewelcome.com ~all`",
       "found": false
     },
     {
@@ -885,31 +843,10 @@
       "found": false
     },
     {
-      "domain": "massageforworldpeace.com",
-      "technology": "IONOS",
-      "in_rules": true,
-      "where": "DNS NS: `ns-us.1and1-dns.us/.com/.org/.de`",
-      "found": false
-    },
-    {
-      "domain": "appelpsychotherapy.com",
-      "technology": "Google Ads",
-      "in_rules": true,
-      "where": "Network: `www.googletagmanager.com/gtag/js?id=AW-17813400584`, fetch `pagead2.googlesyndication.com/ccm/collect?...tid=AW-17813400584&en=page_view...`; Console: `dataLayer` has `config AW-17813400584`",
-      "found": false
-    },
-    {
       "domain": "appelpsychotherapy.com",
       "technology": "Google Consent Mode",
       "in_rules": false,
       "where": "Console: `dataLayer[0]` = `consent default` with `ad_storage` / `analytics_storage` = `denied`",
-      "found": false
-    },
-    {
-      "domain": "appelpsychotherapy.com",
-      "technology": "Google Maps",
-      "in_rules": true,
-      "where": "Network (inside the Wix map iframe `static.parastorage.com/.../googleMap.f3347ff6.html`): `maps.googleapis.com/maps/api/js?callback=initMap&key=...`; Console log `Google Maps API version: 3.67.1d`",
       "found": false
     },
     {
@@ -963,13 +900,6 @@
     },
     {
       "domain": "1stlocksheathscouts.org.uk",
-      "technology": "BootstrapCDN",
-      "in_rules": true,
-      "where": "Page source: see Font Awesome row (`maxcdn.bootstrapcdn.com`)",
-      "found": false
-    },
-    {
-      "domain": "1stlocksheathscouts.org.uk",
       "technology": "Google Trust Services",
       "in_rules": false,
       "where": "Certificate: Issued by O = Google Trust Services, CN = WE1",
@@ -987,13 +917,6 @@
       "technology": "Just Host",
       "in_rules": false,
       "where": "DNS NS: `ns1.justhost.com`, `ns2.justhost.com`",
-      "found": false
-    },
-    {
-      "domain": "rivithead.com",
-      "technology": "PHP",
-      "in_rules": true,
-      "where": "Page source: `<form name=\"login\" action=\"login.php?action=process\" method=\"post\">`; robots.txt `Disallow: /share_box_frame.php`, `/share_email.php`; Headers: `expires: Thu, 19 Nov 1981 08:52:00 GMT` (PHP session default)",
       "found": false
     }
   ],

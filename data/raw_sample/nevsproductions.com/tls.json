@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:43Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "nevsproductions.com",
+  "probed_host": "nevsproductions.com",
+  "probed_host_source": "input_host",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "nevsproductions.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "GB"
+      ],
+      [
+        "organizationName",
+        "Sectigo Limited"
+      ],
+      [
+        "commonName",
+        "Sectigo Public Server Authentication CA DV R36"
+      ]
+    ],
+    "sans": [
+      "nevsproductions.com",
+      "www.nevsproductions.com"
+    ],
+    "not_before": "2025-12-30T00:00:00Z",
+    "not_after": "2027-01-20T23:59:59Z",
+    "serial": "249E10A2F94C27D544C016AB4935E998",
+    "sha256": "fee1b09750b042b9b7c2d4cf965c64e1a68c21303607032ea8f9b647108a6124",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIGnjCCBQagAwIBAgIQJJ4QovlMJ9VEwBarSTXpmDANBgkqhkiG9w0BAQsFADBg\nMQswCQYDVQQGEwJHQjEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMTcwNQYDVQQD\nEy5TZWN0aWdvIFB1YmxpYyBTZXJ2ZXIgQXV0aGVudGljYXRpb24gQ0EgRFYgUjM2\nMB4XDTI1MTIzMDAwMDAwMFoXDTI3MDEyMDIzNTk1OVowHjEcMBoGA1UEAxMTbmV2\nc3Byb2R1Y3Rpb25zLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAM0G82l+QdSw47iVO8EIl9WOGaSy1jF45HeXHXlYcUATJ+452qejV3qccE+hLtRC\nyty2zC69cMpmFdCBr2EiQXCQPIzTe2qfIoSu87dehILcoImWVu6g0T4l3XYMyZ+d\nW+Qi8NtigEBLK78d1kTNNi5pkPl6KiTo8zNAyRw5rGWsYZS+Dld8+nhFOKZLaR8u\nkxsOZvzNlqGDgCvowFSmXFEt8susR2qzYk+GPJSNkTHlOhCz/OB36iq2WfNW3P6G\ncGOL8yuqEZc27rS4Vr1H/oUy8VZCLKiZF9YHSbXIMw8gJZtEtbeXoJIbtyfHTkaP\nEqyCXjyZtgnRHKvjk8Oz0FkCAwEAAaOCAxQwggMQMB8GA1UdIwQYMBaAFGjAEhYY\nDq/O9oemMlejRlFdywcnMB0GA1UdDgQWBBRg0N2a6L2bi/pGY9jrtf+ZuTs0sjAO\nBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADATBgNVHSUEDDAKBggrBgEFBQcD\nATBJBgNVHSAEQjBAMDQGCysGAQQBsjEBAgIHMCUwIwYIKwYBBQUHAgEWF2h0dHBz\nOi8vc2VjdGlnby5jb20vQ1BTMAgGBmeBDAECATCBhAYIKwYBBQUHAQEEeDB2ME8G\nCCsGAQUFBzAChkNodHRwOi8vY3J0LnNlY3RpZ28uY29tL1NlY3RpZ29QdWJsaWNT\nZXJ2ZXJBdXRoZW50aWNhdGlvbkNBRFZSMzYuY3J0MCMGCCsGAQUFBzABhhdodHRw\nOi8vb2NzcC5zZWN0aWdvLmNvbTCCAY4GCisGAQQB1nkCBAIEggF+BIIBegF4AHcA\nYEyar3p/d18B1Ab8kg3ImesLHH34yVIb+voXdzuXi8kAAAGbbvzXyAAABAMASDBG\nAiEA6oVKcFuJBDtPWWF7TYT5cL03JWbHvD6V20R9LLdkdRgCIQCc36o6LeIMKp1x\n8VYzpcufanbCGZCBfeqByNyMGoQ6VwB9AI7KRwus3mrzogawpHqEt0b+H8a/lT4l\n5ptO5AJI88boAAABm2782ZIACAAABQAA5zeLBAMARjBEAiAPh2dGSrp8FKybALWu\nB9MhCP+fJyfGUzEEW7L3wtFNwQIgb8aVAHRMc3XOXNwBEDILiwo9gTeuh2V/Q2Yq\nUB0TyukAfgBZbmwzhpSyWXKiVsig6N2QSnboCD3ahzsBCDgoFDzuWQAAAZtu/Nd5\nAAgAAAUAAAVr/wQDAEcwRQIgFgyUGn3Et9HEpqLtM/cLzKGtovZveqbWsoHSZJMc\n1GcCIQDrFh5SvbA34Z6qf2jEp5L7FmRTuKtW1Ojl5+4e89lShjA3BgNVHREEMDAu\nghNuZXZzcHJvZHVjdGlvbnMuY29tghd3d3cubmV2c3Byb2R1Y3Rpb25zLmNvbTAN\nBgkqhkiG9w0BAQsFAAOCAYEABkA7bTZX7HslaUcrDU28f9+HllUe58E5K/8prqAD\nYvXMNjWyFSmjDcFkNUdEFQye+k1DgA05mvIP0PohUIPqFqasLvm1cXSOc3nf4DGc\nmiWAhP4Ze9Iyps03PmymInrqIDQFoMdRFxzHDtePkQ3eUuebVpcxq6Xn8193jW7Y\ntpkjgogjWlwCdn/EqFeJx43sQx/IN0h/ZGS3Jsua6on1XpalmgXBfYo8X7HtqjU+\nHzDue6E7UMFYF7biKlDL4GFKbDdb12nY7DaVi+X8kiNAe8EEVJSsFbMyZQ3SH0Cn\nlnSpWtbKpiDxIFStW7nkUHbkISx3T6rLnYP2QAhR0SAgZHNTmB5xq6PgxUUimmGJ\nKaoaGYKZGrJMePluJxLn0SWNTQ0qbO7UQM5smsmibcwfcOVdFCVxVUfH8MJi0zsX\npFOR6dhnCBSv+ua3V7TrBVkbo7bcMBeRGFeBnvjZ0qBnqFMZGDYP87EzJ8UsSuWB\nOIeX7IuK2cSXxKYDsd1irrlI\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 265
+}

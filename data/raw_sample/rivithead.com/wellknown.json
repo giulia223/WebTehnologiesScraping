@@ -1,0 +1,86 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:15Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "rivithead.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://www.rivithead.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://www.rivithead.com/robots.txt",
+    "content_type": "text/plain",
+    "headers": [
+      [
+        "strict-transport-security",
+        "max-age=63072000; includeSubdomains;"
+      ],
+      [
+        "content-security-policy",
+        "frame-ancestors 'self'"
+      ],
+      [
+        "last-modified",
+        "Tue, 09 Jun 2026 21:39:20 GMT"
+      ],
+      [
+        "etag",
+        "\"363-653d8f5ac1200-gzip\""
+      ],
+      [
+        "accept-ranges",
+        "bytes"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "content-security-policy",
+        "frame-ancestors 'self';"
+      ],
+      [
+        "x-frame-options",
+        "SAMEORIGIN"
+      ],
+      [
+        "content-length",
+        "303"
+      ],
+      [
+        "content-type",
+        "text/plain"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:16 GMT"
+      ],
+      [
+        "server",
+        "Apache"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "8141dcad9aabc14ae81e242cd48953aeae8733210f6df931327fd0d7b0ba65ee",
+    "bytes": 867,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 800
+  }
+}

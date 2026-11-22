@@ -1,0 +1,54 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:02Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "clotting-guide.online",
+  "status": "ok",
+  "robots": {
+    "url": "https://www.clotting-guide.online/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://www.clotting-guide.online/robots.txt",
+    "content_type": "text/plain; charset=utf-8",
+    "headers": [
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:02 GMT"
+      ],
+      [
+        "server",
+        "Apache"
+      ],
+      [
+        "vary",
+        "accept,content-type"
+      ],
+      [
+        "permissions-policy",
+        "private-state-token-redemption=(self \"https://www.google.com\" \"https://www.gstatic.com\" \"https://recaptcha.net\" \"https://challenges.cloudflare.com\" \"https://hcaptcha.com\"), private-state-token-issuance=(self \"https://www.google.com\" \"https://www.gstatic.com\" \"https://recaptcha.net\" \"https://challenges.cloudflare.com\" \"https://hcaptcha.com\")"
+      ],
+      [
+        "link",
+        "<https://www.clotting-guide.online/wp-json/>; rel=\"https://api.w.org/\""
+      ],
+      [
+        "content-type",
+        "text/plain; charset=utf-8"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "709d693db6df9bb6869c29540eeee2613c95dd37ce8666f221a3867ebcc4d4b4",
+    "bytes": 126,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 1296
+  }
+}

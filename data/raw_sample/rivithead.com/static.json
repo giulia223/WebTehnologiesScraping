@@ -1,0 +1,157 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:36Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "rivithead.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://www.rivithead.com/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "0709fdce28813310e3f398c0f8a486068da0f769c218086829b632eaabcdf48f",
+  "html_bytes": 72344,
+  "html_truncated": false,
+  "elapsed_ms": 1245,
+  "attempts": [
+    {
+      "url": "https://rivithead.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 1243,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://rivithead.com/",
+          "status": 301,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "strict-transport-security",
+              "max-age=63072000; includeSubdomains;"
+            ],
+            [
+              "content-security-policy",
+              "frame-ancestors 'self'"
+            ],
+            [
+              "location",
+              "https://www.rivithead.com/"
+            ],
+            [
+              "content-length",
+              "234"
+            ],
+            [
+              "content-type",
+              "text/html; charset=iso-8859-1"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:36 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://www.rivithead.com/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "expires",
+              "Thu, 19 Nov 1981 08:52:00 GMT"
+            ],
+            [
+              "cache-control",
+              "private, no-cache, must-revalidate"
+            ],
+            [
+              "set-cookie",
+              "rhud=a5qqhktnmpe85lcnbqm513mo1o; path=/; domain=www.rivithead.com; secure; HttpOnly"
+            ],
+            [
+              "set-cookie",
+              "theme=darkmode; expires=Fri, 20 Nov 2026 19:19:37 GMT; Max-Age=25200"
+            ],
+            [
+              "strict-transport-security",
+              "max-age=63072000; includeSubdomains;"
+            ],
+            [
+              "content-security-policy",
+              "frame-ancestors 'self'"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "x-content-type-options",
+              "nosniff"
+            ],
+            [
+              "content-security-policy",
+              "frame-ancestors 'self';"
+            ],
+            [
+              "x-frame-options",
+              "SAMEORIGIN"
+            ],
+            [
+              "content-length",
+              "10789"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:37 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ]
+          ]
+        }
+      ],
+      "cookies": [
+        {
+          "name": "rhud",
+          "value": "a5qqhktnmpe85lcnbqm513mo1o",
+          "domain": ".www.rivithead.com",
+          "path": "/",
+          "secure": true,
+          "expires": null,
+          "set_by": "https://www.rivithead.com/"
+        },
+        {
+          "name": "theme",
+          "value": "darkmode",
+          "domain": "www.rivithead.com",
+          "path": "/",
+          "secure": false,
+          "expires": 1795202377,
+          "set_by": "https://www.rivithead.com/"
+        }
+      ]
+    }
+  ]
+}

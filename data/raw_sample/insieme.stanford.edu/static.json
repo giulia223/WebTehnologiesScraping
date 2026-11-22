@@ -1,0 +1,130 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:20Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "insieme.stanford.edu",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://insieme.stanford.edu/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "c89f90319702640c3803573a16d6d847e5fc04b449f1eeb14ef67170d14e9600",
+  "html_bytes": 40677,
+  "html_truncated": false,
+  "elapsed_ms": 275,
+  "attempts": [
+    {
+      "url": "https://insieme.stanford.edu/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 273,
+      "steps": [
+        {
+          "kind": "final",
+          "url": "https://insieme.stanford.edu/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "content-type",
+              "text/html; charset=utf-8"
+            ],
+            [
+              "content-length",
+              "8734"
+            ],
+            [
+              "x-drupal-dynamic-cache",
+              "HIT"
+            ],
+            [
+              "content-language",
+              "en"
+            ],
+            [
+              "x-content-type-options",
+              "nosniff"
+            ],
+            [
+              "x-frame-options",
+              "SAMEORIGIN"
+            ],
+            [
+              "last-modified",
+              "Sun, 01 Nov 2026 01:16:50 GMT"
+            ],
+            [
+              "etag",
+              "\"1793495810\""
+            ],
+            [
+              "x-generator",
+              "Drupal 11 (https://www.drupal.org)"
+            ],
+            [
+              "x-consumer-id",
+              "9d05df89-69af-481e-a4f7-1ba014dd5342"
+            ],
+            [
+              "x-drupal-cache",
+              "HIT"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "x-request-id",
+              "v-e7b59cda-e44f-11f1-be7c-2b98c699af0d"
+            ],
+            [
+              "x-ah-environment",
+              "01live"
+            ],
+            [
+              "x-cache-hits",
+              "2"
+            ],
+            [
+              "x-age",
+              "2659"
+            ],
+            [
+              "accept-ranges",
+              "bytes"
+            ],
+            [
+              "cache-control",
+              "public, max-age=60"
+            ],
+            [
+              "expires",
+              "Fri, 20 Nov 2026 12:20:21 GMT"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:21 GMT"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "strict-transport-security",
+              "max-age=15768000"
+            ]
+          ]
+        }
+      ],
+      "cookies": []
+    }
+  ]
+}

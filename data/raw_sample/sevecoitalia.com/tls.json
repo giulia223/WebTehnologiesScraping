@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:41Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "sevecoitalia.com",
+  "probed_host": "www.sevecoitalia.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "www.sevecoitalia.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YR1"
+      ]
+    ],
+    "sans": [
+      "sevecoitalia.com",
+      "www.sevecoitalia.com"
+    ],
+    "not_before": "2026-10-13T06:26:15Z",
+    "not_after": "2027-01-11T06:26:14Z",
+    "serial": "06561C5AE322902FD3F0F8B7508A2E023D57",
+    "sha256": "9be6945911c58173531e12aa1974ee19ca0ef5b1ffa902b619f3d93a671d81d4",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIFlTCCBH2gAwIBAgISBlYcWuMikC/T8Pi3UIouAj1XMA0GCSqGSIb3DQEBCwUA\nMDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQD\nEwNZUjEwHhcNMjYxMDEzMDYyNjE1WhcNMjcwMTExMDYyNjE0WjAfMR0wGwYDVQQD\nExR3d3cuc2V2ZWNvaXRhbGlhLmNvbTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCC\nAYoCggGBAL7tW271i77Y6wbdTyN3RjbqSaj8xjl3oE65REmGzGpnINktDIKI09FM\nQz5znlzL5ehqy8gUV76l+Z2EQxGLFYKIhKrLA0OpPCQK24wWfJPHsdcamFhMI1p9\ng4xMutTyl8evF3B+HfCAaM0St9I5uVdFSfvH2f3EysqjmJetSG5BfDTeOW330AXD\n4DhV16+09K7mip2kkwZ0eIL1QCOyenLGcsa5hcKNqa710cAYe1UIs1ZprnS4NvSd\ndDBb1wMXhD6yqPuUqOk8Wpj96KsAF8+WfRbD25y0d49nd+6Z3lX1afHuT57sF0oh\nL6v6eyYqsUlxYK3yub8WQ8qM1+xFTb6Dvx2GQm/GcZq5P0GkWVSYD2QhJ6dMn4MA\nAHCb5IGpoMo1gu+VqpM2ndsQyjm6XLeyASK1P6FJItL9hBSX0Lhp/7BlcIM2wsFZ\nh8kCr59K+sx4C/dmx5QceYhne169aL7FVbeHfol0r7lUitp8sawaCs1I/GZWmZ6w\nMWVoR7J/+wIDAQABo4ICNTCCAjEwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoG\nCCsGAQUFBwMBMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFPAElLIgSvHIow34P3jG\nViYkRS3QMB8GA1UdIwQYMBaAFB8vNb5GFILNQLGueSxVePr31Gj7MDMGCCsGAQUF\nBwEBBCcwJTAjBggrBgEFBQcwAoYXaHR0cDovL3lyMS5pLmxlbmNyLm9yZy8wMQYD\nVR0RBCowKIIQc2V2ZWNvaXRhbGlhLmNvbYIUd3d3LnNldmVjb2l0YWxpYS5jb20w\nEwYDVR0gBAwwCjAIBgZngQwBAgEwLgYDVR0fBCcwJTAjoCGgH4YdaHR0cDovL3ly\nMS5jLmxlbmNyLm9yZy84OC5jcmwwggENBgorBgEEAdZ5AgQCBIH+BIH7APkAdgBg\nTJqven93XwHUBvySDciZ6wscffjJUhv6+hd3O5eLyQAAAaE0JkcLAAAEAwBHMEUC\nIQDsqbAtuoyrJL/eSTRILyhleug+6MQrFl5FhYuwq/fKmwIgXssM8xoPqZ9hcaX6\n58XbD9c2uf2baRLYOkdPyFmn/DkAfwAai51rjdeR0c0FSe22A1XWBrZPrTDbcf54\njw/HyPvEsQAAAaE0JkxbAAgAAAUAB/abqwQDAEgwRgIhALCZ6dLQRmqqn0BQVvSv\nLQ9h1K9qEpuASkFS0kXGg+kMAiEAmcsORqhYZyzUD9uBeeEUVNNYrkYeGc1c+umb\naGxzzNAwDQYJKoZIhvcNAQELBQADggEBAA4P4KeWzkT4CJ+zGJ1YZ/Dmp22b4Njw\n7AZUs3vb9xxoupQPgduVnmScHx0feM0dZ0LWB8qRz2YVSRxX+2cIwYdjosgb20H7\nfO8fLITPQ2aZMosKxNUMFcfmXY9iJfFObhl6AhvW6n8wIp16YViPPUP0cN+Shr3A\nKvQI9k8cd+gUsxFw3ne+AMPScE36h1RzBQpUol/LIlWffs4SyGgFxA77qQbZB42X\nXWYsOd4RHc4shTLVKQEulkKi7tp3kbRnAoU3e3XCkhOZcHeoHjPSZYqxSfLdKkNv\nGzDJb4wCrP+ysLn491UUM4arrAtofQ3RyoWzv1GmWn4Q7RUTwM6SNqw=\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 2234
+}

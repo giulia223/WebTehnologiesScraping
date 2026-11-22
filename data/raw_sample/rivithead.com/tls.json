@@ -1,0 +1,63 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:47Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "rivithead.com",
+  "probed_host": "www.rivithead.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "stateOrProvinceName",
+        "California"
+      ],
+      [
+        "organizationName",
+        "Rivithead Corp."
+      ],
+      [
+        "commonName",
+        "www.rivithead.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "GB"
+      ],
+      [
+        "organizationName",
+        "Sectigo Limited"
+      ],
+      [
+        "commonName",
+        "Sectigo Public Server Authentication CA OV R36"
+      ]
+    ],
+    "sans": [
+      "www.rivithead.com",
+      "rivithead.com"
+    ],
+    "not_before": "2026-07-06T00:00:00Z",
+    "not_after": "2027-01-20T23:59:59Z",
+    "serial": "2B49534D12EFDA1BC6D4B86B5C6AD162",
+    "sha256": "58c8f9024b420df0429a85276bce75219bcd1dab83b34ef797df996e1e638580",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIHLDCCBZSgAwIBAgIQK0lTTRLv2hvG1LhrXGrRYjANBgkqhkiG9w0BAQsFADBg\nMQswCQYDVQQGEwJHQjEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMTcwNQYDVQQD\nEy5TZWN0aWdvIFB1YmxpYyBTZXJ2ZXIgQXV0aGVudGljYXRpb24gQ0EgT1YgUjM2\nMB4XDTI2MDcwNjAwMDAwMFoXDTI3MDEyMDIzNTk1OVowWDELMAkGA1UEBhMCVVMx\nEzARBgNVBAgTCkNhbGlmb3JuaWExGDAWBgNVBAoTD1Jpdml0aGVhZCBDb3JwLjEa\nMBgGA1UEAxMRd3d3LnJpdml0aGVhZC5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IB\nDwAwggEKAoIBAQDJ+WqYk3nWA0R0fniTW/u13BdijsNnX5QmBqto02KgJ3Mo+9aU\nih/RoFbMzSbok2Sw0zTJdWdgNtAapqJRM0Od/NLFi+jfNrz8EIPJiUdZAhtycm9r\nyMDpOEN/5f8K65iFFoHg8R0VSU9A4vjEABFsS3C7+8M4SJfAL7sbjk2tVbh+1r3b\nA4mXA4pUrns+PVbkmKUMff20AU9Q+GMH5febMoeulyNnjh+XqlNtxpg24JVpV73d\n7PbHtr8l6X3QMp3SzHl6lKX+85VoYAEHwYT6R+eSoHaqtWmToBXt9d/KCehMnpFV\nodlhFaLeFwzYDLbgQCJN00gaHwkLC9LKiWHPAgMBAAGjggNoMIIDZDAfBgNVHSME\nGDAWgBTjZnS7cGiNLF1ODqZKj5s3IpyCkjAdBgNVHQ4EFgQUFk7Wvcgl5IF9Qp/S\nEhPBAtq0bT0wDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw\nFAYIKwYBBQUHAwEGCCsGAQUFBwMCMEoGA1UdIARDMEEwNQYMKwYBBAGyMQECAQME\nMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMAgGBmeBDAEC\nAjBUBgNVHR8ETTBLMEmgR6BFhkNodHRwOi8vY3JsLnNlY3RpZ28uY29tL1NlY3Rp\nZ29QdWJsaWNTZXJ2ZXJBdXRoZW50aWNhdGlvbkNBT1ZSMzYuY3JsMIGEBggrBgEF\nBQcBAQR4MHYwTwYIKwYBBQUHMAKGQ2h0dHA6Ly9jcnQuc2VjdGlnby5jb20vU2Vj\ndGlnb1B1YmxpY1NlcnZlckF1dGhlbnRpY2F0aW9uQ0FPVlIzNi5jcnQwIwYIKwYB\nBQUHMAGGF2h0dHA6Ly9vY3NwLnNlY3RpZ28uY29tMCsGA1UdEQQkMCKCEXd3dy5y\naXZpdGhlYWQuY29tgg1yaXZpdGhlYWQuY29tMIIBjQYKKwYBBAHWeQIEAgSCAX0E\nggF5AXcAdQAcn2gs6frwRWlQ+BuWiofd2zIQ2EzmyLLjglJKxM9ZnwAAAZ84/Jbg\nAAAEAwBGMEQCIGR8HsMmBlU16Zs3aD9gHcpGWRW26lyllWDBuxEBHP2MAiAw9cvy\noNvQ8fqECnlnW8ynXc5az92J9wjujYv6EodT+AB9AI7KRwus3mrzogawpHqEt0b+\nH8a/lT4l5ptO5AJI88boAAABnzj8mU8ACAAABQAFWn4xBAMARjBEAiBOdkcEHwEi\nNDXHYr+RtgGYZhsxLQ/e5DzLjBevyRq2eAIgBqoVOp6kykc9AbgXZ0xLVWSg3JmF\n0glcfK9AFG0IcHsAfwBZbmwzhpSyWXKiVsig6N2QSnboCD3ahzsBCDgoFDzuWQAA\nAZ84/JenAAgAAAUAAEaBzQQDAEgwRgIhAJ75OZ3G7ctuRG4YH0dg09RGb1qoud6C\nfEn88YTLLeFwAiEA+jNTRbZIGe2LUkND1Wyh5dAxHmVOWX1iuLeWmJ8nzF0wDQYJ\nKoZIhvcNAQELBQADggGBAFRO9yT+vhYgaRGoFPhPSAWSRy1SFqlKkcrSCpUHuKbq\neENWEIy4zpyudOY8thZ+kYjBtrWXfiMzeP9gnteybFKj7mhIS+yBnqmewzOryuVQ\nuOAu6tm6+7F4kmLunDsBnGyb3YAZ9jiCPgIfGXjl5NxakU1XjhvBqYjB7rxyMKhE\nKMXv62esBAQCUqqKWNeb0DTLxyyI2sLi+Kkttp6TVlXOcYKueNfQU2izKTH4VvMG\nIw9gSLr0+GwKf2PPMO+r+E5jLzlDTsiP1Iwq/bm/ElhGyuov2q0UxRkx2EnQ9fIj\nsrl2rY4In+LXKAZEn/MoaH1/nFLVGm4lKl1Fkq7YToauLG3Sdhb9fSeIm6gtrmok\nXxu60fXxj9rgXhoxv5KymEAQvB9ppZ1ABzbzj73fHvZOSkDzYcj8eH4canNfrM/f\nHZ3t5OcZkwthmMhLJFoWeZ7X3nAIN9bsCkvY5fqO88qJJ5k0yOZDb+twJN5RmOu7\nVfI6UMqPG5jEqUHXIAif/Q==\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 745
+}

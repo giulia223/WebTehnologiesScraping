@@ -1,0 +1,62 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:01Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "xn--kleoghvidevareservice-qfc.dk",
+  "status": "ok",
+  "robots": {
+    "url": "https://xn--kleoghvidevareservice-qfc.dk/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://xn--kleoghvidevareservice-qfc.dk/robots.txt",
+    "content_type": "text/plain; charset=utf-8",
+    "headers": [
+      [
+        "server",
+        "nginx/1.31.9"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:02 GMT"
+      ],
+      [
+        "content-type",
+        "text/plain; charset=utf-8"
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "link",
+        "<https://xn--kleoghvidevareservice-qfc.dk/wp-json/>; rel=\"https://api.w.org/\""
+      ],
+      [
+        "x-cache-status",
+        "EXPIRED"
+      ],
+      [
+        "x-cache-skip",
+        "0"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "f1376fdd4edd2c406537c0fb15ac2a5c7d982b76820f90ea16833b18c78db267",
+    "bytes": 133,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 1062
+  }
+}

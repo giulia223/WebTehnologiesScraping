@@ -44,10 +44,10 @@ NOT_CHECKABLE_FIELDS = ("scripts", "css")  # file contents are never saved
 SOURCES = frozenset({"static", "browser", "dns", "tls", "robots"})
 # An option, not a step: also match script-URL rules against URLs written inside the
 # static page's inline scripts (a tracker's loader snippet names its script URL). Off by
-# default; `detect --inline-urls` and the ablation's "static+" row turn it on (Task 7.3).
+# default; `detect --inline-urls` and the ablation's "static+" row turn it on.
 INLINE_URLS = "inline_urls"
 # Another option, not a step of normal detection: also match the script files
-# downloaded over plain HTTP (collect step "js", fingerprints/js_files.py, Task 7.4).
+# downloaded over plain HTTP (collect step "js", fingerprints/js_files.py).
 JS_FILES = "js_files"
 INLINE_URL_KEY = "inline script URL"
 # A URL in script text: http(s):// or protocol-relative //, then a host with a dot.
@@ -253,7 +253,7 @@ def _page_text(html: str) -> str:
 
 
 def site_domains(host: str, static: dict | None, browser: dict | None) -> list[str]:
-    """The registered domains that count as the site itself (F3.2, option B): the input's,
+    """The registered domains that count as the site itself : the input's,
     plus a final URL's when the site redirected to another registered domain."""
     domains = [registered_domain(host)]
     for data in (static, browser):
@@ -354,7 +354,7 @@ def match_script_urls(
     """scriptSrc rules on each URL, xhr rules on its host, as for the browser's requests.
 
     Tier "declared" by default: the site's code names the script, but nothing was seen
-    running (decided by the human, Task 7.3)."""
+    running (decided by the human)."""
     for url, text, start, end in urls:
         where = (text, start, end)
         m.test(m.index.unkeyed["scriptSrc"], url, artifact, url, key, tier, where)
@@ -372,7 +372,7 @@ def _match_headers(
 ) -> None:
     for url, headers in responses:
         if not _same_site(url, domains):
-            continue  # a third party's server says nothing about this site (F3.2)
+            continue  # a third party's server says nothing about this site
         for name, value in headers:
             m.keyed("headers", name.lower(), value, artifact, url)
 
@@ -499,7 +499,7 @@ def match_domain(
     result.not_checked["dom (properties)"] += properties
 
     # Pages: only a real page is matched. A challenge page belongs to the bot-protection
-    # vendor, and an error page may belong to a host or parking service (F2.4).
+    # vendor, and an error page may belong to a host or parking service.
     if _usable(static, "static.html", folder, result):
         static_html = _read_html(folder / static["html_file"])
         _match_page(m, static_html, static["final_url"], "static.html")

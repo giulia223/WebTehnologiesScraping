@@ -1,0 +1,108 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:10Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "loizillon.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://www.loizillon.com/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "e866ca91507272500dc01b1cd554010dd511fbc890c6d7ce32439e9c2aa88ac1",
+  "html_bytes": 51698,
+  "html_truncated": false,
+  "elapsed_ms": 793,
+  "attempts": [
+    {
+      "url": "https://loizillon.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 792,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://loizillon.com/",
+          "status": 301,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:10 GMT"
+            ],
+            [
+              "content-type",
+              "text/html"
+            ],
+            [
+              "content-length",
+              "162"
+            ],
+            [
+              "location",
+              "https://www.loizillon.com/"
+            ],
+            [
+              "strict-transport-security",
+              "max-age=15724800; includeSubDomains"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://www.loizillon.com/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:11 GMT"
+            ],
+            [
+              "content-type",
+              "text/html;charset=UTF-8"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "set-cookie",
+              "JSESSIONID=8D2EEE43C4132695E1F76C27234757DE; Path=/; HttpOnly"
+            ],
+            [
+              "content-language",
+              "fr"
+            ],
+            [
+              "strict-transport-security",
+              "max-age=15724800; includeSubDomains"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ]
+          ]
+        }
+      ],
+      "cookies": [
+        {
+          "name": "JSESSIONID",
+          "value": "8D2EEE43C4132695E1F76C27234757DE",
+          "domain": "www.loizillon.com",
+          "path": "/",
+          "secure": false,
+          "expires": null,
+          "set_by": "https://www.loizillon.com/"
+        }
+      ]
+    }
+  ]
+}
