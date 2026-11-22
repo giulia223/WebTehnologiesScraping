@@ -1,0 +1,73 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:46Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "footasylum.com",
+  "probed_host": "www.footasylum.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "countryName",
+        "GB"
+      ],
+      [
+        "localityName",
+        "ROCHDALE"
+      ],
+      [
+        "organizationName",
+        "Footasylum Limited"
+      ],
+      [
+        "commonName",
+        "footasylum.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "DigiCert Inc"
+      ],
+      [
+        "commonName",
+        "DigiCert Global G3 TLS ECC SHA384 2020 CA1"
+      ]
+    ],
+    "sans": [
+      "footasylum.com",
+      "brandreporting.footasylum.com",
+      "secure.footasylum.com",
+      "staging.footasylum.com",
+      "support.footasylum.co.uk",
+      "support.sevenstore.com",
+      "www.dripmade.com",
+      "www.footasylum.com",
+      "www.forenastore.com",
+      "www.monterrain.co.uk",
+      "www.sevenstore.com",
+      "www.zavetti.com"
+    ],
+    "not_before": "2026-07-28T00:00:00Z",
+    "not_after": "2027-02-11T23:59:59Z",
+    "serial": "06AAAB7A9262BF0607D2C7902E9EC9AF",
+    "sha256": "33f45c17e52f972ca0c71ce37ac6539b3a5cb9c2f0adbc5724c8d1cd153b123c",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIGSjCCBdCgAwIBAgIQBqqrepJivwYH0seQLp7JrzAKBggqhkjOPQQDAzBZMQsw\nCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMTMwMQYDVQQDEypEaWdp\nQ2VydCBHbG9iYWwgRzMgVExTIEVDQyBTSEEzODQgMjAyMCBDQTEwHhcNMjYwNzI4\nMDAwMDAwWhcNMjcwMjExMjM1OTU5WjBWMQswCQYDVQQGEwJHQjERMA8GA1UEBxMI\nUk9DSERBTEUxGzAZBgNVBAoTEkZvb3Rhc3lsdW0gTGltaXRlZDEXMBUGA1UEAxMO\nZm9vdGFzeWx1bS5jb20wWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATX2ShzMPfs\nLk05E6cOx0/y7w6DF9gvYctQA6ju5WCoLNHdXrs/ZHAfe3mZ1Ough2+pDMhw7VAj\nsdDlU+NukZYoo4IEezCCBHcwHwYDVR0jBBgwFoAUiiPrnmvX+Tdd+W0hOXaaoWfe\nEKgwHQYDVR0OBBYEFONrNE2Thzrz+hF586xPSCUurWSuMIIBEwYDVR0RBIIBCjCC\nAQaCDmZvb3Rhc3lsdW0uY29tgh1icmFuZHJlcG9ydGluZy5mb290YXN5bHVtLmNv\nbYIVc2VjdXJlLmZvb3Rhc3lsdW0uY29tghZzdGFnaW5nLmZvb3Rhc3lsdW0uY29t\nghhzdXBwb3J0LmZvb3Rhc3lsdW0uY28udWuCFnN1cHBvcnQuc2V2ZW5zdG9yZS5j\nb22CEHd3dy5kcmlwbWFkZS5jb22CEnd3dy5mb290YXN5bHVtLmNvbYITd3d3LmZv\ncmVuYXN0b3JlLmNvbYIUd3d3Lm1vbnRlcnJhaW4uY28udWuCEnd3dy5zZXZlbnN0\nb3JlLmNvbYIPd3d3LnphdmV0dGkuY29tMD4GA1UdIAQ3MDUwMwYGZ4EMAQICMCkw\nJwYIKwYBBQUHAgEWG2h0dHA6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzAOBgNVHQ8B\nAf8EBAMCA4gwEwYDVR0lBAwwCgYIKwYBBQUHAwEwgZ8GA1UdHwSBlzCBlDBIoEag\nRIZCaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0R2xvYmFsRzNUTFNF\nQ0NTSEEzODQyMDIwQ0ExLTIuY3JsMEigRqBEhkJodHRwOi8vY3JsNC5kaWdpY2Vy\ndC5jb20vRGlnaUNlcnRHbG9iYWxHM1RMU0VDQ1NIQTM4NDIwMjBDQTEtMi5jcmww\ngYcGCCsGAQUFBwEBBHsweTAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNl\ncnQuY29tMFEGCCsGAQUFBzAChkVodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v\nRGlnaUNlcnRHbG9iYWxHM1RMU0VDQ1NIQTM4NDIwMjBDQTEtMi5jcnQwDAYDVR0T\nAQH/BAIwADCCAX0GCisGAQQB1nkCBAIEggFtBIIBaQFnAHYATGPcmOWcHauI9h6K\nPd6uj6tEozd7X5uUw/uhnPzBviYAAAGfqYsPTQAABAMARzBFAiBgKamTBzUPukV1\n3zQzG2tXByNtZ5QjF9ptQ+onoWsmngIhALwTgMjp3Ngi6zF7vIkZnL6OAEvXZiUb\nG8NMYJTqJpVAAHUA1tWNqdAXU/NqSqDHV0kCr+vH3CzTjNn3ZMgMiRkenwIAAAGf\nqYsPJwAABAMARjBEAiA6/m6T4YSY/6NnwMMTTZlcDg0B+/OnkR6LjjTs7hbLygIg\nUBeDuHmal5/70y0Vv8ePbZ81R7+hDGsGWAJU/WuU9L4AdgBEwr0M6RQOZKXJSgGT\nClqhuzWXDgDuERaJaCocRNe1ZgAAAZ+piw9kAAAEAwBHMEUCIQCgA9VWAaTgw5vR\n7Mu7yowqMN0KOrc45j0xDWK3AQYKLAIgYjV0V0gdfuCAa7B/gI7HEoNIFcIs6P2t\nEFeBN7+7ghYwCgYIKoZIzj0EAwMDaAAwZQIwUkB8ISItWWMt7+kpb/xs3jKinYiX\nO9cnXht5RSIiRYqp0VmspMgfZ67UiIlK7Jd2AjEA/nXB9Na8ZEX5ulIhPC2y6VJw\n2KNC/1SUcEPm3TDeGjuM4Mqf5Nxlx+Xxij3ntvSd\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 129
+}

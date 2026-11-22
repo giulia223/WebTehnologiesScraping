@@ -1,0 +1,212 @@
+{
+  "BootstrapCDN": {
+    "cats": [
+      31
+    ],
+    "dom": [
+      "link[href*='.bootstrapcdn.com/']"
+    ],
+    "scriptSrc": [
+      "\\.bootstrapcdn\\.com/"
+    ],
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 4,
+    "examples": [
+      "1stlocksheathscouts.org.uk",
+      "hnafirm.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 4 correct. Judge's risk note: A resource hint written with a trailing slash (rel=preconnect href='https://maxcdn.bootstrapcdn.com/') would count as a load; rare, and real loads are also caught by the stylesheet-request check. Proposer's note: Adds any file loaded from BootstrapCDN's own host (*.bootstrapcdn.com), as a stylesheet <link> or a <script src>, in the same form as the upstream cdnjs and jsDelivr rules (link[href*='cdnjs.cloudflare.com/'], scriptSrc cdnjs\\.cloudflare\\.com). The upstream BootstrapCDN rule only knows Bootstrap's own JS file (bootstrapcdn.com/bootstrap/.../bootstrap.min.js), so a site that loads only Font Awesome CSS from maxcdn.bootstrapcdn.com was missed (1stlocksheathscouts.org.uk). Narrow: it names the CDN's own host; the trailing slash in the selector leaves out a bare dns-prefetch hint (href='//maxcdn.bootstrapcdn.com', a hint, not a file load). The dom selector is also tested on the page's own stylesheet requests (matcher._match_page_stylesheets), like the cdnjs rule.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Google Ads Conversion Tracking": {
+    "cats": [
+      10
+    ],
+    "scriptSrc": [
+      "googletagmanager\\.com/gtag/js\\?(?:[^#]*&)?id=AW-"
+    ],
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 6,
+    "examples": [
+      "appelpsychotherapy.com",
+      "253media.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 5 correct, 1 unsure. Unsure: ideenhunger.com: Both matches are consent placeholders that never ran: <script type='text/plain' data-usercentrics='Google Ads' async src='...gtag/js?id=AW-970173388'> and a type='text/plain' class='cmplazyload' copy; browser.json has no request for it (DEFINITIONS: script never loaded, probably waits for consent). Judge's risk note: scriptSrc is also read from <script type='text/plain'> consent placeholders that never run (ideenhunger.com), so at scale consent-managed sites are reported as running the tag; a matcher-wide issue the regex cannot fix. Changed on the judge's advice: proposed for 'Google Ads', accepted on 'Google Ads Conversion Tracking', where upstream already files AW- evidence (its script-content pattern gtag(...'AW-')) and whose implies gives Google Ads. Proposer's note: Adds the Google tag (gtag.js) loaded with a Google Ads tag ID (prefix AW-), e.g. <script src='https://www.googletagmanager.com/gtag/js?id=AW-17813400584'> (appelpsychotherapy.com, rendered.html). Upstream 'Google Ads' has no pattern at all: it is only reached through the implies of 'Google Ads Conversion Tracking', whose patterns are conversion_async.js, the global google_trackConversion, and a `scripts` (file contents) pattern gtag(...'AW-'), none of which is in this site's saved data. Narrow: AW- is the ID prefix Google Ads gives its own tags (G- is GA4, GT- a Google tag, DC- Floodlight), and the pattern only reads the id parameter of gtag.js. Alternative not written: put the same pattern on 'Google Ads Conversion Tracking' (which implies Google Ads), mirroring upstream's own AW- scripts pattern; that would add two detections per site instead of one.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Google Maps": {
+    "cats": [
+      35
+    ],
+    "dom": {
+      "iframe[src*='/googleMap.']": {
+        "attributes": {
+          "src": "parastorage\\.com/services/editor-elements-library/.+/googleMap\\.[0-9a-f]+\\.html"
+        }
+      }
+    },
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 2,
+    "examples": [
+      "appelpsychotherapy.com",
+      "gapconstructionwi.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 2 correct. Judge's risk note: No false-positive risk seen; false negatives when Wix renames the file path, and other builders' map frames stay unfound. Proposer's note: Adds Wix's Google Maps element: an <iframe title='Google Maps'> whose src is Wix's map page static.parastorage.com/services/editor-elements-library/dist/thunderbolt/media/googleMap.<hash>.html (carrying the site's Google Maps clientKey). Inside that frame the browser loaded maps.googleapis.com/maps/api/js (appelpsychotherapy.com), but the matcher never tests scriptSrc rules on frame requests (scriptSrc is read only from <script src> tags of the saved pages), and the upstream dom rule only knows iframe[src*='google.com/maps']. Narrow: it names Wix's own map component file (googleMap.<hash>.html on Wix's static host), not the word 'map'. It is specific to Wix sites; other builders' map frames are not covered.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Jetpack": {
+    "cats": [
+      87
+    ],
+    "dom": [
+      "script#jetpack-stats-js[src*='stats.wp.com/']"
+    ],
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 4,
+    "examples": [
+      "clotting-guide.online",
+      "dssfla.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 4 correct. Judge's risk note: Low: another plugin registering the 'jetpack-stats' handle (for example Automattic's standalone Stats plugin, if it reuses it) would be credited to Jetpack. Proposer's note: Adds Jetpack's stats script tag: <script id='jetpack-stats-js' src='https://stats.wp.com/e-202647.js'> (clotting-guide.online). WordPress writes a script's id as its registered handle + '-js'; the handle 'jetpack-stats' names Jetpack itself. Jetpack serves this file from stats.wp.com, not from /wp-content/plugins/jetpack/, so both upstream patterns (that plugin path, as scriptSrc and as a link href) miss it. The globals the inspection saw (_stq, wpcom, st_go, linktracker_init) cannot be used: no rule asks for them, so the browser never read them. Narrow: both the id and the stats.wp.com host must be there; a bare stats.wp.com script (e.g. a WordPress.com-hosted site) does not match. The upstream `requires: WordPress` still applies after the merge. Not checked: whether a standalone Jetpack-family plugin registers the same handle.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Animate.css": {
+    "cats": [
+      66
+    ],
+    "dom": {
+      "link[href*='animate']": {
+        "attributes": {
+          "href": "/animate-[0-9a-f]{32,64}\\.css(?:[?#]|$)"
+        }
+      }
+    },
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 1,
+    "examples": [
+      "loizillon.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 1 correct. Judge's risk note: An app's own animate.css (custom keyframes, not the library) compiled by an asset pipeline would be read as Animate.css; the CSS body is not saved, so such cases cannot be told apart. Proposer's note: Adds the Animate.css file with an asset-pipeline digest in its name: <link rel='stylesheet' href='/assets/animate-ca9c031f7663c9e52b815d368f541c0e.css'> (loizillon.com). The upstream href pattern needs exactly 'animate.min.css'. Narrow on purpose, because 'animate' is a common word: the file must be named animate-<32 to 64 hex characters>.css (an MD5 or SHA-256 digest that asset pipelines append), so names such as animate-on-scroll.css or custom-animate.css do not match. A plain unminified animate.css stays unmatched (not seen in this miss). Same selector key as upstream, so it is also tested on the page's own stylesheet requests.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Magnific Popup": {
+    "cats": [
+      59
+    ],
+    "dom": {
+      "link[href*='magnific-popup']": {
+        "attributes": {
+          "href": "/magnific-popup(?:\\.min)?(?:-[0-9a-f]{32,64})?\\.css(?:[?#]|$)"
+        }
+      }
+    },
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 5,
+    "examples": [
+      "loizillon.com",
+      "bata.edu.hu"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 4 correct, 1 unsure. Unsure: bata.edu.hu: Only the stylesheet loaded (wp-content/plugins/album-and-image-gallery-plus-lightbox/assets/css/magnific-popup.css status 200); no Magnific JS request, no magnificPopup in any saved JS file, no mfp- markup: the lightbox code did not run on this page. Judge's risk note: WordPress plugins that enqueue magnific-popup.css on every page but the JS only on gallery pages give CSS-only detections that the saved evidence cannot settle (bata.edu.hu). Proposer's note: Adds Magnific Popup's own stylesheet: magnific-popup.css, magnific-popup.min.css, or either with an asset-pipeline digest, e.g. <link rel='stylesheet' href='/assets/magnific-popup-bd76b2742b05e58017f0fe452a612c2c.css'> (loizillon.com). The upstream rule only knows the JS file name magnific-popup(.min).js; on loizillon.com the JS is bundled inside cdn.drouot.com/assets?name=cpg/plugins-<hash>.js (its banner '/*! Magnific Popup - v1.0.0 - 2015-01-03' is in the downloaded file js.json, which normal detection does not read). Narrow: 'magnific-popup' is the product's own file name, written right after a slash and ending in .css. Caveat for the reviewer: the CSS file proves the stylesheet is loaded, not that the JS runs; on this site the JS is in a bundle. A `scripts` pattern on the banner was not written (it would only work with detect --js-files).",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "IONOS": {
+    "cats": [
+      88
+    ],
+    "dns": {
+      "NS": [
+        "\\.1and1-dns\\."
+      ]
+    },
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 1,
+    "examples": [
+      "massageforworldpeace.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 1 correct. Judge's risk note: None seen: the host name belongs to the provider. Proposer's note: Adds IONOS's name servers under its former brand 1&1: NS ns-us.1and1-dns.com / .org / .us / .de (massageforworldpeace.com, dns.json). The upstream rule only reads the SOA record and only knows ns1<digits>.ui-dns.<tld>, IONOS's current name servers. Narrow: '1and1-dns' is the provider's own DNS host name. A DNS-only detection (NS), reported in the dns_only group.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Hostgator": {
+    "cats": [
+      88
+    ],
+    "dns": {
+      "NS": [
+        "\\.hostgator\\.com"
+      ]
+    },
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 2,
+    "examples": [
+      "seringa-safaris.com",
+      "somalidisablesupport.com"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 2 correct. Judge's risk note: Unanchored, so it also matches HostGator's country brands (e.g. *.hostgator.com.br), which are still HostGator; resellers with custom name servers stay unfound. Proposer's note: Adds HostGator's name servers in the NS record, with the same regex upstream already uses on SOA (\\.hostgator\\.com): NS ns2091.hostgator.com, ns2092.hostgator.com (seringa-safaris.com, dns.json). The upstream rule reads only SOA, and on this domain the SOA query timed out, so the rule could not fire. Narrow: the provider's own DNS host. The SPF include:websitewelcome.com the inspection cited was not used: websitewelcome.com does not name the product. A DNS-only detection (NS), reported in the dns_only group. Note for the reviewer: seringa-safaris.com redirects to seringasafaris.com; this NS record is the input domain's own.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "PHP": {
+    "cats": [
+      27
+    ],
+    "dom": {
+      "form[action*='.php']": {
+        "attributes": {
+          "action": "^(?![a-z][a-z0-9+.-]*:|//)[^?#]*\\.php(?:[?#]|$)"
+        }
+      }
+    },
+    "status": "accepted",
+    "origin": "data",
+    "seen_on": 3,
+    "examples": [
+      "rivithead.com",
+      "amaronbattery.in"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Accepted by the human reviewer on 2026-11-22. A separate judge agent judged every match of this rule in the saved data of the 200 domains, following docs/DEFINITIONS.md: 3 correct. Judge's risk note: Static HTML templates deployed on static hosting keep a dead 'php/contact-form.php' action; and a hosted builder that wrote a relative .php handler would credit the platform's PHP to the site (Programming languages is not an infrastructure category, so it would not move to platform_infra). Proposer's note: Adds a form that posts to a .php file on the same site, written as a relative URL: <form name='login' action='login.php?action=process' method='post'> (rivithead.com). The upstream dom rule only knows two exact file names (login_process.php, assets/mail.php); the upstream url rule reads only the final page URL. Narrow: the action must be relative (no scheme, no //host), so a form posting to another company's .php handler does not match; the file must end in .php before any ? or #. Not written, for the reviewer to decide: (1) a header rule on 'Expires: Thu, 19 Nov 1981 08:52:00 GMT' (PHP's session default; the inspection cites it on rivithead.com but declined it as proof on massageforworldpeace.com); (2) a robots rule on Disallow lines naming .php files (robots.txt can list paths that do not exist).",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  }
+}

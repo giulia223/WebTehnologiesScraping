@@ -61,7 +61,7 @@ def test_combine_confidence_is_a_sum_capped_at_100(confidences: list[int], expec
     assert combine_confidence(confidences) == expected
 
 
-# ------------------------------------------------------------ one pattern counts once (F3.3)
+# ------------------------------------------------------------ one pattern counts once
 
 
 def test_one_weak_pattern_matching_16_times_still_counts_50(

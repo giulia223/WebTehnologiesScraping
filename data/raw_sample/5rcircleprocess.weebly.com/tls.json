@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:47Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "5rcircleprocess.weebly.com",
+  "probed_host": "5rcircleprocess.weebly.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "weebly.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YE2"
+      ]
+    ],
+    "sans": [
+      "*.weebly.com",
+      "weebly.com"
+    ],
+    "not_before": "2026-10-06T19:46:48Z",
+    "not_after": "2027-01-04T19:46:47Z",
+    "serial": "0537BE20737256ED93D00E736E0C91CCF99D",
+    "sha256": "0ab63db1f470cfa51bc6372a78a47a8db5f315e8e14c970970e78d8f6ccd9281",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIDkTCCAxigAwIBAgISBTe+IHNyVu2T0A5zbgyRzPmdMAoGCCqGSM49BAMDMDMx\nCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQDEwNZ\nRTIwHhcNMjYxMDA2MTk0NjQ4WhcNMjcwMTA0MTk0NjQ3WjAVMRMwEQYDVQQDEwp3\nZWVibHkuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE0q9peJsg52oc5pUM\nkK0O1zd5QGVInLcWZ3oHPS7BCoqR2vyA47sa1P6xNoWsZlWLW3DqCDByucSkxSN9\nnXVfBqOCAigwggIkMA4GA1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEFBQcD\nATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBRGyq7a9zmb+xHVfPlIOBj0A2vW3jAf\nBgNVHSMEGDAWgBS5WfKOzyLwhtM3SP92FBi6gthVhzAzBggrBgEFBQcBAQQnMCUw\nIwYIKwYBBQUHMAKGF2h0dHA6Ly95ZTIuaS5sZW5jci5vcmcvMCMGA1UdEQQcMBqC\nDCoud2VlYmx5LmNvbYIKd2VlYmx5LmNvbTATBgNVHSAEDDAKMAgGBmeBDAECATAu\nBgNVHR8EJzAlMCOgIaAfhh1odHRwOi8veWUyLmMubGVuY3Iub3JnLzMwLmNybDCC\nAQ4GCisGAQQB1nkCBAIEgf8EgfwA+gB3AEaiOWfGDbZGh8ZvPfmZlHaTpqYRIIRX\n1VXn49Ch2bZGAAABoRL2rZsAAAQDAEgwRgIhAN60aM3TqpJEJ34KT/Yrxs4SM2X9\npRubMgCk//8/3SkMAiEAmHwkN/kaDwyoM+ehiOh4rFUxREM3WrQVDF+FqZqAgZ8A\nfwCOykcLrN5q86IGsKR6hLdG/h/Gv5U+JeabTuQCSPPG6AAAAaES9q6NAAgAAAUA\nHexgsgQDAEgwRgIhAJhdNjPbr6gJY2gfZCZvDrAH+y5dt6+zOJgVlBUaiAAxAiEA\n+bQpJmmV7CRgNgiSA5OzmvqHGkVTUd2lUy2jyIxo7w0wCgYIKoZIzj0EAwMDZwAw\nZAIwOdpZ7rmw5LfphY2k4QAZ4MUHpBi5OTFoLU73iDOLCCd6Z3J6E1gj2KGMnyaJ\nOmXeAjBpSAcNh/tSbboPy6mnPC8fH74RHG/AGXeE5YJEgeRMJVW1N0XMl71bXPCV\nflMPZEk=\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 130
+}

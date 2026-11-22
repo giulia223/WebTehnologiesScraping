@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:45Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "hoffmaninstitute.co.uk",
+  "probed_host": "hoffmaninstitute.co.uk",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "hoffmaninstitute.co.uk"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YE1"
+      ]
+    ],
+    "sans": [
+      "*.hoffmaninstitute.co.uk",
+      "hoffmaninstitute.co.uk"
+    ],
+    "not_before": "2026-10-25T04:16:10Z",
+    "not_after": "2027-01-23T04:16:09Z",
+    "serial": "05EACB0090AACFB9ED89E349D5CB038C9738",
+    "sha256": "6cf17ad5aababb48897658c91d50dc9a5ac1eae5116d81fb89f64306c1c491e4",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIDtDCCAzugAwIBAgISBerLAJCqz7ntieNJ1csDjJc4MAoGCCqGSM49BAMDMDMx\nCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQDEwNZ\nRTEwHhcNMjYxMDI1MDQxNjEwWhcNMjcwMTIzMDQxNjA5WjAhMR8wHQYDVQQDExZo\nb2ZmbWFuaW5zdGl0dXRlLmNvLnVrMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE\nhm9MdILFLk3OHn3SOX9O6HI+JTczEXrgU8M9VWMmDeULZKxAs2JeyqAX81Hhv4Hc\ne79+t5tERIdffc/FZsve/qOCAj8wggI7MA4GA1UdDwEB/wQEAwIHgDATBgNVHSUE\nDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBSzmGpJ6rJWiVQ2\n6EOb3HZe50aK8DAfBgNVHSMEGDAWgBS7IMpHC/7X5Zz5jwkqo4w3RbG82DAzBggr\nBgEFBQcBAQQnMCUwIwYIKwYBBQUHMAKGF2h0dHA6Ly95ZTEuaS5sZW5jci5vcmcv\nMDsGA1UdEQQ0MDKCGCouaG9mZm1hbmluc3RpdHV0ZS5jby51a4IWaG9mZm1hbmlu\nc3RpdHV0ZS5jby51azATBgNVHSAEDDAKMAgGBmeBDAECATAuBgNVHR8EJzAlMCOg\nIaAfhh1odHRwOi8veWUxLmMubGVuY3Iub3JnLzU3LmNybDCCAQ0GCisGAQQB1nkC\nBAIEgf4EgfsA+QB3AByfaCzp+vBFaVD4G5aKh93bMhDYTObIsuOCUkrEz1mfAAAB\noXF7fjEAAAQDAEgwRgIhAJrLyXjphvs4WN6R1X0kSRORgIAlcksuxFzFcfHgZ2l2\nAiEAlWjc2ugz9m9l2JoTgE2xNZQyWHayVtMkwnW7vq4hmSAAfgBE6CL8K6sOku7Q\n6frWlmRgJ3bQF2DgiQUJySOhsD/DfwAAAaFxe3HRAAgAAAUAD3U77AQDAEcwRQIg\nBuL2WX/JObzcs1Qd6MEGkI4yMLNWI4mTljPsuqpd9fQCIQDVAVJaO3AFzVAFb1d5\nEdO9vdhRyUvZr+MB3C2NMke6bTAKBggqhkjOPQQDAwNnADBkAjBDO+k7JUDTx2K1\nT9nvNFOP9JXb1aUsOfNrVnLrydofzKGYp15GddbyQ0lvnUiQQSQCMFil/fL4Hh0g\nabrQyg8Dy6EHVD8qbiBIeKgKyPpr09itUTKm5oNeSDcq4ldm+ZHymw==\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 147
+}

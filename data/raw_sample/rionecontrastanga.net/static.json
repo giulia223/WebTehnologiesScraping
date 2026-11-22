@@ -1,0 +1,78 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:07Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "rionecontrastanga.net",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://rionecontrastanga.net/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "a0e829350fa94d10d2c944ff064ea5bfe45e8e52afcd9ba3ccfa30f7e6b065e6",
+  "html_bytes": 140322,
+  "html_truncated": false,
+  "elapsed_ms": 657,
+  "attempts": [
+    {
+      "url": "https://rionecontrastanga.net/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 656,
+      "steps": [
+        {
+          "kind": "final",
+          "url": "https://rionecontrastanga.net/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "x-powered-by",
+              "PHP/7.4.34"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "link",
+              "<https://rionecontrastanga.net/wp-json/>; rel=\"https://api.w.org/\""
+            ],
+            [
+              "link",
+              "<https://rionecontrastanga.net/wp-json/wp/v2/pages/92>; rel=\"alternate\"; type=\"application/json\""
+            ],
+            [
+              "link",
+              "<https://rionecontrastanga.net/>; rel=shortlink"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "vary",
+              "Accept-Encoding,User-Agent"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:08 GMT"
+            ],
+            [
+              "alt-svc",
+              "h3=\":443\"; ma=2592000, h3-29=\":443\"; ma=2592000"
+            ]
+          ]
+        }
+      ],
+      "cookies": []
+    }
+  ]
+}

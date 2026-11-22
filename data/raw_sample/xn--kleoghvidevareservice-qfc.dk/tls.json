@@ -1,0 +1,57 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:37Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "xn--kleoghvidevareservice-qfc.dk",
+  "probed_host": "xn--kleoghvidevareservice-qfc.dk",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "75559808.dk"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YE2"
+      ]
+    ],
+    "sans": [
+      "6040.dk",
+      "6580.dk",
+      "75559808.dk",
+      "www.6040.dk",
+      "www.6580.dk",
+      "www.75559808.dk",
+      "www.xn--kleoghvidevareservice-qfc.dk",
+      "xn--kleoghvidevareservice-qfc.dk"
+    ],
+    "not_before": "2026-09-18T11:25:41Z",
+    "not_after": "2026-12-17T11:25:40Z",
+    "serial": "05791D5E79858550B99D0ABB3A34BC0B63A8",
+    "sha256": "32d9194ca983328bc9736e53b37da9c108de626f0169491b2b4628465e04073b",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIEDDCCA5GgAwIBAgISBXkdXnmFhVC5nQq7OjS8C2OoMAoGCCqGSM49BAMDMDMx\nCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQDEwNZ\nRTIwHhcNMjYwOTE4MTEyNTQxWhcNMjYxMjE3MTEyNTQwWjAWMRQwEgYDVQQDEws3\nNTU1OTgwOC5kazBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABGISeDsmDQx6H9ey\nXyriGstpfTbdu7Q6DsTqmn6h7gIGBokhu2ss3lehoZ+15v3VQJ6kgQTjjX3s04SX\nQp/s6/SjggKgMIICnDAOBgNVHQ8BAf8EBAMCB4AwEwYDVR0lBAwwCgYIKwYBBQUH\nAwEwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQU0Sm1Fc8QXxyGEY6FEJBRQTkaN6sw\nHwYDVR0jBBgwFoAUuVnyjs8i8IbTN0j/dhQYuoLYVYcwMwYIKwYBBQUHAQEEJzAl\nMCMGCCsGAQUFBzAChhdodHRwOi8veWUyLmkubGVuY3Iub3JnLzCBnQYDVR0RBIGV\nMIGSggc2MDQwLmRrggc2NTgwLmRrggs3NTU1OTgwOC5ka4ILd3d3LjYwNDAuZGuC\nC3d3dy42NTgwLmRrgg93d3cuNzU1NTk4MDguZGuCJHd3dy54bi0ta2xlb2dodmlk\nZXZhcmVzZXJ2aWNlLXFmYy5ka4IgeG4tLWtsZW9naHZpZGV2YXJlc2VydmljZS1x\nZmMuZGswEwYDVR0gBAwwCjAIBgZngQwBAgEwLgYDVR0fBCcwJTAjoCGgH4YdaHR0\ncDovL3llMi5jLmxlbmNyLm9yZy80MS5jcmwwggELBgorBgEEAdZ5AgQCBIH8BIH5\nAPcAfQCigQAYc04Xbh1H4JVA84G6VGaXzWOoQ1BxbrgJTtrxDQAAAaC0eXBtAAgA\nAAUADvyPFQQDAEYwRAIgR8tNRWV5ufVWyPaEbvZxX1iGoK6QpxA+O1ma3uq6hiEC\nIEfTGThHGpPZgpmRtYNM1c+hiJGmSh6Ih5EEwdrcscyKAHYAr2eIO1ewTt2Pptl+\n9i6o64EKx3Fg8CReVdYML+eFhzoAAAGgtHl9FQAABAMARzBFAiBos4FB6o9pZCtM\n6r353YJj0ZMcwtEcJKS4ISsbzi4phAIhAJM1PwvL9LUU5PWelzGHqVvLzEAQMbjL\nsH0lv7ie32REMAoGCCqGSM49BAMDA2kAMGYCMQCancGXRccQbLVCq7oV9uIYd16m\neeco69L23/bKWKBV9MuOpeTBX64bfweSsa5ws2ACMQDBAUcV3Q1Bj6NL28UNoZUD\nNY6cLRLYhVerwsviyZtwuuBVoTasskk1fYOhM9z9oms=\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 290
+}

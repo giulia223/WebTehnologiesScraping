@@ -5,10 +5,10 @@ from typing import Any
 from techdetect.evaluate.metrics import CONFIDENCE_BANDS, GROUP_ORDER, MIN_N, rate, rate_if_enough
 
 GROUP_MEANING = {
-    "core": "seen working or stated by the website itself (the headline count)",
+    "core": "used to build the website: seen working or stated by the website itself, or "
+    "implied by such a detection (tier inferred); themes, plugins and apps included (the "
+    "headline count)",
     "dns_only": "found only in DNS records (mail provider, verification tokens)",
-    "inferred_only": "only implied by another technology (WordPress implies PHP)",
-    "themes": "WordPress / Shopify themes",
 }
 
 
@@ -35,16 +35,18 @@ def _intro(m: dict[str, Any]) -> str:
         f"- **Labelled domains:** {len(sets['blind'])} blind (every 20th input row, picked by "
         f"position before the tool existed) and {len(sets['review'])} review (drawn at random "
         "with a fixed seed among the domains the tool could read).",
-        f"- **Precision** uses the verdict on every detection of these domains ({m['judged']} "
-        "detections). Each was judged correct / wrong / unsure from its evidence and the saved "
-        "raw data, by reviewers separate from the tool's author, following `docs/DEFINITIONS.md` "
-        "(what counts as a technology the site uses). Unsure detections are left out of the "
-        "percentage and counted apart.",
+        f"- **Precision** uses the verdict on every counted detection of these domains "
+        f"({m['judged']} detections{_below(m)}). Each was judged correct / wrong / unsure "
+        "from its evidence and the saved raw data, by reviewers separate from the tool's "
+        "author, following `docs/DEFINITIONS.md` (what counts as a technology the site "
+        "uses). Unsure detections are left out of the percentage and counted apart.",
         "- **Recall** uses the blind domains only: an independent inspection listed every "
         "technology it could confirm before seeing any output of the tool. Recall is the share "
         "of that list the tool reports, in any group. It is measured against what that "
         "inspection found, so technologies it missed are missing here too: the real recall is "
-        "likely lower.",
+        "likely lower. Part of it is also fitted to this set: on 2026-11-22, 9 rules were "
+        "written from misses on these same blind domains. Before them recall was 66% (75/113), "
+        "the last independent figure; the rules' real test is a fresh set of domains.",
         "- **F1** is the harmonic mean of the two.",
         f"- Every rate carries its counts. With fewer than {MIN_N} judged detections a "
         'breakdown says "too few to measure".',
@@ -68,12 +70,20 @@ def _intro(m: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _below(m: dict[str, Any]) -> str:
+    k = m.get("judged_below_threshold", 0)
+    verb = "is" if k == 1 else "are"
+    return f"; {k} more, below the default confidence threshold, {verb} not counted" if k else ""
+
+
 def _headline(m: dict[str, Any]) -> str:
     rows = [
         "## Headline",
         "",
         "A threshold keeps only detections whose confidence (the rule author's estimate, "
-        "0-100) is at least that value.",
+        f"0-100) is at least that value. The default ({m['default_threshold']}, marked) is "
+        "the one `techdetect detect` counts with: a detection whose clues are all worth 0 "
+        "is not counted.",
         "",
         "| Threshold | Precision | Precision, blind set | Precision, review set | Unsure "
         "| Recall | Recall where a rule exists | F1 |",
@@ -81,8 +91,9 @@ def _headline(m: dict[str, Any]) -> str:
     ]
     for h in m["headline"]:
         f1 = f"{h['f1']:.2f}" if h["f1"] is not None else "n/a"
+        threshold = f"{h['threshold']} (default)" if h["default"] else str(h["threshold"])
         rows.append(
-            f"| {h['threshold']} | {rate(*h['precision'])} | {rate(*h['precision_blind'])} "
+            f"| {threshold} | {rate(*h['precision'])} | {rate(*h['precision_blind'])} "
             f"| {rate(*h['precision_review'])} | {h['unsure']} | {rate(*h['recall'])} "
             f"| {rate(*h['recall_with_rule'])} | {f1} |"
         )
@@ -126,7 +137,7 @@ def _breakdowns(m: dict[str, Any]) -> str:
         "By confidence",
         m["by_confidence"],
         [name for name, _, _ in CONFIDENCE_BANDS],
-        "Measured precision for each confidence level, to decide whether a threshold above 0 "
+        "Measured precision for each confidence level, to decide whether a higher threshold "
         "would help.",
     )
     big = [c for c, t in m["by_category"].items() if t["correct"] + t["wrong"] >= MIN_N]
@@ -138,7 +149,8 @@ def _breakdowns(m: dict[str, Any]) -> str:
         f"Only categories with at least {MIN_N} judged detections; {small} other categories "
         "have too few to measure. A technology with several categories counts in each.",
     )
-    return "\n\n".join(["## Precision breakdowns (no threshold)", groups, tiers, bands, categories])
+    title = f"## Precision breakdowns (default threshold, {m['default_threshold']})"
+    return "\n\n".join([title, groups, tiers, bands, categories])
 
 
 def _evidence_line(d: dict[str, Any]) -> str:

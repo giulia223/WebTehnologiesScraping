@@ -319,3 +319,23 @@ def test_every_real_correction_matches_the_pinned_rules(tmp_path: Path) -> None:
         assert correction["reason"] and correction["example"]
     path.write_text(json.dumps(corrections), encoding="utf-8")
     assert load_rules(copy).report.corrections_not_applied == []
+
+
+# ------------------------------------------------------------ reviewed custom rules
+
+
+@pytest.mark.parametrize(
+    ("action", "matches"),
+    [
+        ("login.php?action=process", True),  # rivithead.com: the site's own handler
+        ("php/contact-form.php", True),
+        ("/send.php#top", True),
+        ("https://other.com/x.php", False),  # another company's handler
+        ("//cdn.example.com/x.php", False),
+        ("contact.phpx", False),
+    ],
+)
+def test_php_form_rule_reads_only_a_relative_php_action(action: str, matches: bool) -> None:
+    php = load_rules(REAL).technologies["PHP"]
+    [rule] = [p for p in php.patterns if p.field == "dom" and p.key == "form[action*='.php']"]
+    assert bool(rule.regex.search(action)) is matches

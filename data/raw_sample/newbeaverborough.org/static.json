@@ -1,0 +1,98 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:04Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "newbeaverborough.org",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://newbeaverborough.org/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "6078aa77622b46bfbd68684bb50189aaeb2c2cb0226139fdffc1da19e2ccd15d",
+  "html_bytes": 106251,
+  "html_truncated": false,
+  "elapsed_ms": 856,
+  "attempts": [
+    {
+      "url": "https://newbeaverborough.org/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 853,
+      "steps": [
+        {
+          "kind": "final",
+          "url": "https://newbeaverborough.org/",
+          "status": 200,
+          "http_version": "HTTP/1.1",
+          "headers": [
+            [
+              "server",
+              "nginx"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:04 GMT"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "content-length",
+              "15470"
+            ],
+            [
+              "connection",
+              "keep-alive"
+            ],
+            [
+              "vary",
+              "X-Forwarded-Proto,Accept-Encoding"
+            ],
+            [
+              "last-modified",
+              "Fri, 20 Nov 2026 11:55:47 GMT"
+            ],
+            [
+              "etag",
+              "\"3c6e-660b3ecbeb9cd\""
+            ],
+            [
+              "referrer-policy",
+              "no-referrer-when-downgrade"
+            ],
+            [
+              "pragma",
+              "no-cache"
+            ],
+            [
+              "cache-control",
+              "private, no-cache"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "x-cache-nxaccel",
+              "BYPASS"
+            ],
+            [
+              "accept-ranges",
+              "bytes"
+            ]
+          ]
+        }
+      ],
+      "cookies": []
+    }
+  ]
+}

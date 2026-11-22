@@ -1,0 +1,50 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:41Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "handycars.com",
+  "probed_host": "www.handycars.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "www.handycars.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YR2"
+      ]
+    ],
+    "sans": [
+      "www.handycars.com"
+    ],
+    "not_before": "2026-10-09T17:55:17Z",
+    "not_after": "2027-01-07T17:55:16Z",
+    "serial": "05AE1F530E0874B90B9593012390B7BD994B",
+    "sha256": "f10a550417d18bcecfcb0603e5f7e381e00c61dad3bd796077ad2d7b96d4ef10",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIE+zCCA+OgAwIBAgISBa4fUw4IdLkLlZMBI5C3vZlLMA0GCSqGSIb3DQEBCwUA\nMDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQD\nEwNZUjIwHhcNMjYxMDA5MTc1NTE3WhcNMjcwMTA3MTc1NTE2WjAcMRowGAYDVQQD\nExF3d3cuaGFuZHljYXJzLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC\nggEBAPDW9OTJWXVJHWS5OBbe8j/WxFP4eRJbV1A9X0v9FloBJArKla+vcV0ohYji\nz+f1ZuPaWgzh0e/cpqqt3olr0ckQcdjnU9AoORIGoph91rl7gobIHcdyCtudXskI\nuuCRxe45yilodv7XlxNCfzsPhU/QBm+9Ksd0SUSmtcIKyH5q3NRXnBL5XqhRJGQ5\nXg0i3l7YotM4h3XZVugvGwvwPkpDEk940/UMzXGOdluuT/Mai1/sxQ+mTq1mDQRj\nXwLuKnl9rCh/svOHkKuSiOC7QFEwpsJCCt+kZ0EGGDy2ff5s4Ri4K7BZ/M2xX35a\nflQ5pToD++4DR8YB3LRoXMwfZpECAwEAAaOCAh4wggIaMA4GA1UdDwEB/wQEAwIF\noDATBgNVHSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBTo\nAuarogB19lAheSaJj9ePEYSVSjAfBgNVHSMEGDAWgBRAFS0mee0yIJ7fmnId1jIf\ngQyBDDAzBggrBgEFBQcBAQQnMCUwIwYIKwYBBQUHMAKGF2h0dHA6Ly95cjIuaS5s\nZW5jci5vcmcvMBwGA1UdEQQVMBOCEXd3dy5oYW5keWNhcnMuY29tMBMGA1UdIAQM\nMAowCAYGZ4EMAQIBMC4GA1UdHwQnMCUwI6AhoB+GHWh0dHA6Ly95cjIuYy5sZW5j\nci5vcmcvNzYuY3JsMIIBCwYKKwYBBAHWeQIEAgSB/ASB+QD3AHYARMK9DOkUDmSl\nyUoBkwpaobs1lw4A7hEWiWgqHETXtWYAAAGhIgOnUwAABAMARzBFAiEA1wERh5sq\nXhAovr2sUJrsUccZtFgepYE/3bfMzEwmZhoCIGHrxD8flPh9jT0ONkUGKt0OhHmQ\nRtian33K1Xf5HCB+AH0AooEAGHNOF24dR+CVQPOBulRml81jqENQcW64CU7a8Q0A\nAAGhIgOpBgAIAAAFACAMxFsEAwBGMEQCIAlpHQTDc4owhJYZ/m6eBCMIpT0M01Vy\nYQtkVe+pOsq8AiBhG+xPALCGwQevYGlh9FeaUNovjMLcPWiTUfbuvQfImDANBgkq\nhkiG9w0BAQsFAAOCAQEAzSHtb6Id+YRXcCq4P+Y58TQk5qN9wIiId0BTJpplylse\nUu1798j/V+7bX4ZisE3YFW5wO9uWW6gsO24NzQ3wbBVKfrG5Ar+S6F0beMjdG9kc\nFWxqaDamZ/UeXnzW0bymxMwxDWkjqwxknuXrFRtCBUmOksNJi5416UOnB+LTiSt/\n1daCxXzsPlvDmLuP0zgAHqYYYnprWbTBEJcxOyl1jbkaXulN0k2tptLxA631hJXU\neHHaI3kAkdRzcqJ6tWQZf8XwPoVcTk5n8XuqCcpL9xN+2yU12Rp8FvaFmKu2lIxn\nurXhRIwkZAKmdBMj+p2ZGCw+uF8E8wF6YVe+ziikjg==\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 563
+}

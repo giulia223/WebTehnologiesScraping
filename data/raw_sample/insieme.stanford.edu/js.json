@@ -1,0 +1,58 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-21T09:50:10Z",
+    "tool_version": "0.1.0+9fc519eabbee",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "insieme.stanford.edu",
+  "status": "ok",
+  "error_category": null,
+  "files": [
+    {
+      "url": "https://www.googletagmanager.com/gtag/js?id=G-986R8TE788",
+      "kind": "script_src",
+      "outcome": "saved",
+      "http_status": 200,
+      "content_type": "application/javascript; charset=UTF-8",
+      "tls_verified": true,
+      "file": "js/b8efc706efc093bd920cc701d916a85b887dfd883fcfc16c8f942c75df730093.js",
+      "sha256": "b8efc706efc093bd920cc701d916a85b887dfd883fcfc16c8f942c75df730093",
+      "bytes": 474573,
+      "truncated": false,
+      "error_category": null,
+      "error": null
+    },
+    {
+      "url": "https://insieme.stanford.edu/core/assets/vendor/jquery/jquery.min.js?v=4.0.0",
+      "kind": "script_src",
+      "outcome": "saved",
+      "http_status": 200,
+      "content_type": "application/javascript",
+      "tls_verified": true,
+      "file": "js/39a546ea9ad97f8bfaf5d3e0e8f8556adb415e470e59007ada9759dce472adaa.js",
+      "sha256": "39a546ea9ad97f8bfaf5d3e0e8f8556adb415e470e59007ada9759dce472adaa",
+      "bytes": 78748,
+      "truncated": false,
+      "error_category": null,
+      "error": null
+    },
+    {
+      "url": "https://insieme.stanford.edu/sites/g/files/sbiybj20061/files/js/js_pp9wu6dDx9GFdlyaNUMNSXa4IiVSpuvy6xI1eajnbHE.js?scope=footer&delta=1&language=en&theme=soe_basic&include=eJxdjeEKwjAMhF-oLI9U4pbVaNaEpB369haVKftz8H0Hd_RowvUOi3dDmeiDqagWoYwV5dl4DjiLdOubRUNvuTP8QwqlfMHgGVDEsFCk0dVVffn6d_6kua48xq8kRg7BjXgbcqfp-HsBLR9DMw",
+      "kind": "script_src",
+      "outcome": "saved",
+      "http_status": 200,
+      "content_type": "text/javascript",
+      "tls_verified": true,
+      "file": "js/705b7177ef7442e87faddf244284a1f5fd9d73d563d765f990c211d8f4d218cf.js",
+      "sha256": "705b7177ef7442e87faddf244284a1f5fd9d73d563d765f990c211d8f4d218cf",
+      "bytes": 405797,
+      "truncated": false,
+      "error_category": null,
+      "error": null
+    }
+  ],
+  "refs_found": 3,
+  "elapsed_ms": 948
+}

@@ -1,4 +1,4 @@
-"""Importing the blind inspection notes (Task 0.3) into the ground truth."""
+"""Importing the blind inspection notes into the ground truth."""
 
 from techdetect.evaluate.importer import import_blind, parse_inspection_file, resolve_names
 from techdetect.evaluate.labels import empty_ground_truth

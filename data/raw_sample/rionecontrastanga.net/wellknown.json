@@ -1,0 +1,58 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:04Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "rionecontrastanga.net",
+  "status": "ok",
+  "robots": {
+    "url": "https://rionecontrastanga.net/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://rionecontrastanga.net/robots.txt",
+    "content_type": "text/plain",
+    "headers": [
+      [
+        "content-type",
+        "text/plain"
+      ],
+      [
+        "last-modified",
+        "Tue, 23 Jun 2020 21:02:05 GMT"
+      ],
+      [
+        "accept-ranges",
+        "bytes"
+      ],
+      [
+        "content-length",
+        "92"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:04 GMT"
+      ],
+      [
+        "vary",
+        "User-Agent"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=2592000, h3-29=\":443\"; ma=2592000"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "e298113a41bdc91ae56e5ba2ad8ed989335454f3629885e1cf62e1c20bd29eef",
+    "bytes": 92,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 173
+  }
+}

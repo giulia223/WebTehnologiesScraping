@@ -1,6 +1,6 @@
-"""Name check: one judged example for every core technology name (Task 4.5).
+"""Name check: one judged example for every core technology name.
 
-The headline is a count of technology *names* (341 in Run 3e), but precision was measured
+The headline is a count of technology *names*, but precision was measured
 on the detections of 20 labelled domains, which contain only part of those names. A name
 that never appears on a labelled domain has never been looked at by anyone. This module
 gives each such name one example detection to judge, so every name in the headline has
@@ -24,7 +24,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from techdetect.detect import counted
+from techdetect.detect import DEFAULT_MIN_CONFIDENCE, counted, is_core
 from techdetect.evaluate.labels import now
 from techdetect.evaluate.metrics import rate
 from techdetect.evaluate.metrics_report import _code
@@ -46,14 +46,15 @@ SECOND_KEYS = (
 
 
 def core_examples(lines: list[dict[str, Any]]) -> dict[str, dict[str, dict[str, Any]]]:
-    """name -> {domain: detection} for every detection in the core group on a counted
-    domain. A name with at least one entry is a core name, as in summary.json."""
+    """name -> {domain: detection} for every counted core detection (default confidence
+    threshold) on a counted domain. A name with at least one entry is a core name, as in
+    summary.json."""
     examples: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
     for line in lines:
         if not counted(line):
             continue
         for tech in line["technologies"]:
-            if tech["group"] == "core":
+            if is_core(tech):
                 examples[tech["name"]][line["domain"]] = tech
     return dict(examples)
 
@@ -64,8 +65,14 @@ def labelled_verdicts(
     """name -> [(domain, verdict)] from the 20 labelled domains, in any group.
 
     Only verdicts whose detection still exists count: a verdict on a detection that a later
-    run no longer makes (stale) says nothing about the current output."""
-    detected = {line["domain"]: {t["name"] for t in line["technologies"]} for line in lines}
+    run no longer makes (stale) says nothing about the current output; nor does one below
+    the default confidence threshold, which is not counted."""
+    detected = {
+        line["domain"]: {
+            t["name"] for t in line["technologies"] if t["confidence"] >= DEFAULT_MIN_CONFIDENCE
+        }
+        for line in lines
+    }
     found: dict[str, list[tuple[str, str]]] = defaultdict(list)
     for domain, record in ground_truth["domains"].items():
         for name, verdict in record.get("verdicts", {}).items():
@@ -204,6 +211,8 @@ class Summary:
     covered_without_correct: list[tuple[str, list[tuple[str, str]]]]
     checked: Counter  # verdict -> count, over the sheet ("none" = not judged yet)
     gone: list[str]  # sheet names no longer core (e.g. removed by a correction)
+    example_gone: list[str]  # still core, but no longer on the judged example site
+    now_labelled: list[str]  # sheet names now judged on a labelled domain instead
     agree: int
     spot_checked: int
 
@@ -219,16 +228,20 @@ def summarise(
     covered = labelled_verdicts(ground_truth, lines)
     covered_core = {n: covered[n] for n in examples if n in covered}
     with_correct = [n for n, v in covered_core.items() if any(x == "correct" for _, x in v)]
-    current = [e for e in sheet["names"] if e["name"] in examples]
+    # A name judged on a labelled domain is counted there, never twice.
+    now_labelled = sorted(e["name"] for e in sheet["names"] if e["name"] in covered_core)
+    current = [e for e in sheet["names"] if e["name"] in examples and e["name"] not in covered_core]
     gone = sorted(e["name"] for e in sheet["names"] if e["name"] not in examples)
     # The name is still core, but no longer on its example site (e.g. a correction removed
     # that detection): its verdict is about something that no longer exists, so it counts
     # as not judged until `sheet --force` picks a new example.
+    example_gone = sorted(e["name"] for e in current if e["domain"] not in examples[e["name"]])
     checked = Counter(
-        (final_verdict(e) if e["domain"] in examples[e["name"]] else None) or "none"
-        for e in current
+        (final_verdict(e) if e["name"] not in example_gone else None) or "none" for e in current
     )
-    second = [e for e in current if e.get("second_verdict")]
+    # Agreement measures the reviewers, not the output: every spot-checked verdict counts,
+    # also for names a later correction removed.
+    second = [e for e in sheet["names"] if e.get("second_verdict")]
     return Summary(
         core_names=len(examples),
         covered=len(covered_core),
@@ -238,6 +251,8 @@ def summarise(
         ),
         checked=checked,
         gone=gone,
+        example_gone=example_gone,
+        now_labelled=now_labelled,
         agree=sum(e["second_verdict"] == e["verdict"] for e in second),
         spot_checked=len(second),
     )
@@ -283,7 +298,11 @@ def _rows(entries: list[dict[str, Any]], with_second: bool = False) -> list[str]
 
 def render_report(summary: Summary, sheet: dict[str, Any], meta: dict[str, Any]) -> str:
     s = summary
-    current = [e for e in sheet["names"] if e["name"] not in s.gone]
+    current = [
+        e for e in sheet["names"] if e["name"] not in s.gone and e["name"] not in s.now_labelled
+    ]
+    # A verdict counts only while its example detection still exists.
+    judged_now = [e for e in current if e["name"] not in s.example_gone]
     sheet_total = len(current)
     c = s.checked
     judged = c["correct"] + c["wrong"]
@@ -333,8 +352,8 @@ def render_report(summary: Summary, sheet: dict[str, Any], meta: dict[str, Any])
             f"A second reviewer agent re-judged {s.spot_checked} verdicts (every `wrong` one "
             "plus a seeded random sample of the others) from the same evidence and raw data, "
             "without seeing the first reviewer's verdicts. It agreed on "
-            f"{rate(s.agree, s.spot_checked)}. Both reviewers are agents; no human re-judged "
-            "these verdicts."
+            f"{rate(s.agree, s.spot_checked)}, counting every verdict it re-judged, also for "
+            "names that later left the output. Both reviewers are agents."
         )
         disagreements = [
             e for e in current if e.get("second_verdict") and e["second_verdict"] != e["verdict"]
@@ -345,7 +364,7 @@ def render_report(summary: Summary, sheet: dict[str, Any], meta: dict[str, Any])
     else:
         out.append("Not done yet.")
     for title, verdict in (("Judged wrong", "wrong"), ("Unsure", "unsure")):
-        items = [e for e in current if final_verdict(e) == verdict]
+        items = [e for e in judged_now if final_verdict(e) == verdict]
         out += ["", f"## {title} ({len(items)})", ""]
         out += _rows(items, with_second=True) if items else ["None."]
     out += [
@@ -363,6 +382,39 @@ def render_report(summary: Summary, sheet: dict[str, Any], meta: dict[str, Any])
             out.append(f"| {name} | {listed} |")
     else:
         out.append("None.")
+    never = sorted(e["name"] for e in current if not e["verdict"])
+    if s.example_gone or never:
+        was = {e["name"]: e for e in current}
+        out += ["", f"## Not judged yet ({len(s.example_gone) + len(never)})", ""]
+        if never:
+            out.append(
+                "Example picked, no verdict yet: "
+                + ", ".join(f"{n} ({was[n]['domain']})" for n in never)
+                + "."
+            )
+        if s.example_gone:
+            if never:
+                out.append("")
+            out.append(
+                "Still core names, but the judged example detection no longer exists (e.g. a "
+                "rule correction removed it), so that verdict no longer applies and the name "
+                "needs a new example and a new verdict: "
+                + ", ".join(
+                    f"{n} (was {final_verdict(was[n]) or 'not judged'} on {was[n]['domain']})"
+                    for n in s.example_gone
+                )
+                + "."
+            )
+    if s.now_labelled:
+        out += [
+            "",
+            f"## Now judged on a labelled domain ({len(s.now_labelled)})",
+            "",
+            "In the sheet, but now detected and judged on a labelled domain, so they are "
+            "counted in the first row of the headline, not here: "
+            + ", ".join(s.now_labelled)
+            + ".",
+        ]
     if s.gone:
         out += [
             "",
@@ -380,7 +432,8 @@ def render_report(summary: Summary, sheet: dict[str, Any], meta: dict[str, Any])
     ]
     for e in sorted(current, key=lambda e: e["name"]):
         out.append(
-            f"| {e['name']} | {e['domain']} | {e['sites']} | {final_verdict(e) or '-'} "
+            f"| {e['name']} | {e['domain']} | {e['sites']} "
+            f"| {'not judged yet' if e['name'] in s.example_gone else final_verdict(e) or '-'} "
             f"| {_code(e['reason'] or '', 200)} |"
         )
     return "\n".join(out) + "\n"

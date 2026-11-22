@@ -1,4 +1,4 @@
-"""Signal ablation (Task 7.1): detection re-run with fewer collection steps."""
+"""Signal ablation: detection re-run with fewer collection steps."""
 
 import json
 from pathlib import Path
@@ -47,8 +47,10 @@ def test_an_implied_technology_disappears_with_its_implier(tmp_path: Path) -> No
     domain = next_js_site(raw)
     [static] = detect_all(raw, [domain], REAL_RULES, sources=STATIC_ROW)
     [browser] = detect_all(raw, [domain], REAL_RULES, sources=BROWSER_ROW)
-    assert names(browser)["React"] == "inferred_only"
-    assert names(browser)["Webpack"] == "inferred_only"
+    # Implied technologies count in core and keep tier "inferred".
+    tiers = {t["name"]: t["tier"] for t in browser["technologies"]}
+    assert names(browser)["React"] == names(browser)["Webpack"] == "core"
+    assert tiers["React"] == tiers["Webpack"] == "inferred"
     # Re-run, not filtered: without Next.js nothing implies React or Webpack.
     assert "React" not in names(static) and "Webpack" not in names(static)
 

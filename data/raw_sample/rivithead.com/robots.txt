@@ -1,0 +1,54 @@
+Sitemap: https://www.rivithead.com/sitemap.xml
+Sitemap: https://www.rivithead.com/sitemap.xml.gz
+
+User-agent: *
+Disallow: /share_box_frame.php
+Disallow: /share_email.php
+Disallow: /search
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: ltx71
+Disallow: /
+
+User-Agent: MJ12bot
+Disallow: /
+
+User-Agent: SemrushBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Amzn-SearchBot
+Disallow: /
+
+User-agent: Amzn-User
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: barkrowler
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /account.php
+Disallow: /account_history.php
+Disallow: /account-history-login.php
+Disallow: /checkout_delivery.php
+Disallow: /shopping_cart.php
+Disallow: /login.php
+Disallow: /logoff.php
+Disallow: /returns.php
+Crawl-delay: 10

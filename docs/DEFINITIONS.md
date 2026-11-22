@@ -6,7 +6,7 @@ These definitions decide every judgement in this project: when a detection is la
 
 **Does the organisation that owns this domain use this technology on this website?**
 
-The output is a sales lead list: a salesperson reads "uses X" as "this company chose X, or runs it". A detection is only correct if that reading is true.
+The output is used to find sales leads: a salesperson reads "uses X" as "this company chose X, or runs it". A detection is only correct if that reading is true.
 
 - **The site** is the organisation that owns the input domain. `insieme.stanford.edu` belongs to Stanford, so Stanford's hosting choices are the site's choices.
 - **The evidence** is what the tool saved: the page, headers, cookies, requests, JavaScript globals, certificate, DNS records and robots.txt. A verdict is based on that evidence, not on what the site probably uses.
@@ -58,7 +58,7 @@ The rules come from Wappalyzer (now maintained as webappanalyzer), and its list 
 A mention outside such a deliberate list (a word in an article, a logo in a blog post) is still not use.
 
 More rules:
-- **Inferred detections** (reached only because another technology implies them) are correct only when the implying technology makes them certain. WordPress implies PHP, which is correct. WordPress implies MySQL, which is unsure, because it could be MariaDB. An inference from a wrong detection is wrong.
+- **Inferred detections** (reached only because another technology implies them) are correct only when the implying technology makes them certain. WordPress implies PHP, which is correct. WordPress implies MySQL, which is unsure: the link is the rule set's convention, and the database could be MariaDB. An inference from a wrong detection is wrong. One implied by a hosted platform for its server side (PHP and MySQL from Weebly) is the platform's, not the site's.
 - **A wrong version does not make a detection wrong.** The technology is judged; the version error is noted separately.
 - **Two rules for the same product** (for example "Typekit" and "Adobe Fonts") are judged one by one. Both can be correct. The duplication is a rule problem, reported apart from precision.
 - **Unsure is not a hidden "wrong".** Unsure detections are left out of precision and reported with their count, so the reader sees how many were undecidable.
@@ -67,5 +67,6 @@ More rules:
 
 - A rule that can only match a mention (a word in the text, a name in someone else's data) must not report "used". A product the site lists or allows on purpose (payment logos, a security-policy entry naming that product's own domain) is the site's choice and counts; see "How strict" above.
 - A rule must not credit a platform's or supplier's infrastructure to the site.
-- The detector reports a hosted platform's infrastructure in its own group, `platform_infra`, not as the site's technologies. Precision and recall leave that group out.
+- The detector reports a hosted platform's infrastructure in its own group, `platform_infra`, not as the site's technologies; this includes what the platform implies for its server side. Precision and recall leave that group out.
+- The headline count (core) is the technologies used to build the website: themes, plugins and apps included, and implied technologies included (they keep tier `inferred`). DNS-only services (mail, name servers, verification tokens) are the company's, not the website's, and are reported apart.
 - A test that states "the tool should report X" follows these definitions. If a test and this file disagree, this file wins, and the test is fixed.

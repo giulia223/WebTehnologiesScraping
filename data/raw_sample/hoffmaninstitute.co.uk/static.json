@@ -1,0 +1,90 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:25Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "hoffmaninstitute.co.uk",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://hoffmaninstitute.co.uk/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "c4547e33bba045185e17a3c31712f9e9782e6f04235b1042aa740b0ab499a0c9",
+  "html_bytes": 141968,
+  "html_truncated": false,
+  "elapsed_ms": 1586,
+  "attempts": [
+    {
+      "url": "https://hoffmaninstitute.co.uk/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 1584,
+      "steps": [
+        {
+          "kind": "final",
+          "url": "https://hoffmaninstitute.co.uk/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:26 GMT"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "server",
+              "cloudflare"
+            ],
+            [
+              "nel",
+              "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            ],
+            [
+              "link",
+              "<https://hoffmaninstitute.co.uk/wp-json/>; rel=\"https://api.w.org/\", <https://hoffmaninstitute.co.uk/wp-json/wp/v2/pages/612>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\", <https://hoffmaninstitute.co.uk/>; rel=shortlink"
+            ],
+            [
+              "vary",
+              "Accept-Encoding,User-Agent"
+            ],
+            [
+              "cf-cache-status",
+              "DYNAMIC"
+            ],
+            [
+              "speculation-rules",
+              "\"/cdn-cgi/speculation\""
+            ],
+            [
+              "report-to",
+              "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6yli05MZyPOaPvzeV0Am0UiLi0iEVOViDboL2Nw0Fx5cBJ%2B%2FP2T5UtKtXu0koZhyjp2AN4mj96WgrTZbzAVWagQsK%2BdoSQxDuYlTz%2F5YZYVvjeK1%2FGCtMKYbWDk0H%2Bjvc1YNqaqL%2FZcWqCoZHYaWjrQAGnZL\"}]}"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "cf-ray",
+              "a5d76725ca839bca-OTP"
+            ],
+            [
+              "alt-svc",
+              "h3=\":443\"; ma=86400"
+            ]
+          ]
+        }
+      ],
+      "cookies": []
+    }
+  ]
+}

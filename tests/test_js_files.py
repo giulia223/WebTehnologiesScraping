@@ -1,4 +1,4 @@
-"""Task 7.4: script files downloaded over plain HTTP, and matched offline.
+"""Script files downloaded over plain HTTP, and matched offline.
 
 collect/js_fetch.py (download; every response from httpx.MockTransport, no network) and
 fingerprints/js_files.py (matching the saved files). No browser anywhere.

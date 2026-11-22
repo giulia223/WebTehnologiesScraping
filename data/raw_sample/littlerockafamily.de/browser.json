@@ -1,0 +1,77 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:29:09Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.8154.6 Safari/537.36 techdetect/0.1.0",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "littlerockafamily.de",
+  "status": "failed",
+  "error_category": "dns_fail",
+  "challenge": null,
+  "chosen_attempt": 1,
+  "start_url": "https://littlerockafamily.de/",
+  "final_url": null,
+  "final_url_differs_from_static": null,
+  "http_status": null,
+  "html_file": null,
+  "html_sha256": null,
+  "html_bytes": null,
+  "screenshot_file": null,
+  "screenshot_sha256": null,
+  "main_document_headers": [],
+  "cookies": [],
+  "scripts": {
+    "external": [],
+    "inline": [],
+    "inline_total_bytes": 0,
+    "inline_dropped": 0
+  },
+  "meta": [],
+  "iframes": [],
+  "workers": [],
+  "requests": [],
+  "ruleset_version": "webappanalyzer@9e52f10a9533+custom:none",
+  "js_chains_asked": [],
+  "js_globals": {},
+  "js_chain_errors": {},
+  "js_globals_error": "no page was loaded",
+  "window_keys": [],
+  "window_keys_dropped": 0,
+  "elapsed_ms": 403,
+  "attempts": [
+    {
+      "url": "https://littlerockafamily.de/",
+      "outcome": "dns_fail",
+      "error": "Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://littlerockafamily.de/",
+      "tls_verified": true,
+      "networkidle_reached": null,
+      "elapsed_ms": 102
+    },
+    {
+      "url": "https://www.littlerockafamily.de/",
+      "outcome": "dns_fail",
+      "error": "Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.littlerockafamily.de/",
+      "tls_verified": true,
+      "networkidle_reached": null,
+      "elapsed_ms": 108
+    },
+    {
+      "url": "http://littlerockafamily.de/",
+      "outcome": "dns_fail",
+      "error": "Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at http://littlerockafamily.de/",
+      "tls_verified": true,
+      "networkidle_reached": null,
+      "elapsed_ms": 88
+    },
+    {
+      "url": "http://www.littlerockafamily.de/",
+      "outcome": "dns_fail",
+      "error": "Error: Page.goto: net::ERR_NAME_NOT_RESOLVED at http://www.littlerockafamily.de/",
+      "tls_verified": true,
+      "networkidle_reached": null,
+      "elapsed_ms": 101
+    }
+  ]
+}

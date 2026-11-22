@@ -6,8 +6,8 @@
  "names": [
   {
    "name": "AMP",
-   "domain": "deepseass.com",
-   "sites": 3,
+   "domain": "doortodoororganics.com",
+   "sites": 2,
    "categories": [
     "JavaScript frameworks"
    ],
@@ -16,8 +16,36 @@
    "versions": [],
    "evidence": [
     {
+     "signal": "html",
+     "key": null,
+     "subkey": null,
+     "pattern": "<html[^>]* (?:amp|⚡)[^-]",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://doortodoororganics.com/",
+       "matched_value": "<html amp ",
+       "context": "<!DOCTYPE html>\r\n<html amp lang=\"id-ID\">\r\n\r\n<head>\r\n    <meta chars"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://doortodoororganics.com/",
+       "matched_value": "<html amp=",
+       "context": "<!DOCTYPE html><html amp=\"\" lang=\"id-ID\" amp-version=\"26081317520"
+      }
+     ]
+    },
+    {
      "signal": "js",
-     "key": "ampInaboxIframes",
+     "key": "AMP_CONFIG",
      "subkey": null,
      "pattern": "",
      "confidence": 100,
@@ -30,7 +58,7 @@
      "examples": [
       {
        "source_artifact": "browser.json",
-       "location": "https://www.deepseass.com/",
+       "location": "https://doortodoororganics.com/",
        "matched_value": "true",
        "context": "true"
       }
@@ -38,7 +66,7 @@
     },
     {
      "signal": "js",
-     "key": "ampInaboxPendingMessages",
+     "key": "AMP_EXP",
      "subkey": null,
      "pattern": "",
      "confidence": 100,
@@ -51,7 +79,70 @@
      "examples": [
       {
        "source_artifact": "browser.json",
-       "location": "https://www.deepseass.com/",
+       "location": "https://doortodoororganics.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "__AMP_BASE_CE_CLASS",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://doortodoororganics.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "__AMP_EXTENDED_ELEMENTS",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://doortodoororganics.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "__AMP_TAG",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://doortodoororganics.com/",
        "matched_value": "true",
        "context": "true"
       }
@@ -59,12 +150,12 @@
     }
    ],
    "batch": 1,
-   "verdict": "wrong",
-   "reason": "browser.json shows ampInaboxIframes/ampInaboxPendingMessages next to adsbygoogle and show_ads_impl_fy2021.js requests, so the globals come from Google AdSense's ad loader on a non-AMP WordPress page (static.html <html lang=\"en-GB\" class=\"no-js no-svg\">, no amp attribute).",
+   "verdict": "correct",
+   "reason": "The domain's own page is an AMP document (static.html '<html amp lang=\"id-ID\">', canonical https://doortodoororganics.com/) and browser.json shows https://cdn.ampproject.org/v0.js loaded with status 200 and the globals AMP_CONFIG, __AMP_TAG set, even though the page itself is a gambling page ('ROYALTOGEL').",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "second_verdict": "wrong",
-   "second_reason": "The page is not an AMP page (no amp/lightning attribute on <html>, no cdn.ampproject.org request in browser.json); the globals ampInaboxIframes/ampInaboxPendingMessages come from the AdSense ad code it loads (rendered.html: pagead2.googlesyndication.com/pagead/js/adsbygoogle.js and show_ads_impl_fy2021.js), which keeps them to host AMP ads.",
-   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "AOS",
@@ -1241,6 +1332,58 @@
    "second_reviewer": null
   },
   {
+   "name": "BeTheme",
+   "domain": "weducars.co.za",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [
+    "28.0.6"
+   ],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "/betheme/js/scripts(?:\\.min)?\\.js\\?ver=([\\d.]+)\\;version:\\1",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [
+      "28.0.6"
+     ],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://weducars.co.za/css/wp-content/themes/betheme/js/scripts.js?ver=28.0.6",
+       "matched_value": "/betheme/js/scripts.js?ver=28.0.6",
+       "context": "s://weducars.co.za/css/wp-content/themes/betheme/js/scripts.js?ver=28.0.6"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://weducars.co.za/css/wp-content/themes/betheme/js/scripts.js?ver=28.0.6",
+       "matched_value": "/betheme/js/scripts.js?ver=28.0.6",
+       "context": "s://weducars.co.za/css/wp-content/themes/betheme/js/scripts.js?ver=28.0.6"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "browser.json shows the theme's code loaded from the site itself (script https://weducars.co.za/css/wp-content/themes/betheme/js/scripts.js?ver=28.0.6, status 200, plus be.css and menu.js) and BeTheme's globals mfn, mfnSetup are in window_keys.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
    "name": "Beaver Builder",
    "domain": "oakwell.vet",
    "sites": 1,
@@ -1423,6 +1566,47 @@
    "second_verdict": "wrong",
    "second_reason": "No Bitmovin script was requested (browser.json requests); 'bitmovin' sits in window_keys among consent-blocker placeholders (mapboxgl, L, bitmovin, Twitch, grecaptcha, H, _wcomWidget, Microsoft, js3q, Calendly...) set by Usercentrics uc-block.bundle.js.",
    "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
+  },
+  {
+   "name": "Bold Themes",
+   "domain": "unitedveterinaryservice.com",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [],
+   "evidence": [
+    {
+     "signal": "js",
+     "key": "BoldThemesURI",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://unitedveterinaryservice.com/",
+       "matched_value": "https://unitedveterinaryservice.com/wp-content/themes/medicare",
+       "context": "https://unitedveterinaryservice.com/wp-c"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "The active theme is Bold Themes' Medicare: browser.json global BoldThemesURI = 'https://unitedveterinaryservice.com/wp-content/themes/medicare', with /wp-content/themes/medicare/js/misc.js and style.css loaded (200) and boldthemes_* / bt_bb_* globals in window_keys.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Bootstrap Icons",
@@ -1695,6 +1879,121 @@
    "second_reviewer": null
   },
   {
+   "name": "Catch Themes Catch Box",
+   "domain": "buchhaltungsservice-koenig.de",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "/wp-content/themes/catch-box(?:-pro)?/",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 10,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/js/menu.min.js?ver=2.1.1.1",
+       "matched_value": "/wp-content/themes/catch-box/",
+       "context": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/js/menu.min.js?ver=2.1.1.1"
+      },
+      {
+       "source_artifact": "static.html",
+       "location": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/js/jquery.cycle.all.min.js?ver=2.9999.5",
+       "matched_value": "/wp-content/themes/catch-box/",
+       "context": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/js/jquery.cycle.all.min.js?ver=2.9999.5"
+      },
+      {
+       "source_artifact": "static.html",
+       "location": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/js/catchbox-slider.js?ver=1.0.1",
+       "matched_value": "/wp-content/themes/catch-box/",
+       "context": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/js/catchbox-slider.js?ver=1.0.1"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "link[href*='/wp-content/themes/catch-box/']",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://buchhaltungsservice-koenig.de/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"genericons-css\" href=\"https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/genericons/genericons.css?ver=3.4.1\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"genericons-cs"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://buchhaltungsservice-koenig.de/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"genericons-css\" href=\"https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/genericons/genericons.css?ver=3.4.1\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"genericons-cs"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "stylesheet request, as link[href*='/wp-content/themes/catch-box/']",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 4,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/genericons/genericons.css?ver=3.4.1",
+       "matched_value": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/genericons/genericons.css?ver=3.4.1",
+       "context": "https://buchhaltungsservice-koenig.de/wp"
+      },
+      {
+       "source_artifact": "browser.json",
+       "location": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/style.css?ver=20260526-93810",
+       "matched_value": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/style.css?ver=20260526-93810",
+       "context": "https://buchhaltungsservice-koenig.de/wp"
+      },
+      {
+       "source_artifact": "browser.json",
+       "location": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/css/blocks.css?ver=1.0",
+       "matched_value": "https://buchhaltungsservice-koenig.de/wp-content/themes/catch-box/css/blocks.css?ver=1.0",
+       "context": "https://buchhaltungsservice-koenig.de/wp"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "browser.json shows the site's own /wp-content/themes/catch-box/style.css?ver=20260526-93810 and js/menu.min.js?ver=2.1.1.1 loaded with status 200, and catch-box is the only theme folder in static.html.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
    "name": "Chaty",
    "domain": "empresasori.com",
    "sites": 1,
@@ -1874,6 +2173,88 @@
    "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
+   "name": "Colorlib Sparkling",
+   "domain": "msc-manching.de",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "/wp-content/themes/sparkling/",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 10,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://msc-manching.de/wp-content/themes/sparkling/assets/js/vendor/bootstrap.min.js?ver=6.2.16",
+       "matched_value": "/wp-content/themes/sparkling/",
+       "context": "https://msc-manching.de/wp-content/themes/sparkling/assets/js/vendor/bootstrap.min.js?ver=6."
+      },
+      {
+       "source_artifact": "static.html",
+       "location": "https://msc-manching.de/wp-content/themes/sparkling/assets/js/functions.js?ver=20180503",
+       "matched_value": "/wp-content/themes/sparkling/",
+       "context": "https://msc-manching.de/wp-content/themes/sparkling/assets/js/functions.js?ver=20180503"
+      },
+      {
+       "source_artifact": "static.html",
+       "location": "https://msc-manching.de/wp-content/themes/sparkling/assets/js/vendor/flexslider.min.js?ver=20140222",
+       "matched_value": "/wp-content/themes/sparkling/",
+       "context": "https://msc-manching.de/wp-content/themes/sparkling/assets/js/vendor/flexslider.min.js?ver=2"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "link#sparkling-style-css",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://msc-manching.de/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"sparkling-style-css\" href=\"https://msc-manching.de/wp-content/themes/sparkling/style.css?ver=2.4.2\" type=\"text/css\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"sparkling-sty"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://msc-manching.de/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"sparkling-style-css\" href=\"https://msc-manching.de/wp-content/themes/sparkling/style.css?ver=2.4.2\" type=\"text/css\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"sparkling-sty"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "static.html has link id='sparkling-style-css' href='https://msc-manching.de/wp-content/themes/sparkling/style.css?ver=2.4.2', and browser.json shows that file and /wp-content/themes/sparkling/assets/js/functions.js loaded with status 200.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
    "name": "Complianz",
    "domain": "4stonebuildings.com",
    "sites": 1,
@@ -2021,6 +2402,25 @@
    "second_verdict": null,
    "second_reason": null,
    "second_reviewer": null
+  },
+  {
+   "name": "Cookie Information",
+   "domain": "mysterion.hr",
+   "sites": 1,
+   "categories": [
+    "Cookie compliance"
+   ],
+   "confidence": 100,
+   "tier": "inferred",
+   "versions": [],
+   "evidence": [],
+   "batch": 6,
+   "verdict": "wrong",
+   "reason": "Inferred only from the WP GDPR Compliance plugin (/wp-content/plugins/wp-gdpr-compliance/assets/js/front.min.js?ver=1613405082), which runs its own consent switches against the site's admin-ajax.php (wpgdprcData ajaxURL), while no request to cookieinformation.com and no CookieInformation global exist, so the Cookie Information service is not used.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": "wrong",
+   "second_reason": "Only inferred from the self-hosted WordPress plugin (script /wp-content/plugins/wp-gdpr-compliance/assets/js/front.min.js, global wpgdprcData); the Cookie Information SaaS itself is never loaded: browser.json asked for CookieInformation.config.cdnUrl and it is absent from js_globals, and none of the 96 requests goes to cookieinformation.com.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "Cookie Information plugin",
@@ -2174,6 +2574,128 @@
    "batch": 1,
    "verdict": "correct",
    "reason": "browser.json has Criteo and criteo_q globals and requests to dynamic.criteo.com and gum.criteo.com, so the Criteo tag loaded and runs.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "Cryout Creations Parabola",
+   "domain": "bata.edu.hu",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [
+    "2.4.0.1"
+   ],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "/wp-content/themes/parabola/.+frontend\\.js(?:\\?ver=(\\d+(?:\\.\\d+)+))?\\;version:\\1",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [
+      "2.4.0.1"
+     ],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://bata.edu.hu/wp-content/themes/parabola/js/frontend.js?ver=2.4.0.1",
+       "matched_value": "/wp-content/themes/parabola/js/frontend.js?ver=2.4.0.1",
+       "context": "https://bata.edu.hu/wp-content/themes/parabola/js/frontend.js?ver=2.4.0.1"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://bata.edu.hu/wp-content/themes/parabola/js/frontend.js?ver=2.4.0.1",
+       "matched_value": "/wp-content/themes/parabola/js/frontend.js?ver=2.4.0.1",
+       "context": "https://bata.edu.hu/wp-content/themes/parabola/js/frontend.js?ver=2.4.0.1"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "link#parabola-style-css, img[src*='/wp-content/themes/parabola/']",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://bata.edu.hu/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"parabola-style-css\" href=\"https://bata.edu.hu/wp-content/themes/parabola/style.css?ver=2.4.0.1\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"parabola-styl"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://bata.edu.hu/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"parabola-style-css\" href=\"https://bata.edu.hu/wp-content/themes/parabola/style.css?ver=2.4.0.1\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"parabola-styl"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "parabola_mobilemenu_init",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://bata.edu.hu/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "parabola_settings",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://bata.edu.hu/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "static.html has link id='parabola-style-css' href='https://bata.edu.hu/wp-content/themes/parabola/style.css?ver=2.4.0.1', browser.json shows /wp-content/themes/parabola/js/frontend.js?ver=2.4.0.1 loaded (200) and the globals parabola_settings, parabola_mobilemenu_init exist.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
    "second_verdict": null,
    "second_reason": null,
@@ -3661,6 +4183,122 @@
    "second_reviewer": null
   },
   {
+   "name": "GeneratePress",
+   "domain": "infoaboutnetwork.com",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [
+    "3.3.1"
+   ],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "themes/generatepress\\S*\\.js(?:\\?ver=([0-9.]+))?\\;version:\\1",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "rendered.html"
+     ],
+     "versions": [
+      "3.3.1"
+     ],
+     "examples": [
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://www.infoaboutnetwork.com/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.3.1",
+       "matched_value": "themes/generatepress/assets/js/menu.min.js?ver=3.3.1",
+       "context": "s://www.infoaboutnetwork.com/wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.3.1"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://www.infoaboutnetwork.com/wp-content/themes/generatepress/assets/js/navigation-search.min.js?ver=3.3.1",
+       "matched_value": "themes/generatepress/assets/js/navigation-search.min.js?ver=3.3.1",
+       "context": "s://www.infoaboutnetwork.com/wp-content/themes/generatepress/assets/js/navigation-search.min.js?ver=3.3.1"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "link[id*='generate-style']",
+     "subkey": "attributes.href",
+     "pattern": "generatepress\\S*\\.css(?:\\?ver=([0-9.]+))?\\;version:\\1",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "rendered.html"
+     ],
+     "versions": [
+      "3.3.1"
+     ],
+     "examples": [
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://www.infoaboutnetwork.com/",
+       "matched_value": "generatepress/assets/css/main.min.css?ver=3.3.1",
+       "context": ".infoaboutnetwork.com/wp-content/themes/generatepress/assets/css/main.min.css?ver=3.3.1"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "generatepressMenu",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://www.infoaboutnetwork.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "generatepressNavSearch",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://www.infoaboutnetwork.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "The rendered page (static.html is only a 'Bot Verification' page) uses a child theme of GeneratePress: browser.json shows /wp-content/themes/generatepress/assets/js/menu.min.js?ver=3.3.1 and assets/css/main.min.css loaded (200) and the globals generatepressMenu, generatepressNavSearch exist.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
    "name": "Glide.js",
    "domain": "layer7innovations.ca",
    "sites": 1,
@@ -4253,6 +4891,26 @@
    "batch": 2,
    "verdict": "correct",
    "reason": "rendered.html has <div class=\"gf_browser_safari gform_wrapper ...\" id=\"gform_wrapper_2\"> and browser.json loads /wp-content/plugins/gravityforms/js/gravityforms.min.js?ver=3.1.2 with status 200.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "Gutenberg",
+   "domain": "sprucemeadowsmd.com",
+   "sites": 2,
+   "categories": [
+    "WordPress plugins",
+    "Editors"
+   ],
+   "confidence": 100,
+   "tier": "inferred",
+   "versions": [],
+   "evidence": [],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "Inferred from Kadence Blocks, a set of blocks for the WordPress block editor, and the page content is block markup (static.html class='wp-block-kadence-column ...', 'wp-block-kadence-icon') with /wp-content/plugins/kadence-blocks/dist/style-blocks-rowlayout.css loaded, so the block editor is certain.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
    "second_verdict": null,
    "second_reason": null,
@@ -4947,6 +5605,128 @@
    "batch": 2,
    "verdict": "correct",
    "reason": "static.html links /wp-content/plugins/kadence-blocks/dist/style-blocks-rowlayout.css?ver=3.9.1.1 (plus column and icon CSS), all loaded with status 200 in browser.json.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "Kadence WP Kadence",
+   "domain": "sprucemeadowsmd.com",
+   "sites": 2,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [
+    "1.6.0"
+   ],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "/wp-content/themes/kadence/.+navigation\\.min\\.js(?:\\?ver=([\\d\\.]+))?\\;version:\\1",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [
+      "1.6.0"
+     ],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://sprucemeadowsmd.com/wp-content/themes/kadence/assets/js/navigation.min.js?ver=1.6.0",
+       "matched_value": "/wp-content/themes/kadence/assets/js/navigation.min.js?ver=1.6.0",
+       "context": "https://sprucemeadowsmd.com/wp-content/themes/kadence/assets/js/navigation.min.js?ver=1.6.0"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://sprucemeadowsmd.com/wp-content/themes/kadence/assets/js/navigation.min.js?ver=1.6.0",
+       "matched_value": "/wp-content/themes/kadence/assets/js/navigation.min.js?ver=1.6.0",
+       "context": "https://sprucemeadowsmd.com/wp-content/themes/kadence/assets/js/navigation.min.js?ver=1.6.0"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "link#kadence-global-css",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://sprucemeadowsmd.com/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"kadence-global-css\" href=\"https://sprucemeadowsmd.com/wp-content/themes/kadence/assets/css/global.min.css?ver=1.6.0\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"kadence-globa"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://sprucemeadowsmd.com/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"kadence-global-css\" href=\"https://sprucemeadowsmd.com/wp-content/themes/kadence/assets/css/global.min.css?ver=1.6.0\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"kadence-globa"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "kadence",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://sprucemeadowsmd.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "kadenceConfig",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://sprucemeadowsmd.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "static.html has link id='kadence-global-css' href='.../wp-content/themes/kadence/assets/css/global.min.css?ver=1.6.0', browser.json shows /wp-content/themes/kadence/assets/js/navigation.min.js?ver=1.6.0 loaded (200) and the globals kadence, kadenceConfig exist.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
    "second_verdict": null,
    "second_reason": null,
@@ -5895,6 +6675,26 @@
    "batch": 3,
    "verdict": "correct",
    "reason": "static.html loads .../themes/construction-light/assets/library/magnific-popup/magnific-popup.min.js?ver=1.1.0, theme-bundled page code that runs on the page.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "MailChimp",
+   "domain": "mysterion.hr",
+   "sites": 1,
+   "categories": [
+    "Marketing automation",
+    "Email"
+   ],
+   "confidence": 100,
+   "tier": "inferred",
+   "versions": [],
+   "evidence": [],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "Inferred from Mailchimp for WordPress, which works only with a Mailchimp account, and the page has a configured signup form (static.html form id='mc4wp-form-1' data-name='NL subscribe', '<!-- / Mailchimp for WordPress Plugin -->') with forms.js?ver=4.15.0 loaded (200).",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
    "second_verdict": null,
    "second_reason": null,
@@ -6961,6 +7761,122 @@
    "batch": 3,
    "verdict": "correct",
    "reason": "static.html has <div id=\"__nuxt\"> and loads /_nuxt/entry.BtyGwx14.js, and browser.json js globals __NUXT__ and useNuxtApp are defined.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "OceanWP",
+   "domain": "maniaupiekszania.pl",
+   "sites": 2,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [
+    "3.4.7"
+   ],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "themes/oceanwp\\S*\\.js(?:\\?ver=([0-9.]+))?\\;version:\\1",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 20,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [
+      "3.4.7"
+     ],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://maniaupiekszania.pl/wp-content/themes/oceanwp/assets/js/theme.min.js?ver=3.4.7",
+       "matched_value": "themes/oceanwp/assets/js/theme.min.js?ver=3.4.7",
+       "context": "https://maniaupiekszania.pl/wp-content/themes/oceanwp/assets/js/theme.min.js?ver=3.4.7"
+      },
+      {
+       "source_artifact": "static.html",
+       "location": "https://maniaupiekszania.pl/wp-content/themes/oceanwp/assets/js/drop-down-mobile-menu.min.js?ver=3.4.7",
+       "matched_value": "themes/oceanwp/assets/js/drop-down-mobile-menu.min.js?ver=3.4.7",
+       "context": "https://maniaupiekszania.pl/wp-content/themes/oceanwp/assets/js/drop-down-mobile-menu.min.js?ver=3.4.7"
+      },
+      {
+       "source_artifact": "static.html",
+       "location": "https://maniaupiekszania.pl/wp-content/themes/oceanwp/assets/js/drop-down-search.min.js?ver=3.4.7",
+       "matched_value": "themes/oceanwp/assets/js/drop-down-search.min.js?ver=3.4.7",
+       "context": "https://maniaupiekszania.pl/wp-content/themes/oceanwp/assets/js/drop-down-search.min.js?ver=3.4.7"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "body[class*='oceanwp-theme']",
+     "subkey": "text",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://maniaupiekszania.pl/",
+       "matched_value": "Skip to content/*! elementor - v3.18.0 - 20-12-2023 */\n.elementor-widget-image{text-align:center}.elementor-widget-image a{display:inline-block}.elementor-widget-image a img[src$=\".svg\"]{width:48px}.e",
+       "context": "Skip to content/*! elementor - v3.18.0 -"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://maniaupiekszania.pl/",
+       "matched_value": "Skip to content/*! elementor - v3.18.0 - 20-12-2023 */\n.elementor-widget-image{text-align:center}.elementor-widget-image a{display:inline-block}.elementor-widget-image a img[src$=\".svg\"]{width:48px}.e",
+       "context": "Skip to content/*! elementor - v3.18.0 -"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "link[id*='oceanwp']",
+     "subkey": "attributes.href",
+     "pattern": "oceanwp\\S*\\.css(?:\\?ver=([0-9.]+))?\\;version:\\1",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [
+      "3.4.7"
+     ],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://maniaupiekszania.pl/",
+       "matched_value": "oceanwp/assets/css/style.min.css?ver=3.4.7",
+       "context": "//maniaupiekszania.pl/wp-content/themes/oceanwp/assets/css/style.min.css?ver=3.4.7"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://maniaupiekszania.pl/",
+       "matched_value": "oceanwp/assets/css/style.min.css?ver=3.4.7",
+       "context": "//maniaupiekszania.pl/wp-content/themes/oceanwp/assets/css/style.min.css?ver=3.4.7"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "browser.json shows /wp-content/themes/oceanwp/assets/js/theme.min.js?ver=3.4.7 and assets/css/style.min.css?ver=3.4.7 loaded with status 200 from the site, and the body class contains oceanwp-theme.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
    "second_verdict": null,
    "second_reason": null,
@@ -8131,6 +9047,25 @@
    "batch": 3,
    "verdict": "correct",
    "reason": "browser.json has 200 requests for /wp-content/plugins/widget-google-reviews/assets/7.2/js/public-main.js and its public-main.css, the Rich Plugins Google reviews widget.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "Salesforce",
+   "domain": "disneystore.com",
+   "sites": 1,
+   "categories": [
+    "CRM"
+   ],
+   "confidence": 100,
+   "tier": "inferred",
+   "versions": [],
+   "evidence": [],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "Inferred from Salesforce Commerce Cloud, Salesforce's own product, proven by the site's scripts /on/demandware.static/Sites-shopDisney-Site/.../js/main.js and the dwsid cookie (static.json), so the site is certainly a Salesforce customer (also seen as Salesforce Interaction Studio); the two names overlap, a rule duplication, not an error.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
    "second_verdict": null,
    "second_reason": null,
@@ -9637,6 +10572,25 @@
    "second_reviewer": null
   },
   {
+   "name": "Symfony",
+   "domain": "lorenz-baumarkt.de",
+   "sites": 1,
+   "categories": [
+    "Web frameworks"
+   ],
+   "confidence": 100,
+   "tier": "inferred",
+   "versions": [],
+   "evidence": [],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "Inferred from Shopware 5, self-hosted on the site (static.html 'Realisiert mit Shopware', /web/cache/1761889490_e66aa174f73288a9894c77561730ef14.js loaded 200, fonts under /themes/Frontend/Responsive/), and Shopware is built on Symfony components, so Symfony is certain.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
    "name": "Taboola",
    "domain": "soziale-dreigliederung.de",
    "sites": 1,
@@ -10099,6 +11053,247 @@
    "batch": 4,
    "verdict": "correct",
    "reason": "browser.json js_globals has Turbo and static.html has the turbo-prefetch, turbo-refresh-method and turbo-cache-control metas, so Hotwire Turbo runs on the page (bundled by the Bandzoogle platform, page code counts).",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "Twenty Seventeen",
+   "domain": "deepseass.com",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "/wp-content/themes/twentyseventeen/",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 6,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://www.deepseass.com/wp-content/themes/twentyseventeen/assets/js/global.js?ver=20211130",
+       "matched_value": "/wp-content/themes/twentyseventeen/",
+       "context": "https://www.deepseass.com/wp-content/themes/twentyseventeen/assets/js/global.js?ver=20211130"
+      },
+      {
+       "source_artifact": "static.html",
+       "location": "https://www.deepseass.com/wp-content/themes/twentyseventeen/assets/js/navigation.js?ver=20210122",
+       "matched_value": "/wp-content/themes/twentyseventeen/",
+       "context": "https://www.deepseass.com/wp-content/themes/twentyseventeen/assets/js/navigation.js?ver=20210122"
+      },
+      {
+       "source_artifact": "static.html",
+       "location": "https://www.deepseass.com/wp-content/themes/twentyseventeen/assets/js/jquery.scrollTo.js?ver=2.1.3",
+       "matched_value": "/wp-content/themes/twentyseventeen/",
+       "context": "https://www.deepseass.com/wp-content/themes/twentyseventeen/assets/js/jquery.scrollTo.js?ver=2.1.3"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "link#twentyseventeen-style-css",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://www.deepseass.com/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"twentyseventeen-style-css\" href=\"https://www.deepseass.com/wp-content/themes/twentyseventeen/style.css?ver=20260819\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"twentysevente"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://www.deepseass.com/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"twentyseventeen-style-css\" href=\"https://www.deepseass.com/wp-content/themes/twentyseventeen/style.css?ver=20260819\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"twentysevente"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "twentyseventeenScreenReaderText",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://www.deepseass.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "static.html has link id='twentyseventeen-style-css' href='https://www.deepseass.com/wp-content/themes/twentyseventeen/style.css?ver=20260819', browser.json shows assets/js/global.js?ver=20211130 loaded (200) and the global twentyseventeenScreenReaderText exists.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "Twenty Twelve",
+   "domain": "centreconsiliereavort.ro",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [],
+   "evidence": [
+    {
+     "signal": "scriptSrc",
+     "key": null,
+     "subkey": null,
+     "pattern": "/wp-content/themes/twentytwelve/",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://centreconsiliereavort.ro/wp-content/themes/twentytwelve/js/navigation.js?ver=20250303",
+       "matched_value": "/wp-content/themes/twentytwelve/",
+       "context": "https://centreconsiliereavort.ro/wp-content/themes/twentytwelve/js/navigation.js?ver=20250303"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://centreconsiliereavort.ro/wp-content/themes/twentytwelve/js/navigation.js?ver=20250303",
+       "matched_value": "/wp-content/themes/twentytwelve/",
+       "context": "https://centreconsiliereavort.ro/wp-content/themes/twentytwelve/js/navigation.js?ver=20250303"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "link#twentytwelve-style-css",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 2,
+     "artifacts": [
+      "static.html",
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "static.html",
+       "location": "https://centreconsiliereavort.ro/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"twentytwelve-style-css\" href=\"https://centreconsiliereavort.ro/wp-content/themes/twentytwelve/style.css?ver=20260819\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"twentytwelve-"
+      },
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://centreconsiliereavort.ro/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"twentytwelve-style-css\" href=\"https://centreconsiliereavort.ro/wp-content/themes/twentytwelve/style.css?ver=20260819\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"twentytwelve-"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "static.html has link id='twentytwelve-style-css' href='https://centreconsiliereavort.ro/wp-content/themes/twentytwelve/style.css?ver=20260819', and browser.json shows that file and js/navigation.js?ver=20250303 loaded with status 200.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
+   "name": "Twenty Twenty-Four",
+   "domain": "3xd.co.uk",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [],
+   "evidence": [
+    {
+     "signal": "dom",
+     "key": "link[href*='/wp-content/themes/twentytwentyfour/']",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "rendered.html"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "rendered.html",
+       "location": "https://www.3xd.co.uk/",
+       "matched_value": "<link rel=\"stylesheet\" id=\"twentytwentyfour-parent-css\" href=\"https://www.3xd.co.uk/wp-content/themes/twentytwentyfour/style.css?ver=7.1.5\" media=\"all\">",
+       "context": "<link rel=\"stylesheet\" id=\"twentytwentyf"
+      }
+     ]
+    },
+    {
+     "signal": "dom",
+     "key": "stylesheet request, as link[href*='/wp-content/themes/twentytwentyfour/']",
+     "subkey": "exists",
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://www.3xd.co.uk/wp-content/themes/twentytwentyfour/style.css?ver=7.1.5",
+       "matched_value": "https://www.3xd.co.uk/wp-content/themes/twentytwentyfour/style.css?ver=7.1.5",
+       "context": "https://www.3xd.co.uk/wp-content/themes/"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "The rendered page's body classes 'wp-theme-twentytwentyfour wp-child-theme-custom-3xd-limited-theme' show Twenty Twenty-Four is the parent of the site's child theme, and its stylesheet (link id='twentytwentyfour-parent-css', /wp-content/themes/twentytwentyfour/style.css?ver=7.1.5) loaded with status 200.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
    "second_verdict": null,
    "second_reason": null,
@@ -10741,6 +11936,47 @@
    "second_verdict": null,
    "second_reason": null,
    "second_reviewer": null
+  },
+  {
+   "name": "WEN Themes Signify Dark",
+   "domain": "dorpsbelangen.nu",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [],
+   "evidence": [
+    {
+     "signal": "js",
+     "key": "signifyOptions",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://www.dorpsbelangen.nu/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "wrong",
+   "reason": "The only evidence is the global signifyOptions, which the whole Signify theme family defines, and the site runs Signify Pro, not Signify Dark (rendered.html link id='signify-style-css' href='.../wp-content/themes/signify-pro/style.css', body class 'wp-theme-signify-pro' with no child theme).",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": "wrong",
+   "second_reason": "The site runs a different theme of the same family, Signify Pro (wp-content/themes/signify-pro/style.css, body class wp-theme-signify-pro, footer 'Signify Pro by WEN Themes'); the matched global signifyOptions is shared by the Signify themes, so it does not prove Signify Dark.",
+   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
   },
   {
    "name": "WOW",
@@ -11609,6 +12845,68 @@
    "second_reviewer": null
   },
   {
+   "name": "Woodmart",
+   "domain": "empresasori.com",
+   "sites": 1,
+   "categories": [
+    "WordPress themes"
+   ],
+   "confidence": 100,
+   "tier": "observed",
+   "versions": [],
+   "evidence": [
+    {
+     "signal": "js",
+     "key": "woodmartThemeModule",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://empresasori.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    },
+    {
+     "signal": "js",
+     "key": "woodmart_settings",
+     "subkey": null,
+     "pattern": "",
+     "confidence": 100,
+     "tier": "observed",
+     "match_count": 1,
+     "artifacts": [
+      "browser.json"
+     ],
+     "versions": [],
+     "examples": [
+      {
+       "source_artifact": "browser.json",
+       "location": "https://empresasori.com/",
+       "matched_value": "true",
+       "context": "true"
+      }
+     ]
+    }
+   ],
+   "batch": 6,
+   "verdict": "correct",
+   "reason": "The site runs a woodmart-child theme on Woodmart: browser.json shows /wp-content/themes/woodmart/css/parts/base.min.css?ver=6.1.5 and other woodmart files loaded (200), and the globals woodmartThemeModule, woodmart_settings exist.",
+   "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
+  },
+  {
    "name": "WordPress Multisite",
    "domain": "38inspect.com",
    "sites": 3,
@@ -11874,65 +13172,48 @@
   },
   {
    "name": "ZURB Foundation",
-   "domain": "3xd.co.uk",
-   "sites": 2,
+   "domain": "4stonebuildings.com",
+   "sites": 1,
    "categories": [
     "UI frameworks"
    ],
    "confidence": 100,
    "tier": "observed",
-   "versions": [],
+   "versions": [
+    "6.8.1"
+   ],
    "evidence": [
     {
-     "signal": "html",
-     "key": null,
+     "signal": "js",
+     "key": "Foundation.version",
      "subkey": null,
-     "pattern": "<link[^>]+foundation[^>\"]+css",
+     "pattern": "([\\d.]+)\\;version:\\1",
      "confidence": 100,
      "tier": "observed",
      "match_count": 1,
      "artifacts": [
-      "rendered.html"
+      "browser.json"
      ],
-     "versions": [],
+     "versions": [
+      "6.8.1"
+     ],
      "examples": [
       {
-       "source_artifact": "rendered.html",
-       "location": "https://www.3xd.co.uk/",
-       "matched_value": "<link rel=\"stylesheet\" id=\"gravity_forms_theme_foundation-css\" href=\"https://www.3xd.co.uk/wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-foundation.min.css",
-       "context": "e-reset.min.css?ver=3.1.2\" media=\"all\">\n<link rel=\"stylesheet\" id=\"gravity_forms_theme_foundation-css\" href=\"https://www.3xd.co.uk/wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-foundation.min.css?ver=3.1.2\" media=\"all\">\n<link rel=\"styl"
-      }
-     ]
-    },
-    {
-     "signal": "dom",
-     "key": "link[href*='foundation'][href*='css']",
-     "subkey": "exists",
-     "pattern": "",
-     "confidence": 100,
-     "tier": "observed",
-     "match_count": 1,
-     "artifacts": [
-      "rendered.html"
-     ],
-     "versions": [],
-     "examples": [
-      {
-       "source_artifact": "rendered.html",
-       "location": "https://www.3xd.co.uk/",
-       "matched_value": "<link rel=\"stylesheet\" id=\"gravity_forms_theme_foundation-css\" href=\"https://www.3xd.co.uk/wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-foundation.min.css?ver=3.1.2\" media=\"all\"",
-       "context": "<link rel=\"stylesheet\" id=\"gravity_forms"
+       "source_artifact": "browser.json",
+       "location": "https://4stonebuildings.com/",
+       "matched_value": "6.8.1",
+       "context": "6.8.1"
       }
      ]
     }
    ],
    "batch": 5,
-   "verdict": "wrong",
-   "reason": "The only match is Gravity Forms' own stylesheet gravity-forms-theme-foundation.min.css (id gravity_forms_theme_foundation-css) in rendered.html, and browser.json shows Foundation.version was asked but not defined, so ZURB Foundation is not on the page.",
+   "verdict": "correct",
+   "reason": "The theme bundle https://4stonebuildings.com/wp-content/themes/4stone/dist/bundle.js (200, saved in js/) contains Foundation 6.8.1 ('version:\"6.8.1\",_plugins:{}', Foundation.MediaQuery, Foundation.plugin), and browser.json reads Foundation.version = 6.8.1.",
    "reviewer": "reviewer agent (Claude, separate session, docs/DEFINITIONS.md)",
-   "second_verdict": "wrong",
-   "second_reason": "The matched stylesheet is Gravity Forms' own theme file wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-foundation.min.css (id gravity_forms_theme_foundation-css), not the ZURB Foundation framework.",
-   "second_reviewer": "second reviewer agent (Claude, separate session, blind to first verdicts)"
+   "second_verdict": null,
+   "second_reason": null,
+   "second_reviewer": null
   },
   {
    "name": "Zoho PageSense",

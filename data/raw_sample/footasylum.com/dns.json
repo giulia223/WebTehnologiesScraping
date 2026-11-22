@@ -1,0 +1,143 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-17T20:54:15Z",
+    "tool_version": "0.1.0+1e0a67458837",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "footasylum.com",
+  "status": "ok",
+  "resolver": {
+    "nameservers": [
+      "100.100.1.1",
+      "100.100.0.1"
+    ],
+    "timeout_s": 5.0
+  },
+  "elapsed_ms": 765,
+  "queries": [
+    {
+      "name": "footasylum.com",
+      "type": "A",
+      "status": "ok",
+      "ttl": 36,
+      "records": [
+        "16.60.85.66",
+        "18.175.78.118",
+        "18.168.166.164"
+      ],
+      "canonical_name": "footasylum.com."
+    },
+    {
+      "name": "footasylum.com",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: footasylum.com. IN AAAA"
+    },
+    {
+      "name": "footasylum.com",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: footasylum.com. IN CNAME"
+    },
+    {
+      "name": "www.footasylum.com",
+      "type": "A",
+      "status": "ok",
+      "ttl": 20,
+      "records": [
+        "23.212.59.138",
+        "23.212.59.145"
+      ],
+      "canonical_name": "e65203.dsca.akamaiedge.net."
+    },
+    {
+      "name": "www.footasylum.com",
+      "type": "AAAA",
+      "status": "ok",
+      "ttl": 20,
+      "records": [
+        "2a02:26f0:9c00::17d4:3bb2",
+        "2a02:26f0:9c00::17d4:3bab"
+      ],
+      "canonical_name": "e65203.dsca.akamaiedge.net."
+    },
+    {
+      "name": "www.footasylum.com",
+      "type": "CNAME",
+      "status": "ok",
+      "ttl": 750,
+      "records": [
+        "www.footasylum.com.edgekey.net."
+      ]
+    },
+    {
+      "name": "footasylum.com",
+      "type": "MX",
+      "status": "ok",
+      "ttl": 7200,
+      "records": [
+        "10 eu-smtp-inbound-1.mimecast.com.",
+        "10 eu-smtp-inbound-2.mimecast.com."
+      ]
+    },
+    {
+      "name": "footasylum.com",
+      "type": "NS",
+      "status": "ok",
+      "ttl": 7200,
+      "records": [
+        "ns0.ukfast.net.",
+        "ns1.ukfast.net."
+      ]
+    },
+    {
+      "name": "footasylum.com",
+      "type": "TXT",
+      "status": "ok",
+      "ttl": 7200,
+      "records": [
+        "apple-domain-verification=rqWwsVE5JHEhERAf",
+        "https://www.footasylum.com/images/FA-Black.svg",
+        "0ed1fe018ac3d5a781027f445e985bd1eeb2b52520",
+        "_qypmp5rmkpygs035rp8r4zsmcwbx0c7",
+        "0ed1fe018a0dd42760781f41ad871ba248a66a7e00",
+        "frr60p8d150sjx6sfb4rq8gkl9qflnp1",
+        "v=spf1 include:eu._netblocks.mimecast.com include:footasylum.gnatta.com ~all",
+        "Validity-Domain-Verification=Mj9vw6Al/Id/xomfiDcS9TEiuzw=",
+        "atlassian-domain-verification=3IzbN9il8srQyDFbWy/ayflkVyRMXdrbfra81mM0Pn199Z27jZxUa3ngQmA7wH9K",
+        "V2wblKLfaJk4XEfCxN67cx0V38K5cyz5sUYgcZBoXqPka7dCLeZzyZhGDHmxEuNd1hv5iVgFMO7JFfL8OKTXxA==",
+        "MS=6CFFC159294CF7770B98B8C74E65C88ACAA5D64A",
+        "google-site-verification=aEUU6WQxrcxBPFwswF9VVAbJOQfN3_fChNOCQCnyh9I",
+        "miro-verification=dbb1df28ede2ad95ddc0cff00b309f2a17c6a824",
+        "MS=ms88879697",
+        "peoplexd-domain-verification=3E9427238EAF1F312E34",
+        "facebook-domain-verification=7o1wt10mg2do6eqfc7g2ef1gqiejs9",
+        "google-site-verification=OQ2VYkAvxsk2SEvsKtEjQgXrmZwRdAuSTBxAZCogxM4"
+      ]
+    },
+    {
+      "name": "footasylum.com",
+      "type": "SOA",
+      "status": "ok",
+      "ttl": 7200,
+      "records": [
+        "ns0.ukfast.net. support.ukfast.co.uk. 2026101501 7200 3600 604800 7200"
+      ]
+    },
+    {
+      "name": "_dmarc.footasylum.com",
+      "type": "TXT",
+      "status": "ok",
+      "ttl": 7200,
+      "records": [
+        "v=DMARC1; p=quarantine; fo=0; rua=mailto:dmarc.reports@footasylum.com; ruf=mailto:dmarc.reports@footasylum.com"
+      ]
+    }
+  ]
+}

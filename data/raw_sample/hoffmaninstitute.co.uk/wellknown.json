@@ -1,0 +1,86 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:12Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "hoffmaninstitute.co.uk",
+  "status": "ok",
+  "robots": {
+    "url": "https://hoffmaninstitute.co.uk/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://hoffmaninstitute.co.uk/robots.txt",
+    "content_type": "text/plain; charset=utf-8",
+    "headers": [
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:13 GMT"
+      ],
+      [
+        "content-type",
+        "text/plain; charset=utf-8"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "report-to",
+        "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=mGkzsIbkK3N3nfW5jTZ1BD8K9KQcj7O%2BeiQnyLP1iwKhhOIpZGDI5jUaE7cO5f48npeIWRbRwAUXCIC8w6pEo35mFFDrSqNoC7r2KyhIjXwe3bmd0zAk8Ndz9fbWWvGQ7L9dHm18H3IENvN7GWDmFWZYTQrt\"}]}"
+      ],
+      [
+        "x-robots-tag",
+        "noindex, follow"
+      ],
+      [
+        "link",
+        "<https://hoffmaninstitute.co.uk/wp-json/>; rel=\"https://api.w.org/\""
+      ],
+      [
+        "vary",
+        "Accept-Encoding,User-Agent"
+      ],
+      [
+        "cache-control",
+        "max-age=14400"
+      ],
+      [
+        "cf-cache-status",
+        "EXPIRED"
+      ],
+      [
+        "nel",
+        "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+      ],
+      [
+        "speculation-rules",
+        "\"/cdn-cgi/speculation\""
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "cf-ray",
+        "a5d76cae7a72e45f-OTP"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "a56c96b952c4afd02497ba068d594c6b63b4ae48a9746002b6625a5ed6318d51",
+    "bytes": 3126,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 784
+  }
+}

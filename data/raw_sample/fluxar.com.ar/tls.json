@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:45Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "fluxar.com.ar",
+  "probed_host": "www.fluxar.com.ar",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "fluxar.com.ar"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YE1"
+      ]
+    ],
+    "sans": [
+      "fluxar.com.ar",
+      "www.fluxar.com.ar"
+    ],
+    "not_before": "2026-11-06T04:34:01Z",
+    "not_after": "2027-02-04T04:34:00Z",
+    "serial": "06B27D007DA34300A16E4E2485B81FAADD13",
+    "sha256": "63381546a4d1e707187542001a39435bd3fd5f0e287b79b0dd121b4164580f59",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIDmzCCAyGgAwIBAgISBrJ9AH2jQwChbk4khbgfqt0TMAoGCCqGSM49BAMDMDMx\nCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQDEwNZ\nRTEwHhcNMjYxMTA2MDQzNDAxWhcNMjcwMjA0MDQzNDAwWjAYMRYwFAYDVQQDEw1m\nbHV4YXIuY29tLmFyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEkJjJvahhKg9O\n3wuggwr9PhZvrakIez8VTGW4ITW1qzK7Qr2KjZ8UAyOWAHXcYyQT3yEXsRIpRjQW\nHqtIkv4LGaOCAi4wggIqMA4GA1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEF\nBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBSJSejvX2W/1LOChtsPC+f+1pDg\nzTAfBgNVHSMEGDAWgBS7IMpHC/7X5Zz5jwkqo4w3RbG82DAzBggrBgEFBQcBAQQn\nMCUwIwYIKwYBBQUHMAKGF2h0dHA6Ly95ZTEuaS5sZW5jci5vcmcvMCsGA1UdEQQk\nMCKCDWZsdXhhci5jb20uYXKCEXd3dy5mbHV4YXIuY29tLmFyMBMGA1UdIAQMMAow\nCAYGZ4EMAQIBMC4GA1UdHwQnMCUwI6AhoB+GHWh0dHA6Ly95ZTEuYy5sZW5jci5v\ncmcvMjAuY3JsMIIBDAYKKwYBBAHWeQIEAgSB/QSB+gD4AHYAYEyar3p/d18B1Ab8\nkg3ImesLHH34yVIb+voXdzuXi8kAAAGhr1gmiQAABAMARzBFAiAm2vESpSj2v6yG\noav9KMy6KdzxYmvqetPYcDIvWGw4+gIhAIwJcS3yq6mnvDhWW81XuwpapwHkuo+B\nr4M2cb4IqrDrAH4AooEAGHNOF24dR+CVQPOBulRml81jqENQcW64CU7a8Q0AAAGh\nr1gobgAIAAAFADlqh5YEAwBHMEUCIQDWOI6Ei6kusxT1iDRQymbZlIS4fJwYpcI3\nZjfVyaihVQIgNUnpwRmf7lmXW2vXncI5Wa+KV/9OCfibTYA/qAXvGfQwCgYIKoZI\nzj0EAwMDaAAwZQIxAN4okWKQSwerIOW8oKp1dajV70MvswkyIqKbuK4V1Uus1/UE\nVr47Ou5dewUQdiTzEgIwEvPgAPUj71cfYOk2Uh/gBvl4d6fQ5QV4IjUgbrz3oUAn\nhoI0w7gOyFSPRN8Nwpso\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 854
+}

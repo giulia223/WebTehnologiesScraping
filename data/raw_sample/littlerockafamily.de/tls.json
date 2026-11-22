@@ -1,0 +1,21 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:44Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "littlerockafamily.de",
+  "probed_host": "littlerockafamily.de",
+  "probed_host_source": "input_host",
+  "port": 443,
+  "status": "failed",
+  "error_category": "dns_fail",
+  "error": "gaierror: [Errno 11001] getaddrinfo failed",
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": null,
+  "certificate": null,
+  "elapsed_ms": 24
+}

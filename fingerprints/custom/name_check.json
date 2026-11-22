@@ -1,25 +1,4 @@
 {
-  "Lightbox": {
-    "cats": [
-      59
-    ],
-    "scriptSrc": [
-      "/lightbox(?:-plus-jquery)?(?:\\.min)?\\.js"
-    ],
-    "status": "accepted",
-    "origin": "data",
-    "seen_on": 2,
-    "examples": [
-      "shapirolawfirm.com",
-      "bfnelson.it"
-    ],
-    "source_url": "",
-    "source_quote": "",
-    "source_verified": false,
-    "review_note": "Replaces the upstream pattern removed by the Lightbox correction: the file must be named exactly lightbox.js, lightbox.min.js or lightbox-plus-jquery(.min).js (Lightbox2's own file names), right after a slash. Matches shapirolawfirm.com (lightbox.min.js?ver=2.7.1 with lightbox.css?ver=2.7.1: 2.7.1 is a Lightbox2 version) and bfnelson.it (Breakdance's dependencies-files/.../lightbox.js: not sure it is Lightbox2). Accepted by the human reviewer on 2026-11-21 after the preview on all 200 domains.",
-    "reviewed_by": "human",
-    "reviewed_at": "2026-11-21"
-  },
   "Onsen UI": {
     "cats": [
       26

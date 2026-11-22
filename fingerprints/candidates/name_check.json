@@ -1,1 +1,42 @@
-{}
+{
+  "Lightbox": {
+    "cats": [
+      59
+    ],
+    "scriptSrc": [
+      "/lightbox(?:-plus-jquery)?(?:\\.min)?\\.js"
+    ],
+    "status": "rejected",
+    "origin": "data",
+    "seen_on": 2,
+    "examples": [
+      "shapirolawfirm.com",
+      "bfnelson.it"
+    ],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Rejected by the human reviewer on 2026-11-22, after the name check, and taken out of custom/ (it had been accepted on 2026-11-21). The file names are Lightbox2's, but other products ship a file with the same name: on bfnelson.it the match is the Breakdance builder's own dependencies-files/elements-reusable-code/lightbox.js (judged wrong by two reviewers). Only the folder path tells the two apart, which no general rule can rely on. On shapirolawfirm.com (theme carina, lightbox.min.js?ver=2.7.1, not judged) it may be Lightbox2, but Lightbox2's globals (Lightbox.activeImage, lightbox.$lightbox) were asked in the browser and are absent on both sites. Lightbox is now found only by those globals. Earlier note: Replaces the upstream pattern removed by the Lightbox correction: the file must be named exactly lightbox.js, lightbox.min.js or lightbox-plus-jquery(.min).js (Lightbox2's own file names), right after a slash. Matches shapirolawfirm.com (lightbox.min.js?ver=2.7.1 with lightbox.css?ver=2.7.1: 2.7.1 is a Lightbox2 version) and bfnelson.it (Breakdance's dependencies-files/.../lightbox.js: not sure it is Lightbox2). Accepted by the human reviewer on 2026-11-21 after the preview on all 200 domains.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "WEN Themes Signify Dark": {
+    "cats": [
+      80
+    ],
+    "dom": [
+      "link[href*='/wp-content/themes/signify-dark/']"
+    ],
+    "scriptSrc": [
+      "/wp-content/themes/signify-dark/"
+    ],
+    "status": "proposed",
+    "origin": "data",
+    "seen_on": 0,
+    "examples": [],
+    "source_url": "",
+    "source_quote": "",
+    "source_verified": false,
+    "review_note": "Proposed on 2026-11-22, not reviewed. Would replace the upstream pattern removed by the WEN Themes Signify Dark correction (the global signifyOptions, which Signify Pro defines too): the theme's own folder, signify-dark, in a stylesheet link or a script URL, the same shape upstream uses for sibling themes (Catch Themes Catch Box, WEN Themes Education Hub). Without it Signify Dark has no pattern at all. Matches none of the 200 domains (preview with --include-candidates), so it cannot be checked on this data. Not checked: whether Signify Dark is a child theme of Signify (then its scripts load from the parent's folder and only its stylesheet link would match); the folder name signify-dark is assumed from upstream's website link (wenthemes.com/item/wordpress-themes/signify-dark), not fetched."
+  }
+}

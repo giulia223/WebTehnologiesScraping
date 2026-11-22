@@ -1,0 +1,124 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:13Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "seringa-safaris.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://seringasafaris.com/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "17624a0fab69a661f7dd4839e97ea39cdb9865adda15fb3083d7be099f247bc7",
+  "html_bytes": 17726,
+  "html_truncated": false,
+  "elapsed_ms": 1346,
+  "attempts": [
+    {
+      "url": "https://seringa-safaris.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 1345,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://seringa-safaris.com/",
+          "status": 301,
+          "http_version": "HTTP/1.1",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:14 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ],
+            [
+              "x-content-type-options",
+              "nosniff"
+            ],
+            [
+              "location",
+              "https://seringasafaris.com/"
+            ],
+            [
+              "content-length",
+              "275"
+            ],
+            [
+              "keep-alive",
+              "timeout=5, max=75"
+            ],
+            [
+              "connection",
+              "Keep-Alive"
+            ],
+            [
+              "content-type",
+              "text/html; charset=iso-8859-1"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://seringasafaris.com/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:14 GMT"
+            ],
+            [
+              "content-type",
+              "text/html"
+            ],
+            [
+              "cf-cache-status",
+              "HIT"
+            ],
+            [
+              "cache-control",
+              "public, max-age=0, must-revalidate"
+            ],
+            [
+              "set-cookie",
+              "__cf_bm=1rupFsgmuNbGzjuKiswCs5q7Du886.vY1pRYcC.ndqk-1795177154.2634642-1.0.1.1-664JGHcTfC3pr6U.5kpzlKPHMSNdiaU8aVN073sFYJLp_xfjnVe3.m8BSeD2Wx0Y3L07QaysXWPko9NBquyFPotrylUJoHkDFvShdrk4AicYdej1Kkwrtawx1rPM9Z3k; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=seringasafaris.com; Expires=Fri, 20 Nov 2026 12:49:14 GMT"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "server",
+              "cloudflare"
+            ],
+            [
+              "cf-ray",
+              "a5d766de294cb694-OTP"
+            ]
+          ]
+        }
+      ],
+      "cookies": [
+        {
+          "name": "__cf_bm",
+          "value": "1rupFsgmuNbGzjuKiswCs5q7Du886.vY1pRYcC.ndqk-1795177154.2634642-1.0.1.1-664JGHcTfC3pr6U.5kpzlKPHMSNdiaU8aVN073sFYJLp_xfjnVe3.m8BSeD2Wx0Y3L07QaysXWPko9NBquyFPotrylUJoHkDFvShdrk4AicYdej1Kkwrtawx1rPM9Z3k",
+          "domain": ".seringasafaris.com",
+          "path": "/",
+          "secure": true,
+          "expires": 1795178954,
+          "set_by": "https://seringasafaris.com/"
+        }
+      ]
+    }
+  ]
+}

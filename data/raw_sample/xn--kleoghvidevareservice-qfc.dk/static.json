@@ -1,0 +1,82 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:02Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "xn--kleoghvidevareservice-qfc.dk",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://xn--kleoghvidevareservice-qfc.dk/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "5e51753fe1824ce096875c7ff2612da030cee1b0aad486bafde75a63a9938635",
+  "html_bytes": 173124,
+  "html_truncated": false,
+  "elapsed_ms": 530,
+  "attempts": [
+    {
+      "url": "https://xn--kleoghvidevareservice-qfc.dk/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 528,
+      "steps": [
+        {
+          "kind": "final",
+          "url": "https://xn--kleoghvidevareservice-qfc.dk/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "server",
+              "nginx/1.31.9"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:02 GMT"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "link",
+              "<https://xn--kleoghvidevareservice-qfc.dk/wp-json/>; rel=\"https://api.w.org/\""
+            ],
+            [
+              "link",
+              "<https://xn--kleoghvidevareservice-qfc.dk/wp-json/wp/v2/pages/2>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\""
+            ],
+            [
+              "link",
+              "<https://xn--kleoghvidevareservice-qfc.dk/>; rel=shortlink"
+            ],
+            [
+              "x-cache-status",
+              "HIT"
+            ],
+            [
+              "x-cache-skip",
+              "0"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ]
+          ]
+        }
+      ],
+      "cookies": []
+    }
+  ]
+}

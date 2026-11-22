@@ -1,0 +1,140 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:15Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "sevecoitalia.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://www.sevecoitalia.com",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "c2c0208cacd49b09b14fdc6947f930af14230269d21e763f89c8eef3b5d3e44d",
+  "html_bytes": 16646,
+  "html_truncated": false,
+  "elapsed_ms": 678,
+  "attempts": [
+    {
+      "url": "https://sevecoitalia.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 676,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://sevecoitalia.com/",
+          "status": 301,
+          "http_version": "HTTP/1.1",
+          "headers": [
+            [
+              "cache-control",
+              "private"
+            ],
+            [
+              "content-type",
+              "text/html; charset=utf-8"
+            ],
+            [
+              "location",
+              "https://www.sevecoitalia.com"
+            ],
+            [
+              "server",
+              "Microsoft-IIS/8.0"
+            ],
+            [
+              "set-cookie",
+              "ASP.NET_SessionId=rlt01c3fgfqn1ytrssuwoeio; path=/; HttpOnly; SameSite=Lax"
+            ],
+            [
+              "x-aspnet-version",
+              "4.0.30319"
+            ],
+            [
+              "x-powered-by",
+              "ASP.NET"
+            ],
+            [
+              "permissions-policy",
+              "unload=(self)"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:14 GMT"
+            ],
+            [
+              "content-length",
+              "16791"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://www.sevecoitalia.com",
+          "status": 200,
+          "http_version": "HTTP/1.1",
+          "headers": [
+            [
+              "cache-control",
+              "private"
+            ],
+            [
+              "content-type",
+              "text/html; charset=utf-8"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "server",
+              "Microsoft-IIS/8.0"
+            ],
+            [
+              "x-aspnet-version",
+              "4.0.30319"
+            ],
+            [
+              "x-powered-by",
+              "ASP.NET"
+            ],
+            [
+              "permissions-policy",
+              "unload=(self)"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:14 GMT"
+            ],
+            [
+              "content-length",
+              "5652"
+            ]
+          ]
+        }
+      ],
+      "cookies": [
+        {
+          "name": "ASP.NET_SessionId",
+          "value": "rlt01c3fgfqn1ytrssuwoeio",
+          "domain": "sevecoitalia.com",
+          "path": "/",
+          "secure": false,
+          "expires": null,
+          "set_by": "https://sevecoitalia.com/"
+        }
+      ]
+    }
+  ]
+}

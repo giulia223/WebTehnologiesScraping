@@ -1,0 +1,98 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:12Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "appelpsychotherapy.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://www.appelpsychotherapy.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://www.appelpsychotherapy.com/robots.txt",
+    "content_type": "text/plain; charset=utf-8",
+    "headers": [
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:12 GMT"
+      ],
+      [
+        "content-type",
+        "text/plain; charset=utf-8"
+      ],
+      [
+        "cf-ray",
+        "a5d76cb0aa5b053b-OTP"
+      ],
+      [
+        "cf-cache-status",
+        "HIT"
+      ],
+      [
+        "x-seen-by",
+        "bQAXdg/f3pWGCb3VI6q72A==,"
+      ],
+      [
+        "age",
+        "238396"
+      ],
+      [
+        "cache-control",
+        "public,max-age=0,must-revalidate"
+      ],
+      [
+        "etag",
+        "W/\"1f4-z2yBr4CLKw34y41vzLps4BMthGU\""
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "strict-transport-security",
+        "max-age=31556952"
+      ],
+      [
+        "server-timing",
+        "cache;desc=miss, varnish;desc=miss_hit, dc;desc=cloudflare"
+      ],
+      [
+        "x-content-type-options",
+        "nosniff"
+      ],
+      [
+        "x-served-by",
+        "OTP"
+      ],
+      [
+        "x-wix-request-id",
+        "1795177392.761775766528207205"
+      ],
+      [
+        "set-cookie",
+        "__cf_bm=ugWCuA5BzzF89t.o_MbeTLg7Uirvkfuq.zqhv6YKXqM-1795177392.7483425-1.0.1.1-rxVWwzt.V9CUdRBZX6WyAvOcFof1h2S_6Da7_afuePbh.HnVa70G.dW6XMrul98ncFeaCXPZcqGna9kySr7F6ENfwlRLcEKxnYkvrRVneKbL4FZZlJl6OcUxQoOOPn_g; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=www.appelpsychotherapy.com; Expires=Fri, 20 Nov 2026 12:53:12 GMT"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=86400"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "ae6df61e9940f8415d2808769ea1bcced4b63f2b32f60ddb067b308b22f46248",
+    "bytes": 500,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 132
+  }
+}

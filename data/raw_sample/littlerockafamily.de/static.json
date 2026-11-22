@@ -1,0 +1,63 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:23Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "littlerockafamily.de",
+  "status": "failed",
+  "error_category": "dns_fail",
+  "chosen_attempt": 1,
+  "final_url": null,
+  "http_status": null,
+  "challenge": null,
+  "html_file": null,
+  "html_sha256": null,
+  "html_bytes": null,
+  "html_truncated": false,
+  "elapsed_ms": 93,
+  "attempts": [
+    {
+      "url": "https://littlerockafamily.de/",
+      "outcome": "dns_fail",
+      "error": "ConnectError: [Errno 11001] getaddrinfo failed (caused by gaierror: [Errno 11001] getaddrinfo failed)",
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 68,
+      "steps": [],
+      "cookies": []
+    },
+    {
+      "url": "https://www.littlerockafamily.de/",
+      "outcome": "dns_fail",
+      "error": "ConnectError: [Errno 11001] getaddrinfo failed (caused by gaierror: [Errno 11001] getaddrinfo failed)",
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 18,
+      "steps": [],
+      "cookies": []
+    },
+    {
+      "url": "http://littlerockafamily.de/",
+      "outcome": "dns_fail",
+      "error": "ConnectError: [Errno 11001] getaddrinfo failed (caused by gaierror: [Errno 11001] getaddrinfo failed)",
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 2,
+      "steps": [],
+      "cookies": []
+    },
+    {
+      "url": "http://www.littlerockafamily.de/",
+      "outcome": "dns_fail",
+      "error": "ConnectError: [Errno 11001] getaddrinfo failed (caused by gaierror: [Errno 11001] getaddrinfo failed)",
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 4,
+      "steps": [],
+      "cookies": []
+    }
+  ]
+}

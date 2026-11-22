@@ -1,0 +1,59 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:39Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "rionecontrastanga.net",
+  "probed_host": "rionecontrastanga.net",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "autodiscover.rionecontrastanga.net"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YR1"
+      ]
+    ],
+    "sans": [
+      "autoconfig.rionecontrastanga.net",
+      "autodiscover.rionecontrastanga.net",
+      "cpanel.rionecontrastanga.net",
+      "cpcalendars.rionecontrastanga.net",
+      "cpcontacts.rionecontrastanga.net",
+      "mail.rionecontrastanga.net",
+      "rionecontrastanga.net",
+      "webdisk.rionecontrastanga.net",
+      "webmail.rionecontrastanga.net",
+      "www.rionecontrastanga.net"
+    ],
+    "not_before": "2026-11-02T15:04:53Z",
+    "not_after": "2027-01-31T15:04:52Z",
+    "serial": "05B7D5A107A8DC830E7A2D86C3E1BBC9628E",
+    "sha256": "3429263a7821fac52b6ae5f035c9c1a544ae7740a6dcbefb050dbb0a4e894fcc",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIGNDCCBRygAwIBAgISBbfVoQeo3IMOei2Gw+G7yWKOMA0GCSqGSIb3DQEBCwUA\nMDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQD\nEwNZUjEwHhcNMjYxMTAyMTUwNDUzWhcNMjcwMTMxMTUwNDUyWjAtMSswKQYDVQQD\nEyJhdXRvZGlzY292ZXIucmlvbmVjb250cmFzdGFuZ2EubmV0MIIBIjANBgkqhkiG\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEAp+q+ZmnxrHYJ+Aoddy/XDNrw3ysv9nUVacC0\ntBmzezFzZrqPnF4DPduaBvPnJpdJSs0twC94vE5z8S2/7E3Yzpi8Nn5rduwiVYCb\n84r4YM6s1xiKLJoAUVXGa9M/E5ja+QlY92yDhpAlJRn3XBVVJ4INWOgmlbvfvaqS\nchkNtGGbIuqSCl63+nWMXmEpv42l0bw3f9PqlazS7MxfEs4bnqivDiOhgto4JuKI\nF+N7WkvP/410uYflh0pbgPa51/lm9CojPV2zQhB3sK1mCaO3Xbf7Z43oBdKL98PA\nrtnyVZnKCfgQPMQoKkZ17dEWSnVAIPgCgQW+HM1P4vlaFJbeTQIDAQABo4IDRjCC\nA0IwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMAwGA1UdEwEB\n/wQCMAAwHQYDVR0OBBYEFPyWGPMWSuUERZT9qI4j/W211CvkMB8GA1UdIwQYMBaA\nFB8vNb5GFILNQLGueSxVePr31Gj7MDMGCCsGAQUFBwEBBCcwJTAjBggrBgEFBQcw\nAoYXaHR0cDovL3lyMS5pLmxlbmNyLm9yZy8wggFCBgNVHREEggE5MIIBNYIgYXV0\nb2NvbmZpZy5yaW9uZWNvbnRyYXN0YW5nYS5uZXSCImF1dG9kaXNjb3Zlci5yaW9u\nZWNvbnRyYXN0YW5nYS5uZXSCHGNwYW5lbC5yaW9uZWNvbnRyYXN0YW5nYS5uZXSC\nIWNwY2FsZW5kYXJzLnJpb25lY29udHJhc3RhbmdhLm5ldIIgY3Bjb250YWN0cy5y\naW9uZWNvbnRyYXN0YW5nYS5uZXSCGm1haWwucmlvbmVjb250cmFzdGFuZ2EubmV0\nghVyaW9uZWNvbnRyYXN0YW5nYS5uZXSCHXdlYmRpc2sucmlvbmVjb250cmFzdGFu\nZ2EubmV0gh13ZWJtYWlsLnJpb25lY29udHJhc3RhbmdhLm5ldIIZd3d3LnJpb25l\nY29udHJhc3RhbmdhLm5ldDATBgNVHSAEDDAKMAgGBmeBDAECATAuBgNVHR8EJzAl\nMCOgIaAfhh1odHRwOi8veXIxLmMubGVuY3Iub3JnLzE1LmNybDCCAQsGCisGAQQB\n1nkCBAIEgfwEgfkA9wB1ANbVjanQF1Pzakqgx1dJAq/rx9ws04zZ92TIDIkZHp8C\nAAABoZ0ASKgAAAQDAEYwRAIgSpbNnqgZCfK3n+rJUbpWYYEhsUX9YTl6V26QYYM+\nmVcCIA2O5J6etSYJvQGNDWB69CmQxay/VJcObP0B/uGBxxYGAH4AROgi/CurDpLu\n0On61pZkYCd20Bdg4IkFCckjobA/w38AAAGhnQA7fwAIAAAFABQ++7UEAwBHMEUC\nIQDgCdX+V7fvk7SuaYK1JurJnxt4z1IxfRmFbgkdGRJGJQIgP4TT/Wvfg/i3hAaF\npLP+OEeWgvOMVKX7znKuLbVjcCQwDQYJKoZIhvcNAQELBQADggEBAANetAXs0IU8\nqDdHsit23aTrM28omBkG3creMvmudXnWQiyfcpLq/2vEDJDpR7MW87qLz+D/Vrbg\n5gxdr08PXuBDEtzd/Ifo8qnHLWfHyRFjhA7QoIy8HL9M9l09+nf8sCEFb0z1GpbF\nNm5YGUn1uQ9r6hOXJZuqmcr+NqK4xp/l9Zj3Ea/tC1d5QG3pNKdSuP3+u4WhnXge\n2K4CnALPrpU89KsZcp1Vy2Gp0cO1Lpn76SUzWX0COSacIkTB1QDtCak1bxk8hqSJ\nFhIR5RbJ6ZueDQy/+n8e5nmYvfOs+AycIYuYOWMIo581TukHhdfOzglQ8FYXy/6L\nhzPxedggatE=\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 284
+}

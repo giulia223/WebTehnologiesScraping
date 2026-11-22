@@ -1,0 +1,104 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:12Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "mehmetefendimacedonia.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://mehmetefendimacedonia.com/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "44cefc4d441e959030920592bdba0c7391b75b1e91196a99905077a0c8227a7c",
+  "html_bytes": 5753,
+  "html_truncated": false,
+  "elapsed_ms": 454,
+  "attempts": [
+    {
+      "url": "https://mehmetefendimacedonia.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 453,
+      "steps": [
+        {
+          "kind": "final",
+          "url": "https://mehmetefendimacedonia.com/",
+          "status": 200,
+          "http_version": "HTTP/1.1",
+          "headers": [
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:13 GMT"
+            ],
+            [
+              "server",
+              "Apache"
+            ],
+            [
+              "expires",
+              "Thu, 19 Nov 1981 08:52:00 GMT"
+            ],
+            [
+              "cache-control",
+              "no-store, no-cache, must-revalidate"
+            ],
+            [
+              "pragma",
+              "no-cache"
+            ],
+            [
+              "set-cookie",
+              "PHPSESSID=vgbr5ubhb0pd61i6drac0anf1m; path=/"
+            ],
+            [
+              "referrer-policy",
+              "strict-origin-when-cross-origin"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "content-length",
+              "1992"
+            ],
+            [
+              "keep-alive",
+              "timeout=5, max=100"
+            ],
+            [
+              "connection",
+              "Keep-Alive"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ]
+          ]
+        }
+      ],
+      "cookies": [
+        {
+          "name": "PHPSESSID",
+          "value": "vgbr5ubhb0pd61i6drac0anf1m",
+          "domain": "mehmetefendimacedonia.com",
+          "path": "/",
+          "secure": false,
+          "expires": null,
+          "set_by": "https://mehmetefendimacedonia.com/"
+        }
+      ]
+    }
+  ]
+}

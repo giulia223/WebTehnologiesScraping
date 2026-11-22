@@ -1,0 +1,14 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-21T09:50:17Z",
+    "tool_version": "0.1.0+9fc519eabbee",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "littlerockafamily.de",
+  "status": "failed",
+  "error_category": "no_static_page",
+  "files": [],
+  "elapsed_ms": 16
+}

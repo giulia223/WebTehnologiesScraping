@@ -1,0 +1,51 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:45Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "appelpsychotherapy.com",
+  "probed_host": "www.appelpsychotherapy.com",
+  "probed_host_source": "static_final_url",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "appelpsychotherapy.com"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Let's Encrypt"
+      ],
+      [
+        "commonName",
+        "YR2"
+      ]
+    ],
+    "sans": [
+      "appelpsychotherapy.com",
+      "www.appelpsychotherapy.com"
+    ],
+    "not_before": "2026-09-25T04:12:27Z",
+    "not_after": "2026-12-24T04:12:26Z",
+    "serial": "05922CE6DCB42C55BD547BEF4165383998D6",
+    "sha256": "bf2eb34f557dd5467a36fdfd8755b08a512f09cecc656e31500370808676e553",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIFITCCBAmgAwIBAgISBZIs5ty0LFW9VHvvQWU4OZjWMA0GCSqGSIb3DQEBCwUA\nMDMxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQwwCgYDVQQD\nEwNZUjIwHhcNMjYwOTI1MDQxMjI3WhcNMjYxMjI0MDQxMjI2WjAhMR8wHQYDVQQD\nExZhcHBlbHBzeWNob3RoZXJhcHkuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A\nMIIBCgKCAQEAs8FLDXopaT3Yp+cAMcSnP8KNPpcdPRJVzE3yiXM4NCKQgb1tm4S2\nBaoX8ogVGe+B+kXZZ2PQ3mhGrqReMW4Wy3UFIASQOOh6jix+24n5349AEYVYoswL\nSdQz2Mnpp06NkmGTxTEsprTD7svB/NXzCHszVHo9zDg2Ez/IqYYANcu2K+svnZ6R\nE6Rvxz4kldLFF8XcvBmYDN7F1eDBWu2LhAOnUXA2hidWtBAET7ML+jUO7KxXxVHR\nBLWu3CAb7PP5Kbwhv1rBtGa913/2Vg2JU0XkejjpuigGgnWQg+hxARScEuq305xw\n394adf3P7PftZhroCplz5nK3ZU9lkkWyCQIDAQABo4ICPzCCAjswDgYDVR0PAQH/\nBAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMBMAwGA1UdEwEB/wQCMAAwHQYDVR0O\nBBYEFCN53EiZKvYCoHQ3929UbKnA6yuPMB8GA1UdIwQYMBaAFEAVLSZ57TIgnt+a\nch3WMh+BDIEMMDMGCCsGAQUFBwEBBCcwJTAjBggrBgEFBQcwAoYXaHR0cDovL3ly\nMi5pLmxlbmNyLm9yZy8wPQYDVR0RBDYwNIIWYXBwZWxwc3ljaG90aGVyYXB5LmNv\nbYIad3d3LmFwcGVscHN5Y2hvdGhlcmFweS5jb20wEwYDVR0gBAwwCjAIBgZngQwB\nAgEwLgYDVR0fBCcwJTAjoCGgH4YdaHR0cDovL3lyMi5jLmxlbmNyLm9yZy84Ny5j\ncmwwggELBgorBgEEAdZ5AgQCBIH8BIH5APcAdgDIo8R/x7OtuTVrAT9qehJt4zpO\nQ6XGRvmXrTl1mR3PmgAAAaDW+U79AAAEAwBHMEUCIBmKkXHFE4QK7i+3KS9dtQkS\nxXfqav4B854JBXnSMgB3AiEAo6vY4ghQ9waI8ayR67lIHi34c4Zijqu2QFx20hI9\n8sYAfQCigQAYc04Xbh1H4JVA84G6VGaXzWOoQ1BxbrgJTtrxDQAAAaDW+VFdAAgA\nAAUAFLjVrQQDAEYwRAIgFJfVRcLeHxiNAY9qhKVZh2OseRtk9KVUSLjSAz2i/TUC\nIBO9HzMAmgJ1mQojJO2W2S/NJmGpQWK2zRbE99SNXi0fMA0GCSqGSIb3DQEBCwUA\nA4IBAQCZ1lQsSYepJ5MN5VtrbLOFeUH5Q98plSvPyNcqnoXMfJYFTSUpXSxbSuJD\nz4mkngS8DNmUs7OYAtfsoqjv1534zNJRBdqbbSdXziCUj7wdOxKzyrMpicRhUyPV\nAF8E1l5h/a/FJZilMUMizB0PaOATFkJ13g3iAANJJj/4KF+kZpLfueX6nANMMuDu\nUYNMLln0RtHzFvrhCEd1MOoZAZq6lO4jc3no1lQfYwx2l2EnlgopjgZomOt5dZQD\nQIJxIwLROKaH0Uhyhb7spaM83KgcnHfshWDBQXDryw2sRFxFMww4AXCKvw8k1o4Q\nZhcvgqqY3m8dd6w9R5rEeDifEMj9\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 112
+}

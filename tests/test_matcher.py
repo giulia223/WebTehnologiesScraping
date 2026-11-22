@@ -123,7 +123,7 @@ def test_the_word_wordpress_in_text_is_not_wordpress(index: RuleIndex, tmp_path:
     assert "WordPress" not in result.technologies()
 
 
-# ------------------------------------------------------------ same-site rule (F3.2)
+# ------------------------------------------------------------ same-site rule
 
 
 def test_third_party_cloudflare_and_php_cookie_are_not_the_site(

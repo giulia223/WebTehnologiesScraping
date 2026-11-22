@@ -1,0 +1,50 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:22:46Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "1stlocksheathscouts.org.uk",
+  "probed_host": "1stlocksheathscouts.org.uk",
+  "probed_host_source": "input_host",
+  "port": 443,
+  "status": "ok",
+  "error_category": null,
+  "error": null,
+  "chain_verified": true,
+  "verify_error": null,
+  "hostname_match": true,
+  "certificate": {
+    "subject": [
+      [
+        "commonName",
+        "1stlocksheathscouts.org.uk"
+      ]
+    ],
+    "issuer": [
+      [
+        "countryName",
+        "US"
+      ],
+      [
+        "organizationName",
+        "Google Trust Services"
+      ],
+      [
+        "commonName",
+        "WE1"
+      ]
+    ],
+    "sans": [
+      "1stlocksheathscouts.org.uk"
+    ],
+    "not_before": "2026-11-20T02:46:25Z",
+    "not_after": "2027-02-18T03:46:12Z",
+    "serial": "01FDB6DFA35B74C313A151ED6CAE5DC3",
+    "sha256": "4a39140bcca2e8d9a91f28dbee0d0cbb35f524a37fbd6dcd4777c7719f2da90b",
+    "pem": "-----BEGIN CERTIFICATE-----\nMIIDkzCCAzmgAwIBAgIQAf2236NbdMMToVHtbK5dwzAKBggqhkjOPQQDAjA7MQsw\nCQYDVQQGEwJVUzEeMBwGA1UEChMVR29vZ2xlIFRydXN0IFNlcnZpY2VzMQwwCgYD\nVQQDEwNXRTEwHhcNMjYxMTIwMDI0NjI1WhcNMjcwMjE4MDM0NjEyWjAlMSMwIQYD\nVQQDExoxc3Rsb2Nrc2hlYXRoc2NvdXRzLm9yZy51azBZMBMGByqGSM49AgEGCCqG\nSM49AwEHA0IABO4jJVMb4Tmbqye2qvoKph2Iu0Bnl5ooCy+KDj7go2vgE0mi+L7T\nwYTMBrd0Cxn9aN7fRrRg15mSEc0PX0Cj+Y+jggIzMIICLzAOBgNVHQ8BAf8EBAMC\nB4AwEwYDVR0lBAwwCgYIKwYBBQUHAwEwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQU\nf71PG2nMifACVcS3Ocvi3VA72vcwHwYDVR0jBBgwFoAUkHeSNWfE/6jMqeZ72YB5\ne8yT+TgwNQYIKwYBBQUHAQEEKTAnMCUGCCsGAQUFBzAChhlodHRwOi8vaS5wa2ku\nZ29vZy93ZTEuY3J0MCUGA1UdEQQeMByCGjFzdGxvY2tzaGVhdGhzY291dHMub3Jn\nLnVrMBMGA1UdIAQMMAowCAYGZ4EMAQIBMDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6\nLy9jLnBraS5nb29nL3dlMS81aFA0UkpndDFXby5jcmwwggENBgorBgEEAdZ5AgQC\nBIH+BIH7APkAdwAAGl0aHC2TdbZIVXj4L3Ghrm7vOX0pfIrjFXvK3uGgHgAAAaH3\nEArqAAAEAwBIMEYCIQDIh9lPkw7yh3jP9K23864bERVsFyt6pGzRvJSeH6G+BAIh\nAO985Qw+/1e6OnH7dklWL+HRX03sdevDKWio6RTycLcRAH4AWW5sM4aUsllyolbI\noOjdkEp26Ag92oc7AQg4KBQ87lkAAAGh9xANCgAIAAAFACq/QyAEAwBHMEUCIQCB\nkmATXuUGgvgfENoaRlqDkjoREPPDS5ip7gKbnxDU/AIgcK9JN9/93O+8+Wt8ID/k\n2AXbEWHfpyw8p+dr9s9s29cwCgYIKoZIzj0EAwIDSAAwRQIgT3FlwMMtaFmqAu8Y\ntUJMckLZOyXe8jkr27iIEmARXAACIQDHEG3h2kmguwnHD9z/Men9cMljgl0aBIn6\nUP2eulMF3w==\n-----END CERTIFICATE-----\n"
+  },
+  "elapsed_ms": 222
+}

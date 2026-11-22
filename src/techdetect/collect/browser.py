@@ -169,7 +169,7 @@ _BASELINE_JS = """Object.defineProperty(window, "__techdetectBaseline", {
 def browser_user_agent(default_ua: str, tag: str) -> str:
     """Chrome's own User-Agent, "HeadlessChrome" said as "Chrome", with our tag appended.
 
-    Sites see a realistic browser that still says who is crawling (D-004).
+    Sites see a realistic browser that still says who is crawling.
     """
     return f"{default_ua.replace('HeadlessChrome', 'Chrome')} {tag}"
 

@@ -1,0 +1,121 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-17T20:54:16Z",
+    "tool_version": "0.1.0+1e0a67458837",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "1stlocksheathscouts.org.uk",
+  "status": "ok",
+  "resolver": {
+    "nameservers": [
+      "100.100.1.1",
+      "100.100.0.1"
+    ],
+    "timeout_s": 5.0
+  },
+  "elapsed_ms": 192,
+  "queries": [
+    {
+      "name": "1stlocksheathscouts.org.uk",
+      "type": "A",
+      "status": "ok",
+      "ttl": 7946,
+      "records": [
+        "66.235.200.146"
+      ],
+      "canonical_name": "1stlocksheathscouts.org.uk."
+    },
+    {
+      "name": "1stlocksheathscouts.org.uk",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: 1stlocksheathscouts.org.uk. IN AAAA"
+    },
+    {
+      "name": "1stlocksheathscouts.org.uk",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: 1stlocksheathscouts.org.uk. IN CNAME"
+    },
+    {
+      "name": "www.1stlocksheathscouts.org.uk",
+      "type": "A",
+      "status": "ok",
+      "ttl": 7946,
+      "records": [
+        "66.235.200.146"
+      ],
+      "canonical_name": "1stlocksheathscouts.org.uk."
+    },
+    {
+      "name": "www.1stlocksheathscouts.org.uk",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: www.1stlocksheathscouts.org.uk. IN AAAA"
+    },
+    {
+      "name": "www.1stlocksheathscouts.org.uk",
+      "type": "CNAME",
+      "status": "ok",
+      "ttl": 7949,
+      "records": [
+        "1stlocksheathscouts.org.uk."
+      ]
+    },
+    {
+      "name": "1stlocksheathscouts.org.uk",
+      "type": "MX",
+      "status": "ok",
+      "ttl": 14400,
+      "records": [
+        "0 1stlocksheathscouts-org-uk.mail.protection.outlook.com."
+      ]
+    },
+    {
+      "name": "1stlocksheathscouts.org.uk",
+      "type": "NS",
+      "status": "ok",
+      "ttl": 28623,
+      "records": [
+        "ns1.justhost.com.",
+        "ns2.justhost.com."
+      ]
+    },
+    {
+      "name": "1stlocksheathscouts.org.uk",
+      "type": "TXT",
+      "status": "ok",
+      "ttl": 14400,
+      "records": [
+        "v=spf1 include:spf.protection.outlook.com +a +mx +ip4:173.254.28.106 -all",
+        "MS=ms12797387"
+      ]
+    },
+    {
+      "name": "1stlocksheathscouts.org.uk",
+      "type": "SOA",
+      "status": "ok",
+      "ttl": 7200,
+      "records": [
+        "NS1.JUSTHOST.COM. root.bluehost.COM. 126110816 10800 3600 604800 3600"
+      ]
+    },
+    {
+      "name": "_dmarc.1stlocksheathscouts.org.uk",
+      "type": "TXT",
+      "status": "ok",
+      "ttl": 14400,
+      "records": [
+        "v=DMARC1;p=quarantine;rua=mailto:dmarc@1stlocksheathscouts.org.uk"
+      ]
+    }
+  ]
+}

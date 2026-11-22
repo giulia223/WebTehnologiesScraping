@@ -1,6 +1,6 @@
 """Match rules against script files downloaded over plain HTTP (js.json + js/*.js).
 
-The offline half of Task 7.4 (the download is collect/js_fetch.py). Two kinds of match:
+The offline half of the script-file step (the download is collect/js_fetch.py). Two kinds of match:
 
 1. `scripts` rules on every file's text. These rules exist for exactly this (a vendor's
    API host or a library's banner inside its code); without downloaded files all 828 of

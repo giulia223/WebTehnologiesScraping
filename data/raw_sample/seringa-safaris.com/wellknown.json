@@ -1,0 +1,66 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:07Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "seringa-safaris.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://seringasafaris.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://seringasafaris.com/robots.txt",
+    "content_type": "text/plain",
+    "headers": [
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:07 GMT"
+      ],
+      [
+        "content-type",
+        "text/plain"
+      ],
+      [
+        "cf-cache-status",
+        "HIT"
+      ],
+      [
+        "cache-control",
+        "public, max-age=0, must-revalidate"
+      ],
+      [
+        "set-cookie",
+        "__cf_bm=W7HweEBo_K9o2kIUSTctwy_O2nOQLNNnnlXH5JbNgKk-1795177387.7807324-1.0.1.1-rACGeusBORLZCtkpSg290PJoS.L.OGyXVAY1RGQC1tcii9SfMqstAIpl1qGOLraOrHEIW5nI9wJRI2P.TL8L51GM3fdAg56mmTIwUz6iKYO1sZkVnteozvQMlcMW3AK6; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=seringasafaris.com; Expires=Fri, 20 Nov 2026 12:53:07 GMT"
+      ],
+      [
+        "etag",
+        "W/\"62af4686c4cb674020bfa649dd9e7582\""
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "server",
+        "cloudflare"
+      ],
+      [
+        "cf-ray",
+        "a5d76c91996fe0c7-OTP"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "ef26e6a776515d071299585e28e35cf0eb6fdb12cfba8989be9cf115588cdafc",
+    "bytes": 72,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 99
+  }
+}

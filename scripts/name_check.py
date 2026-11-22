@@ -1,4 +1,4 @@
-"""Name check (Task 4.5): one judged example for every core technology name.
+"""Name check: one judged example for every core technology name.
 
 Usage:
     python scripts/name_check.py sheet [--force]

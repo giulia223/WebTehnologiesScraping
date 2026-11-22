@@ -1,0 +1,70 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:02Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "newbeaverborough.org",
+  "status": "ok",
+  "robots": {
+    "url": "https://newbeaverborough.org/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://newbeaverborough.org/robots.txt",
+    "content_type": "text/plain; charset=utf-8",
+    "headers": [
+      [
+        "server",
+        "nginx"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:03 GMT"
+      ],
+      [
+        "content-type",
+        "text/plain; charset=utf-8"
+      ],
+      [
+        "content-length",
+        "115"
+      ],
+      [
+        "connection",
+        "keep-alive"
+      ],
+      [
+        "link",
+        "<https://newbeaverborough.org/wp-json/>; rel=\"https://api.w.org/\""
+      ],
+      [
+        "vary",
+        "X-Forwarded-Proto,Accept-Encoding"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "referrer-policy",
+        "no-referrer-when-downgrade"
+      ],
+      [
+        "x-cache-nxaccel",
+        "MISS"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "1162251e10c8db072a20e0d2f09de733a324c00f18f6bb072c04cc10ff0fefd5",
+    "bytes": 121,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 951
+  }
+}

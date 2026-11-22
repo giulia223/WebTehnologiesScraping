@@ -1,0 +1,223 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:29Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "footasylum.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://www.footasylum.com/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "775970c71d4895ec06d87669934a0d84bed46cccb750fbe814bcc025f8a8c7ea",
+  "html_bytes": 483548,
+  "html_truncated": false,
+  "elapsed_ms": 9841,
+  "attempts": [
+    {
+      "url": "https://footasylum.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 9838,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://footasylum.com/",
+          "status": 301,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "server",
+              "awselb/2.0"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:30 GMT"
+            ],
+            [
+              "content-type",
+              "text/html"
+            ],
+            [
+              "content-length",
+              "134"
+            ],
+            [
+              "location",
+              "https://www.footasylum.com:443/"
+            ],
+            [
+              "strict-transport-security",
+              "max-age=15552001; includeSubDomains; preload"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://www.footasylum.com/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "content-type",
+              "text/html; charset=utf-8"
+            ],
+            [
+              "cf-ray",
+              "a5d7677cda309b5e-AMS"
+            ],
+            [
+              "cf-cache-status",
+              "HIT"
+            ],
+            [
+              "cache-control",
+              "max-age=14400, stale-while-revalidate=600"
+            ],
+            [
+              "last-modified",
+              "Fri, 20 Nov 2026 12:16:34 GMT"
+            ],
+            [
+              "link",
+              "</_next/static/media/62c97acc3aa63787-s.p.woff2?dpl=1380>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\", </_next/static/media/739c2d8941231bb4-s.p.woff2?dpl=1380>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\", </_next/static/media/e4af272ccee01ff0-s.p.woff2?dpl=1380>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\", </_next/static/css/d834f7fb393efc3f.css?dpl=1380>; rel=preload; as=\"style\", </_next/static/css/7c2dca0161a83cd0.css?dpl=1380>; rel=preload; as=\"style\""
+            ],
+            [
+              "server",
+              "cloudflare"
+            ],
+            [
+              "content-security-policy",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.tiktok.com https://apps.bazaarvoice.com https://applepay.cdn-apple.com https://assets.gocertify.me https://bat.bing.com https://c0.adalyser.com https://cdn.corvidae.ai https://cdn-ukwest.onetrust.com https://connect.facebook.net https://*.contentsquare.net https://*.contentsquare.com https://delight-custom-plugins.fly.dev https://cdn.rewardsbag.com https://*.g.doubleclick.net https://dynamic.criteo.com https://invitejs.trustpilot.com https://js.appboycdn.com https://*.monetate.net https://pay.google.com https://*.go-mpulse.net https://sc-static.net https://sslwidget.criteo.com https://static.hotjar.com https://tagassistant.google.com https://tags.creativecdn.com https://tr.snapchat.com https://widget.trustpilot.com https://www.dwin1.com https://www.googletagmanager.com https://maps.googleapis.com https://apps.storystream.ai https://*.klarna.com https://*.afterpay.com https://chat.system.gnatta.com https://script.hotjar.com https://cdn.attn.tv; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.fontawesome.com https://*.gocertify.me https://*.monetate.net https://cdn.rewardsbag.com https://chat.system.gnatta.com https://*.hotjar.com; img-src 'self' data: blob: https://*.hotjar.com https://images.footasylum.com https://media.footasylum.com https://cdn-ukwest.onetrust.com https://www.facebook.com https://www.gstatic.com https://www.google.com https://www.google.co.uk https://www.googleadservices.com https://pagead2.googlesyndication.com https://*.g.doubleclick.net https://bat.bing.com https://c.bing.com https://tr.snapchat.com https://analytics.tiktok.com https://*.adyen.com https://*.bazaarvoice.com https://delight-s3-bucket.s3.eu-west-2.amazonaws.com https://delight-public-bucket.s3.eu-west-2.amazonaws.com https://delight-custom-plugins.fly.dev https://maps.gstatic.com https://maps.googleapis.com https://*.klarnaservices.com https://*.afterpay.com https://du66ttpehq3tn.cloudfront.net https://gnattawatchtower.blob.core.windows.net https://www.googletagmanager.com https://x.bidswitch.net https://ib.adnxs.com https://simage4.pubmatic.com https://gum.criteo.com https://r.casalemedia.com https://id5-sync.com https://ad.360yield.com https://exchange.mediavine.com https://jadserve.postrelease.com https://sync.outbrain.com https://simage2.pubmatic.com https://pixel.rubiconproject.com https://rtb-csync.smartadserver.com https://sync-t1.taboola.com https://criteo-sync.teads.tv https://criteo-partners.tremorhub.com https://eb2.3lift.com https://ad.yieldlab.net https://sync.1rx.io https://cs.media.net https://dis.criteo.com https://sync.crwdcntrl.net https://match.sync.ad.cpe.dotomi.com https://dpm.demdex.net https://aa.agkn.com https://*.monetate.net https://*.contentsquare.net https://*.contentsquare.com https://sync.targeting.unrulymedia.com https://*.creativecdn.com https://rt.udmserve.net https://appboy-images.com https://braze-images.com https://cdn.braze.com https://cdn.braze.eu; media-src https://images.footasylum.com https://media.footasylum.com; font-src 'self' data: https://fonts.gstatic.com https://use.fontawesome.com https://media.nuqlium.com https://applepay.cdn-apple.com https://script.hotjar.com https://*.monetate.net; connect-src 'self' https://ad.doubleclick.net https://*.g.doubleclick.net https://ams.creativecdn.com https://*.akstat.io https://bat.bing.net https://analytics-ipv6.tiktokw.us https://api.addressy.com https://api.bazaarvoice.com https://apps.bazaarvoice.com https://api.postcodes.io https://bat.bing.com https://api.rewardsbag.com https://cdn.rewardsbag.com https://*.contentsquare.net https://*.contentsquare.com https://*.adyen.com https://*.braze.eu https://*.monetate.net https://*.onetrust.com https://*.go-mpulse.net https://*.google.com https://*.ingest.de.sentry.io https://*.googlesyndication.com https://*.google-analytics.com https://analytics.google.com https://analytics.tiktok.com https://pro.ip-api.com https://secure.gocertify.me https://tagassistant.google.com https://*.nq-api.net https://maps.googleapis.com https://tr.snapchat.com https://tr6.snapchat.com https://www.facebook.com https://www.google-analytics.com https://apps.storystream.ai https://d273ednthdgdn9.cloudfront.net https://chat.system.gnatta.com https://ask.hotjar.io https://surveystats.hotjar.io https://content.hotjar.io https://metrics.hotjar.io wss://ws.hotjar.com; frame-src 'self' https://*.adyen.com https://pay.google.com https://applepay.cdn-apple.com https://gum.criteo.com https://www.google.com https://widget.trustpilot.com https://*.gocertify.me https://*.myunidays.com https://maps.google.com https://*.monetate.net https://www.facebook.com https://tr.snapchat.com https://tagassistant.google.com https://www.googletagmanager.com https://chat.gnatta.com https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self' https://*.adyen.com https://www.facebook.com; frame-ancestors 'self' https://playground.nuqlium.com https://studio.nuqlium.com; upgrade-insecure-requests;"
+            ],
+            [
+              "permissions-policy",
+              "camera=(), microphone=(), geolocation=(self), payment=(self \"https://pay.google.com\" \"https://checkoutshopper-test.adyen.com\" \"https://checkoutshopper-live.adyen.com\" \"https://applepay.cdn-apple.com\")"
+            ],
+            [
+              "referrer-policy",
+              "strict-origin-when-cross-origin"
+            ],
+            [
+              "x-content-type-options",
+              "nosniff"
+            ],
+            [
+              "report-to",
+              "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Nq%2BtdvSI1qqh618LPrLmKX4m%2FkR%2BXaMuYSXUzhh0%2B9Bo3YPtTfGFX7R5h%2BdhxuiBypoYQ%2BoC8FSNQAJVvX0pVSvNzr%2B1BU2V%2BlOQz%2F9QFmfJO1wgy8nJxTYvQ7xLysY%2ByIUBmRo%3D\"}]}"
+            ],
+            [
+              "nel",
+              "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            ],
+            [
+              "x-akamai-transformed",
+              "9 - 0 pmb=mRUM,2"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:39 GMT"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "set-cookie",
+              "AKA_A2=A; expires=Fri, 20-Nov-2026 13:19:39 GMT; path=/; domain=footasylum.com; secure; HttpOnly"
+            ],
+            [
+              "set-cookie",
+              "x-new-site-version=true; expires=Thu, 18-Feb-2027 12:19:39 GMT; path=/; domain=.www.footasylum.com; secure; SameSite=None"
+            ],
+            [
+              "server-timing",
+              "cdn-cache; desc=MISS"
+            ],
+            [
+              "server-timing",
+              "edge; dur=9295"
+            ],
+            [
+              "server-timing",
+              "origin; dur=23"
+            ],
+            [
+              "link",
+              "<https://www.googletagmanager.com>;rel=\"preconnect\",<https://tags.creativecdn.com>;rel=\"preconnect\",<https://media.footasylum.com>;rel=\"preconnect\",<https://analytics.tiktok.com>;rel=\"preconnect\""
+            ],
+            [
+              "link",
+              "<https://cdn-ukwest.onetrust.com>;rel=\"preconnect\""
+            ],
+            [
+              "set-cookie",
+              "akacd_www-ab-default=3972629969~rv=18~id=f0b25d0b00d1effa19695ba604275d64; path=/; Secure; SameSite=None"
+            ],
+            [
+              "strict-transport-security",
+              "max-age=86400 ; includeSubDomains"
+            ],
+            [
+              "set-cookie",
+              "AK_PBassets=fc02a0896c794572a5952fe16b3ef98e; path=/; domain=.www.footasylum.com; Secure"
+            ],
+            [
+              "server-timing",
+              "ak_p; desc=\"1795177170397_399784871_1160980458_929989_9978_9_15_15\";dur=1"
+            ]
+          ]
+        }
+      ],
+      "cookies": [
+        {
+          "name": "AKA_A2",
+          "value": "A",
+          "domain": ".footasylum.com",
+          "path": "/",
+          "secure": true,
+          "expires": 1795180779,
+          "set_by": "https://www.footasylum.com/"
+        },
+        {
+          "name": "x-new-site-version",
+          "value": "true",
+          "domain": ".www.footasylum.com",
+          "path": "/",
+          "secure": true,
+          "expires": 1802953179,
+          "set_by": "https://www.footasylum.com/"
+        },
+        {
+          "name": "AK_PBassets",
+          "value": "fc02a0896c794572a5952fe16b3ef98e",
+          "domain": ".www.footasylum.com",
+          "path": "/",
+          "secure": true,
+          "expires": null,
+          "set_by": "https://www.footasylum.com/"
+        },
+        {
+          "name": "akacd_www-ab-default",
+          "value": "3972629969~rv=18~id=f0b25d0b00d1effa19695ba604275d64",
+          "domain": "www.footasylum.com",
+          "path": "/",
+          "secure": true,
+          "expires": null,
+          "set_by": "https://www.footasylum.com/"
+        }
+      ]
+    }
+  ]
+}

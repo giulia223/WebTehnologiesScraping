@@ -1,0 +1,124 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-17T20:54:11Z",
+    "tool_version": "0.1.0+1e0a67458837",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "appelpsychotherapy.com",
+  "status": "ok",
+  "resolver": {
+    "nameservers": [
+      "100.100.1.1",
+      "100.100.0.1"
+    ],
+    "timeout_s": 5.0
+  },
+  "elapsed_ms": 2193,
+  "queries": [
+    {
+      "name": "appelpsychotherapy.com",
+      "type": "A",
+      "status": "ok",
+      "ttl": 3422,
+      "records": [
+        "185.230.63.107",
+        "185.230.63.171",
+        "185.230.63.186"
+      ],
+      "canonical_name": "appelpsychotherapy.com."
+    },
+    {
+      "name": "appelpsychotherapy.com",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: appelpsychotherapy.com. IN AAAA"
+    },
+    {
+      "name": "appelpsychotherapy.com",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: appelpsychotherapy.com. IN CNAME"
+    },
+    {
+      "name": "www.appelpsychotherapy.com",
+      "type": "A",
+      "status": "ok",
+      "ttl": 2336,
+      "records": [
+        "172.66.3.8",
+        "162.159.143.12"
+      ],
+      "canonical_name": "cfd.wixdns.net."
+    },
+    {
+      "name": "www.appelpsychotherapy.com",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: www.appelpsychotherapy.com. IN AAAA"
+    },
+    {
+      "name": "www.appelpsychotherapy.com",
+      "type": "CNAME",
+      "status": "ok",
+      "ttl": 3423,
+      "records": [
+        "cdn3.wixdns.net."
+      ]
+    },
+    {
+      "name": "appelpsychotherapy.com",
+      "type": "MX",
+      "status": "ok",
+      "ttl": 3600,
+      "records": [
+        "10 aspmx.l.google.com."
+      ]
+    },
+    {
+      "name": "appelpsychotherapy.com",
+      "type": "NS",
+      "status": "ok",
+      "ttl": 28800,
+      "records": [
+        "ns2.wixdns.net.",
+        "ns3.wixdns.net."
+      ]
+    },
+    {
+      "name": "appelpsychotherapy.com",
+      "type": "TXT",
+      "status": "ok",
+      "ttl": 3600,
+      "records": [
+        "v=spf1 include:_spf.google.com ~all",
+        "google-site-verification=5VjR-Ghyy6ug3ylBNRsH3HFjvdre04Wq3SSY1_hw8XM"
+      ]
+    },
+    {
+      "name": "appelpsychotherapy.com",
+      "type": "SOA",
+      "status": "ok",
+      "ttl": 3600,
+      "records": [
+        "ns2.wixdns.net. support.wix.com. 2024031800 10800 3600 1209600 3600"
+      ]
+    },
+    {
+      "name": "_dmarc.appelpsychotherapy.com",
+      "type": "TXT",
+      "status": "ok",
+      "ttl": 288,
+      "records": [
+        "v=DMARC1; p=none; rua=mailto:dmarc_agg@vali.email"
+      ]
+    }
+  ]
+}

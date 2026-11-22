@@ -1,0 +1,117 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-17T20:53:53Z",
+    "tool_version": "0.1.0+1e0a67458837",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "mehmetefendimacedonia.com",
+  "status": "ok",
+  "resolver": {
+    "nameservers": [
+      "100.100.1.1",
+      "100.100.0.1"
+    ],
+    "timeout_s": 5.0
+  },
+  "elapsed_ms": 5012,
+  "queries": [
+    {
+      "name": "mehmetefendimacedonia.com",
+      "type": "A",
+      "status": "ok",
+      "ttl": 127,
+      "records": [
+        "85.118.91.25"
+      ],
+      "canonical_name": "mehmetefendimacedonia.com."
+    },
+    {
+      "name": "mehmetefendimacedonia.com",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: mehmetefendimacedonia.com. IN AAAA"
+    },
+    {
+      "name": "mehmetefendimacedonia.com",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: mehmetefendimacedonia.com. IN CNAME"
+    },
+    {
+      "name": "www.mehmetefendimacedonia.com",
+      "type": "A",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "85.118.91.25"
+      ],
+      "canonical_name": "www.mehmetefendimacedonia.com."
+    },
+    {
+      "name": "www.mehmetefendimacedonia.com",
+      "type": "AAAA",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: www.mehmetefendimacedonia.com. IN AAAA"
+    },
+    {
+      "name": "www.mehmetefendimacedonia.com",
+      "type": "CNAME",
+      "status": "no_answer",
+      "ttl": null,
+      "records": [],
+      "error": "NoAnswer: The DNS response does not contain an answer to the question: www.mehmetefendimacedonia.com. IN CNAME"
+    },
+    {
+      "name": "mehmetefendimacedonia.com",
+      "type": "MX",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "5 mail.mehmetefendimacedonia.com."
+      ]
+    },
+    {
+      "name": "mehmetefendimacedonia.com",
+      "type": "NS",
+      "status": "ok",
+      "ttl": 125,
+      "records": [
+        "boriana.boriananet.com.",
+        "ns.boriananet.com."
+      ]
+    },
+    {
+      "name": "mehmetefendimacedonia.com",
+      "type": "TXT",
+      "status": "ok",
+      "ttl": 300,
+      "records": [
+        "v=spf1 a mx a:mehmetefendimacedonia.com ip4:85.118.91.25 -all"
+      ]
+    },
+    {
+      "name": "mehmetefendimacedonia.com",
+      "type": "SOA",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.009 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.996 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.873 seconds"
+    },
+    {
+      "name": "_dmarc.mehmetefendimacedonia.com",
+      "type": "TXT",
+      "status": "timeout",
+      "ttl": null,
+      "records": [],
+      "error": "LifetimeTimeout: The resolution lifetime expired after 5.009 seconds: Server Do53:100.100.1.1@53 answered The DNS operation timed out after 1.999 seconds; Server Do53:100.100.0.1@53 answered The DNS operation timed out after 1.996 seconds; Server Do53:100.100.1.1@53 answered The DNS operation timed out after 0.873 seconds"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:12Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "fluxar.com.ar",
+  "status": "ok",
+  "robots": {
+    "url": "https://www.fluxar.com.ar/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://www.fluxar.com.ar/robots.txt",
+    "content_type": "text/plain",
+    "headers": [
+      [
+        "content-type",
+        "text/plain"
+      ],
+      [
+        "last-modified",
+        "Mon, 14 Aug 2023 09:32:01 GMT"
+      ],
+      [
+        "etag",
+        "\"47-64d9f491-e9616182c534fbb1;;;\""
+      ],
+      [
+        "accept-ranges",
+        "bytes"
+      ],
+      [
+        "content-length",
+        "71"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:13 GMT"
+      ],
+      [
+        "server",
+        "LiteSpeed"
+      ],
+      [
+        "platform",
+        "hostinger"
+      ],
+      [
+        "panel",
+        "hpanel"
+      ],
+      [
+        "content-security-policy",
+        "upgrade-insecure-requests"
+      ],
+      [
+        "alt-svc",
+        "h3=\":443\"; ma=2592000, h3-29=\":443\"; ma=2592000"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "b388eb1bbdd2969926613361d22cf64c40150f57674aff8317569d637b738124",
+    "bytes": 71,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 895
+  }
+}

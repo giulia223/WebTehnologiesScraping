@@ -1,0 +1,74 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:23:08Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "sevecoitalia.com",
+  "status": "ok",
+  "robots": {
+    "url": "https://www.sevecoitalia.com/robots.txt",
+    "url_source": "static_final_url",
+    "outcome": "kept",
+    "reason": null,
+    "http_status": 200,
+    "final_url": "https://www.sevecoitalia.com/robots.txt",
+    "content_type": "text/plain",
+    "headers": [
+      [
+        "content-type",
+        "text/plain"
+      ],
+      [
+        "content-encoding",
+        "gzip"
+      ],
+      [
+        "last-modified",
+        "Fri, 16 Jan 2026 10:21:39 GMT"
+      ],
+      [
+        "accept-ranges",
+        "bytes"
+      ],
+      [
+        "etag",
+        "\"60b639e7d186dc1:0\""
+      ],
+      [
+        "vary",
+        "Accept-Encoding"
+      ],
+      [
+        "server",
+        "Microsoft-IIS/8.0"
+      ],
+      [
+        "x-powered-by",
+        "ASP.NET"
+      ],
+      [
+        "permissions-policy",
+        "unload=(self)"
+      ],
+      [
+        "date",
+        "Fri, 20 Nov 2026 12:23:07 GMT"
+      ],
+      [
+        "content-length",
+        "387"
+      ]
+    ],
+    "tls_verified": true,
+    "file": "robots.txt",
+    "sha256": "4ecfb7f31c9998ec454a7f03c374c8e29bd113b8beca32d5ba809483a2973493",
+    "bytes": 618,
+    "truncated": false,
+    "error_category": null,
+    "error": null,
+    "elapsed_ms": 221
+  }
+}

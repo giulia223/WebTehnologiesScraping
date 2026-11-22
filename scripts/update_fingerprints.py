@@ -5,7 +5,7 @@ Usage:  python scripts/update_fingerprints.py <commit-sha>
 Only the files the tool uses are copied (technologies, categories, groups, schema,
 LICENSE); the 80 MB of logos are not. fingerprints/VERSION records the commit, its date
 and the copy date, so every detection run can say exactly which rules it used.
-Updating the rules = running this with a new commit, then a new EXPERIMENTS row.
+Updating the rules = running this with a new commit, then a new row in the local experiment notes.
 """
 
 import io

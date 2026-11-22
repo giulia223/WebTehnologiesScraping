@@ -109,8 +109,8 @@
         "pattern": "/lightbox(?:\\.min)?\\.css"
       }
     ],
-    "reason": "Both patterns match any file whose name contains 'lightbox', so other products' lightboxes are read as Lightbox (Lokesh Dhakar's Lightbox2): Elementor's lightbox chunk and stylesheet, OceanWP's ow-lightbox, GLightbox, AMP's amp-auto-lightbox, GoDaddy's renderLightbox, Avada's fusion-lightbox. The JS rules stay, and a stricter file-name rule (candidate in fingerprints/candidates/name_check.json) replaces the script pattern.",
-    "example": "avocatalinamanciu.ro: oceanwp/assets/js/ow-lightbox.min.js; katesworldtravel.com: elementor/assets/js/chunks/lightbox-lightbox.min.js and elementor/assets/css/conditionals/lightbox.min.css. 14 sites in run 3e, 2 left by the stricter rule.",
+    "reason": "Both patterns match any file whose name contains 'lightbox', so other products' lightboxes are read as Lightbox (Lokesh Dhakar's Lightbox2): Elementor's lightbox chunk and stylesheet, OceanWP's ow-lightbox, GLightbox, AMP's amp-auto-lightbox, GoDaddy's renderLightbox, Avada's fusion-lightbox. The JS rules stay. A stricter file-name rule replaced the script pattern from 2026-11-21 until it was rejected on 2026-11-22 (it still matched another builder's lightbox.js; see fingerprints/candidates/name_check.json).",
+    "example": "avocatalinamanciu.ro: oceanwp/assets/js/ow-lightbox.min.js; katesworldtravel.com: elementor/assets/js/chunks/lightbox-lightbox.min.js and elementor/assets/css/conditionals/lightbox.min.css. 14 sites before this correction, 2 left by the stricter rule.",
     "reviewed_by": "human"
   },
   "parallax.js": {
@@ -139,7 +139,7 @@
       }
     ],
     "reason": "data-controller is a generic attribute name: Squarespace, Bandzoogle and Shopware use it for their own controllers, so it does not show Stimulus. The JS rules (Stimulus.Application) and the stimulus-bundle script rule stay.",
-    "example": "thomasrosenbaum.com (Squarespace 7.1): data-controller=\"Header\" and \"SectionWrapperController\", no Stimulus global, the word 'stimulus' nowhere. 8 sites in run 3e: 6 Squarespace, 1 Bandzoogle, 1 Shopware.",
+    "example": "thomasrosenbaum.com (Squarespace 7.1): data-controller=\"Header\" and \"SectionWrapperController\", no Stimulus global, the word 'stimulus' nowhere. 8 sites: 6 Squarespace, 1 Bandzoogle, 1 Shopware.",
     "reviewed_by": "human"
   },
   "Onsen UI": {
@@ -150,8 +150,157 @@
         "pattern": "(/.*onsen.*min\\.js|.*angular-onsenui\\.min\\.js)"
       }
     ],
-    "reason": "The first half matches 'onsen' anywhere in a script path, including the word 'consent'. A stricter rule on Onsen UI's own file names (candidate in fingerprints/candidates/name_check.json) replaces it.",
+    "reason": "The first half matches 'onsen' anywhere in a script path, including the word 'consent'. A stricter rule on Onsen UI's own file names (accepted, in fingerprints/custom/name_check.json) replaces it.",
     "example": "gapconstructionwi.com, needaphysio.com, trs-energycontrol.de (Wix): static.parastorage.com/services/cookie-consent-banner-for-uou/.../app.bundle.min.js.",
     "reviewed_by": "human"
+  },
+  "AMP": {
+    "remove": [
+      {
+        "field": "js",
+        "key": "ampInaboxIframes",
+        "pattern": ""
+      },
+      {
+        "field": "js",
+        "key": "ampInaboxPendingMessages",
+        "pattern": ""
+      }
+    ],
+    "reason": "ampInaboxIframes and ampInaboxPendingMessages are set by Google's ad code (AdSense's 'AMP in a box' loader) on ordinary pages that show ads, not by AMP pages. AMP's own markers stay: the amp attribute on <html>, the amphtml link, the AMP runtime globals (AMP_CONFIG, __AMP_TAG...) and requests to cdn.ampproject.org.",
+    "example": "deepseass.com: both globals next to the adsbygoogle.js and show_ads_impl_fy2021.js requests; <html lang=\"en-GB\" class=\"no-js no-svg\"> has no amp attribute and no request goes to cdn.ampproject.org.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "AccessiWay": {
+    "remove": [
+      {
+        "field": "js",
+        "key": "accessWidget.config.footerHtml",
+        "pattern": ""
+      }
+    ],
+    "reason": "accessWidget is the global of the accessiBe widget (loaded from acsbapp.com), so this variable is there wherever that widget runs and does not show AccessiWay. AccessiWay's only other rule reads script contents (www.accessiway.at), which the default run does not read, so AccessiWay is no longer found in the default run; accessiBe is still found by its own rules.",
+    "example": "11thhourracing.org: acsbapp.com/apps/app/dist/js/app.js and cdn.acsbapp.com/config/11thhourracing.org/config.json loaded, footerHtml is the site's own name '11th Hour Racing'; nothing from AccessiWay in any saved file.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Backbone.js": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "backbone.*\\.js"
+      }
+    ],
+    "reason": "The pattern matches any script whose name contains 'backbone' followed by anything ending in '.js', so a file of another project matches. Backbone's own globals (Backbone, Backbone.VERSION) stay.",
+    "example": "celiabedilia.com: /backbone-forms-local.js injected on a hijacked page; the Backbone global was asked in the browser and is absent.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "DoubleClick Floodlight": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "\\.doubleclick\\.net"
+      }
+    ],
+    "reason": "The pattern matches any script from any doubleclick.net host, for example Google Publisher Tag (Google Ad Manager) on securepubads.g.doubleclick.net, not only Floodlight. Floodlight's own host (fls.doubleclick.net, in its script-content rule) stays, but that rule is only read with --js-files, so Floodlight is no longer found in the default run.",
+    "example": "3bsexcavating.com: securepubads.g.doubleclick.net/tag/js/gpt.js and .../pubads_impl.js (Google Publisher Tag, also detected); no request to fls.doubleclick.net.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Facebook Login": {
+    "remove": [
+      {
+        "field": "js",
+        "key": "FB.getLoginStatus",
+        "pattern": ""
+      }
+    ],
+    "reason": "FB.getLoginStatus is a method of the Facebook JavaScript SDK itself, defined on every page that loads the SDK (for example for Like buttons or the page plugin), so it does not show Facebook Login. It is the rule's only pattern: Facebook Login is no longer detected at all.",
+    "example": "261welfarefund.com: connect.facebook.net/en_US/sdk.js#xfbml=1 for social plugins; no login button, fb-login-button markup or FB.login call.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Matter.js": {
+    "remove": [
+      {
+        "field": "scriptSrc",
+        "key": null,
+        "pattern": "matter(?:-wrap)?(?:\\/demo\\/js\\/lib(?:\\/matter-tools\\/jquery)?(?:\\/decomp)?)?(?:\\/?-?((?:\\d+\\.)+\\d+))?(?:\\.min)?\\.js\\;version:\\1"
+      }
+    ],
+    "reason": "The pattern does not start at the beginning of a file name, so it matches 'matter.js' at the end of any name, for example formatter.js. Matter.js's own global (Matter.version) stays.",
+    "example": "lojatatical.com.br: Magento_Ui/js/lib/logger/formatter.js, Magento's logger file.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "ZURB Foundation": {
+    "remove": [
+      {
+        "field": "html",
+        "key": null,
+        "pattern": "<link[^>]+foundation[^>\"]+css"
+      },
+      {
+        "field": "dom",
+        "key": "link[href*='foundation'][href*='css']",
+        "pattern": ""
+      }
+    ],
+    "reason": "Both patterns match any stylesheet link that contains the word 'foundation', for example Gravity Forms' own 'foundation' theme stylesheet. ZURB Foundation's own global (Foundation.version) and its grid-class pattern stay.",
+    "example": "3xd.co.uk: wp-content/plugins/gravityforms/assets/css/dist/gravity-forms-theme-foundation.min.css (id gravity_forms_theme_foundation-css); Foundation.version was asked in the browser and is absent.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "eWAY Payments": {
+    "remove": [
+      {
+        "field": "html",
+        "key": null,
+        "pattern": "<img [^>]*src=\"[^/]*//[^/]*eway\\.com"
+      }
+    ],
+    "reason": "The pattern accepts any host name that ends in 'eway.com', so a site whose own name ends that way matches on its own images. eWAY's own hosts (secure.ewaypayments.com, api.ewaypayments.com) and globals stay.",
+    "example": "2agateway.com: its own logo, <img src=\"https://2agateway.com/wp-content/uploads/2023/01/2a-gateway-l...\" ('2agateway.com' ends in 'eway.com').",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "jQuery-pjax": {
+    "remove": [
+      {
+        "field": "html",
+        "key": null,
+        "pattern": "<div[^>]+data-pjax-container"
+      }
+    ],
+    "reason": "data-pjax-container is a generic attribute name that platforms with their own page-transition code use too. jQuery-pjax's own script names, meta tags and global (jQuery.pjax) stay.",
+    "example": "davidloeppke.com (Bandzoogle): <div data-pjax-container>; jQuery.pjax was asked in the browser and is absent, and no jquery.pjax script is loaded.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "Cookie Information plugin": {
+    "remove_implies": [
+      "Cookie Information"
+    ],
+    "reason": "The WordPress plugin (slug wp-gdpr-compliance, formerly WP GDPR Compliance) runs its own consent switches against the site's own admin-ajax.php, so loading it does not show that the site uses the Cookie Information service (docs/DEFINITIONS.md: an implied technology counts only when what implies it makes it certain). The plugin itself is still reported, and the service is still found by its own global (CookieInformation.config.cdnUrl) where it really runs.",
+    "example": "mysterion.hr: wp-content/plugins/wp-gdpr-compliance/assets/js/front.min.js?ver=1613405082, whose saved code names no outside host and posts to wpgdprcData.ajaxURL (https://mysterion.hr/wp-admin/admin-ajax.php); no request to cookieinformation.com, and CookieInformation.config.cdnUrl was asked in the browser and is absent.",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
+  },
+  "WEN Themes Signify Dark": {
+    "remove": [
+      {
+        "field": "js",
+        "key": "signifyOptions",
+        "pattern": ""
+      }
+    ],
+    "reason": "signifyOptions is the settings object of the main script (handle signify-script) that the Signify themes share, Signify Pro included, so it does not tell Signify Dark apart from the other themes of the family. It is the rule's only pattern: Signify Dark is no longer detected at all. A stricter rule on the theme's own folder waits in fingerprints/candidates/name_check.json.",
+    "example": "dorpsbelangen.nu: var signifyOptions = {...} printed for signify-script-js, loaded from wp-content/themes/signify-pro/js/functions.min.js on a Signify Pro site (body class wp-theme-signify-pro, no child theme, no signify-dark anywhere).",
+    "reviewed_by": "human",
+    "reviewed_at": "2026-11-22"
   }
 }

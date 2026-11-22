@@ -1,10 +1,11 @@
 domain,technology,categories,version,confidence,tier,group,signals
 somalidisablesupport.com,Apache HTTP Server,Web servers,,100,observed,core,headers
-somalidisablesupport.com,Astra,WordPress themes,3.9.1,100,observed,themes,dom; scriptSrc
+somalidisablesupport.com,Astra,WordPress themes,3.9.1,100,observed,core,dom; scriptSrc
 somalidisablesupport.com,Elementor,Page builders; WordPress plugins,3.35.8,100,observed,core,dom; js; meta; scriptSrc
 somalidisablesupport.com,Endurance Page Cache,WordPress plugins; Caching,,100,observed,core,headers
 somalidisablesupport.com,Google Font API,Font scripts,,100,observed,core,dom
 somalidisablesupport.com,Hostgator,Hosting,,100,observed,dns_only,dns
+somalidisablesupport.com,Jetpack,WordPress plugins,,100,observed,core,dom
 somalidisablesupport.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 somalidisablesupport.com,Mailcheck,JavaScript libraries,1.1.2,100,observed,core,scriptSrc
 somalidisablesupport.com,Open Graph,Miscellaneous,,100,observed,core,dom
@@ -19,13 +20,12 @@ somalidisablesupport.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js;
 somalidisablesupport.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 somalidisablesupport.com,jQuery UI,JavaScript libraries,1.13.3,100,observed,core,js
 somalidisablesupport.com,punycode,JavaScript libraries,1.0.0,100,observed,core,scriptSrc
-somalidisablesupport.com,PHP,Programming languages,,100,inferred,inferred_only,
-somalidisablesupport.com,MySQL,Databases,,100,inferred,inferred_only,
+somalidisablesupport.com,PHP,Programming languages,,100,inferred,core,
+somalidisablesupport.com,MySQL,Databases,,100,inferred,core,
 yourfamilylines.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 yourfamilylines.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 yourfamilylines.com,jQuery,JavaScript libraries,1.3.2,100,observed,core,js; scriptSrc
 szentkristofudvarhaz.hu,Apache HTTP Server,Web servers,,100,observed,core,headers
-szentkristofudvarhaz.hu,Facebook Login,Authentication,,100,observed,core,js
 szentkristofudvarhaz.hu,Google Analytics,Analytics,UA; GA4,100,observed,core,cookies; js; scriptSrc
 szentkristofudvarhaz.hu,Google Font API,Font scripts,,100,observed,core,dom
 szentkristofudvarhaz.hu,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
@@ -33,8 +33,8 @@ szentkristofudvarhaz.hu,Let's Encrypt,SSL/TLS certificate authorities,,100,obser
 szentkristofudvarhaz.hu,RSS,Miscellaneous,,100,observed,core,dom
 szentkristofudvarhaz.hu,WordPress,CMS; Blogs,,100,observed,core,dom; headers; html; scriptSrc
 szentkristofudvarhaz.hu,jQuery,JavaScript libraries,1.8.3,100,observed,core,js; scriptSrc
-szentkristofudvarhaz.hu,PHP,Programming languages,,100,inferred,inferred_only,
-szentkristofudvarhaz.hu,MySQL,Databases,,100,inferred,inferred_only,
+szentkristofudvarhaz.hu,PHP,Programming languages,,100,inferred,core,
+szentkristofudvarhaz.hu,MySQL,Databases,,100,inferred,core,
 disneystore.com,Akamai,CDN,,100,observed,core,headers
 disneystore.com,Akamai Bot Manager,Security,,100,observed,core,cookies
 disneystore.com,Akamai mPulse,RUM,,100,observed,core,html
@@ -51,8 +51,8 @@ disneystore.com,Salesforce Commerce Cloud,Ecommerce,,100,observed,core,cookies; 
 disneystore.com,Salesforce Interaction Studio,Personalisation; Segmentation,,100,observed,core,scriptSrc
 disneystore.com,Zendesk,Documentation; Issue trackers; Live chat,,100,declared,dns_only,dns
 disneystore.com,reCAPTCHA,Security,,100,observed,core,scriptSrc
-disneystore.com,Boomerang,JavaScript libraries; RUM,,100,inferred,inferred_only,
-disneystore.com,Salesforce,CRM,,100,inferred,inferred_only,
+disneystore.com,Boomerang,JavaScript libraries; RUM,,100,inferred,core,
+disneystore.com,Salesforce,CRM,,100,inferred,core,
 trs-energycontrol.de,Amazon S3,CDN,,100,observed,platform_infra,headers
 trs-energycontrol.de,Amazon Web Services,PaaS,,100,observed,platform_infra,headers
 trs-energycontrol.de,Cloudflare,CDN,,100,observed,platform_infra,headers
@@ -67,7 +67,7 @@ trs-energycontrol.de,React,JavaScript frameworks,18.3.1,100,observed,core,js
 trs-energycontrol.de,Sentry,Issue trackers,7.120.3,100,observed,platform_infra,js; scriptSrc
 trs-energycontrol.de,Varnish,Caching,,100,observed,platform_infra,headers
 trs-energycontrol.de,Wix,CMS; Blogs,,100,observed,core,headers; meta; scriptSrc
-xn--kleoghvidevareservice-qfc.dk,Astra,WordPress themes,4.14.3,100,observed,themes,dom; scriptSrc
+xn--kleoghvidevareservice-qfc.dk,Astra,WordPress themes,4.14.3,100,observed,core,dom; scriptSrc
 xn--kleoghvidevareservice-qfc.dk,Elementor,Page builders; WordPress plugins,4.4.1,100,observed,core,dom; js; meta; scriptSrc
 xn--kleoghvidevareservice-qfc.dk,Font Awesome,Font scripts,,100,observed,core,dom; js; scriptSrc
 xn--kleoghvidevareservice-qfc.dk,Google Font API,Font scripts,,100,observed,core,dom
@@ -83,8 +83,8 @@ xn--kleoghvidevareservice-qfc.dk,core-js,JavaScript libraries,3.46.0,100,observe
 xn--kleoghvidevareservice-qfc.dk,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 xn--kleoghvidevareservice-qfc.dk,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 xn--kleoghvidevareservice-qfc.dk,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-xn--kleoghvidevareservice-qfc.dk,PHP,Programming languages,,100,inferred,inferred_only,
-xn--kleoghvidevareservice-qfc.dk,MySQL,Databases,,100,inferred,inferred_only,
+xn--kleoghvidevareservice-qfc.dk,PHP,Programming languages,,100,inferred,core,
+xn--kleoghvidevareservice-qfc.dk,MySQL,Databases,,100,inferred,core,
 gogroupauto.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 231selfstorage.com,Cloudflare,CDN,,100,observed,core,headers
 231selfstorage.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
@@ -93,7 +93,7 @@ gogroupauto.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 231selfstorage.com,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
 231selfstorage.com,HTTP/3,Miscellaneous,,100,observed,core,headers
 231selfstorage.com,Kadence WP Blocks,WordPress plugins,,100,observed,core,dom
-231selfstorage.com,Kadence WP Kadence,WordPress themes,1.1.49,100,observed,themes,dom; js; scriptSrc
+231selfstorage.com,Kadence WP Kadence,WordPress themes,1.1.49,100,observed,core,dom; js; scriptSrc
 231selfstorage.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 231selfstorage.com,Open Graph,Miscellaneous,,100,observed,core,dom
 231selfstorage.com,Priority Hints,Performance,,100,observed,core,dom
@@ -103,9 +103,9 @@ gogroupauto.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 231selfstorage.com,WordPress,CMS; Blogs,,100,observed,core,dom; headers; html; scriptSrc
 231selfstorage.com,WordPress Block Editor,Page builders,,100,observed,core,html
 231selfstorage.com,Yoast SEO,SEO; WordPress plugins,28.9,100,observed,core,dom; html
-231selfstorage.com,Gutenberg,WordPress plugins; Editors,,100,inferred,inferred_only,
-231selfstorage.com,PHP,Programming languages,,100,inferred,inferred_only,
-231selfstorage.com,MySQL,Databases,,100,inferred,inferred_only,
+231selfstorage.com,Gutenberg,WordPress plugins; Editors,,100,inferred,core,
+231selfstorage.com,PHP,Programming languages,,100,inferred,core,
+231selfstorage.com,MySQL,Databases,,100,inferred,core,
 globalrn.com,Cloudflare,CDN,,100,observed,dns_only,dns
 globalrn.com,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
 globalrn.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
@@ -140,8 +140,8 @@ cytofastmed.com,lit-element,JavaScript libraries,4.2.2,100,observed,core,js
 cytofastmed.com,lit-html,JavaScript libraries,3.3.3,100,observed,core,js
 cytofastmed.com,prettyPhoto,JavaScript libraries,,100,observed,core,dom; html
 cytofastmed.com,wpBakery,Page builders; WordPress plugins,,100,declared,core,meta
-cytofastmed.com,PHP,Programming languages,,100,inferred,inferred_only,
-cytofastmed.com,MySQL,Databases,,100,inferred,inferred_only,
+cytofastmed.com,PHP,Programming languages,,100,inferred,core,
+cytofastmed.com,MySQL,Databases,,100,inferred,core,
 5starremoval.weebly.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 gutendorf.ru,Contact Form 7,WordPress plugins; Form builders,5.7.7,100,observed,core,js; scriptSrc
 gutendorf.ru,Google Font API,Font scripts,,100,observed,core,dom
@@ -158,10 +158,10 @@ gutendorf.ru,core-js,JavaScript libraries,3.19.1,100,observed,core,js
 gutendorf.ru,jQuery,JavaScript libraries,3.6.4,100,observed,core,js; scriptSrc
 gutendorf.ru,jQuery Migrate,JavaScript libraries,3.4.0,100,observed,core,js
 gutendorf.ru,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-gutendorf.ru,PHP,Programming languages,,100,inferred,inferred_only,
-gutendorf.ru,MySQL,Databases,,100,inferred,inferred_only,
+gutendorf.ru,PHP,Programming languages,,100,inferred,core,
+gutendorf.ru,MySQL,Databases,,100,inferred,core,
 katesworldtravel.com,Apache HTTP Server,Web servers,,100,observed,core,headers
-katesworldtravel.com,Astra,WordPress themes,4.14.3,100,observed,themes,dom; scriptSrc
+katesworldtravel.com,Astra,WordPress themes,4.14.3,100,observed,core,dom; scriptSrc
 katesworldtravel.com,Bluehost,Hosting,,100,observed,core,dns; headers
 katesworldtravel.com,Elementor,Page builders; WordPress plugins,4.4.1,100,observed,core,dom; js; meta; scriptSrc
 katesworldtravel.com,Endurance Page Cache,WordPress plugins; Caching,,100,observed,core,headers
@@ -186,8 +186,8 @@ katesworldtravel.com,core-js,JavaScript libraries,3.46.0,100,observed,core,js
 katesworldtravel.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 katesworldtravel.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 katesworldtravel.com,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-katesworldtravel.com,PHP,Programming languages,,100,inferred,inferred_only,
-katesworldtravel.com,MySQL,Databases,,100,inferred,inferred_only,
+katesworldtravel.com,PHP,Programming languages,,100,inferred,core,
+katesworldtravel.com,MySQL,Databases,,100,inferred,core,
 3xd.co.uk,Adobe Fonts,Font scripts,,100,observed,core,dom; html
 3xd.co.uk,Bootstrap,UI frameworks,5.3.2,100,observed,core,dom; html; js; scriptSrc
 3xd.co.uk,Cloudflare,CDN,,100,observed,core,dns; headers
@@ -204,26 +204,26 @@ katesworldtravel.com,MySQL,Databases,,100,inferred,inferred_only,
 3xd.co.uk,Open Graph,Miscellaneous,,100,observed,core,dom
 3xd.co.uk,Priority Hints,Performance,,100,observed,core,dom
 3xd.co.uk,RSS,Miscellaneous,,100,observed,core,dom
-3xd.co.uk,Twenty Twenty-Four,WordPress themes,,100,observed,themes,dom
+3xd.co.uk,Twenty Twenty-Four,WordPress themes,,100,observed,core,dom
 3xd.co.uk,Typekit,Font scripts,,100,observed,core,html
 3xd.co.uk,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; meta; scriptSrc
 3xd.co.uk,WordPress Block Editor,Page builders,,100,observed,core,html
 3xd.co.uk,WordPress Site Editor,Page builders,,100,observed,core,html
 3xd.co.uk,Yoast SEO,SEO; WordPress plugins,28.5,100,observed,core,dom; html
-3xd.co.uk,ZURB Foundation,UI frameworks,,100,observed,core,dom; html
 3xd.co.uk,core-js,JavaScript libraries,3.33.3,100,observed,core,js
 3xd.co.uk,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 3xd.co.uk,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 3xd.co.uk,jsDelivr,CDN,,100,observed,core,dom; scriptSrc
 3xd.co.uk,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-3xd.co.uk,PHP,Programming languages,,100,inferred,inferred_only,
-3xd.co.uk,MySQL,Databases,,100,inferred,inferred_only,
+3xd.co.uk,PHP,Programming languages,,100,inferred,core,
+3xd.co.uk,MySQL,Databases,,100,inferred,core,
 gapconstructionwi.com,Amazon S3,CDN,,100,observed,platform_infra,headers
 gapconstructionwi.com,Amazon Web Services,PaaS,,100,observed,platform_infra,headers
 gapconstructionwi.com,Cloudflare,CDN,,100,observed,platform_infra,headers
 gapconstructionwi.com,Cloudflare Bot Management,Security,,100,observed,platform_infra,cookies
 gapconstructionwi.com,Firebase,Databases; Development,,100,observed,platform_infra,xhr
 gapconstructionwi.com,GSAP,JavaScript frameworks,,100,observed,core,js
+gapconstructionwi.com,Google Maps,Maps,,100,observed,core,dom
 gapconstructionwi.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 gapconstructionwi.com,HSTS,Security,,100,observed,core,headers
 gapconstructionwi.com,HTTP/3,Miscellaneous,,100,observed,core,headers
@@ -249,11 +249,12 @@ imgs.co.jp,Google Tag Manager,Tag managers,,100,observed,core,html; js; scriptSr
 imgs.co.jp,Microsoft 365,Webmail; Email,,100,declared,dns_only,dns
 imgs.co.jp,Open Graph,Miscellaneous,,100,observed,core,dom
 imgs.co.jp,jQuery,JavaScript libraries,3.5.1,100,observed,core,js; scriptSrc
-imgs.co.jp,Java,Programming languages,,100,inferred,inferred_only,
+imgs.co.jp,Java,Programming languages,,100,inferred,core,
 clotting-guide.online,Apache HTTP Server,Web servers,,100,observed,core,headers
 clotting-guide.online,Font Awesome,Font scripts,,100,observed,core,dom
 clotting-guide.online,Google Font API,Font scripts,,100,observed,core,dom
-clotting-guide.online,Kaira Vogue,WordPress themes,,100,observed,themes,dom; scriptSrc
+clotting-guide.online,Jetpack,WordPress plugins,,100,observed,core,dom
+clotting-guide.online,Kaira Vogue,WordPress themes,,100,observed,core,dom; scriptSrc
 clotting-guide.online,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 clotting-guide.online,Polylang,WordPress plugins; Translation,,100,observed,core,cookies
 clotting-guide.online,Priority Hints,Performance,,100,observed,core,dom
@@ -265,8 +266,8 @@ clotting-guide.online,WordPress Block Editor,Page builders,,100,observed,core,ht
 clotting-guide.online,World4You,Hosting,,100,observed,dns_only,dns
 clotting-guide.online,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 clotting-guide.online,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-clotting-guide.online,PHP,Programming languages,,100,inferred,inferred_only,
-clotting-guide.online,MySQL,Databases,,100,inferred,inferred_only,
+clotting-guide.online,PHP,Programming languages,,100,inferred,core,
+clotting-guide.online,MySQL,Databases,,100,inferred,core,
 38inspect.com,Chart.js,JavaScript graphics,,50,observed,core,js
 38inspect.com,Cloudflare,CDN,,100,observed,core,headers
 38inspect.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
@@ -289,12 +290,12 @@ clotting-guide.online,MySQL,Databases,,100,inferred,inferred_only,
 38inspect.com,lit-element,JavaScript libraries,3.2.0,100,observed,core,js
 38inspect.com,lit-html,JavaScript libraries,2.4.0,100,observed,core,js
 38inspect.com,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-38inspect.com,PHP,Programming languages,,100,inferred,inferred_only,
-38inspect.com,MySQL,Databases,,100,inferred,inferred_only,
+38inspect.com,PHP,Programming languages,,100,inferred,core,
+38inspect.com,MySQL,Databases,,100,inferred,core,
 newbeaverborough.org,Elementor,Page builders; WordPress plugins,4.4.0,100,observed,core,dom; js; meta; scriptSrc
 newbeaverborough.org,Font Awesome,Font scripts,,100,observed,core,dom; js; scriptSrc
 newbeaverborough.org,FullCalendar,Widgets,6.1.9,100,observed,core,js
-newbeaverborough.org,Hello Elementor,WordPress themes,3.5.2,100,observed,themes,dom
+newbeaverborough.org,Hello Elementor,WordPress themes,3.5.2,100,observed,core,dom
 newbeaverborough.org,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 newbeaverborough.org,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
 newbeaverborough.org,OWL Carousel,JavaScript libraries,,100,observed,core,scriptSrc
@@ -308,9 +309,9 @@ newbeaverborough.org,imagesLoaded,JavaScript libraries,5.0.0,100,observed,core,s
 newbeaverborough.org,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 newbeaverborough.org,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 newbeaverborough.org,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-newbeaverborough.org,TypeScript,Programming languages,,100,inferred,inferred_only,
-newbeaverborough.org,PHP,Programming languages,,100,inferred,inferred_only,
-newbeaverborough.org,MySQL,Databases,,100,inferred,inferred_only,
+newbeaverborough.org,TypeScript,Programming languages,,100,inferred,core,
+newbeaverborough.org,PHP,Programming languages,,100,inferred,core,
+newbeaverborough.org,MySQL,Databases,,100,inferred,core,
 largsbaychiropractic.com.au,Cart Functionality,Ecommerce,,100,observed,core,dom
 largsbaychiropractic.com.au,Cloudflare,CDN,,100,observed,dns_only,dns
 largsbaychiropractic.com.au,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
@@ -326,19 +327,13 @@ largsbaychiropractic.com.au,Squarespace Commerce,Ecommerce,7.1,100,observed,core
 largsbaychiropractic.com.au,YUI,JavaScript libraries,3.17.2,100,observed,core,js
 largsbaychiropractic.com.au,core-js,JavaScript libraries,3.26.0; 2.6.12,100,observed,core,js
 largsbaychiropractic.com.au,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-rsthealthcare.com,Google Font API,Font scripts,,100,observed,core,dom
-rsthealthcare.com,HTTP/3,Miscellaneous,,100,observed,core,headers
-rsthealthcare.com,Hostinger,Hosting,,100,observed,core,dns; headers
-rsthealthcare.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
-rsthealthcare.com,LiteSpeed,Web servers,,100,observed,core,headers
-rsthealthcare.com,PHP,Programming languages,7.4.33,100,observed,core,headers
 dioxoxigenio.com.br,Amazon Route 53,Hosting,,100,observed,dns_only,dns
 dioxoxigenio.com.br,Amazon Web Services,PaaS,,100,observed,dns_only,dns
 dioxoxigenio.com.br,Apache HTTP Server,Web servers,,100,observed,core,headers
 dioxoxigenio.com.br,Elementor,Page builders; WordPress plugins,3.34.3,100,observed,core,dom; js; meta; scriptSrc
 dioxoxigenio.com.br,Google Font API,Font scripts,,100,observed,core,dom
 dioxoxigenio.com.br,Google Maps,Maps,,100,observed,core,dom
-dioxoxigenio.com.br,Hello Elementor,WordPress themes,3.4.6,100,observed,themes,dom
+dioxoxigenio.com.br,Hello Elementor,WordPress themes,3.4.6,100,observed,core,dom
 dioxoxigenio.com.br,Priority Hints,Performance,,100,observed,core,dom
 dioxoxigenio.com.br,RSS,Miscellaneous,,100,observed,core,dom
 dioxoxigenio.com.br,Swiper,JavaScript libraries,,100,observed,core,dom; js; scriptSrc
@@ -350,15 +345,15 @@ dioxoxigenio.com.br,core-js,JavaScript libraries,3.46.0,100,observed,core,js
 dioxoxigenio.com.br,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 dioxoxigenio.com.br,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 dioxoxigenio.com.br,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-dioxoxigenio.com.br,PHP,Programming languages,,100,inferred,inferred_only,
-dioxoxigenio.com.br,MySQL,Databases,,100,inferred,inferred_only,
+dioxoxigenio.com.br,PHP,Programming languages,,100,inferred,core,
+dioxoxigenio.com.br,MySQL,Databases,,100,inferred,core,
 doringpoort.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 doringpoort.com,Elementor,Page builders; WordPress plugins,3.5.5,100,observed,core,dom; js; scriptSrc
 doringpoort.com,Font Awesome,Font scripts,,100,observed,core,dom
 doringpoort.com,Google Analytics,Analytics,GA4,100,observed,core,cookies; js; scriptSrc
 doringpoort.com,Google Font API,Font scripts,,100,observed,core,dom
 doringpoort.com,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
-doringpoort.com,Hello Elementor,WordPress themes,2.5.0,100,observed,themes,dom
+doringpoort.com,Hello Elementor,WordPress themes,2.5.0,100,observed,core,dom
 doringpoort.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 doringpoort.com,NightsBridge,Appointment scheduling,,100,observed,core,dom
 doringpoort.com,Open Graph,Miscellaneous,,100,observed,core,dom
@@ -372,43 +367,11 @@ doringpoort.com,imagesLoaded,JavaScript libraries,5.0.0,100,observed,core,script
 doringpoort.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 doringpoort.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 doringpoort.com,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-doringpoort.com,PHP,Programming languages,,100,inferred,inferred_only,
-doringpoort.com,MySQL,Databases,,100,inferred,inferred_only,
-fsbwyoming.com,Akismet,WordPress plugins,,100,observed,core,scriptSrc
-fsbwyoming.com,Cloudflare,CDN,,100,observed,core,headers
-fsbwyoming.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
-fsbwyoming.com,Cloudflare Turnstile,Security,,100,observed,core,js
-fsbwyoming.com,Crocoblock JetElements,WordPress plugins,,100,observed,core,js
-fsbwyoming.com,Elementor,Page builders; WordPress plugins,4.4.1,100,observed,core,dom; js; meta; scriptSrc
-fsbwyoming.com,Font Awesome,Font scripts,,100,observed,core,dom
-fsbwyoming.com,GSAP,JavaScript frameworks,2.0.2,100,observed,core,js
-fsbwyoming.com,GoDaddy,Hosting,,100,observed,dns_only,dns
-fsbwyoming.com,Google Analytics,Analytics,GA4,100,observed,core,cookies; js; scriptSrc
-fsbwyoming.com,Google Tag Manager,Tag managers,,100,observed,core,html; js; scriptSrc
-fsbwyoming.com,Gravity Forms,WordPress plugins; Form builders,3.2.3.1,100,observed,core,html; scriptSrc
-fsbwyoming.com,HSTS,Security,,100,observed,core,headers
-fsbwyoming.com,HTTP/3,Miscellaneous,,100,observed,core,headers
-fsbwyoming.com,Hello Elementor,WordPress themes,3.5.2,100,observed,themes,dom
-fsbwyoming.com,JetEngine,WordPress plugins,,100,observed,core,scriptSrc
-fsbwyoming.com,JetTabs,WordPress plugins,,100,observed,core,js
-fsbwyoming.com,Open Graph,Miscellaneous,,100,observed,core,dom
-fsbwyoming.com,Priority Hints,Performance,,100,observed,core,dom
-fsbwyoming.com,RSS,Miscellaneous,,100,observed,core,dom
-fsbwyoming.com,RankMath SEO,WordPress plugins; SEO,,100,observed,core,dom
-fsbwyoming.com,Site Kit,Analytics; WordPress plugins,1.192.0,100,declared,core,meta
-fsbwyoming.com,Twitter Emoji (Twemoji),Font scripts,,100,observed,core,js
-fsbwyoming.com,Vue.js,JavaScript frameworks,,100,observed,core,html; js
-fsbwyoming.com,WordPress,CMS; Blogs,7.0.9,100,observed,core,dom; headers; html; meta; scriptSrc
-fsbwyoming.com,core-js,JavaScript libraries,3.46.0,100,observed,core,js
-fsbwyoming.com,imagesLoaded,JavaScript libraries,5.0.0,100,observed,core,scriptSrc
-fsbwyoming.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
-fsbwyoming.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-fsbwyoming.com,jQuery UI,JavaScript libraries,1.13.3,100,observed,core,js
-fsbwyoming.com,PHP,Programming languages,,100,inferred,inferred_only,
-fsbwyoming.com,MySQL,Databases,,100,inferred,inferred_only,
+doringpoort.com,PHP,Programming languages,,100,inferred,core,
+doringpoort.com,MySQL,Databases,,100,inferred,core,
 msc-manching.de,Apache HTTP Server,Web servers,,100,observed,core,headers
 msc-manching.de,Bootstrap,UI frameworks,4.0.0,100,observed,core,html; js; scriptSrc
-msc-manching.de,Colorlib Sparkling,WordPress themes,,100,observed,themes,dom; scriptSrc
+msc-manching.de,Colorlib Sparkling,WordPress themes,,100,observed,core,dom; scriptSrc
 msc-manching.de,Contact Form 7,WordPress plugins; Form builders,5.7.3,100,observed,core,dom; js; scriptSrc
 msc-manching.de,Font Awesome,Font scripts,,100,observed,core,dom
 msc-manching.de,Google Font API,Font scripts,,100,observed,core,dom
@@ -420,8 +383,8 @@ msc-manching.de,WordPress Block Editor,Page builders,,100,observed,core,html
 msc-manching.de,jQuery,JavaScript libraries,3.6.4,100,observed,core,js; scriptSrc
 msc-manching.de,jQuery Migrate,JavaScript libraries,3.4.0,100,observed,core,js; scriptSrc
 msc-manching.de,wetter.com,Widgets,,100,observed,core,js
-msc-manching.de,PHP,Programming languages,,100,inferred,inferred_only,
-msc-manching.de,MySQL,Databases,,100,inferred,inferred_only,
+msc-manching.de,PHP,Programming languages,,100,inferred,core,
+msc-manching.de,MySQL,Databases,,100,inferred,core,
 sgsextremaratio.it,Bootstrap,UI frameworks,,100,observed,core,dom
 sgsextremaratio.it,Font Awesome,Font scripts,,100,observed,core,dom
 sgsextremaratio.it,Google Font API,Font scripts,,100,observed,core,dom
@@ -452,7 +415,7 @@ coastwidemechanicalcentralcoast.com.au,Web Font Loader,JavaScript libraries,,100
 coastwidemechanicalcentralcoast.com.au,WordPress,CMS; Blogs,7.1.4,100,observed,core,dom; headers; html; meta; scriptSrc
 coastwidemechanicalcentralcoast.com.au,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 coastwidemechanicalcentralcoast.com.au,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js
-coastwidemechanicalcentralcoast.com.au,MySQL,Databases,,100,inferred,inferred_only,
+coastwidemechanicalcentralcoast.com.au,MySQL,Databases,,100,inferred,core,
 amourfinder.com,Amazon CloudFront,CDN,,100,observed,core,headers
 amourfinder.com,HSTS,Security,,100,observed,core,headers
 amourfinder.com,HTTP/3,Miscellaneous,,100,observed,core,headers
@@ -460,7 +423,7 @@ amourfinder.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core
 amourfinder.com,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
 amourfinder.com,Open Graph,Miscellaneous,,100,observed,core,dom
 amourfinder.com,PHP,Programming languages,,100,observed,core,cookies
-amourfinder.com,Amazon Web Services,PaaS,,100,inferred,inferred_only,
+amourfinder.com,Amazon Web Services,PaaS,,100,inferred,core,
 lojatatical.com.br,Bootstrap,UI frameworks,,100,observed,core,html; scriptSrc
 lojatatical.com.br,Cart Functionality,Ecommerce,,100,observed,core,dom
 lojatatical.com.br,GoCache,CDN,,100,observed,core,headers
@@ -471,7 +434,6 @@ lojatatical.com.br,Google Tag Manager,Tag managers,,100,observed,core,js; script
 lojatatical.com.br,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 lojatatical.com.br,Magento,Ecommerce,2,100,observed,core,cookies; dom; scriptSrc
 lojatatical.com.br,Magnific Popup,JavaScript libraries,,100,observed,core,scriptSrc
-lojatatical.com.br,Matter.js,JavaScript libraries,,100,observed,core,scriptSrc
 lojatatical.com.br,Moment.js,JavaScript libraries,,100,observed,core,scriptSrc
 lojatatical.com.br,OWL Carousel,JavaScript libraries,,100,observed,core,dom; html
 lojatatical.com.br,PHP,Programming languages,,100,observed,core,cookies
@@ -483,7 +445,7 @@ lojatatical.com.br,WhatsApp Business Chat,Live chat,,100,observed,core,dom
 lojatatical.com.br,jQuery,JavaScript libraries,1.12.4,100,observed,core,js; scriptSrc
 lojatatical.com.br,jQuery Migrate,JavaScript libraries,1.4.1,100,observed,core,js; scriptSrc
 lojatatical.com.br,jQuery UI,JavaScript libraries,1.10.4,100,observed,core,js; scriptSrc
-lojatatical.com.br,MySQL,Databases,,100,inferred,inferred_only,
+lojatatical.com.br,MySQL,Databases,,100,inferred,core,
 jobresourcecentre.com,Bootstrap,UI frameworks,3.3.5,100,observed,core,html; js; scriptSrc
 jobresourcecentre.com,Contact Form 7,WordPress plugins; Form builders,6.1.5,100,observed,core,dom; js; scriptSrc
 jobresourcecentre.com,Directorist,Page builders,,100,observed,core,js
@@ -496,8 +458,7 @@ jobresourcecentre.com,Google Maps,Maps,,100,observed,core,scriptSrc
 jobresourcecentre.com,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
 jobresourcecentre.com,Leaflet,Maps,1.5.1,100,observed,core,js; scriptSrc
 jobresourcecentre.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
-jobresourcecentre.com,Livefyre,Comment systems,,0,observed,core,js
-jobresourcecentre.com,Magnific Popup,JavaScript libraries,1.1.0,100,observed,core,scriptSrc
+jobresourcecentre.com,Magnific Popup,JavaScript libraries,1.1.0,100,observed,core,dom; scriptSrc
 jobresourcecentre.com,Microsoft 365,Webmail; Email,,100,observed,dns_only,dns
 jobresourcecentre.com,Open Graph,Miscellaneous,,100,observed,core,dom
 jobresourcecentre.com,Priority Hints,Performance,,100,observed,core,dom
@@ -515,12 +476,13 @@ jobresourcecentre.com,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
 jobresourcecentre.com,lit-element,JavaScript libraries,4.2.2,100,observed,core,js
 jobresourcecentre.com,lit-html,JavaScript libraries,3.3.3,100,observed,core,js
 jobresourcecentre.com,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-jobresourcecentre.com,PHP,Programming languages,,100,inferred,inferred_only,
-jobresourcecentre.com,MySQL,Databases,,100,inferred,inferred_only,
+jobresourcecentre.com,PHP,Programming languages,,100,inferred,core,
+jobresourcecentre.com,MySQL,Databases,,100,inferred,core,
 253media.com,Adobe Fonts,Font scripts,1.21.0,100,observed,core,js
 253media.com,Amazon S3,CDN,,100,observed,platform_infra,scriptSrc
 253media.com,Cloudflare,CDN,,100,observed,platform_infra,headers
 253media.com,Facebook Pixel,Analytics,2.9.441,100,observed,core,js; scriptSrc
+253media.com,Google Ads Conversion Tracking,Analytics,,100,observed,core,scriptSrc
 253media.com,Google Analytics,Analytics,GA4,100,observed,core,cookies; js; scriptSrc
 253media.com,Google Cloud DNS,Hosting,,100,observed,dns_only,dns
 253media.com,Google Font API,Font scripts,,100,observed,core,dom; scriptSrc
@@ -541,7 +503,8 @@ jobresourcecentre.com,MySQL,Databases,,100,inferred,inferred_only,
 253media.com,core-js,JavaScript libraries,3.32.2,100,observed,core,js
 253media.com,jQuery,JavaScript libraries,3.5.1; 2.1.3,100,observed,core,js; scriptSrc
 253media.com,jsDelivr,CDN,,100,observed,platform_infra,scriptSrc
-253media.com,Amazon Web Services,PaaS,,100,inferred,inferred_only,
+253media.com,Amazon Web Services,PaaS,,100,inferred,platform_infra,
+253media.com,Google Ads,Advertising,,100,inferred,core,
 velvety.eu,Animate.css,UI frameworks,,100,observed,core,dom
 velvety.eu,Conditional Fields for Contact Form 7,Widgets; WordPress plugins,2.8.5,100,observed,core,dom; scriptSrc
 velvety.eu,Contact Form 7,WordPress plugins; Form builders,6.2.4.1,100,observed,core,dom; js; scriptSrc
@@ -570,8 +533,8 @@ velvety.eu,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scrip
 velvety.eu,lit-element,JavaScript libraries,3.1.2,100,observed,core,js
 velvety.eu,lit-html,JavaScript libraries,2.1.2,100,observed,core,js
 velvety.eu,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-velvety.eu,PHP,Programming languages,,100,inferred,inferred_only,
-velvety.eu,MySQL,Databases,,100,inferred,inferred_only,
+velvety.eu,PHP,Programming languages,,100,inferred,core,
+velvety.eu,MySQL,Databases,,100,inferred,core,
 doortodoororganics.com,AMP,JavaScript frameworks,,100,observed,core,html; js
 doortodoororganics.com,Cloudflare,CDN,,100,observed,core,dns; headers
 doortodoororganics.com,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
@@ -594,8 +557,8 @@ kentpropertyrenovations.co.uk,core-js,JavaScript libraries,3.46.0,100,observed,c
 kentpropertyrenovations.co.uk,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 kentpropertyrenovations.co.uk,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js
 kentpropertyrenovations.co.uk,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-kentpropertyrenovations.co.uk,PHP,Programming languages,,100,inferred,inferred_only,
-kentpropertyrenovations.co.uk,MySQL,Databases,,100,inferred,inferred_only,
+kentpropertyrenovations.co.uk,PHP,Programming languages,,100,inferred,core,
+kentpropertyrenovations.co.uk,MySQL,Databases,,100,inferred,core,
 fisherinvestments.com,Atlassian Cloud,Development,,100,declared,dns_only,dns
 fisherinvestments.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 fisherinvestments.com,Microsoft 365,Webmail; Email,,100,declared,dns_only,dns
@@ -629,7 +592,7 @@ rionecontrastanga.net,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; sc
 rionecontrastanga.net,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 rionecontrastanga.net,jQuery UI,JavaScript libraries,1.13.1,100,observed,core,js
 rionecontrastanga.net,wpBakery,Page builders; WordPress plugins,,100,declared,core,meta
-rionecontrastanga.net,MySQL,Databases,,100,inferred,inferred_only,
+rionecontrastanga.net,MySQL,Databases,,100,inferred,core,
 stwannas.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 stwannas.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 stwannas.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
@@ -644,7 +607,7 @@ empresasori.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 empresasori.com,Google Font API,Font scripts,,100,observed,core,dom
 empresasori.com,Google Maps,Maps,,100,observed,core,dom
 empresasori.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
-empresasori.com,Jetpack,WordPress plugins,,100,observed,core,scriptSrc
+empresasori.com,Jetpack,WordPress plugins,,100,observed,core,dom; scriptSrc
 empresasori.com,Lodash,JavaScript libraries,,100,observed,core,scriptSrc
 empresasori.com,OWL Carousel,JavaScript libraries,,100,observed,core,scriptSrc
 empresasori.com,PHP,Programming languages,8.0.30,100,observed,core,headers
@@ -655,14 +618,14 @@ empresasori.com,React,JavaScript frameworks,18.2.0,100,observed,core,js
 empresasori.com,Slider Revolution,Widgets; Photo galleries,6.5.9,100,observed,core,js; meta; scriptSrc
 empresasori.com,WhatsApp Business Chat,Live chat,,100,observed,core,dom
 empresasori.com,WooCommerce,Ecommerce; WordPress plugins,8.5.2,100,observed,core,dom; js; meta; scriptSrc
-empresasori.com,Woodmart,WordPress themes,,100,observed,themes,js
+empresasori.com,Woodmart,WordPress themes,,100,observed,core,js
 empresasori.com,WordPress,CMS; Blogs,6.3.15,100,observed,core,dom; headers; html; js; meta; scriptSrc
 empresasori.com,core-js,JavaScript libraries,3.19.1,100,observed,core,js
 empresasori.com,imagesLoaded,JavaScript libraries,,100,observed,core,scriptSrc
 empresasori.com,jQuery,JavaScript libraries,3.7.0,100,observed,core,js; scriptSrc
 empresasori.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 empresasori.com,wpBakery,Page builders; WordPress plugins,,100,declared,core,meta
-empresasori.com,MySQL,Databases,,100,inferred,inferred_only,
+empresasori.com,MySQL,Databases,,100,inferred,core,
 familybroker.cz,Cloudflare,CDN,,100,observed,dns_only,dns
 familybroker.cz,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
 genesisny.net,DreamWeaver,Editors,,100,observed,core,js
@@ -693,8 +656,8 @@ genesisny.net,LiteSpeed,Web servers,,100,observed,core,headers
 5w.design,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 5w.design,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 5w.design,scrollreveal,JavaScript libraries,,100,observed,core,js
-5w.design,PHP,Programming languages,,100,inferred,inferred_only,
-5w.design,MySQL,Databases,,100,inferred,inferred_only,
+5w.design,PHP,Programming languages,,100,inferred,core,
+5w.design,MySQL,Databases,,100,inferred,core,
 huberautomotive.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 marien-apotheke-grefrath-app.de,Cloudimage,CDN; Digital asset management,,100,observed,core,dom
 marien-apotheke-grefrath-app.de,HSTS,Security,,100,observed,core,headers
@@ -707,16 +670,16 @@ centreconsiliereavort.ro,LiteSpeed,Web servers,,100,observed,core,headers
 centreconsiliereavort.ro,PHP,Programming languages,7.4.33,100,observed,core,headers
 centreconsiliereavort.ro,Priority Hints,Performance,,100,observed,core,dom
 centreconsiliereavort.ro,RSS,Miscellaneous,,100,observed,core,dom
-centreconsiliereavort.ro,Twenty Twelve,WordPress themes,,100,observed,themes,dom; scriptSrc
+centreconsiliereavort.ro,Twenty Twelve,WordPress themes,,100,observed,core,dom; scriptSrc
 centreconsiliereavort.ro,Twitter Emoji (Twemoji),Font scripts,,100,observed,core,js
 centreconsiliereavort.ro,WordPress,CMS; Blogs,7.1.4,100,observed,core,dom; headers; html; meta; scriptSrc
 centreconsiliereavort.ro,YouTube,Video players,,100,observed,core,dom; html
 centreconsiliereavort.ro,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 centreconsiliereavort.ro,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-centreconsiliereavort.ro,MySQL,Databases,,100,inferred,inferred_only,
+centreconsiliereavort.ro,MySQL,Databases,,100,inferred,core,
 infoaboutnetwork.com,Cloudflare,CDN,,100,observed,core,headers
 infoaboutnetwork.com,GenerateBlocks,WordPress plugins; Page builders,,100,observed,core,dom
-infoaboutnetwork.com,GeneratePress,WordPress themes,3.3.1,100,observed,themes,dom; js; scriptSrc
+infoaboutnetwork.com,GeneratePress,WordPress themes,3.3.1,100,observed,core,dom; js; scriptSrc
 infoaboutnetwork.com,Google Font API,Font scripts,,100,observed,core,dom
 infoaboutnetwork.com,HTTP/3,Miscellaneous,,100,observed,core,headers
 infoaboutnetwork.com,LiteSpeed,Web servers,,100,observed,core,headers
@@ -729,8 +692,8 @@ infoaboutnetwork.com,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; 
 infoaboutnetwork.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 infoaboutnetwork.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 infoaboutnetwork.com,jsDelivr,CDN,,100,observed,core,scriptSrc
-infoaboutnetwork.com,PHP,Programming languages,,100,inferred,inferred_only,
-infoaboutnetwork.com,MySQL,Databases,,100,inferred,inferred_only,
+infoaboutnetwork.com,PHP,Programming languages,,100,inferred,core,
+infoaboutnetwork.com,MySQL,Databases,,100,inferred,core,
 passwordstore.it,Chart.js,JavaScript graphics,,100,observed,core,js
 passwordstore.it,Elementor,Page builders; WordPress plugins,4.4.1,100,observed,core,dom; js; meta
 passwordstore.it,Font Awesome,Font scripts,,100,observed,core,dom; js
@@ -751,8 +714,8 @@ passwordstore.it,core-js,JavaScript libraries,3.46.0,100,observed,core,js
 passwordstore.it,jQuery,JavaScript libraries,3.7.1,100,observed,core,js
 passwordstore.it,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js
 passwordstore.it,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-passwordstore.it,PHP,Programming languages,,100,inferred,inferred_only,
-passwordstore.it,MySQL,Databases,,100,inferred,inferred_only,
+passwordstore.it,PHP,Programming languages,,100,inferred,core,
+passwordstore.it,MySQL,Databases,,100,inferred,core,
 avocatalinamanciu.ro,Elementor,Page builders; WordPress plugins,3.15.1,100,observed,core,dom; js; meta; scriptSrc
 avocatalinamanciu.ro,Facebook Chat Plugin,Live chat,,100,observed,core,scriptSrc
 avocatalinamanciu.ro,Flickity,JavaScript libraries,,100,observed,core,js
@@ -766,7 +729,7 @@ avocatalinamanciu.ro,LiteSpeed,Web servers,,100,observed,core,headers
 avocatalinamanciu.ro,LiteSpeed Cache,Caching; WordPress plugins,,100,observed,core,headers
 avocatalinamanciu.ro,Litespeed Cache,Caching; WordPress plugins,,100,observed,core,headers
 avocatalinamanciu.ro,Magnific Popup,JavaScript libraries,3.4.4,100,observed,core,scriptSrc
-avocatalinamanciu.ro,OceanWP,WordPress themes,3.4.4,100,observed,themes,dom; scriptSrc
+avocatalinamanciu.ro,OceanWP,WordPress themes,3.4.4,100,observed,core,dom; scriptSrc
 avocatalinamanciu.ro,Open Graph,Miscellaneous,,100,observed,core,dom
 avocatalinamanciu.ro,RSS,Miscellaneous,,100,observed,core,dom
 avocatalinamanciu.ro,Site Kit,Analytics; WordPress plugins,1.106.0,100,declared,core,meta
@@ -780,8 +743,8 @@ avocatalinamanciu.ro,imagesLoaded,JavaScript libraries,5.0.0,100,observed,core,s
 avocatalinamanciu.ro,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 avocatalinamanciu.ro,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 avocatalinamanciu.ro,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-avocatalinamanciu.ro,PHP,Programming languages,,100,inferred,inferred_only,
-avocatalinamanciu.ro,MySQL,Databases,,100,inferred,inferred_only,
+avocatalinamanciu.ro,PHP,Programming languages,,100,inferred,core,
+avocatalinamanciu.ro,MySQL,Databases,,100,inferred,core,
 dssfla.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 dssfla.com,Bluehost,Hosting,,100,observed,core,headers
 dssfla.com,Endurance Page Cache,WordPress plugins; Caching,,100,observed,core,headers
@@ -790,6 +753,7 @@ dssfla.com,Google Analytics,Analytics,GA4,100,observed,core,cookies; js; scriptS
 dssfla.com,Google Font API,Font scripts,,100,observed,core,dom
 dssfla.com,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
 dssfla.com,Isotope,JavaScript libraries,,100,observed,core,js
+dssfla.com,Jetpack,WordPress plugins,,100,observed,core,dom
 dssfla.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 dssfla.com,LiteSpeed Cache,Caching; WordPress plugins,,100,observed,core,scriptSrc
 dssfla.com,Masonry,JavaScript libraries,,100,observed,core,js
@@ -808,10 +772,10 @@ dssfla.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js
 dssfla.com,jQuery UI,JavaScript libraries,1.13.3,100,observed,core,js
 dssfla.com,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
 dssfla.com,wpBakery,Page builders; WordPress plugins,,100,declared,core,meta
-dssfla.com,LiteSpeed,Web servers,,100,inferred,inferred_only,
-dssfla.com,PHP,Programming languages,,100,inferred,inferred_only,
-dssfla.com,MySQL,Databases,,100,inferred,inferred_only,
-weducars.co.za,BeTheme,WordPress themes,28.0.6,100,observed,themes,scriptSrc
+dssfla.com,LiteSpeed,Web servers,,100,inferred,core,
+dssfla.com,PHP,Programming languages,,100,inferred,core,
+dssfla.com,MySQL,Databases,,100,inferred,core,
+weducars.co.za,BeTheme,WordPress themes,28.0.6,100,observed,core,scriptSrc
 weducars.co.za,Contact Form 7,WordPress plugins; Form builders,6.0.6,100,observed,core,dom; js; scriptSrc
 weducars.co.za,Elementor,Page builders; WordPress plugins,3.28.4,100,observed,core,dom; js; meta; scriptSrc
 weducars.co.za,Font Awesome,Font scripts,,100,observed,core,js; scriptSrc
@@ -840,8 +804,8 @@ weducars.co.za,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 weducars.co.za,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 weducars.co.za,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
 weducars.co.za,wpBakery,Page builders; WordPress plugins,,100,declared,core,meta
-weducars.co.za,PHP,Programming languages,,100,inferred,inferred_only,
-weducars.co.za,MySQL,Databases,,100,inferred,inferred_only,
+weducars.co.za,PHP,Programming languages,,100,inferred,core,
+weducars.co.za,MySQL,Databases,,100,inferred,core,
 4stonebuildings.com,Adobe Fonts,Font scripts,,100,observed,core,dom; html
 4stonebuildings.com,Cloudflare,CDN,,100,observed,core,dns; headers
 4stonebuildings.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
@@ -863,8 +827,8 @@ weducars.co.za,MySQL,Databases,,100,inferred,inferred_only,
 4stonebuildings.com,ZURB Foundation,UI frameworks,6.8.1,100,observed,core,js
 4stonebuildings.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 4stonebuildings.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-4stonebuildings.com,PHP,Programming languages,,100,inferred,inferred_only,
-4stonebuildings.com,MySQL,Databases,,100,inferred,inferred_only,
+4stonebuildings.com,PHP,Programming languages,,100,inferred,core,
+4stonebuildings.com,MySQL,Databases,,100,inferred,core,
 maniaupiekszania.pl,Apache HTTP Server,Web servers,2,100,observed,core,headers
 maniaupiekszania.pl,Elementor,Page builders; WordPress plugins,3.18.3,100,observed,core,dom; js; meta; scriptSrc
 maniaupiekszania.pl,Elementor Header & Footer Builder,WordPress plugins,,100,observed,core,dom
@@ -875,7 +839,7 @@ maniaupiekszania.pl,Google Font API,Font scripts,,100,observed,core,dom
 maniaupiekszania.pl,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 maniaupiekszania.pl,Magnific Popup,JavaScript libraries,3.4.7,100,observed,core,scriptSrc
 maniaupiekszania.pl,Moove GDPR Consent,Cookie compliance; WordPress plugins,,100,observed,core,js
-maniaupiekszania.pl,OceanWP,WordPress themes,3.4.7,100,observed,themes,dom; scriptSrc
+maniaupiekszania.pl,OceanWP,WordPress themes,3.4.7,100,observed,core,dom; scriptSrc
 maniaupiekszania.pl,Open Graph,Miscellaneous,,100,observed,core,dom
 maniaupiekszania.pl,Priority Hints,Performance,,100,observed,core,dom
 maniaupiekszania.pl,RSS,Miscellaneous,,100,observed,core,dom
@@ -891,20 +855,20 @@ maniaupiekszania.pl,imagesLoaded,JavaScript libraries,5.0.0,100,observed,core,sc
 maniaupiekszania.pl,jQuery,JavaScript libraries,1.12.4,100,observed,core,js; scriptSrc
 maniaupiekszania.pl,jQuery Migrate,JavaScript libraries,1.4.1,100,observed,core,js
 maniaupiekszania.pl,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-maniaupiekszania.pl,PHP,Programming languages,,100,inferred,inferred_only,
-maniaupiekszania.pl,MySQL,Databases,,100,inferred,inferred_only,
+maniaupiekszania.pl,PHP,Programming languages,,100,inferred,core,
+maniaupiekszania.pl,MySQL,Databases,,100,inferred,core,
 sprucemeadowsmd.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 sprucemeadowsmd.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 sprucemeadowsmd.com,Google Font API,Font scripts,,100,observed,core,dom
 sprucemeadowsmd.com,Kadence WP Blocks,WordPress plugins,,100,observed,core,dom
-sprucemeadowsmd.com,Kadence WP Kadence,WordPress themes,1.6.0,100,observed,themes,dom; js; scriptSrc
+sprucemeadowsmd.com,Kadence WP Kadence,WordPress themes,1.6.0,100,observed,core,dom; js; scriptSrc
 sprucemeadowsmd.com,PHP,Programming languages,8.3.37,100,observed,core,headers
 sprucemeadowsmd.com,RSS,Miscellaneous,,100,observed,core,dom
 sprucemeadowsmd.com,Twitter Emoji (Twemoji),Font scripts,,100,observed,core,js
 sprucemeadowsmd.com,WordPress,CMS; Blogs,,100,observed,core,dom; headers; html; scriptSrc
 sprucemeadowsmd.com,WordPress Block Editor,Page builders,,100,observed,core,html
-sprucemeadowsmd.com,Gutenberg,WordPress plugins; Editors,,100,inferred,inferred_only,
-sprucemeadowsmd.com,MySQL,Databases,,100,inferred,inferred_only,
+sprucemeadowsmd.com,Gutenberg,WordPress plugins; Editors,,100,inferred,core,
+sprucemeadowsmd.com,MySQL,Databases,,100,inferred,core,
 natedea.co.uk,Amazon Route 53,Hosting,,100,observed,dns_only,dns
 natedea.co.uk,Amazon Web Services,PaaS,,100,observed,dns_only,dns
 natedea.co.uk,Cloudflare,CDN,,100,observed,core,headers
@@ -930,8 +894,9 @@ natedea.co.uk,Yoast SEO,SEO; WordPress plugins,28.9,100,observed,core,dom; html
 natedea.co.uk,core-js,JavaScript libraries,3.39.0,100,observed,core,js
 natedea.co.uk,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 natedea.co.uk,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-natedea.co.uk,PHP,Programming languages,,100,inferred,inferred_only,
-natedea.co.uk,MySQL,Databases,,100,inferred,inferred_only,
+natedea.co.uk,PHP,Programming languages,,100,inferred,core,
+natedea.co.uk,MySQL,Databases,,100,inferred,core,
+loizillon.com,Animate.css,UI frameworks,,100,observed,core,dom
 loizillon.com,Bootstrap,UI frameworks,3.3.4,100,observed,core,html; js
 loizillon.com,Font Awesome,Font scripts,6.5.0,100,observed,core,dom
 loizillon.com,Google Analytics,Analytics,,100,observed,core,scriptSrc
@@ -940,6 +905,7 @@ loizillon.com,HSTS,Security,,100,observed,core,headers
 loizillon.com,Isotope,JavaScript libraries,,100,observed,core,js
 loizillon.com,Java,Programming languages,,100,observed,core,cookies
 loizillon.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
+loizillon.com,Magnific Popup,JavaScript libraries,,100,observed,core,dom
 loizillon.com,Masonry,JavaScript libraries,,100,observed,core,js
 loizillon.com,OVHcloud,PaaS; Hosting,,100,observed,dns_only,dns
 loizillon.com,OWL Carousel,JavaScript libraries,,100,observed,core,scriptSrc
@@ -950,7 +916,6 @@ loizillon.com,jQuery,JavaScript libraries,1.12.4,100,observed,core,js; scriptSrc
 loizillon.com,jQuery UI,JavaScript libraries,1.10.3,100,observed,core,js
 loizillon.com,jsDelivr,CDN,,100,observed,core,scriptSrc
 loizillon.com,toastr,JavaScript frameworks,2.1.0,100,observed,core,js
-haus-muehlenfeld-pommerby.de,Duda,CMS; Page builders,,0,observed,core,js
 haus-muehlenfeld-pommerby.de,FlexSlider,Widgets,,100,observed,core,scriptSrc
 haus-muehlenfeld-pommerby.de,HSTS,Security,,100,observed,core,headers
 haus-muehlenfeld-pommerby.de,IONOS,Hosting,,100,observed,dns_only,dns
@@ -969,7 +934,7 @@ haus-muehlenfeld-pommerby.de,jQuery,JavaScript libraries,2.2.4,100,observed,core
 arenaskolor.se,Elementor,Page builders; WordPress plugins,4.4.1,100,observed,core,dom; js; meta; scriptSrc
 arenaskolor.se,Google Font API,Font scripts,,100,observed,core,dom
 arenaskolor.se,HSTS,Security,,100,observed,core,headers
-arenaskolor.se,Hello Elementor,WordPress themes,3.5.2,100,observed,themes,dom
+arenaskolor.se,Hello Elementor,WordPress themes,3.5.2,100,observed,core,dom
 arenaskolor.se,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 arenaskolor.se,Microsoft 365,Webmail; Email,,100,observed,dns_only,dns
 arenaskolor.se,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
@@ -985,8 +950,8 @@ arenaskolor.se,core-js,JavaScript libraries,3.46.0,100,observed,core,js
 arenaskolor.se,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 arenaskolor.se,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 arenaskolor.se,jQuery UI,JavaScript libraries,1.13.3,100,observed,core,js
-arenaskolor.se,PHP,Programming languages,,100,inferred,inferred_only,
-arenaskolor.se,MySQL,Databases,,100,inferred,inferred_only,
+arenaskolor.se,PHP,Programming languages,,100,inferred,core,
+arenaskolor.se,MySQL,Databases,,100,inferred,core,
 boken.ch,Apache HTTP Server,Web servers,,100,observed,core,headers
 boken.ch,FitVids.JS,Widgets; Video players,1.0,100,observed,core,scriptSrc
 boken.ch,Font Awesome,Font scripts,,100,observed,core,dom
@@ -1002,9 +967,10 @@ boken.ch,WordPress,CMS; Blogs,6.2.16,100,observed,core,dom; headers; html; meta;
 boken.ch,Yoast SEO,SEO; WordPress plugins,20.7,100,observed,core,dom; html
 boken.ch,jQuery,JavaScript libraries,3.6.4,100,observed,core,js; scriptSrc
 boken.ch,jQuery Migrate,JavaScript libraries,3.4.0,100,observed,core,js; scriptSrc
-boken.ch,PHP,Programming languages,,100,inferred,inferred_only,
-boken.ch,MySQL,Databases,,100,inferred,inferred_only,
+boken.ch,PHP,Programming languages,,100,inferred,core,
+boken.ch,MySQL,Databases,,100,inferred,core,
 restwellstreetmedicalcentre.com.au,Bootstrap,UI frameworks,3.3.7,100,observed,core,html; js; scriptSrc
+restwellstreetmedicalcentre.com.au,BootstrapCDN,CDN,,100,observed,core,dom
 restwellstreetmedicalcentre.com.au,Font Awesome,Font scripts,4.4.0,100,observed,core,dom
 restwellstreetmedicalcentre.com.au,Google Analytics,Analytics,GA4,100,observed,core,cookies; js; scriptSrc
 restwellstreetmedicalcentre.com.au,Google Font API,Font scripts,,100,observed,core,dom
@@ -1021,7 +987,7 @@ den-a-sha.co.jp,DreamWeaver,Editors,,100,observed,core,js
 den-a-sha.co.jp,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
 den-a-sha.co.jp,Xserver,Hosting,,100,observed,dns_only,dns
 365outsource.com,Adobe Fonts,Font scripts,,100,observed,core,dom; html
-365outsource.com,Astra,WordPress themes,4.14.3,100,observed,themes,dom; scriptSrc
+365outsource.com,Astra,WordPress themes,4.14.3,100,observed,core,dom; scriptSrc
 365outsource.com,Cloudflare,CDN,,100,observed,core,dns; headers
 365outsource.com,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
 365outsource.com,Cloudflare Turnstile,Security,,100,observed,core,js
@@ -1051,7 +1017,7 @@ den-a-sha.co.jp,Xserver,Hosting,,100,observed,dns_only,dns
 365outsource.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 365outsource.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 365outsource.com,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-365outsource.com,MySQL,Databases,,100,inferred,inferred_only,
+365outsource.com,MySQL,Databases,,100,inferred,core,
 aida-cruises.at,Cisco,Network devices,,100,declared,dns_only,dns
 aida-cruises.at,DigiCert,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 aida-cruises.at,Microsoft 365,Webmail; Email,,100,observed,dns_only,dns
@@ -1061,7 +1027,7 @@ lets.gr,MUI,UI frameworks,,100,observed,core,dom
 lets.gr,Material UI,UI frameworks,,100,observed,core,dom
 lets.gr,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
 lets.gr,React Router,JavaScript frameworks,7.9.1,100,observed,core,js
-lets.gr,React,JavaScript frameworks,,100,inferred,inferred_only,
+lets.gr,React,JavaScript frameworks,,100,inferred,core,
 skywayrestaurants.net,Google Font API,Font scripts,,100,observed,core,dom
 skywayrestaurants.net,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 skywayrestaurants.net,Nginx,Web servers; Reverse proxies,1.31.8,100,observed,core,headers
@@ -1075,7 +1041,7 @@ skywayrestaurants.net,Nginx,Web servers; Reverse proxies,1.31.8,100,observed,cor
 2020wealthadvisory.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 2020wealthadvisory.com,HSTS,Security,,100,observed,core,headers
 2020wealthadvisory.com,HTTP/3,Miscellaneous,,100,observed,core,headers
-2020wealthadvisory.com,Hello Elementor,WordPress themes,2.6.1,100,observed,themes,dom
+2020wealthadvisory.com,Hello Elementor,WordPress themes,2.6.1,100,observed,core,dom
 2020wealthadvisory.com,Microsoft 365,Webmail; Email,,100,declared,dns_only,dns
 2020wealthadvisory.com,Open Graph,Miscellaneous,,100,observed,core,dom
 2020wealthadvisory.com,Priority Hints,Performance,,100,observed,core,dom
@@ -1090,9 +1056,10 @@ skywayrestaurants.net,Nginx,Web servers; Reverse proxies,1.31.8,100,observed,cor
 2020wealthadvisory.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 2020wealthadvisory.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 2020wealthadvisory.com,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-2020wealthadvisory.com,PHP,Programming languages,,100,inferred,inferred_only,
-2020wealthadvisory.com,MySQL,Databases,,100,inferred,inferred_only,
+2020wealthadvisory.com,PHP,Programming languages,,100,inferred,core,
+2020wealthadvisory.com,MySQL,Databases,,100,inferred,core,
 hnafirm.com,Bootstrap,UI frameworks,2,100,observed,core,dom; html; js; scriptSrc
+hnafirm.com,BootstrapCDN,CDN,,100,observed,core,dom
 hnafirm.com,Font Awesome,Font scripts,4.7.0,100,observed,core,dom; js; scriptSrc
 hnafirm.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 hnafirm.com,Google Font API,Font scripts,,100,observed,core,dom
@@ -1107,7 +1074,7 @@ hnafirm.com,cdnjs,CDN,,100,observed,core,dom; scriptSrc
 hnafirm.com,jQuery,JavaScript libraries,3.6.0,100,observed,core,js; scriptSrc
 hnafirm.com,jsDelivr,CDN,,100,observed,core,dom; scriptSrc
 hnafirm.com,styled-components,JavaScript frameworks; Development,6.5.3,100,observed,core,dom
-hnafirm.com,React,JavaScript frameworks,,100,inferred,inferred_only,
+hnafirm.com,React,JavaScript frameworks,,100,inferred,core,
 itsolutions24.pl,Apache HTTP Server,Web servers,,100,observed,core,headers
 itsolutions24.pl,HTTP/3,Miscellaneous,,100,observed,core,headers
 itsolutions24.pl,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
@@ -1119,8 +1086,8 @@ itsolutions24.pl,WordPress Block Editor,Page builders,,100,observed,core,html
 itsolutions24.pl,WordPress Site Editor,Page builders,,100,observed,core,html
 itsolutions24.pl,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 itsolutions24.pl,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-itsolutions24.pl,PHP,Programming languages,,100,inferred,inferred_only,
-itsolutions24.pl,MySQL,Databases,,100,inferred,inferred_only,
+itsolutions24.pl,PHP,Programming languages,,100,inferred,core,
+itsolutions24.pl,MySQL,Databases,,100,inferred,core,
 aaice.net,All in One SEO,SEO; WordPress plugins,5.0.5.1,100,observed,core,html; meta
 aaice.net,All in One SEO Pack,SEO; WordPress plugins,5.0.5.1,100,observed,core,dom; meta
 aaice.net,Anthropic,Artificial Intelligence,,100,declared,dns_only,dns
@@ -1149,9 +1116,9 @@ aaice.net,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; meta;
 aaice.net,core-js,JavaScript libraries,3.0.1,100,observed,core,js
 aaice.net,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 aaice.net,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-aaice.net,HubSpot Analytics,Analytics,,100,inferred,inferred_only,
-aaice.net,PHP,Programming languages,,100,inferred,inferred_only,
-aaice.net,MySQL,Databases,,100,inferred,inferred_only,
+aaice.net,HubSpot Analytics,Analytics,,100,inferred,core,
+aaice.net,PHP,Programming languages,,100,inferred,core,
+aaice.net,MySQL,Databases,,100,inferred,core,
 ecolab.com,Microsoft 365,Webmail; Email,,100,observed,dns_only,dns
 mehmetefendimacedonia.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 mehmetefendimacedonia.com,Cufon,Font scripts,,100,observed,core,js; scriptSrc
@@ -1208,13 +1175,14 @@ cei-expertises.fr,WordPress,CMS; Blogs,6.8.12,100,observed,core,dom; headers; ht
 cei-expertises.fr,Yoast SEO,SEO; WordPress plugins,28.2,100,observed,core,dom; html
 cei-expertises.fr,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 cei-expertises.fr,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-cei-expertises.fr,MySQL,Databases,,100,inferred,inferred_only,
+cei-expertises.fr,MySQL,Databases,,100,inferred,core,
 seringa-safaris.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 seringa-safaris.com,Cloudflare,CDN,,100,observed,core,headers
 seringa-safaris.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
 seringa-safaris.com,Google Analytics,Analytics,GA4,100,observed,core,cookies; js; scriptSrc
 seringa-safaris.com,Google Maps,Maps,,100,observed,core,dom
 seringa-safaris.com,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
+seringa-safaris.com,Hostgator,Hosting,,100,observed,dns_only,dns
 seringa-safaris.com,Open Graph,Miscellaneous,,100,observed,core,dom
 1planettechnologies.weebly.com,Adobe Fonts,Font scripts,1.21.0,100,observed,core,js
 1planettechnologies.weebly.com,Amazon S3,CDN,,100,observed,platform_infra,headers
@@ -1226,7 +1194,6 @@ seringa-safaris.com,Open Graph,Miscellaneous,,100,observed,core,dom
 1planettechnologies.weebly.com,Google Hosted Libraries,CDN,,100,observed,platform_infra,scriptSrc
 1planettechnologies.weebly.com,Hammer.js,JavaScript libraries,2.0.4,100,observed,core,js
 1planettechnologies.weebly.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,platform_infra,certIssuer
-1planettechnologies.weebly.com,Lodash,JavaScript libraries,1.8.3,0,observed,core,js
 1planettechnologies.weebly.com,MediaElement.js,Video players,2.9.5,100,observed,core,js
 1planettechnologies.weebly.com,Mustache,JavaScript frameworks,2.1.3,100,observed,core,js
 1planettechnologies.weebly.com,Open Graph,Miscellaneous,,100,observed,core,dom
@@ -1236,14 +1203,14 @@ seringa-safaris.com,Open Graph,Miscellaneous,,100,observed,core,dom
 1planettechnologies.weebly.com,Weebly,CMS,,100,observed,core,js; scriptSrc
 1planettechnologies.weebly.com,core-js,JavaScript libraries,2.6.12,100,observed,core,js
 1planettechnologies.weebly.com,jQuery,JavaScript libraries,1.8.3,100,observed,core,js; scriptSrc
-1planettechnologies.weebly.com,PHP,Programming languages,,100,inferred,inferred_only,
-1planettechnologies.weebly.com,MySQL,Databases,,100,inferred,inferred_only,
+1planettechnologies.weebly.com,PHP,Programming languages,,100,inferred,platform_infra,
+1planettechnologies.weebly.com,MySQL,Databases,,100,inferred,platform_infra,
 soziale-dreigliederung.de,Font Awesome,Font scripts,,100,observed,core,dom
 soziale-dreigliederung.de,Htmx,JavaScript libraries,,100,observed,core,js
 soziale-dreigliederung.de,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 soziale-dreigliederung.de,OpenResty,Web servers,1.25.3.2,100,observed,core,headers
 soziale-dreigliederung.de,Taboola,Advertising,,100,observed,core,js; scriptSrc; xhr
-soziale-dreigliederung.de,Nginx,Web servers; Reverse proxies,,100,inferred,inferred_only,
+soziale-dreigliederung.de,Nginx,Web servers; Reverse proxies,,100,inferred,core,
 premierhomeremodeling.net,GoDaddy,Hosting,,100,observed,dns_only,dns
 premierhomeremodeling.net,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 premierhomeremodeling.net,Lodash,JavaScript libraries,4.17.21,100,observed,core,js
@@ -1251,8 +1218,8 @@ premierhomeremodeling.net,Next.js,JavaScript frameworks; Web frameworks; Web ser
 premierhomeremodeling.net,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
 premierhomeremodeling.net,Open Graph,Miscellaneous,,100,observed,core,dom
 premierhomeremodeling.net,Sentry,Issue trackers,,100,observed,core,js
-premierhomeremodeling.net,React,JavaScript frameworks,,100,inferred,inferred_only,
-premierhomeremodeling.net,Webpack,Miscellaneous,,100,inferred,inferred_only,
+premierhomeremodeling.net,React,JavaScript frameworks,,100,inferred,core,
+premierhomeremodeling.net,Webpack,Miscellaneous,,100,inferred,core,
 bas-ingenieria.cl,AOS,JavaScript libraries,,100,observed,core,dom; js
 bas-ingenieria.cl,Bootstrap,UI frameworks,,100,observed,core,html; js; scriptSrc
 bas-ingenieria.cl,Bootstrap Icons,Font scripts,,100,observed,core,dom
@@ -1317,8 +1284,8 @@ handycars.com,WordPress,CMS; Blogs,,100,observed,core,dom; html; scriptSrc
 handycars.com,jQuery,JavaScript libraries,3.3.1; 3.6.0,100,observed,core,js; scriptSrc
 handycars.com,jQuery UI,JavaScript libraries,1.13.1,100,observed,core,js
 handycars.com,jsDelivr,CDN,,100,observed,core,dom; scriptSrc
-handycars.com,PHP,Programming languages,,100,inferred,inferred_only,
-handycars.com,MySQL,Databases,,100,inferred,inferred_only,
+handycars.com,PHP,Programming languages,,100,inferred,core,
+handycars.com,MySQL,Databases,,100,inferred,core,
 antikebau.de,DigiCert,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 3strandschurch.org,Cloudflare,CDN,,100,observed,core,headers
 3strandschurch.org,Cloudflare Bot Management,Security,,100,observed,core,cookies
@@ -1340,9 +1307,9 @@ antikebau.de,DigiCert,SSL/TLS certificate authorities,,100,observed,core,certIss
 3strandschurch.org,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 3strandschurch.org,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 3strandschurch.org,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-3strandschurch.org,TypeScript,Programming languages,,100,inferred,inferred_only,
-3strandschurch.org,PHP,Programming languages,,100,inferred,inferred_only,
-3strandschurch.org,MySQL,Databases,,100,inferred,inferred_only,
+3strandschurch.org,TypeScript,Programming languages,,100,inferred,core,
+3strandschurch.org,PHP,Programming languages,,100,inferred,core,
+3strandschurch.org,MySQL,Databases,,100,inferred,core,
 alabamabuildingcontractor.com,Cloudflare,CDN,,100,observed,core,dns; headers
 alabamabuildingcontractor.com,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
 alabamabuildingcontractor.com,Divi,Page builders; WordPress themes; WordPress plugins,4.22.2,100,observed,core,js; meta
@@ -1356,7 +1323,7 @@ alabamabuildingcontractor.com,RSS,Miscellaneous,,100,observed,core,dom
 alabamabuildingcontractor.com,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; meta; scriptSrc
 alabamabuildingcontractor.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 alabamabuildingcontractor.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-alabamabuildingcontractor.com,MySQL,Databases,,100,inferred,inferred_only,
+alabamabuildingcontractor.com,MySQL,Databases,,100,inferred,core,
 resourceservicesolutions.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 resourceservicesolutions.com,DreamWeaver,Editors,,100,observed,core,js
 resourceservicesolutions.com,FancyBox,JavaScript libraries,3.5.7,100,observed,core,js; scriptSrc
@@ -1388,8 +1355,8 @@ skywardspeech.com.au,Yoast SEO,SEO; WordPress plugins,22.1,100,observed,core,dom
 skywardspeech.com.au,imagesLoaded,JavaScript libraries,,100,observed,core,scriptSrc
 skywardspeech.com.au,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 skywardspeech.com.au,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-skywardspeech.com.au,PHP,Programming languages,,100,inferred,inferred_only,
-skywardspeech.com.au,MySQL,Databases,,100,inferred,inferred_only,
+skywardspeech.com.au,PHP,Programming languages,,100,inferred,core,
+skywardspeech.com.au,MySQL,Databases,,100,inferred,core,
 sevecoitalia.com,Aruba.it,Hosting; PaaS,,100,observed,dns_only,dns
 sevecoitalia.com,Font Awesome,Font scripts,,100,observed,core,js; scriptSrc
 sevecoitalia.com,Google Font API,Font scripts,,100,observed,core,dom
@@ -1400,19 +1367,14 @@ sevecoitalia.com,Microsoft ASP.NET,Web frameworks,4.0.30319,100,observed,core,do
 sevecoitalia.com,PWA,Miscellaneous,,100,observed,core,dom
 sevecoitalia.com,jQuery,JavaScript libraries,2.1.1,100,observed,core,js; scriptSrc
 sevecoitalia.com,jQuery UI,JavaScript libraries,1.13.3,100,observed,core,js; scriptSrc
-sevecoitalia.com,Windows Server,Operating systems,,100,inferred,inferred_only,
+sevecoitalia.com,Windows Server,Operating systems,,100,inferred,core,
 nielsbirk.dk,Font Awesome,Font scripts,,100,observed,core,dom
 nielsbirk.dk,HTTP/3,Miscellaneous,,100,observed,core,headers
 nielsbirk.dk,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 nielsbirk.dk,LiteSpeed,Web servers,,100,observed,core,headers
-branson-connection.com,Cloudflare,CDN,,100,observed,core,headers
-branson-connection.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
-branson-connection.com,OpenResty,Web servers,,100,observed,core,headers
-branson-connection.com,Nginx,Web servers; Reverse proxies,,100,inferred,inferred_only,
 phucankhanggroup.com,AOS,JavaScript libraries,,100,observed,core,js
 phucankhanggroup.com,Animate.css,UI frameworks,,100,observed,core,dom
 phucankhanggroup.com,DigiCert,SSL/TLS certificate authorities,,100,observed,core,certIssuer
-phucankhanggroup.com,Facebook Login,Authentication,,100,observed,core,js
 phucankhanggroup.com,FancyBox,JavaScript libraries,3.5.7,100,observed,core,js; scriptSrc
 phucankhanggroup.com,Flickity,JavaScript libraries,,100,observed,core,js
 phucankhanggroup.com,Font Awesome,Font scripts,6.0.0,100,observed,core,dom
@@ -1428,7 +1390,7 @@ phucankhanggroup.com,Open Graph,Miscellaneous,,100,observed,core,dom
 phucankhanggroup.com,Swiper,JavaScript libraries,,100,observed,core,dom; js; scriptSrc
 phucankhanggroup.com,jQuery,JavaScript libraries,1.8.1,100,observed,core,js; scriptSrc
 phucankhanggroup.com,jsDelivr,CDN,,100,observed,core,dom; scriptSrc
-phucankhanggroup.com,Windows Server,Operating systems,,100,inferred,inferred_only,
+phucankhanggroup.com,Windows Server,Operating systems,,100,inferred,core,
 roccofortehotels.cn,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 everhartsoutdoor.com,Cloudflare,CDN,,100,observed,dns_only,dns
 everhartsoutdoor.com,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
@@ -1440,6 +1402,7 @@ europeaninns.com,PHP,Programming languages,,100,observed,core,url
 massageforworldpeace.com,Apache HTTP Server,Web servers,,100,observed,platform_infra,headers
 massageforworldpeace.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 massageforworldpeace.com,Hammer.js,JavaScript libraries,,100,observed,core,js
+massageforworldpeace.com,IONOS,Hosting,,100,observed,dns_only,dns
 massageforworldpeace.com,Modernizr,JavaScript libraries,2.8.3,100,observed,core,js
 massageforworldpeace.com,MyWebsite,Page builders,8,100,declared,core,meta
 massageforworldpeace.com,Open Graph,Miscellaneous,,100,observed,core,dom
@@ -1461,7 +1424,7 @@ cultivateventures.co.nz,Typekit,Font scripts,1.21.0,100,observed,core,html; js
 cultivateventures.co.nz,YUI,JavaScript libraries,3.17.2,100,observed,core,js
 cultivateventures.co.nz,core-js,JavaScript libraries,3.26.0; 2.6.12,100,observed,core,js
 amaronbattery.in,LiteSpeed,Web servers,,100,observed,core,headers
-amaronbattery.in,PHP,Programming languages,7.2.34,100,observed,core,headers
+amaronbattery.in,PHP,Programming languages,7.2.34,100,observed,core,dom; headers
 amaronbattery.in,jQuery,JavaScript libraries,1.2.6,100,observed,core,js; scriptSrc
 radxmobile.com,Amazon S3,CDN,,100,observed,platform_infra,headers
 radxmobile.com,Amazon Web Services,PaaS,,100,observed,platform_infra,headers
@@ -1496,7 +1459,6 @@ radxmobile.com,Wix eCommerce,Ecommerce,,100,observed,core,dom
 3bsexcavating.com,Cloudflare,CDN,,100,observed,core,headers
 3bsexcavating.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
 3bsexcavating.com,Divi,Page builders; WordPress themes; WordPress plugins,4.17.6,100,observed,core,dom; js; meta
-3bsexcavating.com,DoubleClick Floodlight,Advertising,,100,observed,core,scriptSrc
 3bsexcavating.com,FitVids.JS,Widgets; Video players,4.17.6,100,observed,core,scriptSrc
 3bsexcavating.com,Font Awesome,Font scripts,,100,observed,core,dom; js; scriptSrc
 3bsexcavating.com,Google Analytics,Analytics,GA4,100,observed,core,cookies; js; scriptSrc
@@ -1519,16 +1481,8 @@ radxmobile.com,Wix eCommerce,Ecommerce,,100,observed,core,dom
 3bsexcavating.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 3bsexcavating.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 3bsexcavating.com,jQuery Mobile,Mobile frameworks,4.17.6,100,observed,core,scriptSrc
-3bsexcavating.com,PHP,Programming languages,,100,inferred,inferred_only,
-3bsexcavating.com,MySQL,Databases,,100,inferred,inferred_only,
-weissbauchpapageien.de,Caddy,Web servers,,100,observed,core,headers
-weissbauchpapageien.de,Cloudflare,CDN,,100,observed,core,headers
-weissbauchpapageien.de,Google Font API,Font scripts,,100,observed,core,dom
-weissbauchpapageien.de,HTTP/3,Miscellaneous,,100,observed,core,headers
-weissbauchpapageien.de,Nginx,Web servers; Reverse proxies,1.28.3,100,observed,core,headers
-weissbauchpapageien.de,PHP,Programming languages,,100,observed,core,url
-weissbauchpapageien.de,Ubuntu,Operating systems,,100,observed,core,headers
-weissbauchpapageien.de,Go,Programming languages,,100,inferred,inferred_only,
+3bsexcavating.com,PHP,Programming languages,,100,inferred,core,
+3bsexcavating.com,MySQL,Databases,,100,inferred,core,
 959marine.com,Amazon S3,CDN,,100,observed,platform_infra,headers
 959marine.com,Amazon Web Services,PaaS,,100,observed,platform_infra,headers
 959marine.com,Babel,Miscellaneous,,100,observed,core,js
@@ -1538,7 +1492,6 @@ weissbauchpapageien.de,Go,Programming languages,,100,inferred,inferred_only,
 959marine.com,Google Maps,Maps,,100,observed,core,dom
 959marine.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 959marine.com,Hammer.js,JavaScript libraries,2.0.4,100,observed,core,js
-959marine.com,Lodash,JavaScript libraries,1.8.3,0,observed,core,js
 959marine.com,MediaElement.js,Video players,2.9.5,100,observed,core,js
 959marine.com,Mustache,JavaScript frameworks,2.1.3,100,observed,core,js
 959marine.com,Open Graph,Miscellaneous,,100,observed,core,dom
@@ -1548,8 +1501,8 @@ weissbauchpapageien.de,Go,Programming languages,,100,inferred,inferred_only,
 959marine.com,core-js,JavaScript libraries,2.6.12,100,observed,core,js
 959marine.com,jQuery,JavaScript libraries,1.8.3,100,observed,core,js; scriptSrc
 959marine.com,reCAPTCHA,Security,,100,observed,core,js
-959marine.com,PHP,Programming languages,,100,inferred,inferred_only,
-959marine.com,MySQL,Databases,,100,inferred,inferred_only,
+959marine.com,PHP,Programming languages,,100,inferred,platform_infra,
+959marine.com,MySQL,Databases,,100,inferred,platform_infra,
 hansis-knusperhendl-foodtruck.eatbu.com,Adobe Analytics,Analytics,,100,observed,platform_infra,js
 hansis-knusperhendl-foodtruck.eatbu.com,Adobe Client Data Layer,JavaScript frameworks,2.0.2,100,observed,platform_infra,js
 hansis-knusperhendl-foodtruck.eatbu.com,Adobe Experience Platform Identity Service,Customer data platform,,100,observed,platform_infra,js
@@ -1563,7 +1516,7 @@ hansis-knusperhendl-foodtruck.eatbu.com,LazySizes,JavaScript libraries; Performa
 hansis-knusperhendl-foodtruck.eatbu.com,Open Graph,Miscellaneous,,100,observed,core,dom
 hansis-knusperhendl-foodtruck.eatbu.com,Swiper,JavaScript libraries,,100,observed,core,dom
 hansis-knusperhendl-foodtruck.eatbu.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js
-hansis-knusperhendl-foodtruck.eatbu.com,Google Cloud,IaaS,,100,inferred,inferred_only,
+hansis-knusperhendl-foodtruck.eatbu.com,Google Cloud,IaaS,,100,inferred,platform_infra,
 broganlmt.com,Amazon S3,CDN,,100,observed,platform_infra,headers
 broganlmt.com,Amazon Web Services,PaaS,,100,observed,platform_infra,headers
 broganlmt.com,Cart Functionality,Ecommerce,,100,observed,core,dom
@@ -1587,7 +1540,7 @@ juanmunozhomesmart.com,Amazon Route 53,Hosting,,100,observed,dns_only,dns
 juanmunozhomesmart.com,Amazon Web Services,PaaS,,100,observed,dns_only,dns
 juanmunozhomesmart.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 buchhaltungsservice-koenig.de,Apache HTTP Server,Web servers,2.4.71,100,observed,core,headers
-buchhaltungsservice-koenig.de,Catch Themes Catch Box,WordPress themes,,100,observed,themes,dom; scriptSrc
+buchhaltungsservice-koenig.de,Catch Themes Catch Box,WordPress themes,,100,observed,core,dom; scriptSrc
 buchhaltungsservice-koenig.de,Microsoft 365,Webmail; Email,,100,observed,dns_only,dns
 buchhaltungsservice-koenig.de,PHP,Programming languages,8.4.28,100,observed,core,headers
 buchhaltungsservice-koenig.de,Priority Hints,Performance,,100,observed,core,dom
@@ -1600,7 +1553,7 @@ buchhaltungsservice-koenig.de,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; 
 buchhaltungsservice-koenig.de,WordPress Block Editor,Page builders,,100,observed,core,html
 buchhaltungsservice-koenig.de,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 buchhaltungsservice-koenig.de,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-buchhaltungsservice-koenig.de,MySQL,Databases,,100,inferred,inferred_only,
+buchhaltungsservice-koenig.de,MySQL,Databases,,100,inferred,core,
 solvos.nl,Astro,Static site generator; JavaScript frameworks,,100,observed,core,dom
 solvos.nl,Cloudflare,CDN,,100,observed,core,dns; headers
 solvos.nl,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
@@ -1611,7 +1564,6 @@ solvos.nl,Open Graph,Miscellaneous,,100,observed,core,dom
 261welfarefund.com,Cloudflare,CDN,,100,observed,core,dns; headers
 261welfarefund.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
 261welfarefund.com,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
-261welfarefund.com,Facebook Login,Authentication,,100,observed,core,js
 261welfarefund.com,Google Font API,Font scripts,,100,observed,core,dom
 261welfarefund.com,HTTP/3,Miscellaneous,,100,observed,core,headers
 261welfarefund.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
@@ -1622,8 +1574,8 @@ solvos.nl,Open Graph,Miscellaneous,,100,observed,core,dom
 261welfarefund.com,WordPress,CMS; Blogs,,100,observed,core,dom; headers; html; scriptSrc
 261welfarefund.com,jQuery,JavaScript libraries,,100,observed,core,scriptSrc
 261welfarefund.com,prettyPhoto,JavaScript libraries,,100,observed,core,dom; html; scriptSrc
-261welfarefund.com,PHP,Programming languages,,100,inferred,inferred_only,
-261welfarefund.com,MySQL,Databases,,100,inferred,inferred_only,
+261welfarefund.com,PHP,Programming languages,,100,inferred,core,
+261welfarefund.com,MySQL,Databases,,100,inferred,core,
 costa-coffee.be,Akamai,CDN,,100,observed,core,headers
 costa-coffee.be,Akamai mPulse,RUM,,100,observed,core,html
 costa-coffee.be,Google Tag Manager,Tag managers,,100,observed,core,html; scriptSrc
@@ -1636,13 +1588,14 @@ costa-coffee.be,PWA,Miscellaneous,,100,observed,core,dom
 costa-coffee.be,Priority Hints,Performance,,100,observed,core,dom
 costa-coffee.be,Sanity,CMS,,100,observed,core,dom
 costa-coffee.be,Sanity.io,CMS,,100,observed,core,dom
-costa-coffee.be,Boomerang,JavaScript libraries; RUM,,100,inferred,inferred_only,
+costa-coffee.be,Boomerang,JavaScript libraries; RUM,,100,inferred,core,
 startravelcompany.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 startravelcompany.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 disinfestazioniepiscine.it,Contact Form 7,WordPress plugins; Form builders,6.1.5,100,observed,core,dom; js; scriptSrc
 disinfestazioniepiscine.it,Engintron,Web server extensions,,100,observed,core,headers
 disinfestazioniepiscine.it,Facebook Pixel,Analytics,2.9.441,100,observed,core,dom; js; scriptSrc
 disinfestazioniepiscine.it,Font Awesome,Font scripts,,100,observed,core,dom
+disinfestazioniepiscine.it,Google Ads Conversion Tracking,Analytics,,100,observed,core,scriptSrc
 disinfestazioniepiscine.it,Google Analytics,Analytics,,100,observed,core,js; scriptSrc
 disinfestazioniepiscine.it,Google Tag Manager,Tag managers,,100,observed,core,html; js; scriptSrc
 disinfestazioniepiscine.it,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
@@ -1660,8 +1613,9 @@ disinfestazioniepiscine.it,iubenda,Cookie compliance,,100,observed,core,js; scri
 disinfestazioniepiscine.it,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 disinfestazioniepiscine.it,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
 disinfestazioniepiscine.it,wpBakery,Page builders; WordPress plugins,,100,declared,core,meta
-disinfestazioniepiscine.it,PHP,Programming languages,,100,inferred,inferred_only,
-disinfestazioniepiscine.it,MySQL,Databases,,100,inferred,inferred_only,
+disinfestazioniepiscine.it,Google Ads,Advertising,,100,inferred,core,
+disinfestazioniepiscine.it,PHP,Programming languages,,100,inferred,core,
+disinfestazioniepiscine.it,MySQL,Databases,,100,inferred,core,
 lscms.org,Apache HTTP Server,Web servers,,100,observed,core,headers
 lscms.org,Bootstrap,UI frameworks,,100,observed,core,html; js; scriptSrc
 lscms.org,Contact Form 7,WordPress plugins; Form builders,6.2.5,100,observed,core,dom; js; scriptSrc
@@ -1681,8 +1635,8 @@ lscms.org,imagesLoaded,JavaScript libraries,5.0.0,100,observed,core,scriptSrc
 lscms.org,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 lscms.org,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 lscms.org,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-lscms.org,PHP,Programming languages,,100,inferred,inferred_only,
-lscms.org,MySQL,Databases,,100,inferred,inferred_only,
+lscms.org,PHP,Programming languages,,100,inferred,core,
+lscms.org,MySQL,Databases,,100,inferred,core,
 3dwealthadvisory.com,Cloudflare,CDN,,100,observed,core,headers
 3dwealthadvisory.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
 3dwealthadvisory.com,Divi,Page builders; WordPress themes; WordPress plugins,4.27.9,100,observed,core,js; meta
@@ -1699,8 +1653,8 @@ lscms.org,MySQL,Databases,,100,inferred,inferred_only,
 3dwealthadvisory.com,anime.js,JavaScript graphics,3.2.1,100,observed,core,js
 3dwealthadvisory.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 3dwealthadvisory.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-3dwealthadvisory.com,PHP,Programming languages,,100,inferred,inferred_only,
-3dwealthadvisory.com,MySQL,Databases,,100,inferred,inferred_only,
+3dwealthadvisory.com,PHP,Programming languages,,100,inferred,core,
+3dwealthadvisory.com,MySQL,Databases,,100,inferred,core,
 jackwills.com,Akamai,CDN,,100,observed,core,headers
 jackwills.com,Akamai Bot Manager,Security,,100,observed,core,cookies
 jackwills.com,Amplience,CMS,,100,observed,core,dom
@@ -1752,8 +1706,8 @@ insieme.stanford.edu,Siteimprove,Analytics,,100,observed,core,js; scriptSrc
 insieme.stanford.edu,cdnjs,CDN,,100,observed,core,dom
 insieme.stanford.edu,core-js,JavaScript libraries,2.6.12,100,observed,core,js
 insieme.stanford.edu,jQuery,JavaScript libraries,4.0.0,100,observed,core,js; scriptSrc
-insieme.stanford.edu,Amazon Web Services,PaaS,,100,inferred,inferred_only,
-insieme.stanford.edu,PHP,Programming languages,,100,inferred,inferred_only,
+insieme.stanford.edu,Amazon Web Services,PaaS,,100,inferred,core,
+insieme.stanford.edu,PHP,Programming languages,,100,inferred,core,
 layer7innovations.ca,Bootstrap,UI frameworks,,100,observed,core,html; js; scriptSrc
 layer7innovations.ca,Cloudflare,CDN,,100,observed,core,dns; headers
 layer7innovations.ca,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
@@ -1784,7 +1738,7 @@ ejc-courtage-assurances.fr,Google Font API,Font scripts,,100,observed,core,dom
 ejc-courtage-assurances.fr,Isotope,JavaScript libraries,,100,observed,core,js
 ejc-courtage-assurances.fr,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 ejc-courtage-assurances.fr,Masonry,JavaScript libraries,,100,observed,core,js
-ejc-courtage-assurances.fr,PHP,Programming languages,8.1,100,observed,core,headers
+ejc-courtage-assurances.fr,PHP,Programming languages,8.1,100,observed,core,dom; headers
 ejc-courtage-assurances.fr,PWA,Miscellaneous,,100,observed,core,dom
 ejc-courtage-assurances.fr,Retina.js,JavaScript libraries,,100,observed,core,js
 ejc-courtage-assurances.fr,Skrollr,JavaScript libraries,0.6.30,100,observed,core,js
@@ -1796,7 +1750,7 @@ ferrateoxidant.com,Elementor,Page builders; WordPress plugins,3.22.3,100,observe
 ferrateoxidant.com,Font Awesome,Font scripts,,100,observed,core,dom
 ferrateoxidant.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 ferrateoxidant.com,Google Font API,Font scripts,,100,observed,core,dom
-ferrateoxidant.com,Hello Elementor,WordPress themes,3.0.0,100,observed,themes,dom
+ferrateoxidant.com,Hello Elementor,WordPress themes,3.0.0,100,observed,core,dom
 ferrateoxidant.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 ferrateoxidant.com,Priority Hints,Performance,,100,observed,core,dom
 ferrateoxidant.com,RSS,Miscellaneous,,100,observed,core,dom
@@ -1806,8 +1760,8 @@ ferrateoxidant.com,core-js,JavaScript libraries,3.32.0,100,observed,core,js
 ferrateoxidant.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 ferrateoxidant.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 ferrateoxidant.com,jQuery UI,JavaScript libraries,1.13.2,100,observed,core,js
-ferrateoxidant.com,PHP,Programming languages,,100,inferred,inferred_only,
-ferrateoxidant.com,MySQL,Databases,,100,inferred,inferred_only,
+ferrateoxidant.com,PHP,Programming languages,,100,inferred,core,
+ferrateoxidant.com,MySQL,Databases,,100,inferred,core,
 oakwell.vet,Beaver Builder,WordPress plugins,,100,observed,core,dom
 oakwell.vet,Facebook Pixel,Analytics,2.9.441,100,observed,core,dom; js; scriptSrc
 oakwell.vet,Font Awesome,Font scripts,,100,observed,core,dom
@@ -1830,8 +1784,8 @@ oakwell.vet,core-js,JavaScript libraries,3.32.2; 2.6.11,100,observed,core,js
 oakwell.vet,imagesLoaded,JavaScript libraries,2.11.1,100,observed,core,scriptSrc
 oakwell.vet,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 oakwell.vet,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-oakwell.vet,PHP,Programming languages,,100,inferred,inferred_only,
-oakwell.vet,MySQL,Databases,,100,inferred,inferred_only,
+oakwell.vet,PHP,Programming languages,,100,inferred,core,
+oakwell.vet,MySQL,Databases,,100,inferred,core,
 mysterion.hr,Bootstrap,UI frameworks,3.3.5,100,observed,core,html; js; scriptSrc
 mysterion.hr,Cloudflare,CDN,,100,observed,core,dns; headers
 mysterion.hr,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
@@ -1861,10 +1815,9 @@ mysterion.hr,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 mysterion.hr,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 mysterion.hr,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
 mysterion.hr,wpBakery,Page builders; WordPress plugins,,100,declared,core,meta
-mysterion.hr,Cookie Information,Cookie compliance,,100,inferred,inferred_only,
-mysterion.hr,MailChimp,Marketing automation; Email,,100,inferred,inferred_only,
-mysterion.hr,PHP,Programming languages,,100,inferred,inferred_only,
-mysterion.hr,MySQL,Databases,,100,inferred,inferred_only,
+mysterion.hr,MailChimp,Marketing automation; Email,,100,inferred,core,
+mysterion.hr,PHP,Programming languages,,100,inferred,core,
+mysterion.hr,MySQL,Databases,,100,inferred,core,
 howellmotors.com,Microsoft 365,Webmail; Email,,100,observed,dns_only,dns
 lorenz-baumarkt.de,ALL-INKL,Hosting,,100,observed,dns_only,dns
 lorenz-baumarkt.de,Apache HTTP Server,Web servers,,100,observed,core,headers
@@ -1878,23 +1831,10 @@ lorenz-baumarkt.de,Trusted Shops,Reviews,,100,observed,core,scriptSrc
 lorenz-baumarkt.de,jQuery,JavaScript libraries,3.6.0,100,observed,core,js
 lorenz-baumarkt.de,lit-element,JavaScript libraries,4.2.2,100,observed,core,js
 lorenz-baumarkt.de,lit-html,JavaScript libraries,3.3.3,100,observed,core,js
-lorenz-baumarkt.de,PHP,Programming languages,,100,inferred,inferred_only,
-lorenz-baumarkt.de,MySQL,Databases,,100,inferred,inferred_only,
-lorenz-baumarkt.de,Symfony,Web frameworks,,100,inferred,inferred_only,
+lorenz-baumarkt.de,PHP,Programming languages,,100,inferred,core,
+lorenz-baumarkt.de,MySQL,Databases,,100,inferred,core,
+lorenz-baumarkt.de,Symfony,Web frameworks,,100,inferred,core,
 eclairage-solaire-occitanie.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
-cmc01village.com,OpenResty,Web servers,,100,observed,core,headers
-cmc01village.com,core-js,JavaScript libraries,3.40.0,100,observed,core,js
-cmc01village.com,Nginx,Web servers; Reverse proxies,,100,inferred,inferred_only,
-maiquotes.net,Apache HTTP Server,Web servers,2.4.37,100,observed,core,headers
-maiquotes.net,Clipboard.js,JavaScript libraries,,100,observed,core,scriptSrc
-maiquotes.net,Cloudflare,CDN,,100,observed,dns_only,dns
-maiquotes.net,HSTS,Security,,100,observed,core,headers
-maiquotes.net,PHP,Programming languages,8.3.36,100,observed,core,headers; url
-maiquotes.net,Underscore.js,JavaScript libraries,1.13.8,100,observed,core,js; scriptSrc
-maiquotes.net,WordPress,CMS; Blogs,,100,observed,core,dom; headers; html; js; scriptSrc
-maiquotes.net,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
-maiquotes.net,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-maiquotes.net,MySQL,Databases,,100,inferred,inferred_only,
 cmresolutions.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 cmresolutions.com,Microsoft Word,Editors,10,100,declared,core,meta
 dorpsbelangen.nu,Apache HTTP Server,Web servers,,100,observed,core,headers
@@ -1911,14 +1851,13 @@ dorpsbelangen.nu,RSS,Miscellaneous,,100,observed,core,dom
 dorpsbelangen.nu,Really Simple SSL & Security,Security,,100,observed,core,dom
 dorpsbelangen.nu,Twitter Emoji (Twemoji),Font scripts,,100,observed,core,js
 dorpsbelangen.nu,Varnish,Caching,,100,observed,core,headers
-dorpsbelangen.nu,WEN Themes Signify Dark,WordPress themes,,100,observed,themes,js
 dorpsbelangen.nu,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; meta; scriptSrc
 dorpsbelangen.nu,WordPress Block Editor,Page builders,,100,observed,core,html
 dorpsbelangen.nu,core-js,JavaScript libraries,3.39.0,100,observed,core,js
 dorpsbelangen.nu,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 dorpsbelangen.nu,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 dorpsbelangen.nu,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-dorpsbelangen.nu,MySQL,Databases,,100,inferred,inferred_only,
+dorpsbelangen.nu,MySQL,Databases,,100,inferred,core,
 evelynanders.com,Apache HTTP Server,Web servers,2.4.71,100,observed,core,headers
 evelynanders.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 evelynanders.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
@@ -1946,6 +1885,7 @@ ideenhunger.com,Bitmovin,Video players,,100,observed,core,js
 ideenhunger.com,Cloudflare,CDN,,100,observed,platform_infra,headers
 ideenhunger.com,Etracker,Analytics; A/B Testing,,100,observed,core,js; scriptSrc
 ideenhunger.com,Facebook Pixel,Analytics,,100,observed,core,dom
+ideenhunger.com,Google Ads Conversion Tracking,Analytics,,100,observed,core,scriptSrc
 ideenhunger.com,Google Analytics,Analytics,,100,observed,core,scriptSrc
 ideenhunger.com,Google Tag Manager,Tag managers,,100,observed,core,html; js; scriptSrc
 ideenhunger.com,HSTS,Security,,100,observed,core,headers
@@ -1964,6 +1904,7 @@ ideenhunger.com,core-js,JavaScript libraries,3.25.5,100,observed,core,js
 ideenhunger.com,jQuery,JavaScript libraries,3.5.1,100,observed,core,js; scriptSrc
 ideenhunger.com,p5.js,JavaScript libraries,,100,observed,core,js; scriptSrc
 ideenhunger.com,wetter.com,Widgets,,100,observed,core,js
+ideenhunger.com,Google Ads,Advertising,,100,inferred,core,
 jenniferbacksteininteriors.com,Cart Functionality,Ecommerce,,100,observed,core,dom
 jenniferbacksteininteriors.com,HSTS,Security,,100,observed,core,headers
 jenniferbacksteininteriors.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,platform_infra,certIssuer
@@ -1980,7 +1921,7 @@ elcolegiocongresosyrestaurante.com,Font Awesome,Font scripts,,100,observed,core,
 elcolegiocongresosyrestaurante.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 elcolegiocongresosyrestaurante.com,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
 elcolegiocongresosyrestaurante.com,Xserver,Hosting,,100,observed,dns_only,dns
-elcolegiocongresosyrestaurante.com,Akamai,CDN,,100,inferred,inferred_only,
+elcolegiocongresosyrestaurante.com,Akamai,CDN,,100,inferred,core,
 northshoremacnut.com,Amazon S3,CDN,,100,observed,platform_infra,headers
 northshoremacnut.com,Amazon Web Services,PaaS,,100,observed,platform_infra,headers
 northshoremacnut.com,Cart Functionality,Ecommerce,,100,observed,core,dom
@@ -1988,6 +1929,7 @@ northshoremacnut.com,Cloudflare,CDN,,100,observed,platform_infra,headers
 northshoremacnut.com,Cloudflare Bot Management,Security,,100,observed,platform_infra,cookies
 northshoremacnut.com,Firebase,Databases; Development,,100,observed,platform_infra,xhr
 northshoremacnut.com,GSAP,JavaScript frameworks,,100,observed,core,js
+northshoremacnut.com,Google Ads Conversion Tracking,Analytics,,100,observed,core,scriptSrc
 northshoremacnut.com,Google Analytics,Analytics,,100,observed,core,js; scriptSrc
 northshoremacnut.com,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
 northshoremacnut.com,HSTS,Security,,100,observed,core,headers
@@ -2003,6 +1945,7 @@ northshoremacnut.com,Swiper,JavaScript libraries,,100,observed,core,dom
 northshoremacnut.com,Varnish,Caching,,100,observed,platform_infra,headers
 northshoremacnut.com,Wix,CMS; Blogs,,100,observed,core,headers; meta; scriptSrc
 northshoremacnut.com,Wix eCommerce,Ecommerce,,100,observed,core,dom
+northshoremacnut.com,Google Ads,Advertising,,100,inferred,core,
 powercleaning.services,Flickity,JavaScript libraries,,100,observed,core,dom
 powercleaning.services,Font Awesome,Font scripts,,100,observed,core,dom
 powercleaning.services,Google Analytics,Analytics,,100,observed,core,scriptSrc
@@ -2021,8 +1964,8 @@ powercleaning.services,WordPress,CMS; Blogs,,100,observed,core,dom; html; script
 powercleaning.services,Yoast SEO,SEO; WordPress plugins,28.9,100,observed,core,dom; html
 powercleaning.services,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 powercleaning.services,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js
-powercleaning.services,PHP,Programming languages,,100,inferred,inferred_only,
-powercleaning.services,MySQL,Databases,,100,inferred,inferred_only,
+powercleaning.services,PHP,Programming languages,,100,inferred,core,
+powercleaning.services,MySQL,Databases,,100,inferred,core,
 stoperbis.pl,Apache HTTP Server,Web servers,2,100,observed,core,headers
 stoperbis.pl,Google Analytics,Analytics,UA; GA4,100,observed,core,cookies; js; scriptSrc
 stoperbis.pl,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
@@ -2044,21 +1987,6 @@ gitesducharmois.fr,RequireJS,JavaScript frameworks,2.3.6,100,observed,core,js; s
 gitesducharmois.fr,Sentry,Issue trackers,7.120.3,100,observed,platform_infra,js; scriptSrc
 gitesducharmois.fr,Varnish,Caching,,100,observed,platform_infra,headers
 gitesducharmois.fr,Wix,CMS; Blogs,,100,observed,core,headers; meta; scriptSrc
-allegrocreditbeta.com,Akamai,CDN,,100,observed,core,headers
-allegrocreditbeta.com,Akamai Bot Manager,Security,,100,observed,core,cookies
-allegrocreditbeta.com,Akamai mPulse,RUM,,100,observed,core,html
-allegrocreditbeta.com,DigiCert,SSL/TLS certificate authorities,,100,observed,core,certIssuer
-allegrocreditbeta.com,Dynamic Yield,A/B Testing; Personalisation,,100,observed,core,scriptSrc
-allegrocreditbeta.com,HSTS,Security,,100,observed,core,headers
-allegrocreditbeta.com,Handlebars,JavaScript frameworks,,100,observed,core,scriptSrc
-allegrocreditbeta.com,MailChimp,Marketing automation; Email,,100,declared,dns_only,dns
-allegrocreditbeta.com,Open Graph,Miscellaneous,,100,observed,core,dom
-allegrocreditbeta.com,Oracle Dynamic Monitoring Service,Miscellaneous,,100,observed,core,headers
-allegrocreditbeta.com,jQuery,JavaScript libraries,3.5.1,100,observed,core,scriptSrc
-allegrocreditbeta.com,Boomerang,JavaScript libraries; RUM,,100,inferred,inferred_only,
-allegrocreditbeta.com,Weblogic Server,Web servers,,100,inferred,inferred_only,
-allegrocreditbeta.com,JavaServer Pages,Web frameworks,,100,inferred,inferred_only,
-allegrocreditbeta.com,Java,Programming languages,,100,inferred,inferred_only,
 hoffmaninstitute.co.uk,Ahrefs,SEO; Analytics,,100,declared,core,meta
 hoffmaninstitute.co.uk,Bootstrap,UI frameworks,,100,observed,core,js
 hoffmaninstitute.co.uk,Cart Functionality,Ecommerce,,100,observed,core,dom
@@ -2087,8 +2015,8 @@ hoffmaninstitute.co.uk,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,j
 hoffmaninstitute.co.uk,lit-element,JavaScript libraries,4.2.2,100,observed,core,js
 hoffmaninstitute.co.uk,lit-html,JavaScript libraries,3.3.3,100,observed,core,js
 hoffmaninstitute.co.uk,reCAPTCHA,Security,,100,observed,core,js
-hoffmaninstitute.co.uk,PHP,Programming languages,,100,inferred,inferred_only,
-hoffmaninstitute.co.uk,MySQL,Databases,,100,inferred,inferred_only,
+hoffmaninstitute.co.uk,PHP,Programming languages,,100,inferred,core,
+hoffmaninstitute.co.uk,MySQL,Databases,,100,inferred,core,
 a3sec.com,Amazon CloudFront,CDN,,100,observed,core,headers
 a3sec.com,Amazon S3,CDN,,100,observed,core,headers
 a3sec.com,Amazon Web Services,PaaS,,100,observed,core,headers
@@ -2137,8 +2065,8 @@ nicholsonchiro.com,Yoast SEO,SEO; WordPress plugins,28.9,100,observed,core,dom; 
 nicholsonchiro.com,core-js,JavaScript libraries,3.33.3,100,observed,core,js
 nicholsonchiro.com,jQuery,JavaScript libraries,1.12.4,100,observed,core,js; scriptSrc
 nicholsonchiro.com,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-nicholsonchiro.com,PHP,Programming languages,,100,inferred,inferred_only,
-nicholsonchiro.com,MySQL,Databases,,100,inferred,inferred_only,
+nicholsonchiro.com,PHP,Programming languages,,100,inferred,core,
+nicholsonchiro.com,MySQL,Databases,,100,inferred,core,
 jonesbuickgmc.com,AMP,JavaScript frameworks,,100,observed,core,html
 jonesbuickgmc.com,Adobe Experience Manager,CMS,,100,observed,core,scriptSrc
 jonesbuickgmc.com,Adobe Experience Platform Launch,Tag managers,,100,observed,core,js
@@ -2176,7 +2104,7 @@ jonesbuickgmc.com,crypto-js,JavaScript libraries,,100,observed,core,js
 jonesbuickgmc.com,jQuery,JavaScript libraries,3.4.1,100,observed,core,js
 jonesbuickgmc.com,lit-element,JavaScript libraries,4.2.2,100,observed,core,js
 jonesbuickgmc.com,lit-html,JavaScript libraries,3.3.3,100,observed,core,js
-jonesbuickgmc.com,Java,Programming languages,,100,inferred,inferred_only,
+jonesbuickgmc.com,Java,Programming languages,,100,inferred,core,
 xn--jobvrkstedet-9cb.nu,Bootstrap,UI frameworks,,100,observed,core,html; scriptSrc
 xn--jobvrkstedet-9cb.nu,Font Awesome,Font scripts,,100,observed,core,dom
 xn--jobvrkstedet-9cb.nu,Google Font API,Font scripts,,100,observed,core,dom
@@ -2187,14 +2115,16 @@ xn--jobvrkstedet-9cb.nu,WordPress,CMS; Blogs,4.5.32,100,observed,core,dom; heade
 xn--jobvrkstedet-9cb.nu,jQuery,JavaScript libraries,1.12.4,100,observed,core,js; scriptSrc
 xn--jobvrkstedet-9cb.nu,jQuery Migrate,JavaScript libraries,1.4.1,100,observed,core,js; scriptSrc
 xn--jobvrkstedet-9cb.nu,scrollreveal,JavaScript libraries,,100,observed,core,scriptSrc
-xn--jobvrkstedet-9cb.nu,PHP,Programming languages,,100,inferred,inferred_only,
-xn--jobvrkstedet-9cb.nu,MySQL,Databases,,100,inferred,inferred_only,
+xn--jobvrkstedet-9cb.nu,PHP,Programming languages,,100,inferred,core,
+xn--jobvrkstedet-9cb.nu,MySQL,Databases,,100,inferred,core,
 appelpsychotherapy.com,Amazon S3,CDN,,100,observed,platform_infra,headers
 appelpsychotherapy.com,Amazon Web Services,PaaS,,100,observed,platform_infra,headers
 appelpsychotherapy.com,Cloudflare,CDN,,100,observed,platform_infra,headers
 appelpsychotherapy.com,Cloudflare Bot Management,Security,,100,observed,platform_infra,cookies
 appelpsychotherapy.com,GSAP,JavaScript frameworks,,100,observed,core,js
+appelpsychotherapy.com,Google Ads Conversion Tracking,Analytics,,100,observed,core,scriptSrc
 appelpsychotherapy.com,Google Analytics,Analytics,,100,observed,core,js; scriptSrc
+appelpsychotherapy.com,Google Maps,Maps,,100,observed,core,dom
 appelpsychotherapy.com,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
 appelpsychotherapy.com,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 appelpsychotherapy.com,HSTS,Security,,100,observed,core,headers
@@ -2208,6 +2138,7 @@ appelpsychotherapy.com,RequireJS,JavaScript frameworks,2.3.6,100,observed,core,j
 appelpsychotherapy.com,Sentry,Issue trackers,7.120.3,100,observed,platform_infra,js; scriptSrc
 appelpsychotherapy.com,Varnish,Caching,,100,observed,platform_infra,headers
 appelpsychotherapy.com,Wix,CMS; Blogs,,100,observed,core,headers; meta; scriptSrc
+appelpsychotherapy.com,Google Ads,Advertising,,100,inferred,core,
 brucebournesold.com,Amazon Route 53,Hosting,,100,observed,dns_only,dns
 brucebournesold.com,Amazon Web Services,PaaS,,100,observed,dns_only,dns
 brucebournesold.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
@@ -2239,7 +2170,7 @@ chiantifiorentino.it,Google Tag Manager,Tag managers,,100,observed,core,html; js
 chiantifiorentino.it,IIS,Web servers,10.0,100,observed,core,headers
 chiantifiorentino.it,Leaflet,Maps,1.7.1; 1.9.4,100,observed,core,js; scriptSrc
 chiantifiorentino.it,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
-chiantifiorentino.it,Livefyre,Comment systems,1.9.4,0,observed,core,js
+chiantifiorentino.it,Magnific Popup,JavaScript libraries,,100,observed,core,dom
 chiantifiorentino.it,Microsoft ASP.NET,Web frameworks,,100,observed,core,headers
 chiantifiorentino.it,OWL Carousel,JavaScript libraries,,100,observed,core,dom; html; scriptSrc
 chiantifiorentino.it,Open Graph,Miscellaneous,,100,observed,core,dom
@@ -2249,9 +2180,8 @@ chiantifiorentino.it,SweetAlert2,JavaScript libraries,,100,observed,core,dom; js
 chiantifiorentino.it,YouTube,Video players,,100,observed,core,scriptSrc
 chiantifiorentino.it,jQuery,JavaScript libraries,3.7.0,100,observed,core,js; scriptSrc
 chiantifiorentino.it,jQuery UI,JavaScript libraries,1.14.1,100,observed,core,js; scriptSrc
-chiantifiorentino.it,Windows Server,Operating systems,,100,inferred,inferred_only,
+chiantifiorentino.it,Windows Server,Operating systems,,100,inferred,core,
 11thhourracing.org,AccessiBe,Accessibility,,100,observed,core,js
-11thhourracing.org,AccessiWay,Accessibility,,100,observed,core,js
 11thhourracing.org,Adobe,Miscellaneous,,100,declared,dns_only,dns
 11thhourracing.org,Anthropic,Artificial Intelligence,,100,declared,dns_only,dns
 11thhourracing.org,Atlassian Cloud,Development,,100,declared,dns_only,dns
@@ -2280,9 +2210,6 @@ chiantifiorentino.it,Windows Server,Operating systems,,100,inferred,inferred_onl
 11thhourracing.org,core-js,JavaScript libraries,3.32.2,100,observed,core,js
 11thhourracing.org,jQuery,JavaScript libraries,3.5.1,100,observed,core,js; scriptSrc
 11thhourracing.org,jsDelivr,CDN,,100,observed,platform_infra,dom; scriptSrc
-miratrade.com.tr,Cloudflare,CDN,,100,observed,core,dns; headers
-miratrade.com.tr,Cloudflare DNS,Hosting,,100,observed,dns_only,dns
-miratrade.com.tr,HTTP/3,Miscellaneous,,100,observed,core,headers
 freo.com.au,HTTP/3,Miscellaneous,,100,observed,core,headers
 freo.com.au,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 freo.com.au,LiteSpeed,Web servers,,100,observed,core,headers
@@ -2316,7 +2243,7 @@ fluxar.com.ar,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; sc
 fluxar.com.ar,jQuery UI,JavaScript libraries,1.13.3,100,observed,core,js
 fluxar.com.ar,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
 fluxar.com.ar,sidr,JavaScript libraries,1.0.0,100,observed,core,scriptSrc
-fluxar.com.ar,MySQL,Databases,,100,inferred,inferred_only,
+fluxar.com.ar,MySQL,Databases,,100,inferred,core,
 redpants.jp,Adobe Fonts,Font scripts,1.21.0,100,observed,core,dom; html; js
 redpants.jp,Cart Functionality,Ecommerce,,100,observed,core,dom
 redpants.jp,HSTS,Security,,100,observed,core,headers
@@ -2330,17 +2257,18 @@ redpants.jp,Typekit,Font scripts,1.21.0,100,observed,core,html; js
 redpants.jp,YUI,JavaScript libraries,3.17.2,100,observed,core,js
 redpants.jp,core-js,JavaScript libraries,3.26.0; 2.6.12,100,observed,core,js
 redpants.jp,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-bata.edu.hu,Cryout Creations Parabola,WordPress themes,2.4.0.1,100,observed,themes,dom; js; scriptSrc
+bata.edu.hu,Cryout Creations Parabola,WordPress themes,2.4.0.1,100,observed,core,dom; js; scriptSrc
 bata.edu.hu,Google Workspace,Webmail; Email,,100,observed,dns_only,dns
 bata.edu.hu,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
+bata.edu.hu,Magnific Popup,JavaScript libraries,,100,observed,core,dom
 bata.edu.hu,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
 bata.edu.hu,RSS,Miscellaneous,,100,observed,core,dom
 bata.edu.hu,Twitter Emoji (Twemoji),Font scripts,,100,observed,core,js
 bata.edu.hu,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; meta; scriptSrc
 bata.edu.hu,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 bata.edu.hu,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-bata.edu.hu,PHP,Programming languages,,100,inferred,inferred_only,
-bata.edu.hu,MySQL,Databases,,100,inferred,inferred_only,
+bata.edu.hu,PHP,Programming languages,,100,inferred,core,
+bata.edu.hu,MySQL,Databases,,100,inferred,core,
 3-energie-klaas.de,Cloudflare,CDN,,100,observed,core,headers
 3-energie-klaas.de,Cloudflare Bot Management,Security,,100,observed,core,cookies
 3-energie-klaas.de,HSTS,Security,,100,observed,core,headers
@@ -2349,6 +2277,7 @@ bata.edu.hu,MySQL,Databases,,100,inferred,inferred_only,
 3-energie-klaas.de,Open Graph,Miscellaneous,,100,observed,core,dom
 3-energie-klaas.de,Strato,Hosting; PaaS,,100,observed,dns_only,dns
 labdemo.com,Amazon Route 53,Hosting,,100,observed,dns_only,dns
+labdemo.com,BootstrapCDN,CDN,,100,observed,core,dom
 labdemo.com,Font Awesome,Font scripts,4.6.3,100,observed,core,dom
 labdemo.com,Google Font API,Font scripts,,100,observed,core,dom
 labdemo.com,HSTS,Security,,100,observed,core,headers
@@ -2364,13 +2293,11 @@ labdemo.com,YouTube,Video players,,100,observed,core,dom; html
 labdemo.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 labdemo.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 labdemo.com,jsDelivr,CDN,,100,observed,core,dom; scriptSrc
-labdemo.com,PHP,Programming languages,,100,inferred,inferred_only,
-labdemo.com,MySQL,Databases,,100,inferred,inferred_only,
-celiabedilia.com,Backbone.js,JavaScript frameworks,,100,observed,core,scriptSrc
+labdemo.com,PHP,Programming languages,,100,inferred,core,
+labdemo.com,MySQL,Databases,,100,inferred,core,
 celiabedilia.com,Baidu Analytics (百度统计),Analytics,,100,observed,core,scriptSrc
 celiabedilia.com,Microsoft HTTPAPI,Web servers,2.0,100,observed,core,headers
 celiabedilia.com,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
-celiabedilia.com,Underscore.js,JavaScript libraries,,100,inferred,inferred_only,
 davidloeppke.com,Bandzoogle,CMS,,100,observed,core,scriptSrc
 davidloeppke.com,Google Analytics,Analytics,,100,observed,core,cookies; js; scriptSrc
 davidloeppke.com,Google Font API,Font scripts,,100,observed,core,dom
@@ -2386,11 +2313,10 @@ davidloeppke.com,Varnish,Caching,,100,observed,platform_infra,headers
 davidloeppke.com,X-Clacks-Overhead,Miscellaneous,,100,observed,core,headers
 davidloeppke.com,jQuery,JavaScript libraries,1.12.4,100,observed,core,js
 davidloeppke.com,jQuery Migrate,JavaScript libraries,,100,observed,core,js
-davidloeppke.com,jQuery-pjax,Mobile frameworks,,100,observed,core,html
 davidloeppke.com,lit-element,JavaScript libraries,3.2.1,100,observed,core,js
 davidloeppke.com,lit-html,JavaScript libraries,2.6.0,100,observed,core,js
-davidloeppke.com,Nginx,Web servers; Reverse proxies,,100,inferred,inferred_only,
-davidloeppke.com,Ruby,Programming languages,,50,inferred,inferred_only,
+davidloeppke.com,Nginx,Web servers; Reverse proxies,,100,inferred,platform_infra,
+davidloeppke.com,Ruby,Programming languages,,50,inferred,platform_infra,
 wrinkle-pei.cz,Bootstrap,UI frameworks,3.3.5,100,observed,core,html; js; scriptSrc
 wrinkle-pei.cz,Elementor,Page builders; WordPress plugins,4.3.6,100,observed,core,dom; js; meta; scriptSrc
 wrinkle-pei.cz,Formidable Form,WordPress plugins; Surveys; Form builders,,100,observed,core,dom
@@ -2409,8 +2335,8 @@ wrinkle-pei.cz,core-js,JavaScript libraries,3.46.0,100,observed,core,js
 wrinkle-pei.cz,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 wrinkle-pei.cz,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 wrinkle-pei.cz,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-wrinkle-pei.cz,PHP,Programming languages,,100,inferred,inferred_only,
-wrinkle-pei.cz,MySQL,Databases,,100,inferred,inferred_only,
+wrinkle-pei.cz,PHP,Programming languages,,100,inferred,core,
+wrinkle-pei.cz,MySQL,Databases,,100,inferred,core,
 koniczynka.info.pl,Apache HTTP Server,Web servers,2,100,observed,core,headers
 koniczynka.info.pl,CookieYes,Cookie compliance,,100,observed,core,dom
 koniczynka.info.pl,Divi,Page builders; WordPress themes; WordPress plugins,,100,observed,core,js
@@ -2435,8 +2361,8 @@ koniczynka.info.pl,Yoast SEO,SEO; WordPress plugins,26.8,100,observed,core,dom; 
 koniczynka.info.pl,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 koniczynka.info.pl,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 koniczynka.info.pl,jQuery Mobile,Mobile frameworks,4.21.0,100,observed,core,scriptSrc
-koniczynka.info.pl,PHP,Programming languages,,100,inferred,inferred_only,
-koniczynka.info.pl,MySQL,Databases,,100,inferred,inferred_only,
+koniczynka.info.pl,PHP,Programming languages,,100,inferred,core,
+koniczynka.info.pl,MySQL,Databases,,100,inferred,core,
 footasylum.com,ANS,Hosting; PaaS,,100,observed,dns_only,dns
 footasylum.com,Akamai,CDN,,100,observed,core,headers
 footasylum.com,Akamai mPulse,RUM,,100,observed,core,html; js
@@ -2446,6 +2372,7 @@ footasylum.com,Boomerang,JavaScript libraries; RUM,,100,observed,core,js
 footasylum.com,Cart Functionality,Ecommerce,,100,observed,core,dom
 footasylum.com,Cloudflare,CDN,,100,observed,core,headers
 footasylum.com,DigiCert,SSL/TLS certificate authorities,,100,observed,core,certIssuer
+footasylum.com,Google Ads Conversion Tracking,Analytics,,100,observed,core,scriptSrc
 footasylum.com,Google Analytics,Analytics,,100,observed,core,js; scriptSrc
 footasylum.com,Google Tag Manager,Tag managers,,100,observed,core,js; scriptSrc
 footasylum.com,HSTS,Security,,100,observed,core,headers
@@ -2464,9 +2391,10 @@ footasylum.com,Priority Hints,Performance,,100,observed,core,dom
 footasylum.com,Radix UI,UI frameworks,,100,observed,core,dom
 footasylum.com,Sentry,Issue trackers,,100,observed,core,js
 footasylum.com,UKFast,Hosting; PaaS,,100,observed,dns_only,dns
-footasylum.com,Amazon Web Services,PaaS,,100,inferred,inferred_only,
-footasylum.com,React,JavaScript frameworks,,100,inferred,inferred_only,
-footasylum.com,Webpack,Miscellaneous,,100,inferred,inferred_only,
+footasylum.com,Amazon Web Services,PaaS,,100,inferred,core,
+footasylum.com,Google Ads,Advertising,,100,inferred,core,
+footasylum.com,React,JavaScript frameworks,,100,inferred,core,
+footasylum.com,Webpack,Miscellaneous,,100,inferred,core,
 2agateway.com,Bricks,Page builders; WordPress themes,,100,observed,core,scriptSrc
 2agateway.com,Cloudflare,CDN,,100,observed,core,dns; headers
 2agateway.com,Cloudflare Bot Management,Security,,100,observed,core,cookies
@@ -2480,9 +2408,8 @@ footasylum.com,Webpack,Miscellaneous,,100,inferred,inferred_only,
 2agateway.com,RankMath SEO,WordPress plugins; SEO,,100,observed,core,dom
 2agateway.com,Site Kit,Analytics; WordPress plugins,1.122.0,100,declared,core,meta
 2agateway.com,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; meta; scriptSrc
-2agateway.com,eWAY Payments,Payment processors,,100,observed,core,html
-2agateway.com,PHP,Programming languages,,100,inferred,inferred_only,
-2agateway.com,MySQL,Databases,,100,inferred,inferred_only,
+2agateway.com,PHP,Programming languages,,100,inferred,core,
+2agateway.com,MySQL,Databases,,100,inferred,core,
 ledestjernenstu.dk,Bootstrap,UI frameworks,4.3.0,100,observed,core,js; scriptSrc
 ledestjernenstu.dk,Contact Form 7,WordPress plugins; Form builders,5.8.3,100,observed,core,js; scriptSrc
 ledestjernenstu.dk,Font Awesome,Font scripts,,100,observed,core,dom
@@ -2508,9 +2435,10 @@ ledestjernenstu.dk,imagesLoaded,JavaScript libraries,5.0.0,100,observed,core,scr
 ledestjernenstu.dk,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 ledestjernenstu.dk,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 ledestjernenstu.dk,prettyPhoto,JavaScript libraries,,100,observed,core,scriptSrc
-ledestjernenstu.dk,PHP,Programming languages,,100,inferred,inferred_only,
-ledestjernenstu.dk,MySQL,Databases,,100,inferred,inferred_only,
+ledestjernenstu.dk,PHP,Programming languages,,100,inferred,core,
+ledestjernenstu.dk,MySQL,Databases,,100,inferred,core,
 1stlocksheathscouts.org.uk,Bluehost,Hosting,,100,observed,dns_only,dns
+1stlocksheathscouts.org.uk,BootstrapCDN,CDN,,100,observed,core,dom
 1stlocksheathscouts.org.uk,Cloudflare,CDN,,100,observed,core,headers
 1stlocksheathscouts.org.uk,Cloudflare Bot Management,Security,,100,observed,core,cookies
 1stlocksheathscouts.org.uk,Endurance Page Cache,WordPress plugins; Caching,,100,observed,core,headers
@@ -2523,8 +2451,8 @@ ledestjernenstu.dk,MySQL,Databases,,100,inferred,inferred_only,
 1stlocksheathscouts.org.uk,The Events Calendar,WordPress plugins,,100,observed,core,js; scriptSrc
 1stlocksheathscouts.org.uk,Twitter Emoji (Twemoji),Font scripts,,100,observed,core,js
 1stlocksheathscouts.org.uk,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; meta; scriptSrc
-1stlocksheathscouts.org.uk,PHP,Programming languages,,100,inferred,inferred_only,
-1stlocksheathscouts.org.uk,MySQL,Databases,,100,inferred,inferred_only,
+1stlocksheathscouts.org.uk,PHP,Programming languages,,100,inferred,core,
+1stlocksheathscouts.org.uk,MySQL,Databases,,100,inferred,core,
 abbikadabbisbakingco.com,Cart Functionality,Ecommerce,,100,observed,core,dom
 abbikadabbisbakingco.com,Cloudflare,CDN,,100,observed,platform_infra,headers
 abbikadabbisbakingco.com,Cloudflare Bot Management,Security,,100,observed,platform_infra,cookies
@@ -2539,8 +2467,8 @@ abbikadabbisbakingco.com,Swiper,JavaScript libraries,,100,observed,core,dom
 abbikadabbisbakingco.com,Vue.js,JavaScript frameworks,,100,observed,core,dom; html
 abbikadabbisbakingco.com,Weebly,CMS,,100,observed,core,scriptSrc
 abbikadabbisbakingco.com,core-js,JavaScript libraries,3.12.1,100,observed,core,js
-abbikadabbisbakingco.com,PHP,Programming languages,,100,inferred,inferred_only,
-abbikadabbisbakingco.com,MySQL,Databases,,100,inferred,inferred_only,
+abbikadabbisbakingco.com,PHP,Programming languages,,100,inferred,platform_infra,
+abbikadabbisbakingco.com,MySQL,Databases,,100,inferred,platform_infra,
 herbalwise.ie,American Express,Payment processors,,100,observed,core,dom
 herbalwise.ie,Apple Pay,Payment processors,,100,observed,core,dom
 herbalwise.ie,Cart Functionality,Ecommerce,,100,observed,core,dom
@@ -2562,7 +2490,6 @@ herbalwise.ie,Visa,Payment processors,,100,observed,core,dom
 herbalwise.ie,Vue.js,JavaScript frameworks,,100,observed,core,html; js
 herbalwise.ie,Zotabox,Marketing automation,,100,observed,core,js
 herbalwise.ie,core-js,JavaScript libraries,3.37.0; 2.6.12,100,observed,core,js
-deepseass.com,AMP,JavaScript frameworks,,100,observed,core,js
 deepseass.com,Apache HTTP Server,Web servers,,100,observed,core,headers
 deepseass.com,Contact Form 7,WordPress plugins; Form builders,6.1.7,100,observed,core,dom; js; scriptSrc
 deepseass.com,Google AdSense,Advertising,,100,observed,core,js; scriptSrc
@@ -2578,7 +2505,7 @@ deepseass.com,RSS,Miscellaneous,,100,observed,core,dom
 deepseass.com,Site Kit,Analytics; WordPress plugins,1.192.0,100,declared,core,meta
 deepseass.com,SiteOrigin Page Builder,WordPress plugins; Page builders,2.38.0,100,observed,core,dom; scriptSrc
 deepseass.com,SiteOrigin Widgets Bundle,WordPress plugins,1.76.0,100,observed,core,dom; scriptSrc
-deepseass.com,Twenty Seventeen,WordPress themes,,100,observed,themes,dom; js; scriptSrc
+deepseass.com,Twenty Seventeen,WordPress themes,,100,observed,core,dom; js; scriptSrc
 deepseass.com,Twitter Emoji (Twemoji),Font scripts,,100,observed,core,js
 deepseass.com,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; meta; scriptSrc
 deepseass.com,Yoast SEO,SEO; WordPress plugins,28.9,100,observed,core,dom; html
@@ -2587,7 +2514,7 @@ deepseass.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; sc
 deepseass.com,lit-element,JavaScript libraries,4.2.2,100,observed,core,js
 deepseass.com,lit-html,JavaScript libraries,3.3.3,100,observed,core,js
 deepseass.com,reCAPTCHA,Security,,100,observed,core,dom; js; scriptSrc
-deepseass.com,MySQL,Databases,,100,inferred,inferred_only,
+deepseass.com,MySQL,Databases,,100,inferred,core,
 aardvarkelectriccorp.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 needaphysio.com,Cloudflare,CDN,,100,observed,platform_infra,headers
 needaphysio.com,Cloudflare Bot Management,Security,,100,observed,platform_infra,cookies
@@ -2596,7 +2523,7 @@ needaphysio.com,HSTS,Security,,100,observed,core,headers
 needaphysio.com,HTTP/3,Miscellaneous,,100,observed,core,headers
 needaphysio.com,Open Graph,Miscellaneous,,100,observed,core,dom
 needaphysio.com,Wix,CMS; Blogs,,100,observed,core,headers; scriptSrc
-needaphysio.com,React,JavaScript frameworks,,100,inferred,inferred_only,
+needaphysio.com,React,JavaScript frameworks,,100,inferred,core,
 thomasrosenbaum.com,Adobe Fonts,Font scripts,1.21.0,100,observed,core,dom; html; js
 thomasrosenbaum.com,Cart Functionality,Ecommerce,,100,observed,core,dom
 thomasrosenbaum.com,HSTS,Security,,100,observed,core,headers
@@ -2620,7 +2547,6 @@ shapirolawfirm.com,Contact Form 7,WordPress plugins; Form builders,5.3.2,100,obs
 shapirolawfirm.com,Font Awesome,Font scripts,,100,observed,core,dom
 shapirolawfirm.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 shapirolawfirm.com,Google Font API,Font scripts,,100,observed,core,dom
-shapirolawfirm.com,Lightbox,JavaScript libraries,,100,observed,core,scriptSrc
 shapirolawfirm.com,Masonry,JavaScript libraries,,100,observed,core,js
 shapirolawfirm.com,Microsoft 365,Webmail; Email,,100,declared,dns_only,dns
 shapirolawfirm.com,OWL Carousel,JavaScript libraries,,100,observed,core,dom; html; scriptSrc
@@ -2634,7 +2560,7 @@ shapirolawfirm.com,WordPress Block Editor,Page builders,,100,observed,core,html
 shapirolawfirm.com,imagesLoaded,JavaScript libraries,4.1.4,100,observed,core,scriptSrc
 shapirolawfirm.com,jQuery,JavaScript libraries,3.7.0,100,observed,core,js; scriptSrc
 shapirolawfirm.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
-shapirolawfirm.com,MySQL,Databases,,100,inferred,inferred_only,
+shapirolawfirm.com,MySQL,Databases,,100,inferred,core,
 arol.cl,DoubleClick Ad Exchange (AdX),Advertising,,100,observed,core,scriptSrc
 arol.cl,Google AdSense,Advertising,,100,observed,core,scriptSrc
 arol.cl,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
@@ -2660,8 +2586,8 @@ lighthouseprc.org,WP Rocket,Caching; WordPress plugins,3.24.1; 3.24,100,observed
 lighthouseprc.org,WordPress,CMS; Blogs,7.1.5; 7.1.4,100,observed,core,dom; html; meta; scriptSrc
 lighthouseprc.org,Yoast SEO,SEO; WordPress plugins,28.9; 28.8,100,observed,core,html
 lighthouseprc.org,wpBakery,Page builders; WordPress plugins,,100,declared,core,meta
-lighthouseprc.org,PHP,Programming languages,,100,inferred,inferred_only,
-lighthouseprc.org,MySQL,Databases,,100,inferred,inferred_only,
+lighthouseprc.org,PHP,Programming languages,,100,inferred,core,
+lighthouseprc.org,MySQL,Databases,,100,inferred,core,
 5rcircleprocess.weebly.com,Adobe Fonts,Font scripts,1.21.0,100,observed,core,js
 5rcircleprocess.weebly.com,Amazon S3,CDN,,100,observed,platform_infra,headers
 5rcircleprocess.weebly.com,Amazon Web Services,PaaS,,100,observed,platform_infra,headers
@@ -2672,7 +2598,6 @@ lighthouseprc.org,MySQL,Databases,,100,inferred,inferred_only,
 5rcircleprocess.weebly.com,Google Hosted Libraries,CDN,,100,observed,platform_infra,scriptSrc
 5rcircleprocess.weebly.com,Hammer.js,JavaScript libraries,2.0.4,100,observed,core,js
 5rcircleprocess.weebly.com,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,platform_infra,certIssuer
-5rcircleprocess.weebly.com,Lodash,JavaScript libraries,1.8.3,0,observed,core,js
 5rcircleprocess.weebly.com,MediaElement.js,Video players,2.9.5,100,observed,core,js
 5rcircleprocess.weebly.com,Mustache,JavaScript frameworks,2.1.3,100,observed,core,js
 5rcircleprocess.weebly.com,Open Graph,Miscellaneous,,100,observed,core,dom
@@ -2681,16 +2606,16 @@ lighthouseprc.org,MySQL,Databases,,100,inferred,inferred_only,
 5rcircleprocess.weebly.com,VideoJS,Video players,,100,observed,core,js
 5rcircleprocess.weebly.com,Weebly,CMS,,100,observed,core,js; scriptSrc
 5rcircleprocess.weebly.com,jQuery,JavaScript libraries,1.8.3,100,observed,core,js; scriptSrc
-5rcircleprocess.weebly.com,PHP,Programming languages,,100,inferred,inferred_only,
-5rcircleprocess.weebly.com,MySQL,Databases,,100,inferred,inferred_only,
-unitedveterinaryservice.com,Bold Themes,WordPress themes,,100,observed,themes,js
+5rcircleprocess.weebly.com,PHP,Programming languages,,100,inferred,platform_infra,
+5rcircleprocess.weebly.com,MySQL,Databases,,100,inferred,platform_infra,
+unitedveterinaryservice.com,Bold Themes,WordPress themes,,100,observed,core,js
 unitedveterinaryservice.com,Contact Form 7,WordPress plugins; Form builders,6.2.3,100,observed,core,dom; js; scriptSrc
 unitedveterinaryservice.com,GoDaddy,Hosting,,100,observed,dns_only,dns
 unitedveterinaryservice.com,Google Font API,Font scripts,,100,observed,core,dom
 unitedveterinaryservice.com,LiteSpeed,Web servers,,100,observed,core,headers
 unitedveterinaryservice.com,LiteSpeed Cache,Caching; WordPress plugins,,100,observed,core,headers
 unitedveterinaryservice.com,Litespeed Cache,Caching; WordPress plugins,,100,observed,core,headers
-unitedveterinaryservice.com,Magnific Popup,JavaScript libraries,7.1.5,100,observed,core,scriptSrc
+unitedveterinaryservice.com,Magnific Popup,JavaScript libraries,7.1.5,100,observed,core,dom; scriptSrc
 unitedveterinaryservice.com,Microsoft 365,Webmail; Email,,100,observed,dns_only,dns
 unitedveterinaryservice.com,PHP,Programming languages,8.3.37,100,observed,core,headers
 unitedveterinaryservice.com,Priority Hints,Performance,,100,observed,core,dom
@@ -2702,7 +2627,7 @@ unitedveterinaryservice.com,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; he
 unitedveterinaryservice.com,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 unitedveterinaryservice.com,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 unitedveterinaryservice.com,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-unitedveterinaryservice.com,MySQL,Databases,,100,inferred,inferred_only,
+unitedveterinaryservice.com,MySQL,Databases,,100,inferred,core,
 construccionesyatecnicas.com,Google Font API,Font scripts,,100,observed,core,dom
 construccionesyatecnicas.com,IONOS,Hosting,,100,observed,dns_only,dns
 construccionesyatecnicas.com,Nginx,Web servers; Reverse proxies,,100,observed,core,headers
@@ -2711,7 +2636,7 @@ construccionesyatecnicas.com,Plesk,Hosting panels,,100,observed,core,headers
 construccionesyatecnicas.com,SWFObject,Miscellaneous,,100,observed,core,scriptSrc
 construccionesyatecnicas.com,jQuery,JavaScript libraries,1.8.2,100,observed,core,js; scriptSrc
 joburgheritage.org.za,Apache HTTP Server,Web servers,,100,observed,core,headers
-joburgheritage.org.za,Astra,WordPress themes,4.14.3,100,observed,themes,dom; scriptSrc
+joburgheritage.org.za,Astra,WordPress themes,4.14.3,100,observed,core,dom; scriptSrc
 joburgheritage.org.za,Elementor,Page builders; WordPress plugins,4.4.1,100,observed,core,dom; js; meta; scriptSrc
 joburgheritage.org.za,Font Awesome,Font scripts,,100,observed,core,dom; js; scriptSrc
 joburgheritage.org.za,Google Analytics,Analytics,GA4,100,observed,core,cookies; js; scriptSrc
@@ -2733,8 +2658,8 @@ joburgheritage.org.za,core-js,JavaScript libraries,3.46.0,100,observed,core,js
 joburgheritage.org.za,jQuery,JavaScript libraries,3.7.1,100,observed,core,js; scriptSrc
 joburgheritage.org.za,jQuery Migrate,JavaScript libraries,3.4.1,100,observed,core,js; scriptSrc
 joburgheritage.org.za,jQuery UI,JavaScript libraries,1.14.2,100,observed,core,js
-joburgheritage.org.za,PHP,Programming languages,,100,inferred,inferred_only,
-joburgheritage.org.za,MySQL,Databases,,100,inferred,inferred_only,
+joburgheritage.org.za,PHP,Programming languages,,100,inferred,core,
+joburgheritage.org.za,MySQL,Databases,,100,inferred,core,
 bfnelson.it,Breakdance,Page builders,,100,observed,core,js
 bfnelson.it,CookieYes,Cookie compliance,,100,observed,core,scriptSrc
 bfnelson.it,GSAP,JavaScript frameworks,3.12.2,100,observed,core,js
@@ -2742,7 +2667,6 @@ bfnelson.it,Google Font API,Font scripts,,100,observed,core,dom
 bfnelson.it,HTTP/3,Miscellaneous,,100,observed,core,headers
 bfnelson.it,Isotope,JavaScript libraries,,100,observed,core,js
 bfnelson.it,Let's Encrypt,SSL/TLS certificate authorities,,100,observed,core,certIssuer
-bfnelson.it,Lightbox,JavaScript libraries,,100,observed,core,scriptSrc
 bfnelson.it,LiteSpeed,Web servers,,100,observed,core,headers
 bfnelson.it,Masonry,JavaScript libraries,,100,observed,core,js
 bfnelson.it,Open Graph,Miscellaneous,,100,observed,core,dom
@@ -2753,7 +2677,7 @@ bfnelson.it,WordPress,CMS; Blogs,7.1.5,100,observed,core,dom; headers; html; met
 bfnelson.it,WordPress Multisite,Hosting,,100,observed,core,dom
 bfnelson.it,Yoast SEO,SEO; WordPress plugins,28.9,100,observed,core,dom; html
 bfnelson.it,core-js,JavaScript libraries,3.36.1,100,observed,core,js
-bfnelson.it,MySQL,Databases,,100,inferred,inferred_only,
+bfnelson.it,MySQL,Databases,,100,inferred,core,
 rivithead.com,Amazon CloudFront,CDN,,100,observed,core,headers
 rivithead.com,Amazon Route 53,Hosting,,100,observed,dns_only,dns
 rivithead.com,Amazon Web Services,PaaS,,100,observed,dns_only,dns
@@ -2763,6 +2687,7 @@ rivithead.com,Google Font API,Font scripts,,100,observed,core,dom
 rivithead.com,HSTS,Security,,100,observed,core,headers
 rivithead.com,Matomo Analytics,Analytics,,100,observed,core,js
 rivithead.com,Open Graph,Miscellaneous,,100,observed,core,dom
+rivithead.com,PHP,Programming languages,,100,observed,core,dom
 rivithead.com,Priority Hints,Performance,,100,observed,core,dom
 rivithead.com,Sectigo,SSL/TLS certificate authorities,,100,observed,core,certIssuer
 rivithead.com,Swiper,JavaScript libraries,,100,observed,core,dom; js

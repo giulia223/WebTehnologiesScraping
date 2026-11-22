@@ -1,0 +1,106 @@
+{
+  "provenance": {
+    "collected_at": "2026-11-20T12:19:14Z",
+    "tool_version": "0.1.0+299d64387388",
+    "crawl_location": "RO",
+    "user_agent": "techdetect/0.1.0 (+https://github.com/giulia223/WebTehnologiesScraping; research project)",
+    "accept_language": "en-US,en;q=0.9"
+  },
+  "domain": "handycars.com",
+  "status": "ok",
+  "error_category": null,
+  "chosen_attempt": 1,
+  "final_url": "https://www.handycars.com/",
+  "http_status": 200,
+  "challenge": null,
+  "html_file": "static.html",
+  "html_sha256": "85a9a3012192ea6772002ebf3f180bf3d645a25915722cf69e93d8b90836e276",
+  "html_bytes": 159678,
+  "html_truncated": false,
+  "elapsed_ms": 1163,
+  "attempts": [
+    {
+      "url": "https://handycars.com/",
+      "outcome": "ok",
+      "error": null,
+      "tls_verified": true,
+      "retries": [],
+      "elapsed_ms": 1162,
+      "steps": [
+        {
+          "kind": "redirect",
+          "url": "https://handycars.com/",
+          "status": 301,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "server",
+              "nginx/1.30.7"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:15 GMT"
+            ],
+            [
+              "content-type",
+              "text/html"
+            ],
+            [
+              "content-length",
+              "169"
+            ],
+            [
+              "location",
+              "https://www.handycars.com/"
+            ]
+          ]
+        },
+        {
+          "kind": "final",
+          "url": "https://www.handycars.com/",
+          "status": 200,
+          "http_version": "HTTP/2",
+          "headers": [
+            [
+              "server",
+              "nginx/1.30.7"
+            ],
+            [
+              "date",
+              "Fri, 20 Nov 2026 12:19:15 GMT"
+            ],
+            [
+              "content-type",
+              "text/html; charset=UTF-8"
+            ],
+            [
+              "content-length",
+              "30063"
+            ],
+            [
+              "vary",
+              "Accept-Encoding"
+            ],
+            [
+              "content-encoding",
+              "gzip"
+            ],
+            [
+              "x-da-cache",
+              "EDGE"
+            ],
+            [
+              "cache-control",
+              "no-cache"
+            ],
+            [
+              "accept-ranges",
+              "bytes"
+            ]
+          ]
+        }
+      ],
+      "cookies": []
+    }
+  ]
+}
